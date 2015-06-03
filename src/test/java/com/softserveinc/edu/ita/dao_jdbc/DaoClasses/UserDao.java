@@ -1,5 +1,6 @@
 package com.softserveinc.edu.ita.dao_jdbc.DaoClasses;
 
+import com.softserveinc.edu.ita.dao_jdbc.Classes.Role;
 import com.softserveinc.edu.ita.dao_jdbc.Classes.User;
 import com.softserveinc.edu.ita.dao_jdbc.interfaces.IUserDao;
 
@@ -37,7 +38,11 @@ public class UserDao implements IUserDao {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            user = new User(resultSet.getInt("Id"), resultSet.getString("FirstName"), resultSet.getString("LastName"));
+            user = new User(resultSet.getInt("Id"),
+                    resultSet.getString("FirstName"),
+                    resultSet.getString("LastName"),
+                    resultSet.getString("Login"),
+                    resultSet.getString("Password"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,14 +60,48 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    public List <User> getAllUsers() throws SQLException {
-        String sqlQuery = "SELECT * FROM Users;";
-        PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
-        ResultSet resultSet = preparedStatement.executeQuery();
-        List<User> userList = new ArrayList<User>();
-        while (resultSet.next()) {
-            user = new User(resultSet.getInt("Id"), resultSet.getString("FirstName"), resultSet.getString("LastName"));
-            userList.add(user);
+     public List<User> getAllUsers() {
+        List<User> userList = new ArrayList<>();
+        try {
+            String sqlQuery = "SELECT * FROM Users;";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                user = new User(resultSet.getInt("Id"),
+                        resultSet.getString("FirstName"),
+                        resultSet.getString("LastName"),
+                        resultSet.getString("Login"),
+                        resultSet.getString("Password"));
+                userList.add(user);
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }return userList;
+
+    }
+
+
+    public List<User> getUsersByLogin(String password) {
+        String sqlQuery = "SELECT * FROM users WHERE Password = ?;";
+
+        PreparedStatement preparedStatement;
+        List<User> userList = null;
+        try {
+            preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setString(1, password);
+
+            userList = new ArrayList<>();
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            user = new User(resultSet.getInt("Id"),
+                    resultSet.getString("FirstName"),
+                    resultSet.getString("LastName"),
+                    resultSet.getString("Login"),
+                    resultSet.getString("Password"));
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return userList;
     }

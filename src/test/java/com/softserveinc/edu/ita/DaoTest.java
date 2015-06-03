@@ -19,18 +19,21 @@ public class DaoTest {
         IDaoFactory daoFactory = new DaoFactory();
         Connection connection = daoFactory.getConnection();
         UserDao userDao = daoFactory.getUserDao(connection);
-        List<User> userList = userDao.getAllUsers();
-        for(User user:userList){
+
+//        System.out.println(userDao.getUserById(2));
+
+
+        List<User>userList = userDao.getUsersByLogin("qwerty");
+        for (User user:userList){
             System.out.println(user);
         }
-        User user = userDao.getUserById(7);
-        System.out.println(user);
 
-        RoleDao roleDao = daoFactory.getRoleDao(connection);
-        List<Role> roleList = roleDao.getUsersByRole();
-        for (Role role:roleList){
-            System.out.println(role);
-        }
+
+
+
+
+
+
 
     }
 }

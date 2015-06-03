@@ -3,21 +3,21 @@ package com.softserveinc.edu.ita.dao_jdbc.Classes;
 /**
  * Created by student on 6/3/2015.
  */
-public class Role {
-    private int id;
+public class Role  {
+    private Integer id;
     private String roleName;
 
-    public Role(int id, String roleName) {
+    public Role(Integer id, String roleName) {
+        super();
         this.id = id;
         this.roleName = roleName;
     }
 
-    public int getId() {
-
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -25,15 +25,14 @@ public class Role {
         return roleName;
     }
 
-    public void setRoleName(String roleName) {
+    public void setRoleName(final String roleName) {
         this.roleName = roleName;
     }
 
     @Override
     public String toString() {
         return "Role{" +
-                "id=" + id +
-                ", roleName='" + roleName + '\'' +
+                "roleName='" + roleName + '\'' +
                 '}';
     }
 }

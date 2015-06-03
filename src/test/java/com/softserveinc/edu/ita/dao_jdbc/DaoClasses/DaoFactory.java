@@ -24,17 +24,22 @@ public class DaoFactory implements IDaoFactory {
     FileInputStream fileInputStream = null;
 
     @Override
-    public Connection getConnection() throws SQLException {
+    public Connection getConnection(){
+        Connection connection = null;
         try (FileInputStream fileInputStream = new FileInputStream(FILE_PATH)) {
             properties.load(fileInputStream);
 
             URL = properties.getProperty("host");
             USER = properties.getProperty("user");
             PASSWORD = properties.getProperty("password");
+
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }return connection;
     }
 
     @Override
