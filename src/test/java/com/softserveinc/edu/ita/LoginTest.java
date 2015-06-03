@@ -1,7 +1,8 @@
 package com.softserveinc.edu.ita;
 
 
-import com.softserveinc.edu.ita.dataprovider.Utils;
+import com.softserveinc.edu.ita.dataproviders.DataProviders;
+import com.softserveinc.edu.ita.enums.Roles;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -25,7 +26,7 @@ public class LoginTest {
         driver.quit();
     }
 
-    @Test(dataProvider = "getCredibleUsers", dataProviderClass = Utils.class)
+    @Test(dataProvider = "getAdministratorCredentials", dataProviderClass = DataProviders.class)
     public void loginTest(String login, String pass) {
         driver.findElement(By.xpath(".//*[@id='edit']/fieldset/form/table/tbody/tr[1]/td[2]/input"))
                 .sendKeys(login);
@@ -33,8 +34,9 @@ public class LoginTest {
                 .sendKeys(pass);
         driver.findElement(By.xpath(".//*[@id='edit']//input[@name = 'submit']"))
                 .click();
-        Assert.assertTrue(driver.findElement(By.xpath(".//*[@id='nav']//a[contains(text(), 'Administration')]"))
-                .isDisplayed());
+        Assert.assertTrue(driver.findElement(By.xpath("(.//*[@id='content']//td)[8]"))
+                .getText()
+                .equals(Roles.ADMINISTRATOR.toString()));
         driver.findElement(By.xpath(".//*[@id='nav']//img[@alt = 'logout']")).click();
 
 
