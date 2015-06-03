@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita;
+package com.softserveinc.edu.ita.dao_jdbc.Classes;
 
 /**
  * Created by student on 6/2/2015.

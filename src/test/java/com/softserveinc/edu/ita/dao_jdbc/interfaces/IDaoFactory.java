@@ -1,4 +1,7 @@
-package com.softserveinc.edu.ita;
+package com.softserveinc.edu.ita.dao_jdbc.interfaces;
+
+import com.softserveinc.edu.ita.dao_jdbc.DaoClasses.RoleDao;
+import com.softserveinc.edu.ita.dao_jdbc.DaoClasses.UserDao;
 
 import java.sql.Connection;
 import java.sql.SQLException;

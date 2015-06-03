@@ -1,4 +1,6 @@
-package com.softserveinc.edu.ita;
+package com.softserveinc.edu.ita.dao_jdbc.DaoClasses;
+
+import com.softserveinc.edu.ita.dao_jdbc.interfaces.IDaoFactory;
 
 import java.io.FileInputStream;
 import java.io.IOException;

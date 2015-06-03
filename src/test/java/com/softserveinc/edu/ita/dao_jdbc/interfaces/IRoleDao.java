@@ -1,4 +1,6 @@
-package com.softserveinc.edu.ita;
+package com.softserveinc.edu.ita.dao_jdbc.interfaces;
+
+import com.softserveinc.edu.ita.dao_jdbc.Classes.Role;
 
 import java.util.List;
 
