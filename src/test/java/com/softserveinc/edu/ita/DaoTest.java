@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita;
 
-import javax.management.relation.Role;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -20,11 +19,11 @@ public class DaoTest {
         User user = userDao.getUserById(7);
         System.out.println(user);
 
-//        RoleDao roleDao = daoFactory.getRoleDao(connection);
-//        List<Role> roleList = roleDao.getUsersByRole();
-//        for (Role role:roleList){
-//            System.out.println(role);
-//        }
+        RoleDao roleDao = daoFactory.getRoleDao(connection);
+        List<Role> roleList = roleDao.getUsersByRole();
+        for (Role role:roleList){
+            System.out.println(role);
+        }
 
     }
 }

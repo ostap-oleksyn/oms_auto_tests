@@ -8,5 +8,5 @@ import java.util.List;
 public interface IRoleDao  {
 
 //    public List<Role> getUsersByRole(String roleName);
-    public List<com.softserveinc.edu.ita.Role> getUsersByRole();
+    public List<Role> getUsersByRole();
 }
