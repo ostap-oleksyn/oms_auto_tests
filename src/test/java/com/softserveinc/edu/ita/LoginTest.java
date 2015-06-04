@@ -26,6 +26,20 @@ public class LoginTest {
         driver.quit();
     }
 
+    @Test(dataProvider = "getInvalidUsers", dataProviderClass = DataProviders.class)
+    public void invalidLoginTest(String login, String pass){
+        driver.findElement(By.xpath(".//*[@id='edit']/fieldset/form/table/tbody/tr[1]/td[2]/input"))
+                .sendKeys(login);
+        driver.findElement(By.xpath(".//*[@id='edit']//input[@name = 'j_password']"))
+                .sendKeys(pass);
+        driver.findElement(By.xpath(".//*[@id='edit']//input[@name = 'submit']"))
+                .click();
+        Assert.assertTrue(driver.findElement(By.xpath(".//*[@id='edit']/fieldset/font"))
+                .getText()
+                .contains("Bad credentials"));
+    }
+
+
     @Test(dataProvider = "getAdministratorCredentials", dataProviderClass = DataProviders.class)
     public void loginTest(String login, String pass) {
         driver.findElement(By.xpath(".//*[@id='edit']/fieldset/form/table/tbody/tr[1]/td[2]/input"))
@@ -41,4 +55,6 @@ public class LoginTest {
 
 
     }
+
+
 }

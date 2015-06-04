@@ -4,35 +4,19 @@ package com.softserveinc.edu.ita.enums;
  * Created by 1 on 03.06.2015.
  */
 public enum Roles {
-    ADMINISTRATOR {
-        @Override
-        public String toString() {
-            return "Administrator";
-        }
-    },
+    ADMINISTRATOR("Administrator"),
+    CUSTOMER("Customer"),
+    MERCHANDISER("Merchandiser"),
+    SUPERVISOR("Supervisor");
 
-    CUSTOMER {
-        @Override
-        public String toString() {
-            return "Customer";
-        }
-    },
+    private String role;
 
-    MERCHANDISER {
-        @Override
-        public String toString() {
-            return "Merchandiser";
-        }
-    },
+    Roles(String role) {
+        this.role = role;
+    }
 
-    SUPERVISOR {
-        @Override
-        public String toString() {
-            return "Supervisor";
-        }
-    };
-
+    @Override
+    public String toString() {
+        return this.role;
+    }
 }
-
-
-

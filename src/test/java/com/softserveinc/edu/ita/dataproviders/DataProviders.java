@@ -5,6 +5,8 @@ import com.softserveinc.edu.ita.dao_jdbc.Classes.User;
 import com.softserveinc.edu.ita.dao_jdbc.DaoClasses.DaoFactory;
 import com.softserveinc.edu.ita.dao_jdbc.DaoClasses.UserDao;
 import com.softserveinc.edu.ita.enums.Roles;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -17,10 +19,22 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 
 public class DataProviders {
+
+    static Properties properties = new Properties();
+    static String testDataFile = properties.getProperty("testDataFile");
+    public DataProviders() {
+        try {
+           properties.load(new FileInputStream(new File("src//resources//test.properties")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @DataProvider(name = "getAdministratorCredentials")
     public static Object[][] getAdministratorCredentials() {
@@ -45,7 +59,7 @@ public class DataProviders {
 
     public static Object[][] getCredibleUsersFromXls(Roles roles) {
 
-        final File excelFile = new File("src\\resources\\TestData.xls");
+        final File excelFile = new File(testDataFile);
         FileInputStream fileInputStream;
         HSSFWorkbook workbook = null;
 
@@ -59,12 +73,12 @@ public class DataProviders {
 
         final HSSFSheet sheet = workbook.getSheet("Users");
 
-        List<String> listOfUsers = new ArrayList<>();
+        final List<String> listOfUsers = new ArrayList<>();
 
         Integer columnNumber = null;
         final String columnName = roles.toString();
 
-        Row firstRow = sheet.getRow(0);
+        final Row firstRow = sheet.getRow(0);
 
         for (Cell cell : firstRow) {
             if (cell.getStringCellValue().equals(columnName)) {
@@ -74,7 +88,7 @@ public class DataProviders {
 
         if (columnNumber != null) {
             for (Row row : sheet) {
-                Cell cell = row.getCell(columnNumber);
+                final Cell cell = row.getCell(columnNumber);
                 if (cell == null || cell.getCellType() == Cell.CELL_TYPE_BLANK) {
                     break;
                 } else {
@@ -106,5 +120,49 @@ public class DataProviders {
         }
 
         return credibleUserCredentials;
+    }
+
+    @DataProvider(name = "getInvalidUsers")
+    public static Object[][] getInvalidCredentialsFromXls() {
+
+        final File excelFile = new File(properties.getProperty(testDataFile));
+        FileInputStream fileInputStream;
+        HSSFWorkbook workbook = null;
+        final HSSFSheet sheet;
+
+        try {
+            fileInputStream = new FileInputStream(excelFile);
+            workbook = new HSSFWorkbook(fileInputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        sheet = workbook.getSheet("InvalidCredentials");
+
+        final int numberOfRows = sheet.getLastRowNum();
+        final int numberOfColumns = sheet.getRow(0).getLastCellNum();
+
+        final String[][] loginData = new String[numberOfRows][numberOfColumns];
+        String cellValue;
+
+        for (int i = 1; i <= numberOfRows; i++) {
+            final HSSFRow row = sheet.getRow(i);
+
+            for (int j = 0; j < numberOfColumns; j++) {
+                final HSSFCell cell = row.getCell(j);
+                final int cellType = cell.getCellType();
+
+                if (cellType == HSSFCell.CELL_TYPE_FORMULA) {
+                    throw new RuntimeException("Cannot process a formula. Please change field to result of formula.");
+                } else if (cellType == HSSFCell.CELL_TYPE_BLANK) {
+                    cellValue = " ";
+                } else {
+                    cellValue = String.valueOf(cell);
+
+                    loginData[i - 1][j] = cellValue;
+                }
+            }
+        }
+        return loginData;
     }
 }
