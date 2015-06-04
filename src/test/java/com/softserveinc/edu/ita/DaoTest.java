@@ -1,39 +1,38 @@
-package com.softserveinc.edu.ita;
-
-import com.softserveinc.edu.ita.dao_jdbc.Classes.Role;
-import com.softserveinc.edu.ita.dao_jdbc.Classes.User;
-import com.softserveinc.edu.ita.dao_jdbc.DaoClasses.DaoFactory;
-import com.softserveinc.edu.ita.dao_jdbc.DaoClasses.RoleDao;
-import com.softserveinc.edu.ita.dao_jdbc.DaoClasses.UserDao;
-import com.softserveinc.edu.ita.dao_jdbc.interfaces.IDaoFactory;
+import jdbc.dao.DaoFactory;
+import jdbc.dao.GenericDao;
+import jdbc.dao.Identified;
+import jdbc.dao.PersistException;
+import jdbc.domain.User;
+import jdbc.mysql.MySqlDaoFactory;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 /**
- * Created by student on 6/2/2015.
+ * Created by Ihor-Dynka on 04.06.2015.
  */
 public class DaoTest {
-    public static void main(String[] args) throws SQLException {
-        IDaoFactory daoFactory = new DaoFactory();
-        Connection connection = daoFactory.getConnection();
-        UserDao userDao = daoFactory.getUserDao(connection);
-
-//        System.out.println(userDao.getUserById(2));
+    protected Class daoClass;
+    protected  Identified identified;
 
 
-        List<User>userList = userDao.getUsersByLogin("qwerty");
-        for (User user:userList){
+    public static void main(String[] args) throws PersistException, SQLException {
+
+        DaoFactory factory = new MySqlDaoFactory();
+        Connection connection = (Connection) factory.getContext();
+        GenericDao dao = factory.getDao(connection,User.class);
+        System.out.println(dao.getById(1));
+        System.out.println(dao.getByLogin("iva"));
+
+        List<User>usersList = dao.getAll();
+        for (User user:usersList){
             System.out.println(user);
+        }
+
         }
 
 
 
-
-
-
-
-
     }
-}
+

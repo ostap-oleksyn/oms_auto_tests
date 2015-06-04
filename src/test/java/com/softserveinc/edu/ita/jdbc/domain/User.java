@@ -1,23 +1,23 @@
-package com.softserveinc.edu.ita.dao_jdbc.Classes;
+package jdbc.domain;
 
-import java.io.Serializable;
+import jdbc.dao.Identified;
 
 /**
- * Created by student on 6/2/2015.
+ * Created by Ihor-Dynka on 04.06.2015.
  */
-public class User {
+public class User implements Identified<Integer>{
     private Integer id;
     private String firstName;
     private String lastName;
     private String login;
     private String password;
 
-    public User( Integer id,String firstName,String lastName, String login, String password) {
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.login = login;
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -50,15 +50,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-
-    public void setId(final Integer id) {
-        this.id=id;
     }
 
     @Override
