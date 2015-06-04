@@ -61,6 +61,27 @@ public class UserDAO extends AbstractDAO<User, Integer> {
         }
         return result;
     }
+@Override
+    public User getByLogin(String login) throws PersistException {
+        List<User> list;
+        String sql = getSelectQuery();
+        sql += " WHERE Login= ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, login);
+            ResultSet rs = statement.executeQuery();
+            list = parseResultSet(rs);
+        } catch (Exception e) {
+            throw new PersistException(e);
+        }
+        if (list == null || list.size() == 0) {
+            throw new PersistException("Record with PK = " + login + " not found.");
+        }
+        if (list.size() > 1) {
+            throw new PersistException("Received more than one record.");
+        }
+        return list.iterator().next();
+    }
+
     @Override
     public User create() throws PersistException {
         return null;
@@ -85,6 +106,7 @@ public class UserDAO extends AbstractDAO<User, Integer> {
     protected void prepareStatementForUpdate(PreparedStatement statement, User object) throws PersistException {
 
     }
+
 
 
 }

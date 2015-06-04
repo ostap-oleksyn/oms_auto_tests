@@ -9,7 +9,7 @@ import java.util.List;
 
 public abstract class AbstractDAO<T , Id extends Integer> implements IGenericDao<T> {
 
-    private Connection connection;
+    protected Connection connection;
 
     public abstract String getSelectQuery();
 
@@ -26,14 +26,14 @@ public abstract class AbstractDAO<T , Id extends Integer> implements IGenericDao
     protected abstract void prepareStatementForUpdate(PreparedStatement statement, T object) throws PersistException;
 
 
-    @Override
+   /* @Override
     public T getById(Integer key) throws PersistException {
         List<T> list;
         String sql = getSelectQuery();
         sql += " WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, key);
-            ResultSet rs = statement.executeQuery();
+              ResultSet rs = statement.executeQuery();
             list = parseResultSet(rs);
         } catch (Exception e) {
             throw new PersistException(e);
@@ -46,7 +46,7 @@ public abstract class AbstractDAO<T , Id extends Integer> implements IGenericDao
         }
         return list.iterator().next();
     }
-
+*/
     @Override
     public void update(T object) throws PersistException {
         String sql = getUpdateQuery();
@@ -60,6 +60,27 @@ public abstract class AbstractDAO<T , Id extends Integer> implements IGenericDao
             throw new PersistException(e);
         }
     }
+
+   @Override
+   public T getById(Integer key) throws PersistException {
+       List<T> list;
+       String sql = getSelectQuery();
+       sql += " WHERE id = ?";
+       try (PreparedStatement statement = connection.prepareStatement(sql)) {
+           statement.setInt(1, key);
+           ResultSet rs = statement.executeQuery();
+           list = parseResultSet(rs);
+       } catch (Exception e) {
+           throw new PersistException(e);
+       }
+       if (list == null || list.size() == 0) {
+           throw new PersistException("Record with PK = " + key + " not found.");
+       }
+       if (list.size() > 1) {
+           throw new PersistException("Received more than one record.");
+       }
+       return list.iterator().next();
+   }
 
     @Override
     public List<T> getAll() throws PersistException {

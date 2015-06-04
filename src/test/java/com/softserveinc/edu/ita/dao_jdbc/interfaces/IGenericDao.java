@@ -11,9 +11,13 @@ public interface IGenericDao<T> {
 
     public T getById(Integer key) throws PersistException;
 
+//    public T getByLogin(String login) throws PersistException;
+
     public T create () throws PersistException;
 
     public T persist(T object) throws PersistException;
+
+    T getByLogin(String key) throws PersistException;
 
     public void update(T object) throws PersistException;
 

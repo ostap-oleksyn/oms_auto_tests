@@ -50,7 +50,7 @@ private String user = "oms";
         creators = new HashMap<>();
         creators.put(User.class, new DaoCreator<Connection>() {
             @Override
-            public IGenericDao create(Connection connection) {
+            public AbstractDAO create(Connection connection) {
                 return new UserDAO(connection);
             }
         });
