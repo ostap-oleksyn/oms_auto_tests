@@ -1,10 +1,11 @@
 package com.softserveinc.edu.ita.page_object;
 
+import com.softserveinc.edu.ita.interfaces.LogOutAble;
 import org.openqa.selenium.WebDriver;
 
-import static com.softserveinc.edu.ita.locators.Locators.*;
+import static com.softserveinc.edu.ita.locators.HomePage.*;
 
-public class LogOutBase extends PageObjectPage {
+public class LogOutBase extends PageObjectBase implements LogOutAble {
 
     public LogOutBase(WebDriver driver) {
         super(driver);
@@ -15,4 +16,6 @@ public class LogOutBase extends PageObjectPage {
         return new HomePage(driver);
     }
 }
+
+
 
