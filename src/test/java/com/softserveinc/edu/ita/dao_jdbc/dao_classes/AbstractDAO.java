@@ -48,24 +48,17 @@ public abstract class AbstractDAO<T , Id extends Integer> implements IGenericDao
     }
 
     @Override
-    public T getByLogin(String login) throws PersistException {
-        List<T> list;
-        String sql = getSelectQuery();
-        sql += " WHERE Login = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, login);
-            ResultSet rs = statement.executeQuery();
-            list = parseResultSet(rs);
+    public void update(T object) throws PersistException {
+        String sql = getUpdateQuery();
+        try (PreparedStatement statement = connection.prepareStatement(sql);) {
+            prepareStatementForUpdate(statement, object);
+            int count = statement.executeUpdate();
+            if (count != 1) {
+                throw new PersistException("On update modify more then 1 record: " + count);
+            }
         } catch (Exception e) {
             throw new PersistException(e);
         }
-        if (list == null || list.size() == 0) {
-            throw new PersistException("Record with this login = " + login + " not found.");
-        }
-        if (list.size() > 1) {
-            throw new PersistException("Received more than one record.");
-        }
-        return list.iterator().next();
     }
 
     @Override

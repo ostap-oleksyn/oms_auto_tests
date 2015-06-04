@@ -11,7 +11,6 @@ import com.softserveinc.edu.ita.dao_jdbc.dao_classes.PersistException;
             public IGenericDao create(Context context);
         }
 
-
         public Context getContext() throws PersistException;
 
         public IGenericDao getDao(Context context, Class Class) throws PersistException;

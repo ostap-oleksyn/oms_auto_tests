@@ -19,14 +19,12 @@ public class DaoTest {
         Connection connection = factory.getContext();
         IGenericDao dao = factory.getDao(connection, User.class);
         System.out.println(dao.getById(1));
-        System.out.println(dao.getByLogin("iva"));
+
 
         List<User> usersList = dao.getAll();
         for (User user : usersList) {
             System.out.println(user);
         }
-
-
     }
 }
 

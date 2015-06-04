@@ -61,7 +61,20 @@ public class UserDAO extends AbstractDAO<User, Integer> {
         }
         return result;
     }
+    @Override
+    public User create() throws PersistException {
+        return null;
+    }
 
+    @Override
+    public User persist(User object) throws PersistException {
+        return null;
+    }
+
+    @Override
+    public void delete(User object) throws PersistException {
+
+    }
 
     @Override
     protected void prepareStatementForInsert(PreparedStatement statement, User object) throws PersistException {
@@ -73,13 +86,5 @@ public class UserDAO extends AbstractDAO<User, Integer> {
 
     }
 
-    @Override
-    public User getById(User id) throws PersistException {
-        return null;
-    }
 
-    @Override
-    public User getByRoleName(String roleName) throws PersistException {
-        return null;
-    }
 }
