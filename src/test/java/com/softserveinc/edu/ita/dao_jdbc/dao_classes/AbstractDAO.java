@@ -1,17 +1,13 @@
-package jdbc.dao;
+package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
-import jdbc.dao.GenericDao;
-import jdbc.dao.Identified;
-import jdbc.dao.PersistException;
-
-
+import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
-public abstract class AbstractJDBCDao<T extends Identified<Id>, Id extends Integer> implements GenericDao<T, Id> {
+public abstract class AbstractDAO<T , Id extends Integer> implements IGenericDao<T> {
 
     private Connection connection;
 
@@ -31,7 +27,7 @@ public abstract class AbstractJDBCDao<T extends Identified<Id>, Id extends Integ
 
 
     @Override
-    public T getById(Integer key) throws jdbc.dao.PersistException {
+    public T getById(Integer key) throws PersistException {
         List<T> list;
         String sql = getSelectQuery();
         sql += " WHERE id = ?";
@@ -85,7 +81,7 @@ public abstract class AbstractJDBCDao<T extends Identified<Id>, Id extends Integ
         return list;
     }
 
-    public AbstractJDBCDao(Connection connection) {
+    public AbstractDAO(Connection connection) {
         this.connection = connection;
     }
 }

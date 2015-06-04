@@ -1,4 +1,4 @@
-package jdbc.dao;
+package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
 /**
  * Created by Ihor-Dynka on 04.06.2015.

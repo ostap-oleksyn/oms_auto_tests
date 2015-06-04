@@ -1,16 +1,25 @@
-package jdbc.domain;
-
-import jdbc.dao.Identified;
+package com.softserveinc.edu.ita.dao_jdbc.classes;
 
 /**
  * Created by Ihor-Dynka on 04.06.2015.
  */
-public class User implements Identified<Integer>{
+public class User{
     private Integer id;
     private String firstName;
     private String lastName;
     private String login;
     private String password;
+    private String RoleName;
+
+    public String getRoleName() {
+        return RoleName;
+    }
+
+    public void setRoleName(String roleName) {
+        RoleName = roleName;
+    }
+
+
 
     public Integer getId() {
         return id;

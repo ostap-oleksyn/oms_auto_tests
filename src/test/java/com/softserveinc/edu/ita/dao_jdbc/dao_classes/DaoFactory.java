@@ -1,10 +1,8 @@
-package jdbc.mysql;
+package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
-import jdbc.dao.DaoFactory;
-import jdbc.dao.GenericDao;
-import jdbc.dao.PersistException;
-import jdbc.domain.Role;
-import jdbc.domain.User;
+import com.softserveinc.edu.ita.dao_jdbc.classes.User;
+import com.softserveinc.edu.ita.dao_jdbc.interfaces.IDaoFactory;
+import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,12 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Ihor-Dynka on 04.06.2015.
+ * Created by student on 6/4/2015.
  */
-public class MySqlDaoFactory implements DaoFactory<Connection> {
+public class DaoFactory implements IDaoFactory<Connection> {
 
-
-    private String user = "oms";
+private String user = "oms";
     private String password = "1qaz2wsx";
     private String url = "jdbc:mysql://localhost:3306/oms";
     private String driver = "com.mysql.jdbc.Driver";
@@ -36,7 +33,7 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
     }
 
     @Override
-    public GenericDao getDao(Connection connection, Class daoClass) throws PersistException {
+    public IGenericDao getDao(Connection connection, Class daoClass) throws PersistException {
         DaoCreator creator = creators.get(daoClass);
         if (creator == null) {
             throw new PersistException("Dao object for " + daoClass + " not found.");
@@ -44,23 +41,23 @@ public class MySqlDaoFactory implements DaoFactory<Connection> {
         return creator.create(connection);
     }
 
-    public MySqlDaoFactory() {
+    public DaoFactory() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         creators = new HashMap<>();
-        creators.put(Role.class, new DaoCreator<Connection>() {
+        creators.put(User.class, new DaoCreator<Connection>() {
             @Override
-            public GenericDao create(Connection connection) {
-                return new MySqlRoleDao(connection);
+            public IGenericDao create(Connection connection) {
+                return new UserDAO(connection);
             }
         });
         creators.put(User.class, new DaoCreator<Connection>() {
             @Override
-            public GenericDao create(Connection connection) {
-                return new MySqlUserDao(connection);
+            public IGenericDao create(Connection connection) {
+                return new UserDAO(connection);
             }
         });
 

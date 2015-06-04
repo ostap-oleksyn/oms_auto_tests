@@ -1,8 +1,6 @@
-package jdbc.mysql;
+package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
-import jdbc.dao.AbstractJDBCDao;
-import jdbc.dao.PersistException;
-import jdbc.domain.User;
+import com.softserveinc.edu.ita.dao_jdbc.classes.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +11,7 @@ import java.util.List;
 /**
  * Created by Ihor-Dynka on 04.06.2015.
  */
-public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
+public class UserDAO extends AbstractDAO<User, Integer> {
 
 
     @Override
@@ -41,13 +39,13 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
 
 
 
-    public MySqlUserDao(Connection connection) {
+    public UserDAO(Connection connection) {
         super(connection);
     }
 
     @Override
     protected List<User> parseResultSet(ResultSet rs) throws PersistException {
-        LinkedList<User> result = new LinkedList<User>();
+        LinkedList<User> result = new LinkedList<>();
         try {
             while (rs.next()) {
                 User user = new User();
@@ -64,6 +62,7 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
         return result;
     }
 
+
     @Override
     protected void prepareStatementForInsert(PreparedStatement statement, User object) throws PersistException {
 
@@ -74,9 +73,13 @@ public class MySqlUserDao extends AbstractJDBCDao<User, Integer> {
 
     }
 
+    @Override
+    public User getById(User id) throws PersistException {
+        return null;
+    }
 
     @Override
-    public User getByLogin(Integer login) throws PersistException {
+    public User getByRoleName(String roleName) throws PersistException {
         return null;
     }
 }
