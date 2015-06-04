@@ -1,5 +1,10 @@
 package jdbc.dao;
 
+import jdbc.dao.GenericDao;
+import jdbc.dao.Identified;
+import jdbc.dao.PersistException;
+
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,7 +31,7 @@ public abstract class AbstractJDBCDao<T extends Identified<Id>, Id extends Integ
 
 
     @Override
-    public T getById(Integer key) throws PersistException {
+    public T getById(Integer key) throws jdbc.dao.PersistException {
         List<T> list;
         String sql = getSelectQuery();
         sql += " WHERE id = ?";
