@@ -1,9 +1,9 @@
 package com.softserveinc.edu.ita.dataproviders;
 
-
-import com.softserveinc.edu.ita.dao_jdbc.Classes.User;
-import com.softserveinc.edu.ita.dao_jdbc.DaoClasses.DaoFactory;
-import com.softserveinc.edu.ita.dao_jdbc.DaoClasses.UserDao;
+import com.softserveinc.edu.ita.dao_jdbc.classes.User;
+import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DaoFactory;
+import com.softserveinc.edu.ita.dao_jdbc.dao_classes.PersistException;
+import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDao;
 import com.softserveinc.edu.ita.enums.Roles;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -19,49 +19,73 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 
 public class DataProviders {
 
-    static Properties properties = new Properties();
-    static String testDataFile = properties.getProperty("testDataFile");
-    public DataProviders() {
+    private static HSSFSheet sheet;
+    private static HSSFWorkbook workbook;
+
+
+    @DataProvider(name = "getAdministrators")
+    public static Object[][] getAdministratorCredentials() {
+        Object[][] credentials = null;
         try {
-           properties.load(new FileInputStream(new File("src//resources//test.properties")));
-        } catch (IOException e) {
+            credentials = getUsersByRoleFromXls(Roles.ADMINISTRATOR);
+        } catch (PersistException e) {
             e.printStackTrace();
         }
+        return credentials;
     }
 
-
-    @DataProvider(name = "getAdministratorCredentials")
-    public static Object[][] getAdministratorCredentials() {
-        return getCredibleUsersFromXls(Roles.ADMINISTRATOR);
-    }
-
-    @DataProvider(name = "getCustomerCredentials")
+    @DataProvider(name = "getCustomers")
     public static Object[][] getCutomerCredentials() {
-        return getCredibleUsersFromXls(Roles.CUSTOMER);
+        Object[][] credentials = null;
+        try {
+            credentials = getUsersByRoleFromXls(Roles.CUSTOMER);
+        } catch (PersistException e) {
+            e.printStackTrace();
+        }
+        return credentials;
     }
 
-    @DataProvider(name = "getSupervisorCredentials")
+    @DataProvider(name = "getSupervisors")
     public static Object[][] getSupervisorCredentials() {
-        return getCredibleUsersFromXls(Roles.SUPERVISOR);
+        Object[][] credentials = null;
+        try {
+            credentials = getUsersByRoleFromXls(Roles.SUPERVISOR);
+        } catch (PersistException e) {
+            e.printStackTrace();
+        }
+        return credentials;
     }
 
-    @DataProvider(name = "getMerchandiserCredentials")
+    @DataProvider(name = "getMerchandisers")
     public static Object[][] getMerchandiserCredentials() {
-        return getCredibleUsersFromXls(Roles.MERCHANDISER);
+        Object[][] credentials = null;
+        try {
+            credentials = getUsersByRoleFromXls(Roles.MERCHANDISER);
+        } catch (PersistException e) {
+            e.printStackTrace();
+        }
+        return credentials;
     }
 
+    @DataProvider(name = "getInvalidUsers")
+    public static Object[][] getInvalidCredentials() {
+        return getUsersFromXls("InvalidCredentials");
+    }
 
-    public static Object[][] getCredibleUsersFromXls(Roles roles) {
+    @DataProvider(name = "getAllRoles")
+    public static Object[][] getAllUserRolesFromXLS() {
+        return getUsersFromXls("AllRolesCredentials");
+    }
 
-        final File excelFile = new File(testDataFile);
+    private static Object[][] getUsersByRoleFromXls(Roles roles) throws PersistException {
+
+        final File excelFile = new File("src//resources//TestData.xls");
         FileInputStream fileInputStream;
-        HSSFWorkbook workbook = null;
 
         try {
             fileInputStream = new FileInputStream(excelFile);
@@ -71,7 +95,7 @@ public class DataProviders {
             e.printStackTrace();
         }
 
-        final HSSFSheet sheet = workbook.getSheet("Users");
+        sheet = workbook.getSheet("Users");
 
         final List<String> listOfUsers = new ArrayList<>();
 
@@ -99,16 +123,15 @@ public class DataProviders {
             System.out.println("Could not find column " + columnName + " in first row of " + excelFile.toString());
         }
 
-
-        final DaoFactory daoFactory = new DaoFactory();
-        final Connection connection = daoFactory.getConnection();
-        UserDao userDao = daoFactory.getUserDao(connection);
+        final DaoFactory factory = new DaoFactory();
+        final Connection connection = factory.getContext();
+        final IGenericDao userDao = factory.getDao(connection, User.class);
 
         final List<String> usersLoginsFromXls = listOfUsers.stream().skip(1).collect(Collectors.toList());
 
         final List<User> users = new ArrayList<>();
         for (String usersLogins : usersLoginsFromXls) {
-            users.add(userDao.getUsersByLogin(usersLogins));
+            users.add((User) userDao.getByLogin(usersLogins));
         }
 
         Object[][] credibleUserCredentials = new Object[users.size()][2];
@@ -122,13 +145,9 @@ public class DataProviders {
         return credibleUserCredentials;
     }
 
-    @DataProvider(name = "getInvalidUsers")
-    public static Object[][] getInvalidCredentialsFromXls() {
-
-        final File excelFile = new File(properties.getProperty(testDataFile));
+    private static Object[][] getUsersFromXls(String sheetName) {
+        final File excelFile = new File("src//resources//TestData.xls");
         FileInputStream fileInputStream;
-        HSSFWorkbook workbook = null;
-        final HSSFSheet sheet;
 
         try {
             fileInputStream = new FileInputStream(excelFile);
@@ -137,12 +156,12 @@ public class DataProviders {
             e.printStackTrace();
         }
 
-        sheet = workbook.getSheet("InvalidCredentials");
+        sheet = workbook.getSheet(sheetName);
 
         final int numberOfRows = sheet.getLastRowNum();
         final int numberOfColumns = sheet.getRow(0).getLastCellNum();
 
-        final String[][] loginData = new String[numberOfRows][numberOfColumns];
+        final String[][] xlsData = new String[numberOfRows][numberOfColumns];
         String cellValue;
 
         for (int i = 1; i <= numberOfRows; i++) {
@@ -154,15 +173,12 @@ public class DataProviders {
 
                 if (cellType == HSSFCell.CELL_TYPE_FORMULA) {
                     throw new RuntimeException("Cannot process a formula. Please change field to result of formula.");
-                } else if (cellType == HSSFCell.CELL_TYPE_BLANK) {
-                    cellValue = " ";
                 } else {
                     cellValue = String.valueOf(cell);
-
-                    loginData[i - 1][j] = cellValue;
+                    xlsData[i - 1][j] = cellValue;
                 }
             }
         }
-        return loginData;
+        return xlsData;
     }
 }
