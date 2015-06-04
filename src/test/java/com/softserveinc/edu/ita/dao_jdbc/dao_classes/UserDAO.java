@@ -1,5 +1,10 @@
+/*
+* Copyright (C) 2015 RegExpTask Project by Ihor Dynka
+ */
+
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
+import com.softserveinc.edu.ita.dao_jdbc.classes.Role;
 import com.softserveinc.edu.ita.dao_jdbc.classes.User;
 
 import java.sql.Connection;
@@ -9,22 +14,37 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Ihor-Dynka on 04.06.2015.
+ *  represents a concrete implementation of User model
  */
-public class UserDAO extends AbstractDAO<User, Integer> {
+public class UserDAO extends AbstractDAO<User,Integer> {
 
-
+    /**
+     *  query to database for getting records
+     * @return
+     */
     @Override
     public String getSelectQuery() {
         return "SELECT Id, FirstName, LastName, Login, Password FROM users";
     }
+    @Override
+    public String getJoinTablesQuery(){
+        return "SELECT FirstName, LastName, Login, Password, RoleName FROM users JOIN roles ON users.RoleRef=roles.ID WHERE";
+    }
 
+    /**
+     * query to database for creating records
+     * @return
+     */
     @Override
     public String getCreateQuery() {
         return "INSERT INTO users (FirstName, LastName, Login, Password) \n" +
                 "VALUES (?, ?, ?, ?);";
     }
 
+    /**
+     * query to database for updating records
+     * @return
+     */
     @Override
     public String getUpdateQuery() {
         return "UPDATE users \n" +
@@ -32,6 +52,10 @@ public class UserDAO extends AbstractDAO<User, Integer> {
                 "WHERE id = ?;";
     }
 
+    /**
+     * quary to database for deleting records
+     * @return
+     */
     @Override
     public String getDeleteQuery() {
         return "DELETE FROM users WHERE id= ?;";
@@ -43,17 +67,25 @@ public class UserDAO extends AbstractDAO<User, Integer> {
         super(connection);
     }
 
+    /**
+     *  sets records to list
+     * @param resultSet
+     * @return list with records
+     * @throws PersistException
+     */
     @Override
-    protected List<User> parseResultSet(ResultSet rs) throws PersistException {
+    protected List<User> parseResultSet(ResultSet resultSet) throws PersistException {
         LinkedList<User> result = new LinkedList<>();
         try {
-            while (rs.next()) {
+            while (resultSet.next()) {
                 User user = new User();
-                user.setId(rs.getInt("id"));
-                user.setFirstName(rs.getString("FirstName"));
-                user.setLastName(rs.getString("LastName"));
-                user.setLogin(rs.getString("Login"));
-                user.setPassword(rs.getString("Password"));
+                Role role = new Role();
+                user.setId(resultSet.getInt("Id"));
+                user.setFirstName(resultSet.getString("FirstName"));
+                user.setLastName(resultSet.getString("LastName"));
+                user.setLogin(resultSet.getString("Login"));
+                user.setPassword(resultSet.getString("Password"));
+//                role.setRoleName(resultSet.getString("RoleName"));
                 result.add(user);
             }
         } catch (Exception e) {
@@ -61,15 +93,21 @@ public class UserDAO extends AbstractDAO<User, Integer> {
         }
         return result;
     }
-@Override
+
+    /**
+     * gets records from database for their login
+     * @param login
+     * @return
+     * @throws PersistException
+     */
     public User getByLogin(String login) throws PersistException {
         List<User> list;
         String sql = getSelectQuery();
         sql += " WHERE Login= ?";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, login);
-            ResultSet rs = statement.executeQuery();
-            list = parseResultSet(rs);
+            ResultSet resultSet = statement.executeQuery();
+            list = parseResultSet(resultSet);
         } catch (Exception e) {
             throw new PersistException(e);
         }
@@ -92,21 +130,28 @@ public class UserDAO extends AbstractDAO<User, Integer> {
         return null;
     }
 
-    @Override
-    public void delete(User object) throws PersistException {
 
+//    @Override
+//    public void delete(User object) throws PersistException {
+//
+//    }
+
+    /**
+     *  prepares statements for their future using
+     * @param statement
+     * @param user
+     * @throws PersistException
+     */
+    protected void prepareStatement(PreparedStatement statement, User user) throws PersistException {
+        try {
+            statement.setInt(1, user.getId());
+            statement.setString(1, user.getFirstName());
+            statement.setString(2, user.getLastName());
+            statement.setString(3, user.getLogin());
+            statement.setString(4, user.getPassword());
+//            statement.setString(5, user.getRoleName());
+        } catch (Exception e) {
+            throw new PersistException(e);
+        }
     }
-
-    @Override
-    protected void prepareStatementForInsert(PreparedStatement statement, User object) throws PersistException {
-
-    }
-
-    @Override
-    protected void prepareStatementForUpdate(PreparedStatement statement, User object) throws PersistException {
-
-    }
-
-
-
 }

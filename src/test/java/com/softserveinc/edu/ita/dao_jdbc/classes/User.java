@@ -1,25 +1,20 @@
+/*
+* Copyright (C) 2015 RegExpTask Project by Ihor Dynka
+ */
+
 package com.softserveinc.edu.ita.dao_jdbc.classes;
 
+import com.softserveinc.edu.ita.dao_jdbc.interfaces.IIdentified;
+
 /**
- * Created by Ihor-Dynka on 04.06.2015.
+ *  This class represents the User model
  */
-public class User{
+public class User implements IIdentified<Integer> {
     private Integer id;
     private String firstName;
     private String lastName;
     private String login;
     private String password;
-    private String RoleName;
-
-    public String getRoleName() {
-        return RoleName;
-    }
-
-    public void setRoleName(String roleName) {
-        RoleName = roleName;
-    }
-
-
 
     public Integer getId() {
         return id;
@@ -61,14 +56,19 @@ public class User{
         this.password = password;
     }
 
+    /**
+     *    helps to output users more correctly
+     * @return
+     */
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+                ", firstName='" + getFirstName() + '\'' +
+                ", lastName='" + getLastName() + '\'' +
+                ", login='" + getLogin() + '\'' +
+                ", password='" + getPassword() + '\'' +
                 '}';
     }
 }

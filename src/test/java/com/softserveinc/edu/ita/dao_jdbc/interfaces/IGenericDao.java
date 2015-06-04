@@ -1,23 +1,30 @@
+/*
+* Copyright (C) 2015 RegExpTask Project by Ihor Dynka
+ */
+
 package com.softserveinc.edu.ita.dao_jdbc.interfaces;
 
+import com.softserveinc.edu.ita.dao_jdbc.classes.User;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.PersistException;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Ihor-Dynka on 04.06.2015.
+ *  represents a contract for a DAO for their model
+ * @param <T>
  */
-public interface IGenericDao<T> {
+public interface IGenericDao<T extends IIdentified <PK>, PK extends Serializable> {
 
-    public T getById(Integer key) throws PersistException;
+    public T getById(Integer id) throws PersistException;
 
-//    public T getByLogin(String login) throws PersistException;
+    public T getByLogin(String login) throws PersistException;
 
-    public T create () throws PersistException;
+    public T getByRoleName(String roleName) throws PersistException;
+
+    public User create() throws PersistException;
 
     public T persist(T object) throws PersistException;
-
-    T getByLogin(String key) throws PersistException;
 
     public void update(T object) throws PersistException;
 

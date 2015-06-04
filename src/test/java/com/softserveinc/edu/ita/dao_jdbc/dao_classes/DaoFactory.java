@@ -23,7 +23,7 @@ private String user = "oms";
     private Map<Class, DaoFactory.DaoCreator> creators;
 
     public Connection getContext() throws PersistException {
-        Connection connection = null;
+        Connection connection;
         try {
             connection = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
