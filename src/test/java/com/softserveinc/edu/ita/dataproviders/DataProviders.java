@@ -27,7 +27,9 @@ public class DataProviders {
     private static HSSFSheet sheet;
     private static HSSFWorkbook workbook;
 
-
+    /**
+     * Returns all users with Administrator role from database;
+     */
     @DataProvider(name = "getAdministrators")
     public static Object[][] getAdministratorCredentials() {
         Object[][] credentials = null;
@@ -39,8 +41,11 @@ public class DataProviders {
         return credentials;
     }
 
+    /**
+     * Returns all users with Customer role from database;
+     */
     @DataProvider(name = "getCustomers")
-    public static Object[][] getCutomerCredentials() {
+    public static Object[][] getCustomerCredentials() {
         Object[][] credentials = null;
         try {
             credentials = getUsersByRoleFromXls(Roles.CUSTOMER);
@@ -50,6 +55,9 @@ public class DataProviders {
         return credentials;
     }
 
+    /**
+     * Returns all users with Supervisor role from database;
+     */
     @DataProvider(name = "getSupervisors")
     public static Object[][] getSupervisorCredentials() {
         Object[][] credentials = null;
@@ -61,6 +69,9 @@ public class DataProviders {
         return credentials;
     }
 
+    /**
+     * Returns all users with Merchandiser role from database;
+     */
     @DataProvider(name = "getMerchandisers")
     public static Object[][] getMerchandiserCredentials() {
         Object[][] credentials = null;
@@ -72,11 +83,17 @@ public class DataProviders {
         return credentials;
     }
 
+    /**
+     * Returns invalid users credentials;
+     */
     @DataProvider(name = "getInvalidUsers")
     public static Object[][] getInvalidCredentials() {
         return getUsersFromXls("InvalidCredentials");
     }
 
+    /**
+     * Returns credentials for one user for each role;
+     */
     @DataProvider(name = "getAllRoles")
     public static Object[][] getAllUserRolesFromXLS() {
         return getUsersFromXls("AllRolesCredentials");
@@ -127,19 +144,17 @@ public class DataProviders {
         final Connection connection = factory.getContext();
         final IGenericDao userDao = factory.getDao(connection, User.class);
 
-        final List<String> usersLoginsFromXls = listOfUsers.stream().skip(1).collect(Collectors.toList());
+        final List<String> usersLoginFromXls = listOfUsers.stream().skip(1).collect(Collectors.toList());
 
         final List<User> users = new ArrayList<>();
-        for (String usersLogins : usersLoginsFromXls) {
-            users.add((User) userDao.getByLogin(usersLogins));
+        for (String usersLogin : usersLoginFromXls) {
+            users.add((User) userDao.getByLogin(usersLogin));
         }
 
-        Object[][] credibleUserCredentials = new Object[users.size()][2];
+        Object[][] credibleUserCredentials = new Object[users.size()][1];
+
         for (int i = 0; i < users.size(); i++) {
-            credibleUserCredentials[i][0] = users.get(i).getLogin();
-        }
-        for (int i = 0; i < users.size(); i++) {
-            credibleUserCredentials[i][1] = users.get(i).getPassword();
+            credibleUserCredentials[i][0] = users.get(i);
         }
 
         return credibleUserCredentials;
