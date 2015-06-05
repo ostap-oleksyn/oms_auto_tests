@@ -1,8 +1,6 @@
 package com.softserveinc.edu.ita.enums;
 
-/**
- * Created by 1 on 03.06.2015.
- */
+
 public enum Roles {
     ADMINISTRATOR("Administrator"),
     CUSTOMER("Customer"),
