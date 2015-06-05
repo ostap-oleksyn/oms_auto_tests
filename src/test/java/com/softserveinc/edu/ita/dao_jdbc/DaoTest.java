@@ -14,7 +14,7 @@ public class DAOTest {
     public static void main(String[] args) throws DAOException, SQLException {
 
         FactoryDAO factory = new FactoryDAO();
-        Connection connection = factory.getContext();
+        Connection connection = factory.getConnection();
         AbstractDAO dao = (AbstractDAO) factory.getDAO(connection, User.class);
 
         System.out.println(dao.getById(5));

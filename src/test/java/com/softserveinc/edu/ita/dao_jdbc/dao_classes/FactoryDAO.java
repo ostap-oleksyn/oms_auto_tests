@@ -23,7 +23,7 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
 
     private Map<Class, ICreatorDAO> creators;
 
-    public Connection getContext() throws DAOException {
+    public Connection getConnection() throws DAOException {
         Connection connection;
         try {
             connection = DriverManager.getConnection(url, user, password);
@@ -37,7 +37,7 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
     public IGenericDAO getDAO(Connection connection, Class classDAO) throws DAOException {
         ICreatorDAO creator = creators.get(classDAO);
         if (creator == null) {
-            throw new DAOException("Dao object for " + classDAO + " not found.");
+            throw new DAOException("DAO object for " + classDAO + " not found.");
         }
         return creator.create(connection);
     }
@@ -50,12 +50,14 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
         }
         creators = new HashMap<>();
         creators.put(User.class, new ICreatorDAO<Connection>() {
+
             @Override
             public AbstractDAO create(Connection connection) {
                 return new UserDAO(connection);
             }
         });
         creators.put(User.class, new ICreatorDAO<Connection>() {
+
             @Override
             public IGenericDAO create(Connection connection) {
                 return new UserDAO(connection);
