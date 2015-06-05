@@ -10,11 +10,11 @@
     <url>http://maven.apache.org</url>
 
     <build>
-      <resources>
-         <resource>
-            <directory>src/resources</directory>
-         </resource>
-       </resources>
+        <resources>
+            <resource>
+                <directory>src/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -38,7 +38,9 @@
         <selenium-java.version>2.45.0</selenium-java.version>
         <testng.version>6.9.4</testng.version>
         <log4j.version>1.2.17</log4j.version>
-        <mysql.connector.java>5.1.35</mysql.connector.java>
+        <mysql.connector.version>5.1.35</mysql.connector.version>
+        <apache.poi.version>3.12</apache.poi.version>
+
     </properties>
 
     <dependencies>
@@ -60,7 +62,13 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.connector.java}</version>
+            <version>${mysql.connector.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>${apache.poi.version}</version>
+        </dependency>
+
     </dependencies>
 </project>
