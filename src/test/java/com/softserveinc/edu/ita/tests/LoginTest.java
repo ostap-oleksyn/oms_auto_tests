@@ -1,6 +1,7 @@
 package com.softserveinc.edu.ita.tests;
 
 
+import com.softserveinc.edu.ita.dao_jdbc.classes.User;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
@@ -22,12 +23,12 @@ public class LoginTest extends TestRunner {
     }
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
-    public void validLoginTest(String login, String password, String role) {
+    public void validLoginTest(User user) {
         final HomePage homePage = new HomePage(driver);
-        final UserInfoPage userInfoPage = homePage.logIn(login, password);
+        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         Assert.assertTrue(userInfoPage.getUserRoleLabel()
-                        .equals(role),
+                        .equals(user.getRole),
                 "Logged in user role is incorrect");
         userInfoPage.clickLogOutButton();
     }
@@ -43,12 +44,12 @@ public class LoginTest extends TestRunner {
     }
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
-    public void logOutTest(String login, String password, String role) {
+    public void logOutTest(User user) {
         final HomePage homePage = new HomePage(driver);
-        final UserInfoPage userInfoPage = homePage.logIn(login, password);
+        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         Assert.assertTrue(userInfoPage.getUserRoleLabel()
-                        .equals(role),
+                        .equals(user.getRole),
                 "Logged in user role is incorrect");
         userInfoPage.clickLogOutButton();
         Assert.assertTrue(homePage.getLoginInputField()

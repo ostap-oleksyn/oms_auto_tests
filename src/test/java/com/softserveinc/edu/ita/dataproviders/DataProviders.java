@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.softserveinc.edu.ita.utils.PropertyLoaderUtil.getProperty;
+
 
 public class DataProviders {
 
@@ -84,6 +86,20 @@ public class DataProviders {
     }
 
     /**
+     * Returns all roles users;
+     */
+    @DataProvider(name = "getAllRoles")
+    public static Object[][] getAllRolesUsersFromXLS() {
+        Object[][] allRolesUsers = null;
+        try {
+            allRolesUsers = getUsersByRoleFromXls(Roles.ALL);
+        } catch (PersistException e) {
+            e.printStackTrace();
+        }
+        return allRolesUsers;
+    }
+
+    /**
      * Returns invalid users credentials;
      */
     @DataProvider(name = "getInvalidUsers")
@@ -91,17 +107,9 @@ public class DataProviders {
         return getUsersFromXls("InvalidCredentials");
     }
 
-    /**
-     * Returns credentials for one user for each role;
-     */
-    @DataProvider(name = "getAllRoles")
-    public static Object[][] getAllUserRolesFromXLS() {
-        return getUsersFromXls("AllRolesCredentials");
-    }
-
     private static Object[][] getUsersByRoleFromXls(Roles roles) throws PersistException {
 
-        final File excelFile = new File("src//resources//TestData.xls");
+        final File excelFile = new File(getProperty("testDataFile", "test.properties"));
         FileInputStream fileInputStream;
 
         try {
@@ -161,7 +169,7 @@ public class DataProviders {
     }
 
     private static Object[][] getUsersFromXls(String sheetName) {
-        final File excelFile = new File("src//resources//TestData.xls");
+        final File excelFile = new File(getProperty("testDataFile", "test.properties"));
         FileInputStream fileInputStream;
 
         try {

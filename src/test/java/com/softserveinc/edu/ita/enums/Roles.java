@@ -7,7 +7,8 @@ public enum Roles {
     ADMINISTRATOR("Administrator"),
     CUSTOMER("Customer"),
     MERCHANDISER("Merchandiser"),
-    SUPERVISOR("Supervisor");
+    SUPERVISOR("Supervisor"),
+    ALL("All");
 
     private String role;
 
