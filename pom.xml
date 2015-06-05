@@ -8,6 +8,14 @@
     <version>1.0-SNAPSHOT</version>
     <name>oms_auto_tests</name>
     <url>http://maven.apache.org</url>
+    
+    <build>
+      <resources>
+         <resource>
+            <directory>src/resources</directory>
+         </resource>
+       </resources>
+    </build>
 
     <build>
         <resources>

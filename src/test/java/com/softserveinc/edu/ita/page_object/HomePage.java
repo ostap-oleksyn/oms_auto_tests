@@ -1,14 +1,19 @@
 package com.softserveinc.edu.ita.page_object;
 
+
 import com.softserveinc.edu.ita.locators.HomePageLocators;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+
 
 public class HomePage extends PageObjectBase {
 
     public HomePage(WebDriver driver) {
         super(driver);
     }
+
 
     public UserInfoPage logIn(String login, String password) {
         driver.findElement(HomePageLocators.LOGIN_USER_INPUT)
@@ -32,6 +37,4 @@ public class HomePage extends PageObjectBase {
     public WebElement getLoginInputField(){
         return driver.findElement(HomePageLocators.LOGIN_USER_INPUT);
     }
-
-
 }
