@@ -1,11 +1,10 @@
 /*
-* Copyright (C) 2015 RegExpTask Project by Ihor Dynka
+* Copyright (C) 2015 dao_jdbc Project by Ihor Dynka
  */
 
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
 import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDao;
-import com.softserveinc.edu.ita.dao_jdbc.interfaces.IIdentified;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,119 +12,74 @@ import java.sql.ResultSet;
 import java.util.List;
 
 /**
- *    represents some general methods
- * @param <T>  type of using classes
+ * represents some general methods
+ *
+ * @param <T> type of using classes
  */
-public abstract class AbstractDAO<T extends IIdentified <PK>, PK extends Integer> implements IGenericDao<T,PK> {
+public abstract class AbstractDAO<T, PK extends Integer> implements IGenericDao<T> {
 
     protected Connection connection;
 
     public abstract String getSelectQuery();
 
-    public abstract String getJoinTablesQuery();
+    protected abstract List<T> parseResultSet(ResultSet rs) throws DAOException;
 
-    public abstract String getCreateQuery();
-
-    public abstract String getUpdateQuery();
-
-    public abstract String getDeleteQuery();
-
-    protected abstract List<T> parseResultSet(ResultSet rs) throws PersistException;
-
-    protected abstract void prepareStatement(PreparedStatement statement, T object) throws PersistException;
-
-    /**
-     *  updates records on database
-     * @param object
-     * @throws PersistException
-     */
-    @Override
-    public void update(T object) throws PersistException {
-        String sql = getUpdateQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sql);) {
-            prepareStatement(statement, object);
-            int count = statement.executeUpdate();
-            if (count != 1) {
-                throw new PersistException("On update modify more then 1 record: " + count);
-            }
-        } catch (Exception e) {
-            throw new PersistException(e);
-        }
-    }
+    protected abstract void prepareStatement(PreparedStatement statement, T object) throws DAOException;
 
     /**
      * gets records from databes by their ID
+     *
      * @param id
      * @return
-     * @throws PersistException
+     * @throws DAOException
      */
-   @Override
-   public T getById(Integer id) throws PersistException {
-       List<T> list;
-       String sql = getSelectQuery();
-       sql += " WHERE id = ?";
-       try (PreparedStatement statement = connection.prepareStatement(sql)) {
-           statement.setInt(1, id);
-           ResultSet rs = statement.executeQuery();
-           list = parseResultSet(rs);
-       } catch (Exception e) {
-           throw new PersistException(e);
-       }
-       if (list == null || list.size() == 0) {
-           throw new PersistException("Record with PK = " + id + " not found.");
-       }
-       if (list.size() > 1) {
-           throw new PersistException("Received more than one record.");
-       }
-       return list.iterator().next();
-   }
 
-    public T  getByRoleName(String roleName) throws PersistException {
+    public T getById(int id) throws DAOException {
         List<T> list;
-        String sql = getJoinTablesQuery();
-        sql += " WHERE RoleName = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sqlQuery = getSelectQuery();
+        sqlQuery += " WHERE users.Id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             list = parseResultSet(resultSet);
         } catch (Exception e) {
-            throw new PersistException(e);
-        }return  list.iterator().next();
+            throw new DAOException(e);
+        }
+        return (T) list;
+    }
+
+
+    public T getByRoleName(String roleName) throws DAOException {
+        List<T> list;
+        String selectQuery = getSelectQuery();
+        selectQuery += " WHERE RoleName = ?";
+        try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
+            statement.setString(1, roleName);
+            ResultSet resultSet = statement.executeQuery();
+            list = parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return (T) list;
     }
 
     /**
-     *  gets all records from database
+     * gets all records from database
+     *
      * @return
-     * @throws PersistException
+     * @throws DAOException
      */
     @Override
-    public List<T> getAll() throws PersistException {
+    public List<T> getAll() throws DAOException {
         List<T> list;
-        String sql = getSelectQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        String selectQuery = getSelectQuery();
+        try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
             ResultSet resultSet = statement.executeQuery();
             list = parseResultSet(resultSet);
         } catch (Exception e) {
-            throw new PersistException(e);
+            throw new DAOException(e);
         }
         return list;
-    }
-    @Override
-    public void delete(T object) throws PersistException {
-        String sql = getDeleteQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            try {
-                statement.setObject(1, object.getId());
-            } catch (Exception e) {
-                throw new PersistException(e);
-            }
-            int count = statement.executeUpdate();
-            if (count != 1) {
-                throw new PersistException("On delete modify more then 1 record: " + count);
-            }
-            statement.close();
-        } catch (Exception e) {
-            throw new PersistException(e);
-        }
     }
 
     public AbstractDAO(Connection connection) {

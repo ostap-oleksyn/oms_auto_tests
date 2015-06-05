@@ -1,26 +1,27 @@
 /*
-* Copyright (C) 2015 RegExpTask Project by Ihor Dynka
+* Copyright (C) 2015 dao_jdbc Project by Ihor Dynka
  */
 
 package com.softserveinc.edu.ita.dao_jdbc.classes;
 
-import com.softserveinc.edu.ita.dao_jdbc.interfaces.IIdentified;
-
 /**
- *  This class represents the User model
+ * This class represents the User model
  */
-public class User implements IIdentified<Integer> {
-    private Integer id;
+public class User {
+
+    private int id;
     private String firstName;
     private String lastName;
     private String login;
     private String password;
+    private String roleName;
+    private String customerType;
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -56,8 +57,25 @@ public class User implements IIdentified<Integer> {
         this.password = password;
     }
 
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    public String getCustomerType() {
+        return customerType;
+    }
+
+    public void setCustomerType(String customerType) {
+        this.customerType = customerType;
+    }
+
     /**
-     *    helps to output users more correctly
+     * helps to output users more correctly
+     *
      * @return
      */
 
@@ -69,6 +87,8 @@ public class User implements IIdentified<Integer> {
                 ", lastName='" + getLastName() + '\'' +
                 ", login='" + getLogin() + '\'' +
                 ", password='" + getPassword() + '\'' +
+                ", roleName='" + getRoleName() + '\'' +
+                ", customerType='" + getCustomerType() + '\'' +
                 '}';
     }
 }
