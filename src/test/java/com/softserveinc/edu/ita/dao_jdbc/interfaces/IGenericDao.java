@@ -1,6 +1,3 @@
-/*
-* Copyright (C) 2015 dao_jdbc Project by Ihor Dynka
- */
 
 package com.softserveinc.edu.ita.dao_jdbc.interfaces;
 
@@ -13,7 +10,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public interface IGenericDao<T> {
+public interface IGenericDAO<T> {
 
     public T getById(int id) throws DAOException;
 

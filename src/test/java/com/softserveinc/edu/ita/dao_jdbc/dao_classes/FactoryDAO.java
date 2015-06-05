@@ -1,12 +1,9 @@
-/*
-* Copyright (C) 2015 dao_jdbc Project by Ihor Dynka
- */
 
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
 import com.softserveinc.edu.ita.dao_jdbc.classes.User;
-import com.softserveinc.edu.ita.dao_jdbc.interfaces.IDaoFactory;
-import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDao;
+import com.softserveinc.edu.ita.dao_jdbc.interfaces.IFactoryDAO;
+import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,14 +14,14 @@ import java.util.Map;
 /**
  * represents factory of DAO model
  */
-public class DaoFactory implements IDaoFactory<Connection> {
+public class FactoryDAO implements IFactoryDAO<Connection> {
 
     private String user = "oms";
     private String password = "1qaz2wsx";
     private String url = "jdbc:mysql://localhost:3306/oms";
     private String driver = "com.mysql.jdbc.Driver";
 
-    private Map<Class, DaoFactory.DaoCreator> creators;
+    private Map<Class, ICreatorDAO> creators;
 
     public Connection getContext() throws DAOException {
         Connection connection;
@@ -37,30 +34,30 @@ public class DaoFactory implements IDaoFactory<Connection> {
     }
 
     @Override
-    public IGenericDao getDao(Connection connection, Class daoClass) throws DAOException {
-        DaoCreator creator = creators.get(daoClass);
+    public IGenericDAO getDAO(Connection connection, Class classDAO) throws DAOException {
+        ICreatorDAO creator = creators.get(classDAO);
         if (creator == null) {
-            throw new DAOException("Dao object for " + daoClass + " not found.");
+            throw new DAOException("Dao object for " + classDAO + " not found.");
         }
         return creator.create(connection);
     }
 
-    public DaoFactory() {
+    public FactoryDAO() {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         creators = new HashMap<>();
-        creators.put(User.class, new DaoCreator<Connection>() {
+        creators.put(User.class, new ICreatorDAO<Connection>() {
             @Override
             public AbstractDAO create(Connection connection) {
                 return new UserDAO(connection);
             }
         });
-        creators.put(User.class, new DaoCreator<Connection>() {
+        creators.put(User.class, new ICreatorDAO<Connection>() {
             @Override
-            public IGenericDao create(Connection connection) {
+            public IGenericDAO create(Connection connection) {
                 return new UserDAO(connection);
             }
         });

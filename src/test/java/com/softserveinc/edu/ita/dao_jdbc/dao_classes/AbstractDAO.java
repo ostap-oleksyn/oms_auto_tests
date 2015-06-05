@@ -1,10 +1,7 @@
-/*
-* Copyright (C) 2015 dao_jdbc Project by Ihor Dynka
- */
 
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
-import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDao;
+import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,24 +13,21 @@ import java.util.List;
  *
  * @param <T> type of using classes
  */
-public abstract class AbstractDAO<T, PK extends Integer> implements IGenericDao<T> {
+public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 
     protected Connection connection;
 
     public abstract String getSelectQuery();
 
-    protected abstract List<T> parseResultSet(ResultSet rs) throws DAOException;
-
-    protected abstract void prepareStatement(PreparedStatement statement, T object) throws DAOException;
+    protected abstract List<T> parseResultSet(ResultSet resultSet) throws DAOException;
 
     /**
-     * gets records from databes by their ID
+     * gets records from database by their ID
      *
      * @param id
      * @return
      * @throws DAOException
      */
-
     public T getById(int id) throws DAOException {
         List<T> list;
         String sqlQuery = getSelectQuery();
@@ -48,6 +42,12 @@ public abstract class AbstractDAO<T, PK extends Integer> implements IGenericDao<
         return (T) list;
     }
 
+    /**
+     * gets  records from database by their RoleName
+     *
+     * @return
+     * @throws DAOException
+     */
 
     public T getByRoleName(String roleName) throws DAOException {
         List<T> list;

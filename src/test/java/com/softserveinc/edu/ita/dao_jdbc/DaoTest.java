@@ -1,24 +1,21 @@
-/*
-* Copyright (C) 2015 dao_jdbc Project by Ihor Dynka
- */
 
 package com.softserveinc.edu.ita.dao_jdbc;
 
 import com.softserveinc.edu.ita.dao_jdbc.classes.User;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
-import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DaoFactory;
+import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-public class DaoTest {
+public class DAOTest {
     public static void main(String[] args) throws DAOException, SQLException {
 
-        DaoFactory factory = new DaoFactory();
+        FactoryDAO factory = new FactoryDAO();
         Connection connection = factory.getContext();
-        AbstractDAO dao = (AbstractDAO) factory.getDao(connection, User.class);
+        AbstractDAO dao = (AbstractDAO) factory.getDAO(connection, User.class);
 
         System.out.println(dao.getById(5));
 
