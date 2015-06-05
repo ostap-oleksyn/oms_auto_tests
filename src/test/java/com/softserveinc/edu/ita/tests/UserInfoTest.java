@@ -19,7 +19,9 @@ public class UserInfoTest extends TestRunner {
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
     public void testMethod(User user) {
 
-        log.info("Test started");
+        log.info(String.format("Test started: %s [%s %s]: %s, %s", user.getLogin(),
+                user.getFirstName(), user.getLastName(),
+                user.getCustomerType(), user.getRoleName()));
         driver.get(OMS_URL);
 
         HomePage homePage = new HomePage(driver);
@@ -31,5 +33,6 @@ public class UserInfoTest extends TestRunner {
         Assert.assertEquals(user.getRoleName(), userInfoPage.getUserRoleText());
 
         userInfoPage.clickLogOutButton();
+        log.info("Test finished");
     }
 }
