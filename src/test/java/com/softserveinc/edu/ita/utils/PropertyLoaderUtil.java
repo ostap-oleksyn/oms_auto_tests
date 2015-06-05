@@ -8,18 +8,13 @@ public final class PropertyLoaderUtil {
     private PropertyLoaderUtil() {
     }
 
-    public static String getProperty(String propertyName, String propertiesFile) {
+    public static String getProperty(String propertyName, String propertiesFile) throws IOException {
 
         final Properties property = new Properties();
         final File propertyFile = new File("src//resources//" + propertiesFile);
-        FileInputStream fileInputStream;
-        try {
-            fileInputStream = new FileInputStream(propertyFile);
-            property.load(fileInputStream);
-        } catch (IOException e) {
-            System.out.println("Property file not found");
-            e.printStackTrace();
-        }
+        FileInputStream fileInputStream = new FileInputStream(propertyFile);
+
+        property.load(fileInputStream);
 
         return property.getProperty(propertyName);
     }
