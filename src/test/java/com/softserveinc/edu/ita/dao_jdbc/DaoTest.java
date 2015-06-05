@@ -25,8 +25,8 @@ public class DAOTest {
 
         System.out.println(dao.getByRoleName("Supervisor"));
 
-        List<User> userList = (List)dao.getByRoleName("Administrator");
-        for (User user:userList){
+        List<User> userList = (List) dao.getByRoleName("Administrator");
+        for (User user : userList) {
             System.out.println(user);
         }
 
@@ -36,6 +36,6 @@ public class DAOTest {
         }
 
 
-   }
+    }
 }
 

@@ -5,30 +5,40 @@ import com.softserveinc.edu.ita.dao_jdbc.classes.User;
 import com.softserveinc.edu.ita.dao_jdbc.interfaces.IFactoryDAO;
 import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDAO;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.softserveinc.edu.ita.utils.PropertyLoaderUtil.getProperty;
+
 /**
  * represents factory of DAO model
  */
 public class FactoryDAO implements IFactoryDAO<Connection> {
 
-    private String user = "oms";
-    private String password = "1qaz2wsx";
-    private String url = "jdbc:mysql://localhost:3306/oms";
-    private String driver = "com.mysql.jdbc.Driver";
+    private static final String PROPERTY_FILE = "jdbc.properties";
+
+    private static String USER = null;
+    private static String PASSWORD = null;
+    private static String URL = null;
+    private static String DRIVER = null;
 
     private Map<Class, ICreatorDAO> creators;
 
     public Connection getConnection() throws DAOException {
-        Connection connection;
+        Connection connection = null;
         try {
-            connection = DriverManager.getConnection(url, user, password);
+            USER = getProperty("user", PROPERTY_FILE);
+            PASSWORD = getProperty("password", PROPERTY_FILE);
+            URL = getProperty("url", PROPERTY_FILE);
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             throw new DAOException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         return connection;
     }
@@ -44,8 +54,11 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
 
     public FactoryDAO() {
         try {
-            Class.forName(driver);
+            DRIVER = getProperty("driver", PROPERTY_FILE);
+            Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         creators = new HashMap<>();
