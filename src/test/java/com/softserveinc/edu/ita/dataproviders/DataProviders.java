@@ -1,9 +1,9 @@
 package com.softserveinc.edu.ita.dataproviders;
 
 import com.softserveinc.edu.ita.dao_jdbc.classes.User;
-import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DaoFactory;
-import com.softserveinc.edu.ita.dao_jdbc.dao_classes.PersistException;
-import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDao;
+import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
+import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
+import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
 import com.softserveinc.edu.ita.enums.Roles;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -37,7 +37,7 @@ public class DataProviders {
         Object[][] credentials = null;
         try {
             credentials = getUsersByRoleFromXls(Roles.ADMINISTRATOR);
-        } catch (PersistException e) {
+        } catch (IOException | DAOException e) {
             e.printStackTrace();
         }
         return credentials;
@@ -51,7 +51,7 @@ public class DataProviders {
         Object[][] credentials = null;
         try {
             credentials = getUsersByRoleFromXls(Roles.CUSTOMER);
-        } catch (PersistException e) {
+        } catch (IOException | DAOException e) {
             e.printStackTrace();
         }
         return credentials;
@@ -65,7 +65,7 @@ public class DataProviders {
         Object[][] credentials = null;
         try {
             credentials = getUsersByRoleFromXls(Roles.SUPERVISOR);
-        } catch (PersistException e) {
+        } catch (IOException | DAOException e) {
             e.printStackTrace();
         }
         return credentials;
@@ -79,7 +79,7 @@ public class DataProviders {
         Object[][] credentials = null;
         try {
             credentials = getUsersByRoleFromXls(Roles.MERCHANDISER);
-        } catch (PersistException e) {
+        } catch (IOException | DAOException e) {
             e.printStackTrace();
         }
         return credentials;
@@ -93,7 +93,7 @@ public class DataProviders {
         Object[][] allRolesUsers = null;
         try {
             allRolesUsers = getUsersByRoleFromXls(Roles.ALL);
-        } catch (PersistException e) {
+        } catch (DAOException | IOException e) {
             e.printStackTrace();
         }
         return allRolesUsers;
@@ -104,10 +104,16 @@ public class DataProviders {
      */
     @DataProvider(name = "getInvalidUsers")
     public static Object[][] getInvalidCredentials() {
-        return getUsersFromXls("InvalidCredentials");
+        Object[][] invalidUsers = null;
+        try {
+            invalidUsers = getInvalidUsersFromXls();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return invalidUsers;
     }
 
-    private static Object[][] getUsersByRoleFromXls(Roles roles) throws PersistException {
+    private static Object[][] getUsersByRoleFromXls(Roles roles) throws IOException, DAOException {
 
         final File excelFile = new File(getProperty("testDataFile", "test.properties"));
         FileInputStream fileInputStream;
@@ -148,15 +154,15 @@ public class DataProviders {
             System.out.println("Could not find column " + columnName + " in first row of " + excelFile.toString());
         }
 
-        final DaoFactory factory = new DaoFactory();
-        final Connection connection = factory.getContext();
-        final IGenericDao userDao = factory.getDao(connection, User.class);
+        FactoryDAO factory = new FactoryDAO();
+        Connection connection = factory.getConnection();
+        AbstractDAO userDAO = (AbstractDAO) factory.getDAO(connection, User.class);
 
         final List<String> usersLoginFromXls = listOfUsers.stream().skip(1).collect(Collectors.toList());
 
         final List<User> users = new ArrayList<>();
         for (String usersLogin : usersLoginFromXls) {
-            users.add((User) userDao.getByLogin(usersLogin));
+            users.add((User) userDAO.getByLogin(usersLogin));
         }
 
         Object[][] credibleUserCredentials = new Object[users.size()][1];
@@ -168,7 +174,7 @@ public class DataProviders {
         return credibleUserCredentials;
     }
 
-    private static Object[][] getUsersFromXls(String sheetName) {
+    private static Object[][] getInvalidUsersFromXls() throws IOException {
         final File excelFile = new File(getProperty("testDataFile", "test.properties"));
         FileInputStream fileInputStream;
 
@@ -179,7 +185,7 @@ public class DataProviders {
             e.printStackTrace();
         }
 
-        sheet = workbook.getSheet(sheetName);
+        sheet = workbook.getSheet("InvalidCredentials");
 
         final int numberOfRows = sheet.getLastRowNum();
         final int numberOfColumns = sheet.getRow(0).getLastCellNum();
