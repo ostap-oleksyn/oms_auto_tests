@@ -1,8 +1,5 @@
 package com.softserveinc.edu.ita.enums;
 
-/**
- * Created by student on 6/5/2015.
- */
 public enum BrowserTypes {
 
     FIREFOX ("firefox"),
