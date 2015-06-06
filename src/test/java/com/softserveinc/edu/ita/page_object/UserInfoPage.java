@@ -12,10 +12,6 @@ public class UserInfoPage extends LogOutBase {
         super(driver);
     }
 
-
-    public String getUserRoleLabel() {
-        return driver.findElement(UserInfoPageLocators.USER_ROLE_LABEL).getText();
-    }
     public String getFirstNameText() {
         return driver.findElement(UserInfoPageLocators.FIRST_NAME_TD).getText();
     }

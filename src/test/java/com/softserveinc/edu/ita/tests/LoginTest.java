@@ -27,7 +27,7 @@ public class LoginTest extends TestRunner {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
-        Assert.assertTrue(userInfoPage.getUserRoleLabel()
+        Assert.assertTrue(userInfoPage.getUserRoleText()
                         .equals(user.getRoleName()),
                 "Logged in user role is incorrect");
         userInfoPage.clickLogOutButton();
@@ -48,7 +48,7 @@ public class LoginTest extends TestRunner {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
-        Assert.assertTrue(userInfoPage.getUserRoleLabel()
+        Assert.assertTrue(userInfoPage.getUserRoleText()
                         .equals(user.getRoleName()),
                 "Logged in user role is incorrect");
         userInfoPage.clickLogOutButton();
