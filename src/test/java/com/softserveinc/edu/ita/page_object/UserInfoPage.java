@@ -13,18 +13,18 @@ public class UserInfoPage extends LogOutBase {
     }
 
     public String getFirstNameText() {
-        return driver.findElement(UserInfoPageLocators.FIRST_NAME_TD).getText();
+        return driver.findElement(UserInfoPageLocators.FIRST_NAME_LABEL).getText();
     }
 
     public String getLastNameText() {
-        return driver.findElement(UserInfoPageLocators.LAST_NAME_TD).getText();
+        return driver.findElement(UserInfoPageLocators.LAST_NAME_LABEL).getText();
     }
 
     public String getCustomerTypeText() {
-        return driver.findElement(UserInfoPageLocators.CUSTOMER_TYPE_TD).getText();
+        return driver.findElement(UserInfoPageLocators.CUSTOMER_TYPE_LABEL).getText();
     }
 
     public String getUserRoleText() {
-        return driver.findElement(UserInfoPageLocators.USER_ROLE_TD).getText();
+        return driver.findElement(UserInfoPageLocators.USER_ROLE_LABEL).getText();
     }
 }
