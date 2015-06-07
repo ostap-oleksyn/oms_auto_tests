@@ -21,14 +21,12 @@ public class AdministrationTestPage extends TestRunner {
         Assert.assertTrue(driver.findElement(UserInfoPageLocators.USER_INFO_ELEMENT).isDisplayed());
 
         homePage.clickAdministrationButton();
-        //driver.findElement(AdministrationPageLocators.ADMINISTRATION_PAGE_TAB).click();
 
         Assert.assertTrue(driver.findElement(AdministrationPageLocators.ADMINISTRATION_PAGE_TEXT)
                 .getText().contains("This page is appointed for creating new and managing existing users"));
 
         Assert.assertTrue(driver.findElement(AdministrationPageLocators.CREATE_NEW_USER_BUTTON).isDisplayed());
 
-        //driver.findElement(OrderingPageLocators.ORDERING_PAGE_TAB_).click();
         homePage.clickOrederingButton();
 
         Assert.assertTrue(driver.findElement(OrderingPageLocators.ORDERING_TABLE_FIRST_ELEMENT_TEXT)
@@ -38,7 +36,6 @@ public class AdministrationTestPage extends TestRunner {
 
         userInfoPage.clickLogOutButton();
     }
-
 }
 
 
