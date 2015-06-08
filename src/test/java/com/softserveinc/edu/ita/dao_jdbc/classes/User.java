@@ -11,6 +11,7 @@ public class User {
     private String lastName;
     private String login;
     private String password;
+    private String email;
     private String roleName;
     private String customerType;
 
@@ -50,6 +51,14 @@ public class User {
         return password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -84,6 +93,7 @@ public class User {
                 ", lastName='" + getLastName() + '\'' +
                 ", login='" + getLogin() + '\'' +
                 ", password='" + getPassword() + '\'' +
+                ", email='" + getEmail() + '\'' +
                 ", roleName='" + getRoleName() + '\'' +
                 ", customerType='" + getCustomerType() + '\'' +
                 '}';
