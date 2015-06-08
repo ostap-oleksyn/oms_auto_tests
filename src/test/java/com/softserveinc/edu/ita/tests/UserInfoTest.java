@@ -18,11 +18,7 @@ public class UserInfoTest extends TestRunner {
     Logger log = Logger.getLogger(UserInfoTest.class);
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
-    public void testMethod(User user) {
-
-        log.info(String.format("Test started: %s [%s %s]: %s, %s", user.getLogin(),
-                user.getFirstName(), user.getLastName(),
-                user.getCustomerType(), user.getRoleName()));
+    public void testUserInfoTab(User user) {
 
         HomePage homePage = new HomePage(driver);
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
@@ -37,6 +33,5 @@ public class UserInfoTest extends TestRunner {
                 .getElementText(UserInfoPageLocators.USER_ROLE_LABEL));
 
         userInfoPage.clickLogOutButton();
-        log.info("Test finished");
     }
 }
