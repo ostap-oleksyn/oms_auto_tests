@@ -12,5 +12,8 @@ public final class UserInfoPageLocators {
     public static final By USER_INFO_TAB = By.xpath(".//*[@id='nav']//a[contains(text(), 'User Info')]");
     public static final By USER_ITEM_MANAGEMENT_TAB = By.xpath(".//*[@id='nav']//a[contains(text(), 'Item Management')]");
     public static final By ACTIVE_TAB = By.xpath(".//a[parent::li[@class='cur']]");
+    public static final By ADMINISTRATION_TAB = By.xpath(".//*[@id='nav']//a[contains(text(), 'Administration')]");
+    public static final By ORDERING_TAB = By.xpath(".//*[@id='nav']//a[contains(text(), 'Ordering')]");
+
 
 }

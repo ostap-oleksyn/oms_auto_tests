@@ -1,8 +1,8 @@
 package com.softserveinc.edu.ita.page_object;
 
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public abstract class PageObjectBase {
     protected WebDriver driver;
@@ -11,12 +11,12 @@ public abstract class PageObjectBase {
         this.driver = driver;
     }
 
-    public WebElement getActiveTab() {
-        return driver.findElement(UserInfoPageLocators.ACTIVE_TAB);
+    public String getElementText(By elementLocator) {
+        return driver.findElement(elementLocator).getText();
     }
 
-    public WebElement getUserInfoTab() {
-        return driver.findElement(UserInfoPageLocators.USER_INFO_TAB);
+    public boolean isElementVisible(By elementLocator) {
+        return driver.findElement(elementLocator).isDisplayed();
     }
 
     public UserInfoPage clickUserInfoTab() {
