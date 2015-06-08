@@ -22,9 +22,9 @@ public class SupervisorUITest extends TestRunner {
                         .equals(user.getRoleName()),
                 "Logged in user role is incorrect");
 
-        Assert.assertTrue(userInfoPage.isElementVisible(UserInfoPageLocators.USER_INFO_TAB),
+        Assert.assertTrue(userInfoPage.isElementDisplayed(UserInfoPageLocators.USER_INFO_TAB),
                 "User Info tab is not displayed");
-        Assert.assertTrue(userInfoPage.isElementVisible(UserInfoPageLocators.USER_ITEM_MANAGEMENT_TAB),
+        Assert.assertTrue(userInfoPage.isElementDisplayed(UserInfoPageLocators.USER_ITEM_MANAGEMENT_TAB),
                 "Item Management tab is not displayed");
 
         Assert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.ACTIVE_TAB)
@@ -37,7 +37,7 @@ public class SupervisorUITest extends TestRunner {
                         .equals(itemManagementPage.getElementText(UserInfoPageLocators.USER_ITEM_MANAGEMENT_TAB)),
                 "Didn't switch to Item Management tab");
 
-        Assert.assertTrue(itemManagementPage.isElementVisible(ItemManagementPageLocators.ADD_PRODUCT_LINK),
+        Assert.assertTrue(itemManagementPage.isElementDisplayed(ItemManagementPageLocators.ADD_PRODUCT_LINK),
                 "Add Product link is not displayed");
 
         userInfoPage = itemManagementPage.clickUserInfoTab();

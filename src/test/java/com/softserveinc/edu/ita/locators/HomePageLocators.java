@@ -13,5 +13,4 @@ public final class HomePageLocators {
     public static final By LOG_OUT_BUTTON = By.xpath("//img[@alt='logout']");
     public static final By LOGIN_ERROR_MESSAGE = By.xpath(".//*[@id='edit']/fieldset/font");
 
-    
 }

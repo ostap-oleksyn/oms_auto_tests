@@ -1,5 +1,6 @@
 package com.softserveinc.edu.ita.page_object;
 
+
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +16,7 @@ public abstract class PageObjectBase {
         return driver.findElement(elementLocator).getText();
     }
 
-    public boolean isElementVisible(By elementLocator) {
+    public boolean isElementDisplayed(By elementLocator) {
         return driver.findElement(elementLocator).isDisplayed();
     }
 

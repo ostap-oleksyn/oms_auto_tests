@@ -22,9 +22,9 @@ public class AdministratorUITest extends TestRunner{
                         .equals(user.getRoleName()),
                 "Logged in user role is incorrect");
 
-        Assert.assertTrue(userInfoPage.isElementVisible(UserInfoPageLocators.USER_INFO_TAB),
+        Assert.assertTrue(userInfoPage.isElementDisplayed(UserInfoPageLocators.USER_INFO_TAB),
                 "User Info tab is not displayed");
-        Assert.assertTrue(userInfoPage.isElementVisible(UserInfoPageLocators.ADMINISTRATION_TAB),
+        Assert.assertTrue(userInfoPage.isElementDisplayed(UserInfoPageLocators.ADMINISTRATION_TAB),
                 "Administration tab is not displayed");
 
         Assert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.ACTIVE_TAB)
@@ -37,7 +37,7 @@ public class AdministratorUITest extends TestRunner{
                         .equals(administrationPage.getElementText(UserInfoPageLocators.ADMINISTRATION_TAB)),
                 "Didn't switch to Administration tab");
 
-        Assert.assertTrue(administrationPage.isElementVisible(AdministrationPageLocators.CREATE_NEW_USER_LINK),
+        Assert.assertTrue(administrationPage.isElementDisplayed(AdministrationPageLocators.CREATE_NEW_USER_LINK),
                 "Create new user link is not displayed");
 
         userInfoPage = administrationPage.clickUserInfoTab();

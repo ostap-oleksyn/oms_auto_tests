@@ -21,7 +21,7 @@ public class UserDAO extends AbstractDAO<User> {
      */
     @Override
     public String getSelectQuery() {
-        return "select  users.Id, FirstName, LastName, Login, Password, RoleName, TypeName \n" +
+        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName \n" +
                 "from users inner join roles on users.RoleRef = roles.ID \n" +
                 "inner join customertypes on \n" +
                 "users.CustomerTypeRef = customertypes.ID";
@@ -49,6 +49,7 @@ public class UserDAO extends AbstractDAO<User> {
                 user.setLastName(resultSet.getString("LastName"));
                 user.setLogin(resultSet.getString("Login"));
                 user.setPassword(resultSet.getString("Password"));
+                user.setEmail(resultSet.getString("Email"));
                 user.setRoleName(resultSet.getString("RoleName"));
                 user.setCustomerType(resultSet.getString("TypeName"));
                 resultList.add(user);

@@ -22,9 +22,9 @@ public class CustomerUITest extends TestRunner {
                         .equals(user.getRoleName()),
                 "Logged in user role is incorrect");
 
-        Assert.assertTrue(userInfoPage.isElementVisible(UserInfoPageLocators.USER_INFO_TAB),
+        Assert.assertTrue(userInfoPage.isElementDisplayed(UserInfoPageLocators.USER_INFO_TAB),
                 "User Info tab is not displayed");
-        Assert.assertTrue(userInfoPage.isElementVisible(UserInfoPageLocators.ORDERING_TAB),
+        Assert.assertTrue(userInfoPage.isElementDisplayed(UserInfoPageLocators.ORDERING_TAB),
                 "Ordering tab is not displayed");
 
         Assert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.ACTIVE_TAB)
@@ -37,7 +37,7 @@ public class CustomerUITest extends TestRunner {
                         .equals(orderingPage.getElementText(UserInfoPageLocators.ORDERING_TAB)),
                 "Didn't switch to Ordering tab");
 
-        Assert.assertTrue(orderingPage.isElementVisible(OrderingPageLocators.CREATE_NEW_ORDER_LINK),
+        Assert.assertTrue(orderingPage.isElementDisplayed(OrderingPageLocators.CREATE_NEW_ORDER_LINK),
                 "Create new order link is not displayed");
 
         userInfoPage = orderingPage.clickUserInfoTab();
