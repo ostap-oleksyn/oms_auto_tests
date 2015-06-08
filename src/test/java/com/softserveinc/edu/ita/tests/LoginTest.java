@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.tests;
 
 import com.softserveinc.edu.ita.dao_jdbc.classes.User;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
+import com.softserveinc.edu.ita.locators.HomePageLocators;
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
@@ -11,13 +12,13 @@ import org.testng.annotations.Test;
 
 public class LoginTest extends TestRunner {
 
-    final String errorMessage = "Your login attempt was not successful, try again.";
+    final private String errorMessage = "Your login attempt was not successful, try again.";
 
     @Test
     public void emptyLoginTest() {
         final HomePage homePage = new HomePage(driver);
         homePage.clickSubmitButton();
-        Assert.assertTrue(homePage.getErrorMessage()
+        Assert.assertTrue(homePage.getElementText(HomePageLocators.LOGIN_ERROR_MESSAGE)
                         .contains(errorMessage),
                 "Error message is not displayed");
 
@@ -40,7 +41,7 @@ public class LoginTest extends TestRunner {
         final HomePage homePage = new HomePage(driver);
         homePage.logIn(login, password);
 
-        Assert.assertTrue(homePage.getErrorMessage()
+        Assert.assertTrue(homePage.getElementText(HomePageLocators.LOGIN_ERROR_MESSAGE)
                         .contains(errorMessage),
                 "Error message is not displayed");
     }
@@ -55,8 +56,7 @@ public class LoginTest extends TestRunner {
                         .equals(user.getRoleName()),
                 "Logged in user role is incorrect");
         userInfoPage.clickLogOutButton();
-        Assert.assertTrue(homePage.getLoginInputField()
-                        .isDisplayed(),
+        Assert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_USER_INPUT),
                 "User didn't logged out");
     }
 
