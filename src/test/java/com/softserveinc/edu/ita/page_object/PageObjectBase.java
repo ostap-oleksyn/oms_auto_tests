@@ -15,7 +15,7 @@ public abstract class PageObjectBase {
     public String getElementText(By elementLocator) {
         return driver.findElement(elementLocator).getText();
     }
-
+    //TODO consider using findElements()
     public boolean isElementDisplayed(By elementLocator) {
         return driver.findElement(elementLocator).isDisplayed();
     }

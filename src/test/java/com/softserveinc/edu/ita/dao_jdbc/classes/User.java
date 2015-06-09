@@ -4,6 +4,7 @@ package com.softserveinc.edu.ita.dao_jdbc.classes;
 /**
  * This class represents the User model
  */
+//TODO rename package to domains
 public class User {
 
     private int id;

@@ -19,8 +19,7 @@ public class LoginTest extends TestRunner {
         final HomePage homePage = new HomePage(driver);
         homePage.clickSubmitButton();
         Assert.assertTrue(homePage.getElementText(HomePageLocators.LOGIN_ERROR_MESSAGE)
-                        .contains(errorMessage),
-                "Error message is not displayed");
+                        .contains(errorMessage), "Error message is not displayed");
 
     }
 
@@ -31,8 +30,8 @@ public class LoginTest extends TestRunner {
 
         Assert.assertTrue(userInfoPage
                         .getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                        .equals(user.getRoleName()),
-                "Logged in user role is incorrect");
+                        .equals(user.getRoleName()), "Logged in user role is incorrect");
+
         userInfoPage.clickLogOutButton();
     }
 
@@ -42,8 +41,7 @@ public class LoginTest extends TestRunner {
         homePage.logIn(login, password);
 
         Assert.assertTrue(homePage.getElementText(HomePageLocators.LOGIN_ERROR_MESSAGE)
-                        .contains(errorMessage),
-                "Error message is not displayed");
+                        .contains(errorMessage),"Error message is not displayed");
     }
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
@@ -53,11 +51,9 @@ public class LoginTest extends TestRunner {
 
         Assert.assertTrue(userInfoPage
                         .getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                        .equals(user.getRoleName()),
-                "Logged in user role is incorrect");
+                        .equals(user.getRoleName()),"User role is incorrect");
         userInfoPage.clickLogOutButton();
-        Assert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_USER_INPUT),
-                "User didn't logged out");
+        Assert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_USER_INPUT), "User didn't logged out");
     }
 
 }
