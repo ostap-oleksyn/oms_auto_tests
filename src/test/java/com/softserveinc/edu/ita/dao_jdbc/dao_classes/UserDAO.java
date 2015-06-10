@@ -1,7 +1,7 @@
 
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
-import com.softserveinc.edu.ita.dao_jdbc.classes.User;
+import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

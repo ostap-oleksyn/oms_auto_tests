@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.tests;
 
-import com.softserveinc.edu.ita.dao_jdbc.classes.User;
+import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dao_jdbc.domains.Orders;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.page_object.HomePage;
@@ -18,7 +18,7 @@ import java.util.List;
 public class OrderingTabSortingTest extends TestRunner {
     //Test sorting by Order Name
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void testOrdernameColumn(User user) {
+    public void testOrderNameColumn(User user) {
         HomePage homePage = new HomePage(driver);
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
