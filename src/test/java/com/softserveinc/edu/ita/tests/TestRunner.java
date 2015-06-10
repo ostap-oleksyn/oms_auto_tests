@@ -51,7 +51,6 @@ public class TestRunner {
                 break;
         }
 
-        driver = new FirefoxDriver();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(PropertyLoader.getProperty("oms.url"));
