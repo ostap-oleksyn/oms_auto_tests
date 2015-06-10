@@ -20,6 +20,8 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Log files
+*.log
 
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
