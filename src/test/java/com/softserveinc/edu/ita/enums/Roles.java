@@ -1,6 +1,8 @@
 package com.softserveinc.edu.ita.enums;
 
 
+import java.util.Random;
+
 public enum Roles {
     ADMINISTRATOR("Administrator"),
     CUSTOMER("Customer"),
@@ -17,5 +19,10 @@ public enum Roles {
     @Override
     public String toString() {
         return this.role;
+    }
+
+    public static Roles getRandomRole () {
+        Random randomGenerator = new Random();
+        return values()[randomGenerator.nextInt(values().length - 1)];
     }
 }

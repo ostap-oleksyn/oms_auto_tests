@@ -14,6 +14,16 @@ public class User {
     private String roleName;
     private String customerType;
 
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
+    }
+
+    private String regionName;
+
     public Integer getId() {
         return id;
     }

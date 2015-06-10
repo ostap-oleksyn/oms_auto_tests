@@ -5,7 +5,7 @@ import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
 import org.openqa.selenium.WebDriver;
 
 
-public class UserInfoPage extends LogOutBase {
+public class UserInfoPage extends LoggedPageBase {
 
     public UserInfoPage(WebDriver driver) {
         super(driver);

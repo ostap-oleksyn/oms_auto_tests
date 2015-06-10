@@ -2,6 +2,7 @@
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
 import com.softserveinc.edu.ita.dao_jdbc.domains.User;
+import com.softserveinc.edu.ita.enums.Roles;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,10 +22,11 @@ public class UserDAO extends AbstractDAO<User> {
      */
     @Override
     public String getSelectQuery() {
-        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName \n" +
-                "from users inner join roles on users.RoleRef = roles.ID \n" +
-                "inner join customertypes on \n" +
-                "users.CustomerTypeRef = customertypes.ID";
+        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName,  \n" +
+                "from users \n" +
+                "inner join roles on users.RoleRef = roles.ID \n" +
+                "inner join customertypes on users.CustomerTypeRef = customertypes.ID \n" +
+                "inner join regions on users.RegionRef = regions.ID";
     }
 
     public UserDAO(Connection connection) {
@@ -52,6 +54,7 @@ public class UserDAO extends AbstractDAO<User> {
                 user.setEmail(resultSet.getString("Email"));
                 user.setRoleName(resultSet.getString("RoleName"));
                 user.setCustomerType(resultSet.getString("TypeName"));
+                user.setRegionName(resultSet.getString("RegionName"));
                 resultList.add(user);
             }
         } catch (Exception e) {
@@ -86,4 +89,5 @@ public class UserDAO extends AbstractDAO<User> {
         }
         return list.iterator().next();
     }
+
 }
