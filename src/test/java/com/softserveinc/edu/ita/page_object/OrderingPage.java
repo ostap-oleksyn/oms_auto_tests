@@ -22,9 +22,10 @@ public class OrderingPage extends LogOutBase {
         List<Orders> table = new LinkedList<>();
         //Next two lines are used for finding out quantity of iteration which are needed to build table.
         int ordersQuantity = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS).getAttribute("value"));
+        int rowsQuantity = driver.findElements(By.xpath(".//*[@id='list']/table/tbody/tr/td[1]")).size();
         double iteration = new BigDecimal(ordersQuantity / 2).setScale(0, RoundingMode.UP).doubleValue();
         for (int i = 1; i <= iteration; i++) {
-            for (int j = 2; j <= 3; j++) {
+            for (int j = 2; j <= rowsQuantity + 1; j++) {
                 //There is checking of row displaying.
                 if (isElementDisplayed(By.xpath(String.format(OrderingPageLocators.TABLE_ROW_CELL, j)))) {
                     //Recording displayed row.
