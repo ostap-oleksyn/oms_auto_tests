@@ -1,12 +1,12 @@
 package com.softserveinc.edu.ita.enums;
 /**
- * Created by student on 6/9/2015.
+ * This enum serves to limit possible columns of 'Ordering' table in 'Ordering' page.
  */
 public enum Orders {
-    ORDERNAME("Order Name"),
-    TOTALPRICE("Total price"),
-    MAXDISCOUNT("Max Discount "),
-    DELIVERYDATE("Delivery date"),
+    ORDER_NAME("Order Name"),
+    TOTAL_PRICE("Total price"),
+    MAX_DISCOUNT("Max Discount "),
+    DELIVERY_DATE("Delivery date"),
     STATUS("Status"),
     ASSIGNEE("Assignee"),
     ROLE("Role");

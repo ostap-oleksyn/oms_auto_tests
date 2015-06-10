@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.page_object;
 
-import com.softserveinc.edu.ita.enums.Orders;
+import com.softserveinc.edu.ita.dao_jdbc.domains.Orders;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
+
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
 
 public class OrderingPage extends LogOutBase {
@@ -17,55 +18,38 @@ public class OrderingPage extends LogOutBase {
         super(driver);
     }
 
-    public List<OrderingTableRow> getTable() {
-        List<OrderingTableRow> table = new LinkedList<>();
+    public List<Orders> getTable() {
+        List<Orders> table = new LinkedList<>();
+        //Next two lines are used for finding out quantity of iteration which are needed to build table.
         int ordersQuantity = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS).getAttribute("value"));
         double iteration = new BigDecimal(ordersQuantity / 2).setScale(0, RoundingMode.UP).doubleValue();
         for (int i = 1; i <= iteration; i++) {
             for (int j = 2; j <= 3; j++) {
                 //There is checking of row displaying.
-                if (driver.findElement(By.xpath(".//div[@id='list']/table/tbody/tr[" + j + "]/td[1]")).isDisplayed()) {
+                if (isElementDisplayed(By.xpath(String.format(OrderingPageLocators.TABLE_ROW_CELL, j)))) {
                     //Recording displayed row.
-                    List<WebElement> webElements = driver.findElements(By.xpath(".//div[@id='list']/table/tbody/tr[" + j + "]/td"));
-                    table.add(new OrderingTableRow(webElements.get(0).getText(), webElements.get(1).getText(), webElements.get(2).getText(),
-                            webElements.get(3).getText(), webElements.get(4).getText(), webElements.get(5).getText(),
-                            webElements.get(6).getText(), webElements.get(7).getText(), webElements.get(8).getText()));
+                    List<WebElement> webElements = driver.findElements(By.xpath(String.format(OrderingPageLocators.TABLE_ROW, j)));
+                    table.add(new Orders.OrdersStepBuilder().withOrderName(webElements.get(0).getText()).withTotalPrice(webElements.get(1).getText())
+                            .withMaxDiscount(webElements.get(2).getText()).withDeliveryDate(webElements.get(3).getText())
+                            .withStatus(webElements.get(4).getText()).withAssignee(webElements.get(5).getText())
+                            .withRole(webElements.get(6).getText()).build());
                 }
 
             }
             if (i != ordersQuantity / 2) {
-                driver.findElement(OrderingPageLocators.CLICK_NEXT).click();
+                clickButton(OrderingPageLocators.CLICK_NEXT_BUTTON);
             } else {
-                driver.findElement(OrderingPageLocators.CLICK_FIRST).click();
+                clickButton(OrderingPageLocators.CLICK_FIRST_BUTTON);
             }
         }
         return table;
     }
 
-    public List<OrderingTableRow> getSortedTableBy(Orders text) {
-        //There driver clicks column to sort the table.
-        driver.findElement(By.xpath(".//*[@id='list']/table/tbody/tr[1]/th/a[contains(text(),'" + text.toString() + "')]")).click();
-        List<OrderingTableRow> table = new LinkedList<>();
-        int ordersQuantity = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS).getAttribute("value"));
-        double iteration = new BigDecimal(ordersQuantity / 2).setScale(0, RoundingMode.UP).doubleValue();
-        for (int i = 1; i <= iteration; i++) {
-            for (int j = 2; j <= 3; j++) {
-                //There is checking of row displaying.
-                if (driver.findElement(By.xpath(".//div[@id='list']/table/tbody/tr[" + j + "]/td[1]")).isDisplayed()) {
-                    //Recording displayed row.
-                    List<WebElement> webElements = driver.findElements(By.xpath(".//div[@id='list']/table/tbody/tr[" + j + "]/td"));
-                    table.add(new OrderingTableRow(webElements.get(0).getText(), webElements.get(1).getText(), webElements.get(2).getText(),
-                            webElements.get(3).getText(), webElements.get(4).getText(), webElements.get(5).getText(),
-                            webElements.get(6).getText(), webElements.get(7).getText(), webElements.get(8).getText()));
-                }
+    public void clickButton(By by) {
+        driver.findElement(by).click();
+    }
 
-            }
-            if (i != ordersQuantity / 2) {
-                driver.findElement(OrderingPageLocators.CLICK_NEXT).click();
-            } else {
-                driver.findElement(OrderingPageLocators.CLICK_FIRST).click();
-            }
-        }
-        return table;
+    public void clickTableColumn(String column) {
+        driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, column))).click();
     }
 }

@@ -1,11 +1,10 @@
 package com.softserveinc.edu.ita.tests;
 
 import com.softserveinc.edu.ita.dao_jdbc.classes.User;
+import com.softserveinc.edu.ita.dao_jdbc.domains.Orders;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
-import com.softserveinc.edu.ita.enums.Orders;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.OrderingPage;
-import com.softserveinc.edu.ita.page_object.OrderingTableRow;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -14,7 +13,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Created by true on 08.06.2015.
+ * This class is used to test sorting actions in 'Ordering' table of 'Ordering' page.
  */
 public class OrderingTabSortingTest extends TestRunner {
     //Test sorting by Order Name
@@ -24,17 +23,19 @@ public class OrderingTabSortingTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        List<OrderingTableRow> baseTable = orderingPage.getTable();
-        baseTable.sort(Comparator.comparing(OrderingTableRow::getOrderName));
+        List<Orders> baseTable = orderingPage.getTable();
+        baseTable.sort(Comparator.comparing(Orders::getOrderName));
 
-        List<OrderingTableRow> sortedUpTableByOrderName = orderingPage.getSortedTableBy(Orders.ORDERNAME);
-        List<OrderingTableRow> sortedDownTableByOrderName = orderingPage.getSortedTableBy(Orders.ORDERNAME);
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.ORDER_NAME.toString());
+        List<Orders> sortedTableByOrderNameAsc = orderingPage.getTable();
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.ORDER_NAME.toString());
+        List<Orders> sortedTableByOrderNameDis = orderingPage.getTable();
 
         for (int i = 0; i < baseTable.size(); i++) {
-            Assert.assertTrue(sortedUpTableByOrderName.get(i).getOrderName().equals(baseTable.get(i).getOrderName()));
+            Assert.assertTrue(sortedTableByOrderNameAsc.get(i).getOrderName().equals(baseTable.get(i).getOrderName()));
         }
         for (int i = 0, j = baseTable.size() - 1; i < baseTable.size(); i++, j--) {
-            Assert.assertTrue(sortedDownTableByOrderName.get(i).getOrderName().equals(baseTable.get(j).getOrderName()));
+            Assert.assertTrue(sortedTableByOrderNameDis.get(i).getOrderName().equals(baseTable.get(j).getOrderName()));
         }
     }
 
@@ -45,17 +46,19 @@ public class OrderingTabSortingTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        List<OrderingTableRow> baseTable = orderingPage.getTable();
-        baseTable.sort(Comparator.comparing(OrderingTableRow::getTotalPrice));
+        List<Orders> baseTable = orderingPage.getTable();
+        baseTable.sort(Comparator.comparing(Orders::getTotalPrice));
 
-        List<OrderingTableRow> sortedUpTableByTotalPrice = orderingPage.getSortedTableBy(Orders.TOTALPRICE);
-        List<OrderingTableRow> sortedDownTableByTotalPrice = orderingPage.getSortedTableBy(Orders.TOTALPRICE);
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.TOTAL_PRICE.toString());
+        List<Orders> sortedTableByTotalPriceAsc = orderingPage.getTable();
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.TOTAL_PRICE.toString());
+        List<Orders> sortedTableByTotalPriceDisc = orderingPage.getTable();
 
         for (int i = 0; i < baseTable.size(); i++) {
-            Assert.assertTrue(sortedUpTableByTotalPrice.get(i).getTotalPrice().equals(baseTable.get(i).getTotalPrice()));
+            Assert.assertTrue(sortedTableByTotalPriceAsc.get(i).getTotalPrice().equals(baseTable.get(i).getTotalPrice()));
         }
         for (int i = 0, j = baseTable.size() - 1; i < baseTable.size(); i++, j--) {
-            Assert.assertTrue(sortedDownTableByTotalPrice.get(i).getTotalPrice().equals(baseTable.get(j).getTotalPrice()));
+            Assert.assertTrue(sortedTableByTotalPriceDisc.get(i).getTotalPrice().equals(baseTable.get(j).getTotalPrice()));
         }
     }
 
@@ -66,17 +69,19 @@ public class OrderingTabSortingTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        List<OrderingTableRow> baseTable = orderingPage.getTable();
-        baseTable.sort(Comparator.comparing(OrderingTableRow::getMaxDiscount));
+        List<Orders> baseTable = orderingPage.getTable();
+        baseTable.sort(Comparator.comparing(Orders::getMaxDiscount));
 
-        List<OrderingTableRow> sortedUpTableByMaxDiscount = orderingPage.getSortedTableBy(Orders.MAXDISCOUNT);
-        List<OrderingTableRow> sortedDownTableByMaxDiscount = orderingPage.getSortedTableBy(Orders.MAXDISCOUNT);
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.MAX_DISCOUNT.toString());
+        List<Orders> sortedTableByMaxDiscountAsc = orderingPage.getTable();
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.MAX_DISCOUNT.toString());
+        List<Orders> sortedTableByMaxDiscountDisc = orderingPage.getTable();
 
         for (int i = 0; i < baseTable.size(); i++) {
-            Assert.assertTrue(sortedUpTableByMaxDiscount.get(i).getMaxDiscount().equals(baseTable.get(i).getMaxDiscount()));
+            Assert.assertTrue(sortedTableByMaxDiscountAsc.get(i).getMaxDiscount().equals(baseTable.get(i).getMaxDiscount()));
         }
         for (int i = 0, j = baseTable.size() - 1; i < baseTable.size(); i++, j--) {
-            Assert.assertTrue(sortedDownTableByMaxDiscount.get(i).getMaxDiscount().equals(baseTable.get(j).getMaxDiscount()));
+            Assert.assertTrue(sortedTableByMaxDiscountDisc.get(i).getMaxDiscount().equals(baseTable.get(j).getMaxDiscount()));
         }
     }
 
@@ -87,17 +92,19 @@ public class OrderingTabSortingTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        List<OrderingTableRow> baseTable = orderingPage.getTable();
-        baseTable.sort(Comparator.comparing(OrderingTableRow::getDeliveryDate));
+        List<Orders> baseTable = orderingPage.getTable();
+        baseTable.sort(Comparator.comparing(Orders::getDeliveryDate));
 
-        List<OrderingTableRow> sortedUpTableByDeliveryDate = orderingPage.getSortedTableBy(Orders.DELIVERYDATE);
-        List<OrderingTableRow> sortedDownTableByDeliveryDate = orderingPage.getSortedTableBy(Orders.DELIVERYDATE);
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.DELIVERY_DATE.toString());
+        List<Orders> sortedTableByDeliveryDateAsc = orderingPage.getTable();
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.DELIVERY_DATE.toString());
+        List<Orders> sortedTableByDeliveryDateDisc = orderingPage.getTable();
 
         for (int i = 0; i < baseTable.size(); i++) {
-            Assert.assertTrue(sortedUpTableByDeliveryDate.get(i).getDeliveryDate().equals(baseTable.get(i).getDeliveryDate()));
+            Assert.assertTrue(sortedTableByDeliveryDateAsc.get(i).getDeliveryDate().equals(baseTable.get(i).getDeliveryDate()));
         }
         for (int i = 0, j = baseTable.size() - 1; i < baseTable.size(); i++, j--) {
-            Assert.assertTrue(sortedDownTableByDeliveryDate.get(i).getDeliveryDate().equals(baseTable.get(j).getDeliveryDate()));
+            Assert.assertTrue(sortedTableByDeliveryDateDisc.get(i).getDeliveryDate().equals(baseTable.get(j).getDeliveryDate()));
         }
     }
 
@@ -108,17 +115,19 @@ public class OrderingTabSortingTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        List<OrderingTableRow> baseTable = orderingPage.getTable();
-        baseTable.sort(Comparator.comparing(OrderingTableRow::getStatus));
+        List<Orders> baseTable = orderingPage.getTable();
+        baseTable.sort(Comparator.comparing(Orders::getStatus));
 
-        List<OrderingTableRow> sortedUpTableByStatus = orderingPage.getSortedTableBy(Orders.STATUS);
-        List<OrderingTableRow> sortedDownTableByStatus = orderingPage.getSortedTableBy(Orders.STATUS);
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.STATUS.toString());
+        List<Orders> sortedTableByStatusAsc = orderingPage.getTable();
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.STATUS.toString());
+        List<Orders> sortedTableByStatusDisc = orderingPage.getTable();
 
         for (int i = 0; i < baseTable.size(); i++) {
-            Assert.assertTrue(sortedUpTableByStatus.get(i).getStatus().equals(baseTable.get(i).getStatus()));
+            Assert.assertTrue(sortedTableByStatusAsc.get(i).getStatus().equals(baseTable.get(i).getStatus()));
         }
         for (int i = 0, j = baseTable.size() - 1; i < baseTable.size(); i++, j--) {
-            Assert.assertTrue(sortedDownTableByStatus.get(i).getStatus().equals(baseTable.get(j).getStatus()));
+            Assert.assertTrue(sortedTableByStatusDisc.get(i).getStatus().equals(baseTable.get(j).getStatus()));
         }
     }
 
@@ -129,18 +138,20 @@ public class OrderingTabSortingTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        List<OrderingTableRow> baseTable = orderingPage.getTable();
-        baseTable.sort(Comparator.comparing(OrderingTableRow::getAssignee));
+        List<Orders> baseTable = orderingPage.getTable();
+        baseTable.sort(Comparator.comparing(Orders::getAssignee));
 
-        List<OrderingTableRow> sortedUpTableByAssignee = orderingPage.getSortedTableBy(Orders.ASSIGNEE);
-        List<OrderingTableRow> sortedDownTableByAssignee = orderingPage.getSortedTableBy(Orders.ASSIGNEE);
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.ASSIGNEE.toString());
+        List<Orders> sortedTableByAssigneeAsc = orderingPage.getTable();
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.ASSIGNEE.toString());
+        List<Orders> sortedTableByAssigneeDisc = orderingPage.getTable();
 
         for (int i = 0; i < baseTable.size(); i++) {
-            Assert.assertTrue(sortedUpTableByAssignee.get(i).getAssignee().equals(baseTable.get(i).getAssignee()));
+            Assert.assertTrue(sortedTableByAssigneeAsc.get(i).getAssignee().equals(baseTable.get(i).getAssignee()));
         }
 
         for (int i = 0, j = baseTable.size() - 1; i < baseTable.size(); i++, j--) {
-            Assert.assertTrue(sortedDownTableByAssignee.get(i).getAssignee().equals(baseTable.get(j).getAssignee()));
+            Assert.assertTrue(sortedTableByAssigneeDisc.get(i).getAssignee().equals(baseTable.get(j).getAssignee()));
         }
     }
 
@@ -151,18 +162,20 @@ public class OrderingTabSortingTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        List<OrderingTableRow> baseTable = orderingPage.getTable();
-        baseTable.sort(Comparator.comparing(OrderingTableRow::getRole));
+        List<Orders> baseTable = orderingPage.getTable();
+        baseTable.sort(Comparator.comparing(Orders::getRole));
 
-        List<OrderingTableRow> sortedUpTableByRole = orderingPage.getSortedTableBy(Orders.ROLE);
-        List<OrderingTableRow> sortedDownTableByRole = orderingPage.getSortedTableBy(Orders.ROLE);
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.ROLE.toString());
+        List<Orders> sortedTableByRoleaAsc = orderingPage.getTable();
+        orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.ROLE.toString());
+        List<Orders> sortedTableByRoleDisc = orderingPage.getTable();
 
         for (int i = 0; i < baseTable.size(); i++) {
-            Assert.assertTrue(sortedUpTableByRole.get(i).getRole().equals(baseTable.get(i).getRole()));
+            Assert.assertTrue(sortedTableByRoleaAsc.get(i).getRole().equals(baseTable.get(i).getRole()));
         }
 
         for (int i = 0, j = baseTable.size() - 1; i < baseTable.size(); i++, j--) {
-            Assert.assertTrue(sortedDownTableByRole.get(i).getRole().equals(baseTable.get(j).getRole()));
+            Assert.assertTrue(sortedTableByRoleDisc.get(i).getRole().equals(baseTable.get(j).getRole()));
         }
     }
 }
