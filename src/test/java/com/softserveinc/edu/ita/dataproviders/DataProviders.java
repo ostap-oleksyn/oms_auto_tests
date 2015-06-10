@@ -115,7 +115,7 @@ public class DataProviders {
 
     private static Object[][] getUsersByRoleFromXls(Roles roles) throws IOException, DAOException {
         //TODO move XLS file operations  out to a util class
-        final File excelFile = new File(getProperty("testDataFile", "config.properties"));
+        final File excelFile = new File(getProperty("testDataFile"));
         FileInputStream fileInputStream;
 
         try {
@@ -176,7 +176,7 @@ public class DataProviders {
 
     private static Object[][] getInvalidUsersFromXls() throws IOException {
         //TODO move XLS file operations  out to a util class
-        final File excelFile = new File(getProperty("testDataFile", "config.properties"));
+        final File excelFile = new File(getProperty("testDataFile"));
         FileInputStream fileInputStream;
 
         try {
