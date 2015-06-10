@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.tests;
 import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dao_jdbc.domains.Orders;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
+import com.softserveinc.edu.ita.locators.HomePageLocators;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.OrderingPage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
@@ -182,8 +183,7 @@ public class OrderingTabSortingTest extends TestRunner {
 
     @AfterMethod
     public void logOut() {
-        OrderingPage orderingPage = new OrderingPage(driver);
-        orderingPage.clickLogOutButton();
+        driver.findElement(HomePageLocators.LOG_OUT_BUTTON).click();
     }
 
 }
