@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.softserveinc.edu.ita.utils.PropertyLoaderUtil.getProperty;
+import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
 
 /**
  * represents factory of DAO model

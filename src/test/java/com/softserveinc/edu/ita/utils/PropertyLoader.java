@@ -3,9 +3,9 @@ package com.softserveinc.edu.ita.utils;
 import java.io.*;
 import java.util.Properties;
 //TODO remove Util
-public final class PropertyLoaderUtil {
+public final class PropertyLoader {
 
-    private PropertyLoaderUtil() {
+    private PropertyLoader() {
     }
 
     public static String getProperty(String propertyName, String propertiesFile) throws IOException {

@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.dataproviders;
 
-import com.softserveinc.edu.ita.dao_jdbc.classes.User;
+import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.softserveinc.edu.ita.utils.PropertyLoaderUtil.getProperty;
+import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
 
 
 public class DataProviders {
@@ -115,7 +115,7 @@ public class DataProviders {
 
     private static Object[][] getUsersByRoleFromXls(Roles roles) throws IOException, DAOException {
         //TODO move XLS file operations  out to a util class
-        final File excelFile = new File(getProperty("testDataFile", "test.properties"));
+        final File excelFile = new File(getProperty("testDataFile", "config.properties"));
         FileInputStream fileInputStream;
 
         try {
@@ -176,7 +176,7 @@ public class DataProviders {
 
     private static Object[][] getInvalidUsersFromXls() throws IOException {
         //TODO move XLS file operations  out to a util class
-        final File excelFile = new File(getProperty("testDataFile", "test.properties"));
+        final File excelFile = new File(getProperty("testDataFile", "config.properties"));
         FileInputStream fileInputStream;
 
         try {
