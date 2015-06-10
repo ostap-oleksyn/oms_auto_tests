@@ -1,4 +1,5 @@
 
+
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
 import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDAO;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * represents some general methods
  *
- * @param <T> type of using classes
+ * @param <T> type of using domains
  */
 public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 
@@ -86,4 +87,3 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
         this.connection = connection;
     }
 }
-
