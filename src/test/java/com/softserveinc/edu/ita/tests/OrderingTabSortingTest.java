@@ -166,12 +166,12 @@ public class OrderingTabSortingTest extends TestRunner {
         baseTable.sort(Comparator.comparing(Orders::getRole));
 
         orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.ROLE.toString());
-        List<Orders> sortedTableByRoleaAsc = orderingPage.getTable();
+        List<Orders> sortedTableByRoleAsc = orderingPage.getTable();
         orderingPage.clickTableColumn(com.softserveinc.edu.ita.enums.Orders.ROLE.toString());
         List<Orders> sortedTableByRoleDisc = orderingPage.getTable();
 
         for (int i = 0; i < baseTable.size(); i++) {
-            Assert.assertTrue(sortedTableByRoleaAsc.get(i).getRole().equals(baseTable.get(i).getRole()));
+            Assert.assertTrue(sortedTableByRoleAsc.get(i).getRole().equals(baseTable.get(i).getRole()));
         }
 
         for (int i = 0, j = baseTable.size() - 1; i < baseTable.size(); i++, j--) {
