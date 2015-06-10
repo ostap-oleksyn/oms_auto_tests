@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * represents some general methods
  *
- * @param <T> type of using classes
+ * @param <T> type of using domains
  */
 public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 
