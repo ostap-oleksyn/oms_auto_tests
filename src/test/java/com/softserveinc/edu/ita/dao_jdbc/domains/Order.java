@@ -1,9 +1,9 @@
 package com.softserveinc.edu.ita.dao_jdbc.domains;
 
 /**
- * Created by student on 6/10/2015.
+ * Class to initiate order using "Step Builder" Pattern.
  */
-public class Orders {
+public class Order {
     private String orderName;
     private String totalPrice;
     private String maxDiscount;
@@ -16,7 +16,7 @@ public class Orders {
         return orderName;
     }
 
-    public void setOrderName(String orderName) {
+    private void setOrderName(String orderName) {
         this.orderName = orderName;
     }
 
@@ -24,7 +24,7 @@ public class Orders {
         return totalPrice;
     }
 
-    public void setTotalPrice(String totalPrice) {
+    private void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -32,7 +32,7 @@ public class Orders {
         return maxDiscount;
     }
 
-    public void setMaxDiscount(String maxDiscount) {
+    private void setMaxDiscount(String maxDiscount) {
         this.maxDiscount = maxDiscount;
     }
 
@@ -40,7 +40,7 @@ public class Orders {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(String deliveryDate) {
+    private void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
@@ -48,7 +48,7 @@ public class Orders {
         return status;
     }
 
-    public void setStatus(String status) {
+    private void setStatus(String status) {
         this.status = status;
     }
 
@@ -56,7 +56,7 @@ public class Orders {
         return assignee;
     }
 
-    public void setAssignee(String assignee) {
+    private void setAssignee(String assignee) {
         this.assignee = assignee;
     }
 
@@ -64,40 +64,40 @@ public class Orders {
         return role;
     }
 
-    public void setRole(String role) {
+    private void setRole(String role) {
         this.role = role;
     }
 
-    public static interface OrderNameStep {
+    public interface OrderNameStep {
         TotalPriceStep withOrderName(String orderName);
     }
 
-    public static interface TotalPriceStep {
+    public interface TotalPriceStep {
         MaxDiscountStep withTotalPrice(String totalPrice);
     }
 
-    public static interface MaxDiscountStep {
+    public interface MaxDiscountStep {
         DeliveryDateStep withMaxDiscount(String maxDiscount);
     }
 
-    public static interface DeliveryDateStep {
+    public interface DeliveryDateStep {
         StatusStep withDeliveryDate(String deliveryDate);
     }
 
-    public static interface StatusStep {
+    public interface StatusStep {
         AssigneeStep withStatus(String status);
     }
 
-    public static interface AssigneeStep {
+    public interface AssigneeStep {
         RoleStep withAssignee(String assignee);
     }
 
-    public static interface RoleStep {
+    public interface RoleStep {
         BuildStep withRole(String role);
     }
 
-    public static interface BuildStep {
-        Orders build();
+    public interface BuildStep {
+        Order build();
     }
 
     public static class OrdersStepBuilder implements OrderNameStep, TotalPriceStep, MaxDiscountStep, DeliveryDateStep, StatusStep, AssigneeStep, RoleStep, BuildStep {
@@ -159,8 +159,8 @@ public class Orders {
         }
 
         @Override
-        public Orders build() {
-            Orders orders = new Orders();
+        public Order build() {
+            Order orders = new Order();
             orders.setOrderName(this.orderName);
             orders.setTotalPrice(this.totalPrice);
             orders.setMaxDiscount(this.maxDiscount);
