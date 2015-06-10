@@ -35,7 +35,7 @@ public class TestRunner {
         }
         String driverPath = "src\\resources\\drivers\\";
 
-        // TODO add reflection
+        // TODO add factory
         switch (browserType) {
             case FIREFOX:
                 driver = new FirefoxDriver();

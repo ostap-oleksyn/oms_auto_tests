@@ -28,6 +28,7 @@ public class DataProviders {
 
     private static HSSFSheet sheet;
     private static HSSFWorkbook workbook;
+    private static final String CONFIG_PROPERTIES_FILE = "config.properties";
 
     /**
      * Returns all users with Administrator role from database;
@@ -115,7 +116,7 @@ public class DataProviders {
 
     private static Object[][] getUsersByRoleFromXls(Roles roles) throws IOException, DAOException {
 
-        final File excelFile = new File(getProperty("testDataFile", "test.properties"));
+        final File excelFile = new File(getProperty("testDataFile", CONFIG_PROPERTIES_FILE));
         FileInputStream fileInputStream;
 
         try {
@@ -175,7 +176,7 @@ public class DataProviders {
     }
 
     private static Object[][] getInvalidUsersFromXls() throws IOException {
-        final File excelFile = new File(getProperty("testDataFile", "test.properties"));
+        final File excelFile = new File(getProperty("testDataFile", CONFIG_PROPERTIES_FILE));
         FileInputStream fileInputStream;
 
         try {
