@@ -7,6 +7,7 @@ import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.OrderingPage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
@@ -178,4 +179,11 @@ public class OrderingTabSortingTest extends TestRunner {
             Assert.assertTrue(sortedTableByRoleDisc.get(i).getRole().equals(baseTable.get(j).getRole()));
         }
     }
+
+    @AfterMethod
+    public void logOut() {
+        OrderingPage orderingPage = new OrderingPage(driver);
+        orderingPage.clickLogOutButton();
+    }
+
 }
