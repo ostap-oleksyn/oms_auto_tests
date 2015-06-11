@@ -16,4 +16,9 @@ public class NewUserPage extends LoggedPageBase {
         Select regionSelect = new Select(driver.findElement(NewUserPageLocators.REGION_SELECT));
         regionSelect.selectByVisibleText(regionName);
     }
+
+    public AdministrationPage clickCreateButton() {
+        driver.findElement(NewUserPageLocators.CREATE_BUTTON).click();
+        return  new AdministrationPage(driver);
+    }
 }

@@ -73,6 +73,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
     public List<T> getAll() throws DAOException {
         List<T> list;
         String selectQuery = getSelectQuery();
+        selectQuery += " ORDER BY ID DESC";
         try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
             ResultSet resultSet = statement.executeQuery();
             list = parseResultSet(resultSet);

@@ -13,8 +13,8 @@ import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
  */
 public class GeneratedDataProviders {
 
-    @DataProvider(name="generatedUserData")
-    public static Object[][] generateUserData() {
+    @DataProvider(name="generatedValidUserData")
+    public static Object[][] generateValidUserData() {
 
         final int GENERATED_USERS_COUNT = 5;
 
@@ -38,4 +38,5 @@ public class GeneratedDataProviders {
 
         return usersInfoData;
     }
+
 }

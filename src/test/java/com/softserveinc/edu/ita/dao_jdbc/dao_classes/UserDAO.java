@@ -24,7 +24,7 @@ public class UserDAO extends AbstractDAO<User> {
     public String getSelectQuery() {
         return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName  \n" +
                 "from users \n" +
-                "inner join customertypes on users.CustomerTypeRef = customertypes.ID \n" +
+                "left outer join customertypes on users.CustomerTypeRef = customertypes.ID \n" +
                 "inner join regions on users.RegionRef = regions.ID \n" +
                 "inner join roles on users.RoleRef = roles.ID";
     }
