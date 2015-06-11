@@ -100,7 +100,7 @@ public class Order {
         Order build();
     }
 
-    public static class OrdersStepBuilder implements OrderNameStep, TotalPriceStep, MaxDiscountStep, DeliveryDateStep, StatusStep, AssigneeStep, RoleStep, BuildStep {
+    public static class OrdersBuilder implements OrderNameStep, TotalPriceStep, MaxDiscountStep, DeliveryDateStep, StatusStep, AssigneeStep, RoleStep, BuildStep {
         private String orderName;
         private String totalPrice;
         private String maxDiscount;
@@ -109,11 +109,11 @@ public class Order {
         private String assignee;
         private String role;
 
-        public OrdersStepBuilder() {
+        public OrdersBuilder() {
         }
 
         public static OrderNameStep newOrders() {
-            return new OrdersStepBuilder();
+            return new OrdersBuilder();
         }
 
         @Override

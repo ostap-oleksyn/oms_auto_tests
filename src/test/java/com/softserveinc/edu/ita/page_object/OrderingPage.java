@@ -41,7 +41,7 @@ public class OrderingPage extends LogOutBase {
                     //Recording displayed row.
                     List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(OrderingPageLocators.TABLE_ROW, j)));
                     //There is used StepBuilderPattern.
-                    table.add(new Order.OrdersStepBuilder()
+                    table.add(new Order.OrdersBuilder()
                             .withOrderName(ordersFields.get(0).getText())
                             .withTotalPrice(ordersFields.get(1).getText())
                             .withMaxDiscount(ordersFields.get(2).getText())
@@ -82,7 +82,7 @@ public class OrderingPage extends LogOutBase {
     /**
      * There is method to click one of "Ordering" table headers to make sorting actions in the table.
      */
-    public void clickOrdersTableColumn(OrdersTable headersEnum) {
-        driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, headersEnum.toString()))).click();
+    public void clickOrdersTableColumn(OrdersTable tableColumn) {
+        driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, tableColumn.toString()))).click();
     }
 }

@@ -200,9 +200,7 @@ public class OrderingPageSortingTest extends TestRunner {
                     "Sorting by role doesn't work.");
         }
     }
-    //TODO If one of the tests find out application's bug, testing will be stopped without clicking logout button in test method.
-    //TODO If I have AfterMethod, logout button will be clicked.
-    //TODO Can I write:
+
     @AfterMethod
     void logOut() {
         OrderingPage orderingPage = new OrderingPage(driver);
