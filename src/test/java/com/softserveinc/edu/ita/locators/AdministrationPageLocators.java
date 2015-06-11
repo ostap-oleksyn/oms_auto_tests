@@ -13,5 +13,7 @@ public final class AdministrationPageLocators {
     public static final By TABLE = By.xpath(".//table");
     public static final By TABLE_ROWS = By.tagName("tr");
     public static final By TABLE_CELLS = By.tagName("td");
+    public static final By FIRST_BUTTON = By.xpath(".//*[@id='first']");
+    public static final By NEXT_BUTTON = By.xpath(".//input[@id='next']");
     public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";
 }

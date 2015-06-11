@@ -11,6 +11,7 @@ public enum UsersTable {
     REGION("Status");
 
     private String name;
+    private String method;
 
     UsersTable(String name) {
         this.name = name;

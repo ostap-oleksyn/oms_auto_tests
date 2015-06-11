@@ -7,6 +7,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class AdministrationPage extends LogOutBase {
     }
 
     public void clickFirstButton() {
-        driver.findElement(By.xpath(".//*[@id='first']")).click();
+        driver.findElement(AdministrationPageLocators.FIRST_BUTTON).click();
     }
 
     /**
@@ -52,7 +54,7 @@ public class AdministrationPage extends LogOutBase {
      */
 
     public void clickNextButton() {
-        driver.findElement(By.xpath(".//input[@id='next']")).click();
+        driver.findElement(AdministrationPageLocators.NEXT_BUTTON).click();
     }
 
     /**
@@ -66,12 +68,15 @@ public class AdministrationPage extends LogOutBase {
         return Integer.valueOf(getElementText(AdministrationPageLocators.QUANTITY_OF_TABLE_PAGES));
     }
 
-//    public boolean compareTables (List <UserFromView> baseTable, List<UserFromView> sortedTable, String parametr){
-//        int quantityOfEqualCells = 0;
-//        for(int i = 0; i < baseTable.size(); i++){
-//            if(baseTable.get(i).parametr.equals(sortedTable.get(i).)
-//        }
-//        return ;
-//    }
-
+    public boolean compareTablesByField(List<UserFromView> baseTable, List<UserFromView> sortedTable, String field)
+            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        int k = 0;
+        for(int i = 0; i < baseTable.size(); i++) {
+            if(UserFromView.class.getDeclaredMethod(field).invoke(baseTable.get(i))
+            .equals(UserFromView.class.getDeclaredMethod(field).invoke(sortedTable.get(i)))){
+                k++;
+            };
+        }
+        return (k==baseTable.size());
+    }
 }
