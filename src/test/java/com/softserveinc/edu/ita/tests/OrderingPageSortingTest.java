@@ -202,8 +202,9 @@ public class OrderingPageSortingTest extends TestRunner {
     }
 
     @AfterMethod
-    public void logOut() {
-        driver.findElement(HomePageLocators.LOG_OUT_BUTTON).click();
+    void logOut() {
+        OrderingPage orderingPage = new OrderingPage(driver);
+        orderingPage.clickLogOutButton();
     }
 
 }
