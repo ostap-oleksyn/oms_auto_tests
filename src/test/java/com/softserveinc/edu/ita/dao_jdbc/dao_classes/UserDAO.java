@@ -22,11 +22,11 @@ public class UserDAO extends AbstractDAO<User> {
      */
     @Override
     public String getSelectQuery() {
-        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName,  \n" +
+        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName  \n" +
                 "from users \n" +
-                "inner join roles on users.RoleRef = roles.ID \n" +
                 "inner join customertypes on users.CustomerTypeRef = customertypes.ID \n" +
-                "inner join regions on users.RegionRef = regions.ID";
+                "inner join regions on users.RegionRef = regions.ID \n" +
+                "inner join roles on users.RoleRef = roles.ID";
     }
 
     public UserDAO(Connection connection) {
@@ -88,6 +88,41 @@ public class UserDAO extends AbstractDAO<User> {
             throw new DAOException("Received more than one record.");
         }
         return list.iterator().next();
+    }
+
+    public User getByRoleName(Roles role) throws DAOException {
+        List<User> list;
+        String sqlQuery = getSelectQuery();
+        sqlQuery += " WHERE RoleName= ?";
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setString(1, String.valueOf(role));
+            ResultSet resultSet = statement.executeQuery();
+            list = parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        if (list == null || list.size() == 0) {
+            throw new DAOException("Record with RoleName = " + role + " not found.");
+        }
+
+        return list.get(0);
+    }
+
+    public User getLastUser() throws DAOException {
+        List<User> usersList;
+        String sqlQuery = getSelectQuery();
+        sqlQuery += " ORDER BY ID DESC";
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            ResultSet resultSet = statement.executeQuery();
+            usersList = parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        if (usersList == null || usersList.size() == 0) {
+            throw new DAOException("Users not found.");
+        }
+
+        return usersList.get(0);
     }
 
 }

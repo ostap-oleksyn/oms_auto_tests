@@ -18,5 +18,5 @@ public class NewUserPageLocators {
     public static final By EMAIL_INPUT = By.xpath(".//*[@id='email']");
     public static final By REGION_SELECT = By.xpath(".//*[@id='regionID']");
     public static final String ROLE_SELECT = ".//label[.='%s']/preceding::input[1]";
-
+    public static final By CREATE_BUTTON = By.xpath(".//input[@type='submit'][@value='Create']");
 }
