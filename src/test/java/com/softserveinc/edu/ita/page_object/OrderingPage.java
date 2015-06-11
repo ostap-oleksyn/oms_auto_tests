@@ -1,6 +1,7 @@
 package com.softserveinc.edu.ita.page_object;
 
 import com.softserveinc.edu.ita.dao_jdbc.domains.Order;
+import com.softserveinc.edu.ita.enums.OrdersTable;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -81,7 +82,7 @@ public class OrderingPage extends LogOutBase {
     /**
      * There is method to click one of "Ordering" table headers to make sorting actions in the table.
      */
-    public void clickOrdersTableColumn(Enum column) {
-        driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, column.toString()))).click();
+    public void clickOrdersTableColumn(OrdersTable headersEnum) {
+        driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, headersEnum.toString()))).click();
     }
 }
