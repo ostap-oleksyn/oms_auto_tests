@@ -1,4 +1,5 @@
 package com.softserveinc.edu.ita.enums;
+
 /**
  * This enum serves to limit possible columns of 'Ordering' table in 'Ordering' page.
  */
@@ -11,15 +12,14 @@ public enum OrdersTable {
     ASSIGNEE("Assignee"),
     ROLE("Role");
 
+    private String name;
 
-    private String ordersTable;
-
-    OrdersTable(String ordersTable) {
-        this.ordersTable = ordersTable;
+    OrdersTable(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return this.ordersTable;
+        return this.name;
     }
 }
