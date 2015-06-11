@@ -17,6 +17,4 @@ public final class OrderingPageLocators {
     public static final String TABLE_ROW = ".//div[@id='list']/table/tbody/tr[%s]/td";
     public static final String TABLE_COLUMN = ".//*[@id='list']/table/tbody/tr[1]/th/a[contains(text(), '%s')]";
 
-            //" + text.toString() + "
-
 }

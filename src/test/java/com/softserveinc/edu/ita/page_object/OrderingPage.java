@@ -16,9 +16,6 @@ import java.util.List;
  */
 public class OrderingPage extends LogOutBase {
 
-    /**
-     * This constructor returns object of "OrderingPage" class.
-     */
     public OrderingPage(WebDriver driver) {
         super(driver);
     }
@@ -41,18 +38,24 @@ public class OrderingPage extends LogOutBase {
                 //There is checking of row displaying.
                 if (isElementDisplayed(By.xpath(String.format(OrderingPageLocators.TABLE_ROW_CELL, j)))) {
                     //Recording displayed row.
-                    List<WebElement> webElements = driver.findElements(By.xpath(String.format(OrderingPageLocators.TABLE_ROW, j)));
+                    List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(OrderingPageLocators.TABLE_ROW, j)));
                     //There is used StepBuilderPattern.
-                    table.add(new Order.OrdersStepBuilder().withOrderName(webElements.get(0).getText()).withTotalPrice(webElements.get(1).getText())
-                            .withMaxDiscount(webElements.get(2).getText()).withDeliveryDate(webElements.get(3).getText())
-                            .withStatus(webElements.get(4).getText()).withAssignee(webElements.get(5).getText())
-                            .withRole(webElements.get(6).getText()).build());
+                    table.add(new Order.OrdersStepBuilder()
+                            .withOrderName(ordersFields.get(0).getText())
+                            .withTotalPrice(ordersFields.get(1).getText())
+                            .withMaxDiscount(ordersFields.get(2).getText())
+                            .withDeliveryDate(ordersFields.get(3).getText())
+                            .withStatus(ordersFields.get(4).getText())
+                            .withAssignee(ordersFields.get(5).getText())
+                            .withRole(ordersFields.get(6).getText())
+                            .build());
                 }
 
             }
             //If true, we can continue iteration through the table then.
             if (i != iteration) {
                 clickNextButton();
+
                 //We stop iteration through the table and return to first table page.
             } else {
                 clickFirstButton();
@@ -61,18 +64,24 @@ public class OrderingPage extends LogOutBase {
         return table;
     }
 
-    //This method returns the first page of 'Ordering' table.
+    /**
+     * There is method to click "First" button below "Ordering" table of "Ordering" page.
+     */
     public void clickFirstButton() {
         driver.findElement(OrderingPageLocators.CLICK_FIRST_BUTTON).click();
     }
 
-    //This method returns next page of 'Ordering' table.
+    /**
+     * There is method to click "Next" button below "Ordering" table of "Ordering" page.
+     */
     public void clickNextButton() {
         driver.findElement(OrderingPageLocators.CLICK_NEXT_BUTTON).click();
     }
 
-    //This method gives a possibility to make sorting actions in the table by clicking cell of table header.
-    public void clickOrdersTableColumn(String column) {
-        driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, column))).click();
+    /**
+     * There is method to click one of "Ordering" table headers to make sorting actions in the table.
+     */
+    public void clickOrdersTableColumn(Enum column) {
+        driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, column.toString()))).click();
     }
 }

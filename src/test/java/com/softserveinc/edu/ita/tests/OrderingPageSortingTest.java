@@ -29,9 +29,9 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> tableFromView = orderingPage.getTableFromView();
         tableFromView.sort(Comparator.comparing(Order::getOrderName));
 
-        orderingPage.clickOrdersTableColumn(OrdersTable.ORDER_NAME.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.ORDER_NAME);
         List<Order> sortedTableByOrderNameAsc = orderingPage.getTableFromView();
-        orderingPage.clickOrdersTableColumn(OrdersTable.ORDER_NAME.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.ORDER_NAME);
         List<Order> sortedTableByOrderNameDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
@@ -55,9 +55,9 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> tableFromView = orderingPage.getTableFromView();
         tableFromView.sort(Comparator.comparing(Order::getTotalPrice));
 
-        orderingPage.clickOrdersTableColumn(OrdersTable.TOTAL_PRICE.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.TOTAL_PRICE);
         List<Order> sortedTableByTotalPriceAsc = orderingPage.getTableFromView();
-        orderingPage.clickOrdersTableColumn(OrdersTable.TOTAL_PRICE.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.TOTAL_PRICE);
         List<Order> sortedTableByTotalPriceDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
@@ -81,9 +81,9 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> tableFromView = orderingPage.getTableFromView();
         tableFromView.sort(Comparator.comparing(Order::getMaxDiscount));
 
-        orderingPage.clickOrdersTableColumn(OrdersTable.MAX_DISCOUNT.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.MAX_DISCOUNT);
         List<Order> sortedTableByMaxDiscountAsc = orderingPage.getTableFromView();
-        orderingPage.clickOrdersTableColumn(OrdersTable.MAX_DISCOUNT.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.MAX_DISCOUNT);
         List<Order> sortedTableByMaxDiscountDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
@@ -107,9 +107,9 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> tableFromView = orderingPage.getTableFromView();
         tableFromView.sort(Comparator.comparing(Order::getDeliveryDate));
 
-        orderingPage.clickOrdersTableColumn(OrdersTable.DELIVERY_DATE.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.DELIVERY_DATE);
         List<Order> sortedTableByDeliveryDateAsc = orderingPage.getTableFromView();
-        orderingPage.clickOrdersTableColumn(OrdersTable.DELIVERY_DATE.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.DELIVERY_DATE);
         List<Order> sortedTableByDeliveryDateDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
@@ -133,9 +133,9 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> tableFromView = orderingPage.getTableFromView();
         tableFromView.sort(Comparator.comparing(Order::getStatus));
 
-        orderingPage.clickOrdersTableColumn(OrdersTable.STATUS.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.STATUS);
         List<Order> sortedTableByStatusAsc = orderingPage.getTableFromView();
-        orderingPage.clickOrdersTableColumn(OrdersTable.STATUS.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.STATUS);
         List<Order> sortedTableByStatusDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
@@ -159,9 +159,9 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> tableFromView = orderingPage.getTableFromView();
         tableFromView.sort(Comparator.comparing(Order::getAssignee));
 
-        orderingPage.clickOrdersTableColumn(OrdersTable.ASSIGNEE.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.ASSIGNEE);
         List<Order> sortedTableByAssigneeAsc = orderingPage.getTableFromView();
-        orderingPage.clickOrdersTableColumn(OrdersTable.ASSIGNEE.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.ASSIGNEE);
         List<Order> sortedTableByAssigneeDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
@@ -185,9 +185,9 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> tableFromView = orderingPage.getTableFromView();
         tableFromView.sort(Comparator.comparing(Order::getRole));
 
-        orderingPage.clickOrdersTableColumn(OrdersTable.ROLE.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.ROLE);
         List<Order> sortedTableByRoleAsc = orderingPage.getTableFromView();
-        orderingPage.clickOrdersTableColumn(OrdersTable.ROLE.toString());
+        orderingPage.clickOrdersTableColumn(OrdersTable.ROLE);
         List<Order> sortedTableByRoleDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
