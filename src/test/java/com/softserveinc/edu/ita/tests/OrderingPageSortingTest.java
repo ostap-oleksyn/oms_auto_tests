@@ -4,7 +4,6 @@ import com.softserveinc.edu.ita.dao_jdbc.domains.Order;
 import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.enums.OrdersTable;
-import com.softserveinc.edu.ita.locators.HomePageLocators;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.OrderingPage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;

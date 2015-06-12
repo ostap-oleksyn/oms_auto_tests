@@ -74,18 +74,18 @@ public class UserFromView {
         UserFromView build();
     }
 
-    public static class AdministratorBuilder implements FirstNameStep, LastNameStep, LoginStep, RoleStep, RegionStep, BuildStep {
+    public static class UserFromViewBuilder implements FirstNameStep, LastNameStep, LoginStep, RoleStep, RegionStep, BuildStep {
         private String firstName;
         private String lastName;
         private String login;
         private String role;
         private String region;
 
-        public AdministratorBuilder() {
+        public UserFromViewBuilder() {
         }
 
-        public static FirstNameStep newAdministrator() {
-            return new AdministratorBuilder();
+        public static FirstNameStep newUserFromView() {
+            return new UserFromViewBuilder();
         }
 
         @Override
@@ -120,19 +120,19 @@ public class UserFromView {
 
         @Override
         public UserFromView build() {
-            UserFromView administrator = new UserFromView();
-            administrator.setFirstName(this.firstName);
-            administrator.setLastName(this.lastName);
-            administrator.setLogin(this.login);
-            administrator.setRole(this.role);
-            administrator.setRegion(this.region);
-            return administrator;
+            UserFromView userFromView = new UserFromView();
+            userFromView.setFirstName(this.firstName);
+            userFromView.setLastName(this.lastName);
+            userFromView.setLogin(this.login);
+            userFromView.setRole(this.role);
+            userFromView.setRegion(this.region);
+            return userFromView;
         }
     }
 
     @Override
     public String toString() {
-        return "Administrator{" +
+        return "UserFromView{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +

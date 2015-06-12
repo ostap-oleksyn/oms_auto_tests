@@ -18,33 +18,37 @@ public class AdministrationPage extends LogOutBase {
         super(driver);
     }
 
+    /**
+     * There is method to get "Administration" table from "Administration" page of web-application.
+     */
     public List<UserFromView> getTableFromView() {
-
         List<UserFromView> usersList = new LinkedList<>();
-        int i = 0;
+        int pagination = 0;
         do {
-            WebElement table = driver.findElement(AdministrationPageLocators.TABLE);
-            List<WebElement> rowsList = table.findElements(AdministrationPageLocators.TABLE_ROWS);
-
-            for (int j = 1; j < rowsList.size(); j++) {
-                List<WebElement> tdList = rowsList.get(j).findElements(AdministrationPageLocators.TABLE_CELLS);
-
-                usersList.add(new UserFromView.AdministratorBuilder()
-                        .withFirstName(tdList.get(0).getText())
-                        .withLastName(tdList.get(1).getText())
-                        .withLogin(tdList.get(2).getText())
-                        .withRole(tdList.get(3).getText())
-                        .withRegion(tdList.get(4).getText())
-                        .build());
+            if (driver.findElements(AdministrationPageLocators.TABLE_ROWS).size() <= 1) {
+            } else {
+                List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS);
+                for (int j = 1; j < rowsList.size(); j++) {
+                    List<WebElement> cellsList = rowsList.get(j).findElements(AdministrationPageLocators.ROW_CELLS);
+                    usersList.add(new UserFromView.UserFromViewBuilder()
+                            .withFirstName(cellsList.get(0).getText())
+                            .withLastName(cellsList.get(1).getText())
+                            .withLogin(cellsList.get(2).getText())
+                            .withRole(cellsList.get(3).getText())
+                            .withRegion(cellsList.get(4).getText())
+                            .build());
+                }
             }
-            i++;
+            pagination++;
             clickNextButton();
-
-        } while (i < getQuantityOfTablePages());
+        } while (pagination < getQuantityOfTablePages());
         clickFirstButton();
         return usersList;
     }
 
+    /**
+     * There is method to click "First" button below "Ordering" table of "Ordering" page.
+     */
     public void clickFirstButton() {
         driver.findElement(AdministrationPageLocators.FIRST_BUTTON).click();
     }
@@ -52,31 +56,34 @@ public class AdministrationPage extends LogOutBase {
     /**
      * There is method to click "Next" button below "Ordering" table of "Ordering" page.
      */
-
     public void clickNextButton() {
         driver.findElement(AdministrationPageLocators.NEXT_BUTTON).click();
     }
 
     /**
-     * There is method to click one of "Ordering" table headers to make sorting actions in the table.
+     * There is method to click one of "Administration" table headers to make sorting actions in the table.
      */
     public void clickAdministrationTableColumn(UsersTable tableColumn) {
-        driver.findElement(By.xpath(String.format(AdministrationPageLocators.TABLE_COLUMN, tableColumn.toString()))).click();
+        driver.findElement(By.xpath(String.format(AdministrationPageLocators.TABLE_COLUMN, tableColumn.getName()))).click();
     }
 
     public int getQuantityOfTablePages() {
         return Integer.valueOf(getElementText(AdministrationPageLocators.QUANTITY_OF_TABLE_PAGES));
     }
 
-    public boolean compareTablesByField(List<UserFromView> baseTable, List<UserFromView> sortedTable, String field)
+    /**
+     * There is method to verify equality of tables by one of the columns.
+     */
+    public boolean verifyEqualityOfTablesByColumn(List<UserFromView> sortedBaseTable, List<UserFromView> sortedTable, UsersTable field)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        int k = 0;
-        for(int i = 0; i < baseTable.size(); i++) {
-            if(UserFromView.class.getDeclaredMethod(field).invoke(baseTable.get(i))
-            .equals(UserFromView.class.getDeclaredMethod(field).invoke(sortedTable.get(i)))){
-                k++;
-            };
+        int equalsCells = 0;
+        for (int i = 0; i < sortedBaseTable.size(); i++) {
+            if (UserFromView.class.getDeclaredMethod(field.getMethodName()).invoke(sortedBaseTable.get(i))
+                    .equals(UserFromView.class.getDeclaredMethod(field.getMethodName()).invoke(sortedTable.get(i)))) {
+                equalsCells++;
+            }
         }
-        return (k==baseTable.size());
+        return (equalsCells == sortedBaseTable.size());
     }
+
 }
