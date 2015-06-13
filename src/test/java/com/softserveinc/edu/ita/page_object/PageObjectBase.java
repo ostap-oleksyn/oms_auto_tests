@@ -32,5 +32,9 @@ public abstract class PageObjectBase {
     public void clickOnElement(By elementLocator) {
         driver.findElement(elementLocator).click();
     }
+
+    public void clearElementText (By elementLocator) {
+        driver.findElement(elementLocator).clear();
+    }
 }
 

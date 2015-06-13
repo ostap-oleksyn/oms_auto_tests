@@ -23,9 +23,9 @@ public class GeneratedDataProviders {
         for (int i=0; i < GENERATED_USERS_COUNT; i++) {
             User user = new User();
 
-            user.setLogin(generateString("name_symbols", 5, 13).toLowerCase());
-            user.setLastName(generateString("name_symbols", 5, 13).toLowerCase());
-            user.setFirstName(generateString("name_symbols", 5, 13).toLowerCase());
+            user.setLogin(generateString("name_symbols", 1, 13).toLowerCase());
+            user.setLastName(generateString("name_symbols", 1, 13).toLowerCase());
+            user.setFirstName(generateString("name_symbols", 1, 13).toLowerCase());
             user.setPassword(generateString("password_symbols", 4, 10));
             user.setEmail(generateString("email_symbols", 4, 8) + "@"
                     + generateString("domain_names_symbols", 4, 8) + "."

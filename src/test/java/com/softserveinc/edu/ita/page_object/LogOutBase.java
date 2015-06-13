@@ -5,9 +5,9 @@ import com.softserveinc.edu.ita.locators.HomePageLocators;
 import com.softserveinc.edu.ita.locators.LogoutPageLocators;
 import org.openqa.selenium.WebDriver;
 
-public class LoggedPageBase extends PageObjectBase implements LogOutAble {
+public class LogOutBase extends PageObjectBase implements LogOutAble {
 
-    public LoggedPageBase(WebDriver driver) {
+    public LogOutBase(WebDriver driver) {
         super(driver);
     }
 

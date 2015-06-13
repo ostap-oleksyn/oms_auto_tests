@@ -45,6 +45,7 @@ public class UserDAO extends AbstractDAO<User> {
         LinkedList<User> resultList = new LinkedList<>();
         try {
             while (resultSet.next()) {
+                //TODO refactor into step builder
                 User user = new User();
                 user.setId(resultSet.getInt("Id"));
                 user.setFirstName(resultSet.getString("FirstName"));
@@ -73,6 +74,7 @@ public class UserDAO extends AbstractDAO<User> {
     public User getByLogin(String login) throws DAOException {
         List<User> list;
         String sqlQuery = getSelectQuery();
+
         sqlQuery += " WHERE Login= ?";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, login);
@@ -84,15 +86,18 @@ public class UserDAO extends AbstractDAO<User> {
         if (list == null || list.size() == 0) {
             throw new DAOException("Record with PK = " + login + " not found.");
         }
+        //TODO remove
         if (list.size() > 1) {
             throw new DAOException("Received more than one record.");
         }
+        //TODO refactor
         return list.iterator().next();
     }
 
     public User getByRoleName(Roles role) throws DAOException {
         List<User> list;
         String sqlQuery = getSelectQuery();
+        //todo add limit 1
         sqlQuery += " WHERE RoleName= ?";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, String.valueOf(role));
@@ -111,6 +116,7 @@ public class UserDAO extends AbstractDAO<User> {
     public User getLastUser() throws DAOException {
         List<User> usersList;
         String sqlQuery = getSelectQuery();
+        //todo add limit 1
         sqlQuery += " ORDER BY ID DESC";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();
