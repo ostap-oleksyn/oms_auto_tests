@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Comparator;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,14 +78,23 @@ public class AdministrationPage extends LogOutBase {
      */
     public boolean verifyEqualityOfTablesByColumn(List<UserFromView> sortedBaseTable, List<UserFromView> sortedTable, UsersTable field)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        Iterator firstTableIterator = sortedBaseTable.iterator();
+        Iterator secondTableIterator = sortedTable.iterator();
         int equalsCells = 0;
-        for (int i = 0; i < sortedBaseTable.size(); i++) {
-            if (UserFromView.class.getDeclaredMethod(field.getMethodName()).invoke(sortedBaseTable.get(i))
-                    .equals(UserFromView.class.getDeclaredMethod(field.getMethodName()).invoke(sortedTable.get(i)))) {
-                equalsCells++;
-            }
-        }
+        while(firstTableIterator.hasNext() && secondTableIterator.hasNext() &&
+                UserFromView.class.getDeclaredMethod(field.getMethodName()).invoke(firstTableIterator.next())
+                        .equals(UserFromView.class.getDeclaredMethod(field.getMethodName()).invoke(secondTableIterator.next()))) {
+                equalsCells++; }
         return (equalsCells == sortedBaseTable.size());
     }
 
+    public void sortBaseTableBy(List<UserFromView> baseTableFromView, UsersTable column) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+        for(UserFromView user : baseTableFromView){
+            user.setCell(UserFromView.class.getDeclaredMethod(column.getMethodName()).invoke(user).toString());
+        }
+        baseTableFromView.sort(Comparator.comparing(UserFromView::getCell));
+    }
+    public void reverseBaseTable(List<UserFromView> baseTableFromView){
+        baseTableFromView.sort(Comparator.comparing(UserFromView::getCell).reversed());
+    }
 }
