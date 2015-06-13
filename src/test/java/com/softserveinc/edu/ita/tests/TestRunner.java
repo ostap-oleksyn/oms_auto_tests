@@ -1,6 +1,8 @@
 package com.softserveinc.edu.ita.tests;
 
 import com.softserveinc.edu.ita.enums.BrowserTypes;
+import com.softserveinc.edu.ita.utils.LoggingAssert;
+import com.softserveinc.edu.ita.utils.LoggingSoftAssert;
 import com.softserveinc.edu.ita.utils.PropertyLoader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,8 +19,16 @@ public class TestRunner {
 
     protected WebDriver driver;
 
+    final LoggingAssert loggingAssert = new LoggingAssert();
+    final LoggingSoftAssert loggingSoftAssert = new LoggingSoftAssert();
+
     protected TestRunner() {
     }
+
+    public WebDriver getDriver() {
+        return driver;
+    }
+
 
     @BeforeClass
     public void setUp() throws IOException {

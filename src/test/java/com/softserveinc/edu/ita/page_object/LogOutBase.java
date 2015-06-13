@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.page_object;
 
 import com.softserveinc.edu.ita.interfaces.LogOutAble;
-import com.softserveinc.edu.ita.locators.HomePageLocators;
+import com.softserveinc.edu.ita.locators.CommonLocators;
 import org.openqa.selenium.WebDriver;
 
 public class LogOutBase extends PageObjectBase implements LogOutAble {
@@ -11,7 +11,7 @@ public class LogOutBase extends PageObjectBase implements LogOutAble {
     }
 
     public HomePage clickLogOutButton() {
-        driver.findElement(HomePageLocators.LOG_OUT_BUTTON).click();
+        click(CommonLocators.LOG_OUT_BUTTON);
         return new HomePage(driver);
     }
 }

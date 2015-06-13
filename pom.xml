@@ -40,7 +40,8 @@
         <log4j.version>1.2.17</log4j.version>
         <mysql.connector.version>5.1.35</mysql.connector.version>
         <apache.poi.version>3.12</apache.poi.version>
-
+        <reportng.version>1.1.4</reportng.version>
+        <guice.version>3.0</guice.version>
     </properties>
 
     <dependencies>
@@ -60,11 +61,6 @@
             <version>${testng.version}</version>
         </dependency>
         <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connector.version}</version>
@@ -74,6 +70,15 @@
             <artifactId>poi</artifactId>
             <version>${apache.poi.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.uncommons</groupId>
+            <artifactId>reportng</artifactId>
+            <version>${reportng.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
     </dependencies>
 </project>

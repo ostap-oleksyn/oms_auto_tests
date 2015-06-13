@@ -1,21 +1,44 @@
 package com.softserveinc.edu.ita.locators;
 
 
+import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
-public final class UserInfoPageLocators {
+public enum UserInfoPageLocators implements ILocator {
 
-    private UserInfoPageLocators() {
+    FIRST_NAME_LABEL(
+            "User first name label",
+            By.xpath("//fieldset//tr[1]/td[2]")),
+    LAST_NAME_LABEL(
+            "User last name label",
+            By.xpath("//fieldset//tr[2]/td[2]")),
+    CUSTOMER_TYPE_LABEL(
+            "User customer type label",
+            By.xpath("//fieldset//tr[3]/td[2]")),
+    USER_ROLE_LABEL(
+            "User role label",
+            By.xpath("//fieldset//tr[4]/td[2]"));
+
+    UserInfoPageLocators(String name, By locator) {
+        this.name = name;
+        this.locator = locator;
     }
 
-    public static final By FIRST_NAME_LABEL = By.xpath("//fieldset//tr[1]/td[2]");
-    public static final By LAST_NAME_LABEL = By.xpath("//fieldset//tr[2]/td[2]");
-    public static final By CUSTOMER_TYPE_LABEL = By.xpath("//fieldset//tr[3]/td[2]");
-    public static final By USER_ROLE_LABEL = By.xpath("//fieldset//tr[4]/td[2]");
-    public static final By USER_INFO_TAB = By.xpath(".//*[@id='nav']//a[contains(text(), 'User Info')]");
-    public static final By USER_ITEM_MANAGEMENT_TAB = By.xpath(".//*[@id='nav']//a[contains(text(), 'Item Management')]");
-    public static final By ACTIVE_TAB = By.xpath(".//a[parent::li[@class='cur']]");
-    public static final By ADMINISTRATION_TAB = By.xpath(".//*[@id='nav']//a[contains(text(), 'Administration')]");
-    public static final By ORDERING_TAB = By.xpath(".//*[@id='nav']//a[contains(text(), 'Ordering')]");
+    private String name;
+    private By locator;
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public By getBy() {
+        return this.locator;
+    }
 }

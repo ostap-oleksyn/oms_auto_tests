@@ -12,17 +12,14 @@ public class HomePage extends PageObjectBase {
     }
 
     public UserInfoPage logIn(String login, String password) {
-        driver.findElement(HomePageLocators.LOGIN_USER_INPUT)
-                .sendKeys(login);
-        driver.findElement(HomePageLocators.LOGIN_PASSWORD_INPUT)
-                .sendKeys(password);
-        driver.findElement(HomePageLocators.LOGIN_SUBMIT_BUTTON)
-                .click();
+        sendKeys(HomePageLocators.LOGIN_USER_INPUT, login);
+        sendKeys(HomePageLocators.LOGIN_PASSWORD_INPUT, password);
+        click(HomePageLocators.LOGIN_SUBMIT_BUTTON);
         return new UserInfoPage(driver);
     }
 
     public HomePage clickSubmitButton() {
-        driver.findElement(HomePageLocators.LOGIN_SUBMIT_BUTTON).click();
+        click(HomePageLocators.LOGIN_SUBMIT_BUTTON);
         return new HomePage(driver);
     }
 
