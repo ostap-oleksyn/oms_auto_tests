@@ -165,7 +165,7 @@ public class CreateUserTest extends TestRunner {
                 PASSWORD_LENGTH_MESSAGE
         );
 
-        // Test Confirm Passrord returns error message if passwords are not equal
+        // Test Confirm Password returns error message if passwords are not equal
         newUserPage.sendTextToElement(generateString("password_symbols", 1, 13)
                 + String.valueOf(HOME), NewUserPageLocators.CONFIRM_PASSWORD_INPUT);
         Assert.assertEquals(
