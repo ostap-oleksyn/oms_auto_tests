@@ -47,7 +47,6 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.getBy())),
                 "Switch to User Info tab assert");
 
-        userInfoPage.clickLogOutButton();
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
@@ -82,7 +81,6 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.getBy())),
                 "Switch to User Info tab assert");
 
-        userInfoPage.clickLogOutButton();
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
@@ -117,13 +115,12 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.getBy())),
                 "Switch to User Info tab assert");
 
-        userInfoPage.clickLogOutButton();
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
     public void supervisorTabsTest(User user) {
         homePage = new HomePage(driver);
-        homePage.logIn(user.getLogin(), user.getPassword());
+        userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL.getBy())
                 .equals(user.getRoleName()), "User role assert");
@@ -143,7 +140,7 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(itemManagementPage.getElementText(CommonLocators.ITEM_MANAGEMENT_TAB.getBy())),
                 "Switch to Item Management tab assert");
 
-        loggingAssert.assertTrue(itemManagementPage.isElementDisplayed(ItemManagementPageLocators.ADD_PRODUCT_LINK.getBy()),
+        loggingSoftAssert.assertFalse(itemManagementPage.isElementDisplayed(ItemManagementPageLocators.ADD_PRODUCT_LINK.getBy()),
                 "Add Product link display assert");
 
         userInfoPage = itemManagementPage.clickUserInfoTab();
