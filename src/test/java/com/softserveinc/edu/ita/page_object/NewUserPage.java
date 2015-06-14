@@ -6,6 +6,9 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
+/**
+ * PageObject Class presents page for new User creating
+ */
 public class NewUserPage extends LogOutBase {
 
     public NewUserPage(WebDriver driver) {
@@ -19,12 +22,7 @@ public class NewUserPage extends LogOutBase {
 
     public AdministrationPage clickCreateButton() {
         driver.findElement(NewUserPageLocators.CREATE_BUTTON).click();
-        return  new AdministrationPage(driver);
-    }
-
-    public AdministrationPage clickCancelButton() {
-        driver.findElement(NewUserPageLocators.CANCEL_BUTTON).click();
-        return  new AdministrationPage(driver);
+        return new AdministrationPage(driver);
     }
 
     public String getAlertTextAndClose() {

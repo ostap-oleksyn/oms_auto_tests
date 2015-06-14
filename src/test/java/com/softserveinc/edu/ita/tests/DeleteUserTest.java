@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 /**
- * Test: deleting of existing User (Ticket IFAA-12)
+ * Test of existing User' deleting (Ticket IFAA-12)
  */
 public class DeleteUserTest extends TestRunner {
 
@@ -23,14 +23,14 @@ public class DeleteUserTest extends TestRunner {
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
         administrationPage.clickOnElement(AdministrationPageLocators.LAST_BUTTON);
 
+        // get random user from table
         int lastRowNumber = administrationPage.getRowsCount(AdministrationPageLocators.USERS_TABLE);
+        // and try to delete it by clicking on Delete link
         administrationPage.clickOnElement(By.xpath(String
                 .format(AdministrationPageLocators.DELETE_LINK, lastRowNumber)));
 
         administrationPage.submitAlert();
-
         administrationPage.clickLogOutButton();
     }
-
 
 }

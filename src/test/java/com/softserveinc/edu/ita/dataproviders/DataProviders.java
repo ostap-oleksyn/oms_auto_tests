@@ -4,6 +4,7 @@ import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
+import com.softserveinc.edu.ita.enums.Regions;
 import com.softserveinc.edu.ita.enums.Roles;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
+import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 
 public class DataProviders {
@@ -112,6 +114,33 @@ public class DataProviders {
         }
         return invalidUsers;
     }
+
+    @DataProvider(name="generatedValidUserData")
+    public static Object[][] generateValidUserData() {
+
+        final int GENERATED_USERS_COUNT = 5;
+
+        Object[][] usersInfoData = new Object[GENERATED_USERS_COUNT][1];
+
+        for (int i=0; i < GENERATED_USERS_COUNT; i++) {
+            User user = new User();
+
+            user.setLogin(generateString("name_symbols", 1, 13).toLowerCase());
+            user.setLastName(generateString("name_symbols", 1, 13).toLowerCase());
+            user.setFirstName(generateString("name_symbols", 1, 13).toLowerCase());
+            user.setPassword(generateString("password_symbols", 4, 10));
+            user.setEmail(generateString("email_symbols", 4, 8) + "@"
+                    + generateString("domain_names_symbols", 4, 8) + "."
+                    + generateString("domain_names_symbols", 3, 4));
+            user.setRegionName(String.valueOf(Regions.getRandomRegion()));
+            user.setRoleName(String.valueOf(Roles.getRandomRole()));
+
+            usersInfoData[i][0] = user;
+        }
+
+        return usersInfoData;
+    }
+
 
     private static Object[][] getUsersByRoleFromXls(Roles roles) throws IOException, DAOException {
         //TODO move XLS file operations  out to a util class

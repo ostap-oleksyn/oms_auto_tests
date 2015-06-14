@@ -2,9 +2,8 @@ package com.softserveinc.edu.ita.enums;
 
 import java.util.Random;
 
-
 /**
- * Enum with region names. Can generate random of values
+ * Enum with regions names. Can generate random values
  */
 public enum Regions {
     NORTH("North"),
@@ -18,7 +17,7 @@ public enum Regions {
         this.region = region;
     }
 
-    public static Regions getRandomRegion () {
+    public static Regions getRandomRegion() {
         Random randomGenerator = new Random();
         return values()[randomGenerator.nextInt(values().length)];
     }

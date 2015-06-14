@@ -1,12 +1,11 @@
 package com.softserveinc.edu.ita.tests;
 
 import com.softserveinc.edu.ita.dao_jdbc.domains.User;
-import com.softserveinc.edu.ita.dataproviders.GeneratedDataProviders;
+import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import com.softserveinc.edu.ita.locators.NewUserPageLocators;
 import com.softserveinc.edu.ita.page_object.*;
 import com.softserveinc.edu.ita.utils.DBUtility;
-import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -18,21 +17,27 @@ import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 import static org.openqa.selenium.Keys.HOME;
 
 /**
- * Test: creating of new User (Ticket IFAA-9)
+ * Test of new User creating (Ticket IFAA-9)
  */
 public class CreateUserTest extends TestRunner {
 
-    @Test(dataProvider = "generatedValidUserData", dataProviderClass = GeneratedDataProviders.class)
+    /**
+     * Test new User creating with valid data
+     *
+     * @param newUser new valid user data from dataprovider
+     */
+    @Test(dataProvider = "generatedValidUserData", dataProviderClass = DataProviders.class)
     public void testValidUserCreating(User newUser) {
 
-        User admin = DBUtility.getAdmin();
-
         HomePage homePage = new HomePage(driver);
+
+        User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
 
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
         NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
+        // create new user
         newUserPage.sendTextToElement(newUser.getLogin(), NewUserPageLocators.LOGIN_NAME_INPUT);
         newUserPage.sendTextToElement(newUser.getFirstName(), NewUserPageLocators.FIRST_NAME_INPUT);
         newUserPage.sendTextToElement(newUser.getLastName(), NewUserPageLocators.LAST_NAME_INPUT);
@@ -43,21 +48,25 @@ public class CreateUserTest extends TestRunner {
         newUserPage.clickOnElement(By.xpath(String.format(NewUserPageLocators.ROLE_SELECT, newUser.getRoleName())));
         administrationPage = newUserPage.clickCreateButton();
 
+        // and check it in database
         User lastUser = DBUtility.getLastUser();
         Assert.assertEquals(newUser.getLogin(), lastUser.getLogin());
 
         administrationPage.clickLogOutButton();
     }
 
+    /**
+     * Test new User creating with empty data
+     */
     @Test
     public void testEmptyUserCreate() {
 
         final String ERROR_ALERT_MESSAGE = "check all fields for valid data";
         final String CANNOT_BE_BLANK_MESSAGE = " cannot be blank";
 
-        User admin = DBUtility.getAdmin();
-
         HomePage homePage = new HomePage(driver);
+
+        User admin = DBUtility.getAdmin();
         LogOutBase logOutPage = homePage.logIn(admin.getLogin(), admin.getPassword());
 
         AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
@@ -66,6 +75,7 @@ public class CreateUserTest extends TestRunner {
 
         Assert.assertEquals(newUserPage.getAlertTextAndClose(), ERROR_ALERT_MESSAGE);
 
+        // test fields returns error message for empty data
         Map<String, String> notEmptyFields = new HashMap<String, String>() {{
             put("Login name", newUserPage.getElementText(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
             put("First name", newUserPage.getElementText(NewUserPageLocators.FIRST_NAME_ERROR_LABEL));
@@ -81,6 +91,9 @@ public class CreateUserTest extends TestRunner {
         administrationPage.clickLogOutButton();
     }
 
+    /**
+     * Test new User creating not valid data
+     */
     @Test
     public void testNotValidUserCreate() {
 
@@ -89,7 +102,6 @@ public class CreateUserTest extends TestRunner {
         final String PASSWORD_LENGTH_MESSAGE = "Password cannot be shorter than 4 and longer than 10 characters";
         final String CONFIRM_PASSWORD_MESSAGE = "Confirm password has to be equal to password";
         final String EMAIL_MESSAGE = "You should use valid email address";
-
 
         HomePage homePage = new HomePage(driver);
 
@@ -125,7 +137,6 @@ public class CreateUserTest extends TestRunner {
         }
 
         // Test Login Name, First Name and Last Name' length isn't more 13 symbols
-
         errorMessages = new ArrayList<String>() {{
             add("Login name" + IS_TOO_LONG_MESSAGE);
             add("First name" + IS_TOO_LONG_MESSAGE);
@@ -140,7 +151,6 @@ public class CreateUserTest extends TestRunner {
         }
 
         // Test Password length is between 4 and 10 symbols, Confirm Password
-
         newUserPage.sendTextToElement(generateString("password_symbols", 1, 3)
                 + String.valueOf(HOME), NewUserPageLocators.PASSWORD_INPUT);
         Assert.assertEquals(
@@ -155,6 +165,7 @@ public class CreateUserTest extends TestRunner {
                 PASSWORD_LENGTH_MESSAGE
         );
 
+        // Test Confirm Passrord returns error message if passwords are not equal
         newUserPage.sendTextToElement(generateString("password_symbols", 1, 13)
                 + String.valueOf(HOME), NewUserPageLocators.CONFIRM_PASSWORD_INPUT);
         Assert.assertEquals(
@@ -170,6 +181,9 @@ public class CreateUserTest extends TestRunner {
         administrationPage.clickLogOutButton();
     }
 
+    /**
+     * Test new User creating over existing user
+     */
     @Test
     public void testExistingUserCreate() {
         final String ALREADY_IN_USE = " already in use";
@@ -181,11 +195,14 @@ public class CreateUserTest extends TestRunner {
 
         AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
 
+        // get random User fom table
         Random randomGenerator = new Random();
         int randomLoginRow = randomGenerator.nextInt(4) + 1;
+
         String login = administrationPage.getElementText(
                 By.xpath(String.format(AdministrationPageLocators.LOGIN_CELL, randomLoginRow)));
 
+        // and try to create new User with same login
         NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
         newUserPage.sendTextToElement(login + HOME, NewUserPageLocators.LOGIN_NAME_INPUT);

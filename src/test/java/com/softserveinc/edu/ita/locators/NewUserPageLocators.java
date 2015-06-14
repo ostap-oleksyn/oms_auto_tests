@@ -5,9 +5,6 @@ import org.openqa.selenium.By;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by i07016 on 10.06.2015.
- */
 public class NewUserPageLocators {
 
     public static final By LOGIN_NAME_INPUT = By.xpath(".//*[@id='login']");
@@ -19,8 +16,6 @@ public class NewUserPageLocators {
     public static final By REGION_SELECT = By.xpath(".//*[@id='regionID']");
     public static final String ROLE_SELECT = ".//label[.='%s']/preceding::input[1]";
     public static final By CREATE_BUTTON = By.xpath(".//input[@type='submit'][@value='Create']");
-    public static final By CANCEL_BUTTON = By.xpath(".//input[@type='button'][@value='Cancel']");
-
     public static final By LOGIN_NAME_ERROR_LABEL = By.xpath(".//*[@id='nameError']");
     public static final By FIRST_NAME_ERROR_LABEL = By.xpath(".//*[@id='firstNameError']");
     public static final By LAST_NAME_ERROR_LABEL = By.xpath(".//*[@id='lastNameError']");

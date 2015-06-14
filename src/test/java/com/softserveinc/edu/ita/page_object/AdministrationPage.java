@@ -4,6 +4,9 @@ import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * PageObject Class presents page for Users administration
+ */
 public class AdministrationPage extends LogOutBase {
 
     public AdministrationPage(WebDriver driver) {

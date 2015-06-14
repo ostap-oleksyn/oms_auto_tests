@@ -7,13 +7,15 @@ import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 
 import java.sql.Connection;
-import java.util.List;
 
 /**
- * Created on 10.06.2015.
+ * Static methods for work with database
  */
 public class DBUtility {
 
+    /**
+     * Returns first administrator from database
+     */
     public static User getAdmin() {
         FactoryDAO factory = new FactoryDAO();
         Connection connection;
@@ -37,6 +39,9 @@ public class DBUtility {
         return admin;
     }
 
+    /**
+     * Returns last added user (any role) from database
+     */
     public static User getLastUser() {
         FactoryDAO factory = new FactoryDAO();
         Connection connection;
@@ -49,16 +54,14 @@ public class DBUtility {
             e.printStackTrace();
         }
 
-        List<User> lastUserList = null;
+        User lastUser = null;
 
         try {
-            lastUserList = userDAO.getAll();
+            lastUser = (User) userDAO.getLastUser();
         } catch (DAOException e) {
             e.printStackTrace();
         }
 
-        return lastUserList.get(0);
+        return lastUser;
     }
-
-
 }
