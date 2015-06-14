@@ -195,7 +195,7 @@ public class CreateUserTest extends TestRunner {
 
         AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
 
-        // get random User fom table
+        // get random User from table
         Random randomGenerator = new Random();
         int randomLoginRow = randomGenerator.nextInt(4) + 1;
 
