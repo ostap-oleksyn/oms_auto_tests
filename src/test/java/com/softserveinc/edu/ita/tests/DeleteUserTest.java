@@ -28,6 +28,8 @@ public class DeleteUserTest extends TestRunner {
                 .format(AdministrationPageLocators.DELETE_LINK, lastRowNumber)));
 
         administrationPage.submitAlert();
+
+        administrationPage.clickLogOutButton();
     }
 
 

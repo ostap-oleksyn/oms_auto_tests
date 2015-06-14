@@ -12,4 +12,5 @@ public final class AdministrationPageLocators {
     public static final By USERS_TABLE = By.xpath(".//*[@id='table']");
     public static final By LAST_BUTTON = By.xpath(".//*[@id='last']");
     public static final String DELETE_LINK = ".//*[@id='table']/tbody/tr[%s]/td[7]/a";
+    public static final String LOGIN_CELL = ".//*[@id='table']/tbody/tr[%s]/td[3]";
 }

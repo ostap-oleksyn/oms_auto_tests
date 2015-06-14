@@ -2,6 +2,7 @@ package com.softserveinc.edu.ita.tests;
 
 import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dataproviders.GeneratedDataProviders;
+import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import com.softserveinc.edu.ita.locators.NewUserPageLocators;
 import com.softserveinc.edu.ita.page_object.*;
 import com.softserveinc.edu.ita.utils.DBUtility;
@@ -10,10 +11,7 @@ import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
@@ -51,7 +49,7 @@ public class CreateUserTest extends TestRunner {
         administrationPage.clickLogOutButton();
     }
 
-    @Test(enabled = false)
+    @Test
     public void testEmptyUserCreate() {
 
         final String ERROR_ALERT_MESSAGE = "check all fields for valid data";
@@ -170,5 +168,30 @@ public class CreateUserTest extends TestRunner {
         Assert.assertEquals(newUserPage.getElementText(NewUserPageLocators.EMAIL_ERROR_LABEL), EMAIL_MESSAGE);
 
         administrationPage.clickLogOutButton();
+    }
+
+    @Test
+    public void testExistingUserCreate() {
+        final String ALREADY_IN_USE = " already in use";
+
+        HomePage homePage = new HomePage(driver);
+
+        User admin = DBUtility.getAdmin();
+        LogOutBase logOutPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+
+        AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
+
+        Random randomGenerator = new Random();
+        int randomLoginRow = randomGenerator.nextInt(4) + 1;
+        String login = administrationPage.getElementText(
+                By.xpath(String.format(AdministrationPageLocators.LOGIN_CELL, randomLoginRow)));
+
+        NewUserPage newUserPage = administrationPage.clickCreateUserLink();
+
+        newUserPage.sendTextToElement(login + HOME, NewUserPageLocators.LOGIN_NAME_INPUT);
+        Assert.assertEquals(login + ALREADY_IN_USE,
+                newUserPage.getElementText(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
+
+        newUserPage.clickLogOutButton();
     }
 }
