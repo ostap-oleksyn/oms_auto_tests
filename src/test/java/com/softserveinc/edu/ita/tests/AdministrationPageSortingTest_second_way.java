@@ -30,6 +30,12 @@ public class AdministrationPageSortingTest_second_way extends TestRunner {
     @Test(dataProvider = "getTables & enums.")
     public void testSorting(List<UserFromView> tableFromViewSortedAsc, List<UserFromView> tableFromViewSortedDesc, UsersTable header) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
 
+        Assert.assertTrue(administrationPage.verifyIntegrityOfTableAfterSorting(baseTableFromView, tableFromViewSortedAsc),
+                "Integrity of table was broken after sorting in ascending direction.");
+
+        Assert.assertTrue(administrationPage.verifyIntegrityOfTableAfterSorting(baseTableFromView, tableFromViewSortedDesc),
+                "Integrity of table was broken after sorting in descending direction.");
+
         administrationPage.sortBaseTableBy(baseTableFromView, header);
         Assert.assertTrue(administrationPage.verifyEqualityOfTablesByColumn(baseTableFromView, tableFromViewSortedAsc, header),
                 "Ascendant tables aren't equals.");
