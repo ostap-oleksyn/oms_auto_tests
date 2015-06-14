@@ -3,10 +3,7 @@ package com.softserveinc.edu.ita.tests;
 import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dataproviders.GeneratedDataProviders;
 import com.softserveinc.edu.ita.locators.NewUserPageLocators;
-import com.softserveinc.edu.ita.page_object.AdministrationPage;
-import com.softserveinc.edu.ita.page_object.HomePage;
-import com.softserveinc.edu.ita.page_object.LogOutBase;
-import com.softserveinc.edu.ita.page_object.NewUserPage;
+import com.softserveinc.edu.ita.page_object.*;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
@@ -23,21 +20,19 @@ import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 import static org.openqa.selenium.Keys.HOME;
 
 /**
- * Test creating of new User (Ticket IFAA-9)
+ * Test: creating of new User (Ticket IFAA-9)
  */
 public class CreateUserTest extends TestRunner {
 
-    Logger log = Logger.getLogger(CreateUserTest.class);
-
-    @Test(dataProvider = "generatedValidUserData", dataProviderClass = GeneratedDataProviders.class, enabled = false)
-    public void testValidUserCreate(User newUser) {
+    @Test(dataProvider = "generatedValidUserData", dataProviderClass = GeneratedDataProviders.class)
+    public void testValidUserCreating(User newUser) {
 
         User admin = DBUtility.getAdmin();
 
         HomePage homePage = new HomePage(driver);
-        LogOutBase logOutPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
 
-        AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
+        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
         NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
         newUserPage.sendTextToElement(newUser.getLogin(), NewUserPageLocators.LOGIN_NAME_INPUT);

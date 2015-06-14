@@ -32,6 +32,5 @@ public class NewUserPage extends LogOutBase {
         String alertText = alert.getText();
         alert.accept();
         return alertText;
-
     }
 }

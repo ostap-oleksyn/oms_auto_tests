@@ -1,6 +1,7 @@
 package com.softserveinc.edu.ita.page_object;
 
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 
 public class AdministrationPage extends LogOutBase {
@@ -12,5 +13,10 @@ public class AdministrationPage extends LogOutBase {
     public NewUserPage clickCreateUserLink() {
         driver.findElement(AdministrationPageLocators.CREATE_NEW_USER_LINK).click();
         return new NewUserPage(driver);
+    }
+
+    public void submitAlert() {
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
     }
 }

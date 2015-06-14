@@ -58,7 +58,7 @@ public class TestRunner {
 
     @AfterClass
     public void tearDown() {
-        //driver.quit();
+        driver.quit();
     }
 }
 
