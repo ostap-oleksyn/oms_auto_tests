@@ -3,7 +3,7 @@ package com.softserveinc.edu.ita.dao_jdbc.domains;
 import java.lang.reflect.Method;
 
 /**
- * Created by student on 6/10/2015.
+ * Class to initiate user using "Step Builder" Pattern.
  */
 public class UserFromView {
     private String firstName;
@@ -11,14 +11,14 @@ public class UserFromView {
     private String login;
     private String role;
     private String region;
-    private String cell;
+    private String defaultHeader;
 
-    public String getCell(){
-        return this.cell;
+    public String getDefaultHeader(){
+        return this.defaultHeader;
     }
 
-    public void setCell(String cell){
-        this.cell = cell;
+    public void setDefaultHeader(String defaultHeader){
+        this.defaultHeader = defaultHeader;
     }
 
     public String getFirstName() {

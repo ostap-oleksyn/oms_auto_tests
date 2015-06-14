@@ -76,25 +76,26 @@ public class AdministrationPage extends LogOutBase {
     /**
      * There is method to verify equality of tables by one of the columns.
      */
-    public boolean verifyEqualityOfTablesByColumn(List<UserFromView> sortedBaseTable, List<UserFromView> sortedTable, UsersTable field)
+    public boolean verifyEqualityOfTablesByColumn(List<UserFromView> sortedBaseTable, List<UserFromView> sortedTable, UsersTable header)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Iterator firstTableIterator = sortedBaseTable.iterator();
         Iterator secondTableIterator = sortedTable.iterator();
         int equalsCells = 0;
         while(firstTableIterator.hasNext() && secondTableIterator.hasNext() &&
-                UserFromView.class.getDeclaredMethod(field.getMethodName()).invoke(firstTableIterator.next())
-                        .equals(UserFromView.class.getDeclaredMethod(field.getMethodName()).invoke(secondTableIterator.next()))) {
+                UserFromView.class.getDeclaredMethod(header.getMethodName()).invoke(firstTableIterator.next())
+                        .equals(UserFromView.class.getDeclaredMethod(header.getMethodName()).invoke(secondTableIterator.next()))) {
                 equalsCells++; }
         return (equalsCells == sortedBaseTable.size());
     }
 
-    public void sortBaseTableBy(List<UserFromView> baseTableFromView, UsersTable column) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void sortBaseTableBy(List<UserFromView> baseTableFromView, UsersTable defaultHeader) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         for(UserFromView user : baseTableFromView){
-            user.setCell(UserFromView.class.getDeclaredMethod(column.getMethodName()).invoke(user).toString());
+            user.setDefaultHeader(UserFromView.class.getDeclaredMethod(defaultHeader.getMethodName()).invoke(user).toString());
         }
-        baseTableFromView.sort(Comparator.comparing(UserFromView::getCell));
+        baseTableFromView.sort(Comparator.comparing(UserFromView::getDefaultHeader));
     }
+
     public void reverseBaseTable(List<UserFromView> baseTableFromView){
-        baseTableFromView.sort(Comparator.comparing(UserFromView::getCell).reversed());
+        baseTableFromView.sort(Comparator.comparing(UserFromView::getDefaultHeader).reversed());
     }
 }
