@@ -4,11 +4,9 @@ import com.softserveinc.edu.ita.dao_jdbc.domains.Order;
 import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.enums.OrdersTable;
-import com.softserveinc.edu.ita.locators.HomePageLocators;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.OrderingPage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -35,13 +33,13 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> sortedTableByOrderNameDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            Assert.assertTrue(sortedTableByOrderNameAsc.get(i).getOrderName().equals(tableFromView.get(i).getOrderName()),
-                    "Sorting by order name doesn't work.");
+            loggingAssert.assertTrue(sortedTableByOrderNameAsc.get(i).getOrderName().equals(tableFromView.get(i).getOrderName()),
+                    "Sorting by role in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            Assert.assertTrue(sortedTableByOrderNameDesc.get(i).getOrderName().equals(tableFromView.get(j).getOrderName()),
-                    "Sorting by order name doesn't work.");
+            loggingAssert.assertTrue(sortedTableByOrderNameDesc.get(i).getOrderName().equals(tableFromView.get(j).getOrderName()),
+                    "Sorting by role in descending order assert.");
         }
     }
 
@@ -61,13 +59,13 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> sortedTableByTotalPriceDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            Assert.assertTrue(sortedTableByTotalPriceAsc.get(i).getTotalPrice().equals(tableFromView.get(i).getTotalPrice()),
-                    "Sorting by total price doesn't work.");
+            loggingAssert.assertTrue(sortedTableByTotalPriceAsc.get(i).getTotalPrice().equals(tableFromView.get(i).getTotalPrice()),
+                    "Sorting by total price in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            Assert.assertTrue(sortedTableByTotalPriceDesc.get(i).getTotalPrice().equals(tableFromView.get(j).getTotalPrice()),
-                    "Sorting by total price doesn't work.");
+            loggingAssert.assertTrue(sortedTableByTotalPriceDesc.get(i).getTotalPrice().equals(tableFromView.get(j).getTotalPrice()),
+                    "Sorting by total price in descending order assert.");
         }
     }
 
@@ -87,13 +85,13 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> sortedTableByMaxDiscountDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            Assert.assertTrue(sortedTableByMaxDiscountAsc.get(i).getMaxDiscount().equals(tableFromView.get(i).getMaxDiscount()),
-                    "Sorting by max discount doesn't work.");
+            loggingAssert.assertTrue(sortedTableByMaxDiscountAsc.get(i).getMaxDiscount().equals(tableFromView.get(i).getMaxDiscount()),
+                    "Sorting by max discount in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            Assert.assertTrue(sortedTableByMaxDiscountDesc.get(i).getMaxDiscount().equals(tableFromView.get(j).getMaxDiscount()),
-                    "Sorting by max discount doesn't work.");
+            loggingAssert.assertTrue(sortedTableByMaxDiscountDesc.get(i).getMaxDiscount().equals(tableFromView.get(j).getMaxDiscount()),
+                    "Sorting by max discount in descending order assert.");
         }
     }
 
@@ -113,13 +111,13 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> sortedTableByDeliveryDateDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            Assert.assertTrue(sortedTableByDeliveryDateAsc.get(i).getDeliveryDate().equals(tableFromView.get(i).getDeliveryDate()),
-                    "Sorting by delivery date doesn't work.");
+            loggingAssert.assertTrue(sortedTableByDeliveryDateAsc.get(i).getDeliveryDate().equals(tableFromView.get(i).getDeliveryDate()),
+                    "Sorting by dalivery date in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            Assert.assertTrue(sortedTableByDeliveryDateDesc.get(i).getDeliveryDate().equals(tableFromView.get(j).getDeliveryDate()),
-                    "Sorting by delivery date doesn't work.");
+            loggingAssert.assertTrue(sortedTableByDeliveryDateDesc.get(i).getDeliveryDate().equals(tableFromView.get(j).getDeliveryDate()),
+                    "Sorting by delivary date in descending order assert.");
         }
     }
 
@@ -139,13 +137,13 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> sortedTableByStatusDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            Assert.assertTrue(sortedTableByStatusAsc.get(i).getStatus().equals(tableFromView.get(i).getStatus()),
-                    "Sorting by status doesn't work.");
+            loggingAssert.assertTrue(sortedTableByStatusAsc.get(i).getStatus().equals(tableFromView.get(i).getStatus()),
+                    "Sorting by status in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            Assert.assertTrue(sortedTableByStatusDesc.get(i).getStatus().equals(tableFromView.get(j).getStatus()),
-                    "Sorting by status doesn't work.");
+            loggingAssert.assertTrue(sortedTableByStatusDesc.get(i).getStatus().equals(tableFromView.get(j).getStatus()),
+                    "Sorting by status in descending order assert.");
         }
     }
 
@@ -165,13 +163,13 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> sortedTableByAssigneeDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            Assert.assertTrue(sortedTableByAssigneeAsc.get(i).getAssignee().equals(tableFromView.get(i).getAssignee()),
-                    "Sorting by assignee doesn't work.");
+            loggingAssert.assertTrue(sortedTableByAssigneeAsc.get(i).getAssignee().equals(tableFromView.get(i).getAssignee()),
+                    "Sorting by assignee in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            Assert.assertTrue(sortedTableByAssigneeDesc.get(i).getAssignee().equals(tableFromView.get(j).getAssignee()),
-                    "Sorting by assignee doesn't work.");
+            loggingAssert.assertTrue(sortedTableByAssigneeDesc.get(i).getAssignee().equals(tableFromView.get(j).getAssignee()),
+                    "Sorting by assignee in descending order assert.");
         }
     }
 
@@ -191,13 +189,13 @@ public class OrderingPageSortingTest extends TestRunner {
         List<Order> sortedTableByRoleDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            Assert.assertTrue(sortedTableByRoleAsc.get(i).getRole().equals(tableFromView.get(i).getRole()),
-                    "Sorting by role doesn't work.");
+            loggingAssert.assertTrue(sortedTableByRoleAsc.get(i).getRole().equals(tableFromView.get(i).getRole()),
+                    "Sorting by role in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            Assert.assertTrue(sortedTableByRoleDesc.get(i).getRole().equals(tableFromView.get(j).getRole()),
-                    "Sorting by role doesn't work.");
+            loggingAssert.assertTrue(sortedTableByRoleDesc.get(i).getRole().equals(tableFromView.get(j).getRole()),
+                    "Sorting by role in descending order assert.");
         }
     }
 
