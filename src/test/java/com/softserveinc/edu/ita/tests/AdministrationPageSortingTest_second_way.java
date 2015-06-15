@@ -27,19 +27,11 @@ public class AdministrationPageSortingTest_second_way extends TestRunner {
     List<UserFromView> baseTableFromView;
 
     @Test(dataProvider = "getEnums")
-    public void testSorting() {
-
-        Function<UserFromView, String> clickFunc = UserFromView::getFirstName;
-
-
-        baseTableFromView.sort(Comparator.comparing(map.get(UsersTable.FIRST_NAME)));
+    public void testSorting(UsersTable header) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+        administrationPage.sortBaseTableBy(baseTableFromView, header);
 
 
-        for (int i = 0; i < baseTableFromView.size(); i++) {
-            System.out.println(baseTableFromView.get(i));
-        }
-        Assert.assertFalse(1 == 0);
-        driver.findElement(By.xpath("td"));
+
     }
 
     @DataProvider(name = "getEnums")
