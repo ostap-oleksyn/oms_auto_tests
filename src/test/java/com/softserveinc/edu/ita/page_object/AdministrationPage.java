@@ -97,14 +97,14 @@ public class AdministrationPage extends LogOutBase {
     /**
      * A method to sort base table by given column through comparator.
      */
-    public void sortBaseTableBy(List<UserFromView> baseTableFromView, UsersTable defaultHeader) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public void sortBaseTableBy(List<UserFromView> baseTableFromView, UsersTable header) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Map<UsersTable, Function<UserFromView, String>> map = new HashMap<>();
         map.put(UsersTable.FIRST_NAME, UserFromView::getFirstName);
         map.put(UsersTable.LAST_NAME, UserFromView::getLastName);
         map.put(UsersTable.LOGIN, UserFromView::getLogin);
         map.put(UsersTable.ROLE, UserFromView::getRole);
         map.put(UsersTable.REGION, UserFromView::getRegion);
-        baseTableFromView.sort(Comparator.comparing(map.get(defaultHeader)));
+        baseTableFromView.sort(Comparator.comparing(map.get(header)));
     }
 
     /**

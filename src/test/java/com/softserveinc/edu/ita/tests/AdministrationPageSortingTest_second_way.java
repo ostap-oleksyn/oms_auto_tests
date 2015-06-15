@@ -29,6 +29,8 @@ public class AdministrationPageSortingTest_second_way extends TestRunner {
     @Test(dataProvider = "getEnums")
     public void testSorting(UsersTable header) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         administrationPage.sortBaseTableBy(baseTableFromView, header);
+        administrationPage.clickAdministrationTableColumn(UsersTable.FIRST_NAME);
+        administrationPage.getTableFromView();
 
 
 
