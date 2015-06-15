@@ -16,7 +16,7 @@ import java.util.*;
  * This class is used to test sorting actions in 'Administration' table of 'Administration' page.
  */
 public class AdministrationPageSortingTest extends TestRunner {
-    int i = 0;
+
     HomePage homePage;
     UserInfoPage userInfoPage;
     AdministrationPage administrationPage;

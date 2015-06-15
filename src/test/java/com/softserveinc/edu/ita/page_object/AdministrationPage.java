@@ -1,5 +1,6 @@
 package com.softserveinc.edu.ita.page_object;
 
+import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dao_jdbc.domains.UserFromView;
 import com.softserveinc.edu.ita.enums.UsersTable;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
@@ -8,10 +9,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Comparator;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 /**
  * This class describes "Administration" page according to "Page Object" pattern.
@@ -98,17 +98,13 @@ public class AdministrationPage extends LogOutBase {
      * A method to sort base table by given column through comparator.
      */
     public void sortBaseTableBy(List<UserFromView> baseTableFromView, UsersTable defaultHeader) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        for (UserFromView user : baseTableFromView) {
-            user.setDefaultHeader(UserFromView.class.getDeclaredMethod(defaultHeader.getMethodName()).invoke(user).toString().toLowerCase());
-        }
-        baseTableFromView.sort(Comparator.comparing(UserFromView::getDefaultHeader));
-    }
-
-    /**
-     * A method to reverse base table after sorting.
-     */
-    public void reverseBaseTable(List<UserFromView> baseTableFromView) {
-        baseTableFromView.sort(Comparator.comparing(UserFromView::getDefaultHeader).reversed());
+        Map<UsersTable, Function<UserFromView, String>> map = new HashMap<>();
+        map.put(UsersTable.FIRST_NAME, UserFromView::getFirstName);
+        map.put(UsersTable.LAST_NAME, UserFromView::getLastName);
+        map.put(UsersTable.LOGIN, UserFromView::getLogin);
+        map.put(UsersTable.ROLE, UserFromView::getRole);
+        map.put(UsersTable.REGION, UserFromView::getRegion);
+        baseTableFromView.sort(Comparator.comparing(map.get(defaultHeader)));
     }
 
     /**
