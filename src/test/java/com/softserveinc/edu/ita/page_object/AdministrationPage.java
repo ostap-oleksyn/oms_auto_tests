@@ -86,8 +86,7 @@ public class AdministrationPage extends LogOutBase {
     /**
      * A method to verify equality of tables by given column.
      */
-    public boolean verifyEqualityOfTablesByColumn(List<UserFromView> sortedBaseTableFromView, List<UserFromView> sortedTableByView, UsersTable header)
-            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public boolean verifyEqualityOfTablesByColumn(List<UserFromView> sortedBaseTableFromView, List<UserFromView> sortedTableByView, UsersTable header) {
         Map<UsersTable, comparisonCondition> sortConditionsMap = new HashMap<>();
         sortConditionsMap.put(UsersTable.FIRST_NAME, UserFromView::getFirstName);
         sortConditionsMap.put(UsersTable.LAST_NAME, UserFromView::getLastName);

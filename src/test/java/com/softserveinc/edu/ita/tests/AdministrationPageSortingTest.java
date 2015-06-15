@@ -30,7 +30,7 @@ public class AdministrationPageSortingTest extends TestRunner {
     List<UserFromView> tableFromViewSortedDesc;
 
     @Test(dataProvider = "getEnums")
-    public void testSorting(UsersTable header) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    public void testSorting(UsersTable header) {
 
         administrationPage.clickAdministrationTableColumn(header);
         tableFromViewSortedAsc = administrationPage.getTableFromView();
