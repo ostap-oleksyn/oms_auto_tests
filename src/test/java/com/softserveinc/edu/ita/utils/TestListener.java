@@ -19,7 +19,7 @@ import java.util.Date;
 /**
  * Custom listener for taking and logging screenshots on failed tests.
  */
-public class TestListener extends TestListenerAdapter {
+public final class TestListener extends TestListenerAdapter {
 
     /**
      * This method takes and logs a screenshot every time when a test fails.

@@ -46,7 +46,6 @@ public class TabsNavigationTest extends TestRunner {
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.getBy())
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.getBy())),
                 "Switch to User Info tab assert");
-
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
@@ -80,7 +79,6 @@ public class TabsNavigationTest extends TestRunner {
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.getBy())
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.getBy())),
                 "Switch to User Info tab assert");
-
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
@@ -114,7 +112,6 @@ public class TabsNavigationTest extends TestRunner {
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.getBy())
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.getBy())),
                 "Switch to User Info tab assert");
-
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
@@ -140,7 +137,7 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(itemManagementPage.getElementText(CommonLocators.ITEM_MANAGEMENT_TAB.getBy())),
                 "Switch to Item Management tab assert");
 
-        loggingSoftAssert.assertFalse(itemManagementPage.isElementDisplayed(ItemManagementPageLocators.ADD_PRODUCT_LINK.getBy()),
+        loggingAssert.assertTrue(itemManagementPage.isElementDisplayed(ItemManagementPageLocators.ADD_PRODUCT_LINK.getBy()),
                 "Add Product link display assert");
 
         userInfoPage = itemManagementPage.clickUserInfoTab();
@@ -148,7 +145,6 @@ public class TabsNavigationTest extends TestRunner {
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.getBy())
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.getBy())),
                 "Switch to User Info tab assert");
-
     }
 
     @AfterMethod

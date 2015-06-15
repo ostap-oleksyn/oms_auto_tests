@@ -7,7 +7,7 @@ import org.testng.asserts.IAssert;
 /**
  * Wrapper class for testng hard asserts.
  */
-public class LoggingAssert extends Assertion {
+public final class LoggingAssert extends Assertion {
 
     public LoggingAssert() {
         super();

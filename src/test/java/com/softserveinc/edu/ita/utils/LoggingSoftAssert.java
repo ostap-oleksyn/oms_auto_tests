@@ -7,7 +7,7 @@ import org.testng.asserts.SoftAssert;
 /**
  * Wrapper class for testng soft asserts.
  */
-public class LoggingSoftAssert extends SoftAssert {
+public final class LoggingSoftAssert extends SoftAssert {
 
     private String message;
 
@@ -25,7 +25,6 @@ public class LoggingSoftAssert extends SoftAssert {
         if (!assertCommand.getMessage().equals(message)) {
             Reporter.log(String.format("<br><font color='green'>PASSED</font> - %s", assertCommand.getMessage()));
         }
-
     }
 
     /**
