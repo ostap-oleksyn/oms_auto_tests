@@ -21,31 +21,31 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleName()), "User role assert");
+                .equals(user.getRoleName()), "User roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
-                "User Info tab display assert");
+                "User Info tab displayed");
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ADMINISTRATION_TAB),
-                "Administration tab display assert");
+                "Administration tab displayed");
 
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
-                "Default tab assert");
+                "User info tab is the default tab");
 
         administrationPage = userInfoPage.clickAdministrationTab();
 
         loggingAssert.assertTrue(administrationPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(administrationPage.getElementText(CommonLocators.ADMINISTRATION_TAB)),
-                "Switch to Administration tab assert");
+                "Switched to Administration tab");
 
         loggingAssert.assertTrue(administrationPage.isElementDisplayed(AdministrationPageLocators.CREATE_NEW_USER_LINK),
-                "Create new user link display assert");
+                "Create new user link displayed");
 
         userInfoPage = administrationPage.clickUserInfoTab();
 
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
-                "Switch to User Info tab assert");
+                "Switched to User Info tab");
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
@@ -54,31 +54,31 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleName()), "User role assert");
+                .equals(user.getRoleName()), "Users roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
-                "User Info tab display assert");
+                "User Info tab displayed");
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ORDERING_TAB),
-                "Ordering tab display assert");
+                "Ordering tab displayed");
 
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
-                "Default tab assert");
+                "User info tab is the default tab");
 
         orderingPage = userInfoPage.clickOrderingTab();
 
         loggingAssert.assertTrue(orderingPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(orderingPage.getElementText(CommonLocators.ORDERING_TAB)),
-                "Switch to Ordering tab assert");
+                "Switched to Ordering tab");
 
         loggingAssert.assertTrue(orderingPage.isElementDisplayed(OrderingPageLocators.CREATE_NEW_ORDER_LINK),
-                "Create new order link displayed assert");
+                "Create new order link displayed");
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
-                "Switch to User Info tab assert");
+                "Switched to User Info tab");
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
@@ -87,31 +87,31 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleName()), "User role assert");
+                .equals(user.getRoleName()), "User rolees match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
-                "User Info tab display assert");
+                "User Info tab displayed");
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ORDERING_TAB),
-                "Ordering tab display assert");
+                "Ordering tab displayed");
 
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
-                "Default tab assert");
+                "User info tab is the default tab");
 
         orderingPage = userInfoPage.clickOrderingTab();
 
         loggingAssert.assertTrue(orderingPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(orderingPage.getElementText(CommonLocators.ORDERING_TAB)),
-                "Switch to Ordering tab assert");
+                "Switched to Ordering tab");
 
         loggingAssert.assertTrue(orderingPage.isElementDisplayed(OrderingPageLocators.CREATE_NEW_ORDER_LINK),
-                "Create new order link display assert");
+                "Create new order link displayed");
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
-                "Switch to User Info tab assert");
+                "Switched to User Info tab");
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
@@ -120,31 +120,31 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleName()), "User role assert");
+                .equals(user.getRoleName()), "User roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
-                "User Info tab display assert");
+                "User Info tab displayed");
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ITEM_MANAGEMENT_TAB),
-                "Item Management display assert");
+                "Item Management displayed");
 
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
-                "Default tab assert");
+                "User info tab is the default tab");
 
         itemManagementPage = userInfoPage.clickItemManagementTab();
 
         loggingAssert.assertTrue(itemManagementPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(itemManagementPage.getElementText(CommonLocators.ITEM_MANAGEMENT_TAB)),
-                "Switch to Item Management tab assert");
+                "Switched to Item Management tab");
 
         loggingAssert.assertTrue(itemManagementPage.isElementDisplayed(ItemManagementPageLocators.ADD_PRODUCT_LINK),
-                "Add Product link display assert");
+                "Add Product link displayed");
 
         userInfoPage = itemManagementPage.clickUserInfoTab();
 
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
-                "Switch to User Info tab assert");
+                "Switched to User Info tab");
     }
 
     @AfterMethod

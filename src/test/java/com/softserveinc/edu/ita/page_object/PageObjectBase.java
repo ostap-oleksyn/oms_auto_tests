@@ -51,5 +51,6 @@ public abstract class PageObjectBase {
         driver.findElement(locator.getBy()).sendKeys(text);
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Typed '%s' in <b>%s</b>", text, locator.getName()));
     }
+
 }
 
