@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.page_object;
 
-import com.softserveinc.edu.ita.dao_jdbc.domains.User;
 import com.softserveinc.edu.ita.dao_jdbc.domains.UserFromView;
 import com.softserveinc.edu.ita.enums.UsersTable;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
@@ -10,7 +9,6 @@ import org.openqa.selenium.WebElement;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -81,30 +79,30 @@ public class AdministrationPage extends LogOutBase {
     /**
      * A method to verify equality of tables by given column.
      */
-    public boolean verifyEqualityOfTablesByColumn(List<UserFromView> sortedBaseTable, List<UserFromView> sortedTable, UsersTable header)
+    public boolean verifyEqualityOfTablesByColumn(List<UserFromView> sortedBaseTableFromView, List<UserFromView> sortedTableByView, UsersTable header)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Iterator firstTableIterator = sortedBaseTable.iterator();
-        Iterator secondTableIterator = sortedTable.iterator();
+        Iterator baseTableIterator = sortedBaseTableFromView.iterator();
+        Iterator tableIterator = sortedTableByView.iterator();
         int equalsCells = 0;
-        while (firstTableIterator.hasNext() &&
-                UserFromView.class.getDeclaredMethod(header.getMethodName()).invoke(firstTableIterator.next())
-                        .equals(UserFromView.class.getDeclaredMethod(header.getMethodName()).invoke(secondTableIterator.next()))) {
+        while (baseTableIterator.hasNext() &&
+                UserFromView.class.getDeclaredMethod(header.getMethodName()).invoke(baseTableIterator.next())
+                        .equals(UserFromView.class.getDeclaredMethod(header.getMethodName()).invoke(tableIterator.next()))) {
             equalsCells++;
         }
-        return (equalsCells == sortedBaseTable.size());
+        return (equalsCells == sortedBaseTableFromView.size());
     }
 
     /**
      * A method to sort base table by given column through comparator.
      */
-    public void sortBaseTableBy(List<UserFromView> baseTableFromView, UsersTable header) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Map<UsersTable, Function<UserFromView, String>> map = new HashMap<>();
-        map.put(UsersTable.FIRST_NAME, UserFromView::getFirstName);
-        map.put(UsersTable.LAST_NAME, UserFromView::getLastName);
-        map.put(UsersTable.LOGIN, UserFromView::getLogin);
-        map.put(UsersTable.ROLE, UserFromView::getRole);
-        map.put(UsersTable.REGION, UserFromView::getRegion);
-        baseTableFromView.sort(Comparator.comparing(map.get(header)));
+    public void sortBaseTableBy(List<UserFromView> baseTableFromView, UsersTable header) {
+        Map<UsersTable, Function<UserFromView, String>> sortConditionsMap = new HashMap<>();
+        sortConditionsMap.put(UsersTable.FIRST_NAME, UserFromView::getFirstName);
+        sortConditionsMap.put(UsersTable.LAST_NAME, UserFromView::getLastName);
+        sortConditionsMap.put(UsersTable.LOGIN, UserFromView::getLogin);
+        sortConditionsMap.put(UsersTable.ROLE, UserFromView::getRole);
+        sortConditionsMap.put(UsersTable.REGION, UserFromView::getRegion);
+        baseTableFromView.sort(Comparator.comparing(sortConditionsMap.get(header)));
     }
 
     /**
