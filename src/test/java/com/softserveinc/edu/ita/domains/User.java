@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.dao_jdbc.domains;
+package com.softserveinc.edu.ita.domains;
 
 /**
  * This class represents the User model

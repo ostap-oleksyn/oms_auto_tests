@@ -1,11 +1,10 @@
 package com.softserveinc.edu.ita.tests;
 
-import com.softserveinc.edu.ita.dao_jdbc.domains.User;
+import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
-import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 

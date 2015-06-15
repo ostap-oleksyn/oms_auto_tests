@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.tests;
 
-import com.softserveinc.edu.ita.dao_jdbc.domains.User;
+import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.locators.*;
 import com.softserveinc.edu.ita.page_object.*;

@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.tests;
 
-import com.softserveinc.edu.ita.dao_jdbc.domains.Order;
-import com.softserveinc.edu.ita.dao_jdbc.domains.User;
+import com.softserveinc.edu.ita.domains.Order;
+import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.enums.OrdersTable;
 import com.softserveinc.edu.ita.page_object.HomePage;

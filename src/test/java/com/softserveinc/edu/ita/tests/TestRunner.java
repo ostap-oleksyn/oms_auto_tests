@@ -18,9 +18,8 @@ import java.util.concurrent.TimeUnit;
 public class TestRunner {
 
     protected WebDriver driver;
-
-    final LoggingAssert loggingAssert = new LoggingAssert();
-    final LoggingSoftAssert loggingSoftAssert = new LoggingSoftAssert();
+    final protected LoggingAssert loggingAssert = new LoggingAssert();
+    final protected LoggingSoftAssert loggingSoftAssert = new LoggingSoftAssert();
 
     protected TestRunner() {
     }
@@ -28,7 +27,6 @@ public class TestRunner {
     public WebDriver getDriver() {
         return driver;
     }
-
 
     @BeforeClass
     public void setUp() throws IOException {

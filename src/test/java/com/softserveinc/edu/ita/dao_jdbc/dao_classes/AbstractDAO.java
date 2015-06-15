@@ -18,7 +18,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 
     protected Connection connection;
 
-    public abstract String getSelectQuery();
+    protected abstract String getSelectQuery();
 
     protected abstract List<T> parseResultSet(ResultSet resultSet) throws DAOException;
 

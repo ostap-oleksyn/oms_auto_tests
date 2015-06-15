@@ -8,14 +8,14 @@ public enum Roles {
     SUPERVISOR("Supervisor"),
     ALL("All");
 
-    private String role;
+    private String name;
 
-    Roles(String role) {
-        this.role = role;
+    Roles(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return this.role;
+        return this.name;
     }
 }
