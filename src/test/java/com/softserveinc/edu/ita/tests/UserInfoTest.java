@@ -22,13 +22,13 @@ public class UserInfoTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         Reporter.log(UserInfoPageLocators.FIRST_NAME_LABEL.toString());
         loggingAssert.assertEquals(user.getFirstName(), userInfoPage
-                .getElementText(UserInfoPageLocators.FIRST_NAME_LABEL.getBy()), "User first name assert");
+                .getElementText(UserInfoPageLocators.FIRST_NAME_LABEL), "User first name assert");
         loggingAssert.assertEquals(user.getLastName(), userInfoPage
-                .getElementText(UserInfoPageLocators.LAST_NAME_LABEL.getBy()), "User last name assert");
+                .getElementText(UserInfoPageLocators.LAST_NAME_LABEL), "User last name assert");
         loggingAssert.assertEquals(user.getCustomerType(), userInfoPage
-                .getElementText(UserInfoPageLocators.CUSTOMER_TYPE_LABEL.getBy()), "User customer type assert");
+                .getElementText(UserInfoPageLocators.CUSTOMER_TYPE_LABEL), "User customer type assert");
         loggingAssert.assertEquals(user.getRoleName(), userInfoPage
-                .getElementText(UserInfoPageLocators.USER_ROLE_LABEL.getBy()), "User role assert");
+                .getElementText(UserInfoPageLocators.USER_ROLE_LABEL), "User role assert");
 
         userInfoPage.clickLogOutButton();
     }

@@ -14,11 +14,15 @@ public abstract class PageObjectBase {
         this.driver = driver;
     }
 
-    public String getElementText(By elementLocator) {
-        return driver.findElement(elementLocator).getText();
+    public String getElementText(ILocator locator) {
+        return driver.findElement(locator.getBy()).getText();
     }
 
     //TODO consider using findElements()
+    public boolean isElementDisplayed(ILocator locator) {
+        return driver.findElement(locator.getBy()).isDisplayed();
+    }
+
     public boolean isElementDisplayed(By elementLocator) {
         return driver.findElement(elementLocator).isDisplayed();
     }

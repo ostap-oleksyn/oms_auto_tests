@@ -7,19 +7,16 @@ import com.softserveinc.edu.ita.locators.HomePageLocators;
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
-import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestRunner {
 
-    final private String errorMessage = "Your login attempt was not successful, try again.";
 
     @Test
     public void emptyLoginTest() {
         final HomePage homePage = new HomePage(driver);
         homePage.clickSubmitButton();
-        loggingAssert.assertTrue(homePage.getElementText(HomePageLocators.LOGIN_ERROR_MESSAGE.getBy())
-                .contains(errorMessage), "Error message display assert");
+        loggingAssert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_ERROR_MESSAGE), "Error message display assert");
 
     }
 
@@ -29,7 +26,7 @@ public class LoginTest extends TestRunner {
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_ROLE_LABEL.getBy())
+                .getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
                 .equals(user.getRoleName()), "User role assert");
 
         userInfoPage.clickLogOutButton();
@@ -40,8 +37,7 @@ public class LoginTest extends TestRunner {
         final HomePage homePage = new HomePage(driver);
         homePage.logIn(login, password);
 
-        loggingAssert.assertTrue(homePage.getElementText(HomePageLocators.LOGIN_ERROR_MESSAGE.getBy())
-                .contains(errorMessage), "Error message display assert");
+        loggingAssert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_ERROR_MESSAGE), "Error message display assert");
     }
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
@@ -50,10 +46,10 @@ public class LoginTest extends TestRunner {
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_ROLE_LABEL.getBy())
+                .getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
                 .equals(user.getRoleName()), "User role assert");
         userInfoPage.clickLogOutButton();
-        loggingAssert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_USER_INPUT.getBy()), "User log out assert");
+        loggingAssert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_USER_INPUT), "User log out assert");
     }
 
 }
