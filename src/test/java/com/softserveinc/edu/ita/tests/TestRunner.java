@@ -32,6 +32,7 @@ public class TestRunner {
 
     @BeforeClass
     public void setUp() throws IOException {
+        System.setProperty("org.uncommons.reportng.escape-output", "false");
         BrowserTypes browserType;
         String configProperty = PropertyLoader.getProperty("browser");
 

@@ -21,7 +21,6 @@ public final class LoggingSoftAssert extends SoftAssert {
      */
     @Override
     public void onAssertSuccess(IAssert assertCommand) {
-        System.setProperty("org.uncommons.reportng.escape-output", "false");
         if (!assertCommand.getMessage().equals(message)) {
             Reporter.log(String.format("<br><font color='green'>PASSED</font> - %s", assertCommand.getMessage()));
         }
@@ -33,7 +32,6 @@ public final class LoggingSoftAssert extends SoftAssert {
     @Override
     public void onAssertFailure(IAssert assertCommand, AssertionError ex) {
         message = assertCommand.getMessage();
-        System.setProperty("org.uncommons.reportng.escape-output", "false");
         Reporter.log(String.format("<br><font color='orange'>FAILED - %s</font>", assertCommand.getMessage()));
     }
 }

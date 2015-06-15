@@ -7,6 +7,7 @@ import com.softserveinc.edu.ita.locators.HomePageLocators;
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestRunner {

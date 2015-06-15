@@ -18,7 +18,6 @@ public final class LoggingAssert extends Assertion {
      */
     @Override
     public void onAssertSuccess(IAssert assertCommand) {
-        System.setProperty("org.uncommons.reportng.escape-output", "false");
         Reporter.log(String.format("<br><font color='green'>PASSED</font> - %s", assertCommand.getMessage()));
     }
 
@@ -27,7 +26,6 @@ public final class LoggingAssert extends Assertion {
      */
     @Override
     public void onAssertFailure(IAssert assertCommand, AssertionError ex) {
-        System.setProperty("org.uncommons.reportng.escape-output", "false");
         Reporter.log(String.format("<br><font color='red'>FAILED - %s</font>", assertCommand.getMessage()));
     }
 }
