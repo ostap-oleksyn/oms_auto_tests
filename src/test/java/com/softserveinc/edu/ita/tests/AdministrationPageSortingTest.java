@@ -16,7 +16,7 @@ import java.util.*;
  * This class is used to test sorting actions in 'Administration' table of 'Administration' page.
  */
 public class AdministrationPageSortingTest extends TestRunner {
-
+    int i = 0;
     HomePage homePage;
     UserInfoPage userInfoPage;
     AdministrationPage administrationPage;
@@ -46,12 +46,12 @@ public class AdministrationPageSortingTest extends TestRunner {
     @DataProvider(name = "getEnums")
     public Iterator<Object[]> getTestDataIterator() {
         final List<Object[]> testDataList = new ArrayList<>();
-        for (UsersTable enumeration : UsersTable.values()) testDataList.add(new Object[] {enumeration});
+        for (UsersTable enumeration : UsersTable.values()) testDataList.add(new Object[]{enumeration});
         return testDataList.iterator();
     }
 
     @BeforeClass
-        public void logIn() {
+    public void logIn() {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn("iva", "qwerty");
         administrationPage = userInfoPage.clickAdministrationTab();

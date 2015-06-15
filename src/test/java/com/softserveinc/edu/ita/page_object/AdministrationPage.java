@@ -99,7 +99,7 @@ public class AdministrationPage extends LogOutBase {
      */
     public void sortBaseTableBy(List<UserFromView> baseTableFromView, UsersTable defaultHeader) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         for (UserFromView user : baseTableFromView) {
-            user.setDefaultHeader(UserFromView.class.getDeclaredMethod(defaultHeader.getMethodName()).invoke(user).toString());
+            user.setDefaultHeader(UserFromView.class.getDeclaredMethod(defaultHeader.getMethodName()).invoke(user).toString().toLowerCase());
         }
         baseTableFromView.sort(Comparator.comparing(UserFromView::getDefaultHeader));
     }

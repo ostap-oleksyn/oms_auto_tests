@@ -18,7 +18,7 @@ public class UserFromView {
     }
 
     public void setDefaultHeader(String defaultHeader){
-        this.defaultHeader = defaultHeader;
+        this.defaultHeader = defaultHeader.toLowerCase();
     }
 
     public String getFirstName() {
@@ -26,7 +26,7 @@ public class UserFromView {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.toLowerCase();
     }
 
     public String getLastName() {
@@ -34,7 +34,7 @@ public class UserFromView {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.toLowerCase();
     }
 
     public String getLogin() {
@@ -42,7 +42,7 @@ public class UserFromView {
     }
 
     public void setLogin(String login) {
-        this.login = login;
+        this.login = login.toLowerCase();
     }
 
     public String getRole() {
@@ -50,7 +50,7 @@ public class UserFromView {
     }
 
     public void setRole(String role) {
-        this.role = role;
+        this.role = role.toLowerCase();
     }
 
     public String getRegion() {
@@ -58,7 +58,7 @@ public class UserFromView {
     }
 
     public void setRegion(String region) {
-        this.region = region;
+        this.region = region.toLowerCase();
     }
 
     public interface FirstNameStep {
