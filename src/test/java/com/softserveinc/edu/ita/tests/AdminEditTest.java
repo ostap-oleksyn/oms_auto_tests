@@ -8,7 +8,6 @@ import com.softserveinc.edu.ita.page_object.EditUserPage;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
 
-import com.softserveinc.edu.ita.utils.DBUtility;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -32,8 +31,8 @@ public class AdminEditTest extends TestRunner {
                 .contains("This page is appointed for creating new user for particular role."));
 
         editUserPage.changeFirstName("Tomas");
-        editUserPage.sendTextToElement("qwerty", EditUserPageLocators.PASSWORD_INPUT);
-        editUserPage.sendTextToElement("qwerty", EditUserPageLocators.CONFIRM_PASSWORD_INPUT);
+        editUserPage.setTextToElement("qwerty", EditUserPageLocators.PASSWORD_INPUT);
+        editUserPage.setTextToElement("qwerty", EditUserPageLocators.CONFIRM_PASSWORD_INPUT);
         administrationPage = editUserPage.clickCreateButton();
     }
 }

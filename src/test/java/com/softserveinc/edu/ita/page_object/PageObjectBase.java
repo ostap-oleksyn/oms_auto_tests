@@ -24,5 +24,8 @@ public abstract class PageObjectBase {
         driver.findElement(UserInfoPageLocators.USER_INFO_TAB).click();
         return new UserInfoPage(driver);
     }
+    public void setTextToElement(String text, By elementLocator) {
+        driver.findElement(elementLocator).sendKeys(text);
+    }
 }
 
