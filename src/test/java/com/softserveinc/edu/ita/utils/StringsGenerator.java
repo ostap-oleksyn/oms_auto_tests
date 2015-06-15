@@ -16,7 +16,7 @@ public class StringsGenerator {
      */
     public static String generateString(String validSymbolsString, int minimalLength, int maximalLength) {
 
-        final String SYMBOLS_FILENAME = "valid_symbols.properties";
+        final String SYMBOLS_FILENAME = "symbol_sets.properties";
 
         StringBuilder generatedString = new StringBuilder(maximalLength);
         Random randomGenerator = new Random();

@@ -25,12 +25,6 @@ public class LogOutBase extends PageObjectBase implements LogOutAble {
         driver.findElement(LogoutPageLocators.ADMINISTRATION_TAB);
         return new AdministrationPage(driver);
     }
-
-    public int getRowsCount(By tableLocator) {
-        WebElement table = driver.findElement(tableLocator);
-        return table.findElements(By.xpath(".//tbody/tr")).size();
-    }
-
 }
 
 

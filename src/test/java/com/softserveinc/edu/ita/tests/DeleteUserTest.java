@@ -22,19 +22,14 @@ public class DeleteUserTest extends TestRunner {
 
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
-        administrationPage.clickOnElement(AdministrationPageLocators.LAST_BUTTON);
+        administrationPage.clickLastButton();
 
-        // get last user from table
-        int lastRowNumber = administrationPage.getRowsCount(AdministrationPageLocators.USERS_TABLE);
-        String login = administrationPage.getElementText(By.xpath(String
-                .format(AdministrationPageLocators.LOGIN_CELL, lastRowNumber)));
+        String lastUserLogin = administrationPage.getLastLogin();
+        administrationPage.clickDeleteLastUser();
 
-        // and try to delete it by clicking on Delete link
-        administrationPage.clickOnElement(By.xpath(String
-                .format(AdministrationPageLocators.DELETE_LINK, lastRowNumber)));
-        administrationPage.submitAlert();
+        administrationPage.closeAlert();
 
-        User user = DBUtility.getByLogin(login);
+        User user = DBUtility.getByLogin(lastUserLogin);
         Assert.assertEquals("0", user.getIsUserActive());
 
         administrationPage.clickLogOutButton();

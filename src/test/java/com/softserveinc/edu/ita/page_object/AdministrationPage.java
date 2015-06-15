@@ -26,7 +26,7 @@ public class AdministrationPage extends LogOutBase {
         return new NewUserPage(driver);
     }
 
-    public void submitAlert() {
+    public void closeAlert() {
         Alert alert = driver.switchTo().alert();
         alert.accept();
     }
@@ -39,5 +39,33 @@ public class AdministrationPage extends LogOutBase {
                 String.format(AdministrationPageLocators.LOGIN_CELL, randomLoginRow)));
 
         return loginCell.getText();
+    }
+
+    public void clickLastButton() {
+        driver.findElement(AdministrationPageLocators.LAST_BUTTON).click();
+    }
+
+//    public String getLastUserLogin() {
+//        WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE);
+//        int lastRowNumber = table.findElements(By.xpath(".//tbody/tr")).size();
+//        String login = driver.findElement(By.xpath(String
+//                .format(AdministrationPageLocators.LOGIN_CELL, lastRowNumber))).getText();
+//        return login;
+//    }
+
+
+    public String getLastLogin() {
+        WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE);
+        int tableSize = table.findElements(By.xpath(".//tbody/tr")).size();
+        String login = driver.findElement(By.xpath(String
+                .format(AdministrationPageLocators.LOGIN_CELL, tableSize))).getText();
+        return login;
+    }
+
+    public void clickDeleteLastUser() {
+        WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE);
+        int tableSize = table.findElements(By.xpath(".//tbody/tr")).size();
+        driver.findElement(By.xpath(String
+                .format(AdministrationPageLocators.DELETE_LINK, tableSize))).click();
     }
 }

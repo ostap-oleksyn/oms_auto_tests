@@ -25,14 +25,18 @@ public class NewUserPage extends LogOutBase {
         super(driver);
     }
 
-    public AdministrationPage clickCreateButton() {
+    public AdministrationPage clickCreateButtonForValidData() {
         driver.findElement(NewUserPageLocators.CREATE_BUTTON).click();
         return new AdministrationPage(driver);
     }
 
-    public String getAlertText() {
-        Alert alert = driver.switchTo().alert();
-        return alert.getText();
+    public void clickCreateButtonForNotValidData() {
+        driver.findElement(NewUserPageLocators.CREATE_BUTTON).click();
+    }
+
+    public void fillUserDataInput(By inputLocator, String inputValue) {
+        WebElement input = driver.findElement(inputLocator);
+        input.sendKeys(inputValue);
     }
 
     public void closeAlert() {
@@ -40,97 +44,24 @@ public class NewUserPage extends LogOutBase {
         alert.accept();
     }
 
-    public void fillNamesWithDigits() {
-        List<By> nameInputs = new ArrayList<By>() {{
-            add(NewUserPageLocators.LOGIN_NAME_INPUT);
-            add(NewUserPageLocators.FIRST_NAME_INPUT);
-            add(NewUserPageLocators.LAST_NAME_INPUT);
-        }};
-
-        WebElement nameInput;
-        for (int i = 0; i < 3; i++) {
-            nameInput = driver.findElement(nameInputs.get(i));
-            nameInput.clear();
-            // String.valueOf(HOME) added for prevent selenium/firefox bug
-            nameInput.sendKeys(generateString("digits", 1, 13));
-        }
-    }
-
-    public void fillNamesWithLongStrings() {
-        List<By> nameInputs = new ArrayList<By>() {{
-            add(NewUserPageLocators.LOGIN_NAME_INPUT);
-            add(NewUserPageLocators.FIRST_NAME_INPUT);
-            add(NewUserPageLocators.LAST_NAME_INPUT);
-        }};
-
-        WebElement nameInput;
-        for (int i = 0; i < 3; i++) {
-            nameInput = driver.findElement(nameInputs.get(i));
-            nameInput.clear();
-            // String.valueOf(HOME) added for prevent selenium/firefox bug
-            nameInput.sendKeys(generateString("name_symbols", 14, 20));
-        }
-    }
-
-    public void fillPasswordWithShortString() {
-        WebElement passwordInput = driver.findElement(NewUserPageLocators.PASSWORD_INPUT);
-        passwordInput.clear();
-        // String.valueOf(HOME) added for prevent selenium/firefox bug
-        passwordInput.sendKeys(generateString("password_symbols", 1, 3));
-    }
-
-    public void fillPasswordWithLongString() {
-        WebElement passwordInput = driver.findElement(NewUserPageLocators.PASSWORD_INPUT);
-        passwordInput.clear();
-        // String.valueOf(HOME) added for prevent selenium/firefox bug
-        passwordInput.sendKeys(generateString("password_symbols", 14, 20));
-    }
-
-    public void fillPasswordWithNotEqual() {
-        WebElement confirmPasswordInput = driver.findElement(NewUserPageLocators.CONFIRM_PASSWORD_INPUT);
-        confirmPasswordInput.clear();
-        // String.valueOf(HOME) added for prevent selenium/firefox bug
-        confirmPasswordInput.sendKeys(generateString("password_symbols", 1, 13));
-    }
-
-    public void fillEmail() {
-        WebElement emailInput = driver.findElement(NewUserPageLocators.EMAIL_INPUT);
-        emailInput.clear();
-        // String.valueOf(HOME) added for prevent selenium/firefox bug
-        emailInput.sendKeys(generateString("digits", 1, 10));
-    }
-
-    public void fillLogin(String login) {
-        // + HOME added for prevent selenium/firefox bug
-        WebElement loginName = driver.findElement(NewUserPageLocators.LOGIN_NAME_INPUT);
-        loginName.clear();
-        loginName.sendKeys(login);
-    }
-
-    public void fillUserData(User newUser) {
+    public void fillAllUserData(User newUser) {
 
         WebElement loginInput = driver.findElement(NewUserPageLocators.LOGIN_NAME_INPUT);
-        loginInput.clear();
         loginInput.sendKeys(newUser.getLogin());
 
         WebElement firstNameInput = driver.findElement(NewUserPageLocators.FIRST_NAME_INPUT);
-        firstNameInput.clear();
         firstNameInput.sendKeys(newUser.getFirstName());
 
         WebElement lastNameInput = driver.findElement(NewUserPageLocators.LAST_NAME_INPUT);
-        lastNameInput.clear();
         lastNameInput.sendKeys(newUser.getLastName());
 
         WebElement passwordInput = driver.findElement(NewUserPageLocators.PASSWORD_INPUT);
-        passwordInput.clear();
         passwordInput.sendKeys(newUser.getPassword());
 
         WebElement confirmPasswordInput = driver.findElement(NewUserPageLocators.CONFIRM_PASSWORD_INPUT);
-        confirmPasswordInput.clear();
         confirmPasswordInput.sendKeys(newUser.getPassword());
 
         WebElement emailInput = driver.findElement(NewUserPageLocators.EMAIL_INPUT);
-        emailInput.clear();
         emailInput.sendKeys(newUser.getEmail());
 
         Select regionSelect = new Select(driver.findElement(NewUserPageLocators.REGION_SELECT));
@@ -139,5 +70,10 @@ public class NewUserPage extends LogOutBase {
         WebElement roleButton = driver.findElement(By.xpath(
                 String.format(NewUserPageLocators.ROLE_SELECT, newUser.getRoleName())));
         roleButton.click();
+    }
+
+    public boolean isErrorDisplayed(By messageLocator) {
+        WebElement errorMessageLabel = driver.findElement(messageLocator);
+        return errorMessageLabel.isDisplayed();
     }
 }

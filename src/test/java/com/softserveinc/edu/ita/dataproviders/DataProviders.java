@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
@@ -147,19 +148,32 @@ public class DataProviders {
         final int GENERATED_USERS_COUNT = 5;
 
         Object[][] usersInfoData = new Object[GENERATED_USERS_COUNT][1];
+        Random randomGenerator = new Random();
 
         for (int i=0; i < GENERATED_USERS_COUNT; i++) {
             User user = new User();
 
-            user.setLogin(generateString("name_symbols", 1, 13).toLowerCase());
-            user.setLastName(generateString("name_symbols", 1, 13).toLowerCase());
-            user.setFirstName(generateString("name_symbols", 1, 13).toLowerCase());
-            user.setPassword(generateString("password_symbols", 4, 10));
-            user.setEmail(generateString("email_symbols", 4, 8) + "@"
-                    + generateString("domain_names_symbols", 4, 8) + "."
-                    + generateString("domain_names_symbols", 3, 4));
-            user.setRegionName(String.valueOf(Regions.getRandomRegion()));
-            user.setRoleName(String.valueOf(Roles.getRandomRole()));
+            // generate string with digits
+            if (randomGenerator.nextBoolean()) {
+                user.setLogin(generateString("digits", 1, 13));
+                user.setFirstName(generateString("digits", 1, 13));
+                user.setLastName(generateString("digits", 1, 13));
+            // or with length > 13 symbols
+            } else {
+                user.setLogin(generateString("name_symbols", 14, 20));
+                user.setFirstName(generateString("name_symbols", 14, 20));
+                user.setLastName(generateString("name_symbols", 14, 20));
+            }
+
+            // generate string with length < 4
+            if (randomGenerator.nextBoolean()) {
+                user.setPassword(generateString("password_symbols", 1, 3));
+            // or > 14
+            } else {
+                user.setPassword(generateString("password_symbols", 14, 20));
+            }
+
+            user.setEmail(generateString("digits", 2, 20));
 
             usersInfoData[i][0] = user;
         }
