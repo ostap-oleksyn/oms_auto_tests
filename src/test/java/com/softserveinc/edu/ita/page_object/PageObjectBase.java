@@ -18,13 +18,12 @@ public abstract class PageObjectBase {
         return driver.findElement(locator.getBy()).getText();
     }
 
-    //TODO consider using findElements()
     public boolean isElementDisplayed(ILocator locator) {
-        return driver.findElement(locator.getBy()).isDisplayed();
+        return driver.findElements(locator.getBy()).size() != 0;
     }
 
     public boolean isElementDisplayed(By elementLocator) {
-        return driver.findElement(elementLocator).isDisplayed();
+        return driver.findElements(elementLocator).size() != 0;
     }
 
     public UserInfoPage clickUserInfoTab() {
