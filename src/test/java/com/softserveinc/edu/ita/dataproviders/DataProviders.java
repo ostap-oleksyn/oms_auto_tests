@@ -141,6 +141,31 @@ public class DataProviders {
         return usersInfoData;
     }
 
+    @DataProvider(name="generatedNotValidUserData")
+    public static Object[][] generateNotValidUserData() {
+
+        final int GENERATED_USERS_COUNT = 5;
+
+        Object[][] usersInfoData = new Object[GENERATED_USERS_COUNT][1];
+
+        for (int i=0; i < GENERATED_USERS_COUNT; i++) {
+            User user = new User();
+
+            user.setLogin(generateString("name_symbols", 1, 13).toLowerCase());
+            user.setLastName(generateString("name_symbols", 1, 13).toLowerCase());
+            user.setFirstName(generateString("name_symbols", 1, 13).toLowerCase());
+            user.setPassword(generateString("password_symbols", 4, 10));
+            user.setEmail(generateString("email_symbols", 4, 8) + "@"
+                    + generateString("domain_names_symbols", 4, 8) + "."
+                    + generateString("domain_names_symbols", 3, 4));
+            user.setRegionName(String.valueOf(Regions.getRandomRegion()));
+            user.setRoleName(String.valueOf(Roles.getRandomRole()));
+
+            usersInfoData[i][0] = user;
+        }
+
+        return usersInfoData;
+    }
 
     private static Object[][] getUsersByRoleFromXls(Roles roles) throws IOException, DAOException {
         //TODO move XLS file operations  out to a util class

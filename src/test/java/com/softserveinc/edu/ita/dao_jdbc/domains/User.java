@@ -13,6 +13,7 @@ public class User {
     private String email;
     private String roleName;
     private String customerType;
+    private String isUserActive;
 
     public String getRegionName() {
         return regionName;
@@ -87,6 +88,15 @@ public class User {
     public void setCustomerType(String customerType) {
         this.customerType = customerType;
     }
+
+    public String getIsUserActive() {
+        return isUserActive;
+    }
+
+    public void setIsUserActive(String isUserActive) {
+        this.isUserActive = isUserActive;
+    }
+
 
     /**
      * helps to output users more correctly

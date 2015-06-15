@@ -64,4 +64,31 @@ public class DBUtility {
 
         return lastUser;
     }
+
+    /**
+     * Returns User by login
+     */
+    public static User getByLogin(String login) {
+        FactoryDAO factory = new FactoryDAO();
+        Connection connection;
+        AbstractDAO userDAO = null;
+
+        try {
+            connection = factory.getConnection();
+            userDAO = (AbstractDAO) factory.getDAO(connection, User.class);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        User user = null;
+
+        try {
+            user = (User) userDAO.getByLogin(login);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
 }

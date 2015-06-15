@@ -26,7 +26,7 @@ public class CreateUserTest extends TestRunner {
      *
      * @param newUser new valid user data from dataprovider
      */
-    @Test(dataProvider = "generatedValidUserData", dataProviderClass = DataProviders.class)
+    @Test(dataProvider = "generatedValidUserData", dataProviderClass = DataProviders.class, enabled = false)
     public void testValidUserCreating(User newUser) {
 
         HomePage homePage = new HomePage(driver);
@@ -37,18 +37,9 @@ public class CreateUserTest extends TestRunner {
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
         NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
-        // create new user
-        newUserPage.sendTextToElement(newUser.getLogin(), NewUserPageLocators.LOGIN_NAME_INPUT);
-        newUserPage.sendTextToElement(newUser.getFirstName(), NewUserPageLocators.FIRST_NAME_INPUT);
-        newUserPage.sendTextToElement(newUser.getLastName(), NewUserPageLocators.LAST_NAME_INPUT);
-        newUserPage.sendTextToElement(newUser.getPassword(), NewUserPageLocators.PASSWORD_INPUT);
-        newUserPage.sendTextToElement(newUser.getPassword(), NewUserPageLocators.CONFIRM_PASSWORD_INPUT);
-        newUserPage.sendTextToElement(newUser.getEmail(), NewUserPageLocators.EMAIL_INPUT);
-        newUserPage.selectRegion(newUser.getRegionName());
-        newUserPage.clickOnElement(By.xpath(String.format(NewUserPageLocators.ROLE_SELECT, newUser.getRoleName())));
+        newUserPage.fillUserData(newUser);
         administrationPage = newUserPage.clickCreateButton();
 
-        // and check it in database
         User lastUser = DBUtility.getLastUser();
         Assert.assertEquals(newUser.getLogin(), lastUser.getLogin());
 
@@ -58,7 +49,7 @@ public class CreateUserTest extends TestRunner {
     /**
      * Test new User creating with empty data
      */
-    @Test
+    @Test(enabled = false)
     public void testEmptyUserCreate() {
 
         final String ERROR_ALERT_MESSAGE = "check all fields for valid data";
@@ -73,20 +64,21 @@ public class CreateUserTest extends TestRunner {
         NewUserPage newUserPage = administrationPage.clickCreateUserLink();
         newUserPage.clickOnElement(NewUserPageLocators.CREATE_BUTTON);
 
-        Assert.assertEquals(newUserPage.getAlertTextAndClose(), ERROR_ALERT_MESSAGE);
+        // test application shows alert
+        Assert.assertEquals(newUserPage.getAlertText(), ERROR_ALERT_MESSAGE);
+        newUserPage.closeAlert();
 
         // test fields returns error message for empty data
-        Map<String, String> notEmptyFields = new HashMap<String, String>() {{
-            put("Login name", newUserPage.getElementText(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
-            put("First name", newUserPage.getElementText(NewUserPageLocators.FIRST_NAME_ERROR_LABEL));
-            put("Last name", newUserPage.getElementText(NewUserPageLocators.LAST_NAME_ERROR_LABEL));
-            put("Password", newUserPage.getElementText(NewUserPageLocators.PASSWORD_ERROR_LABEL));
-            put("Email", newUserPage.getElementText(NewUserPageLocators.EMAIL_ERROR_LABEL));
-        }};
-
-        for (Entry<String, String> field : notEmptyFields.entrySet()) {
-            Assert.assertEquals(field.getKey() + CANNOT_BE_BLANK_MESSAGE, field.getValue().toString());
-        }
+        Assert.assertEquals("Login name" + CANNOT_BE_BLANK_MESSAGE,
+                newUserPage.getElementText(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
+        Assert.assertEquals("First name" + CANNOT_BE_BLANK_MESSAGE,
+                newUserPage.getElementText(NewUserPageLocators.FIRST_NAME_ERROR_LABEL));
+        Assert.assertEquals("Last name" + CANNOT_BE_BLANK_MESSAGE,
+                newUserPage.getElementText(NewUserPageLocators.LAST_NAME_ERROR_LABEL));
+        Assert.assertEquals("Password" + CANNOT_BE_BLANK_MESSAGE,
+                newUserPage.getElementText(NewUserPageLocators.PASSWORD_ERROR_LABEL));
+        Assert.assertEquals("Email" + CANNOT_BE_BLANK_MESSAGE,
+                newUserPage.getElementText(NewUserPageLocators.EMAIL_ERROR_LABEL));
 
         administrationPage.clickLogOutButton();
     }
@@ -94,7 +86,7 @@ public class CreateUserTest extends TestRunner {
     /**
      * Test new User creating not valid data
      */
-    @Test
+    @Test(enabled = true)
     public void testNotValidUserCreate() {
 
         final String CANNOT_CONTAIN_DIGITS_MESSAGE = " cannot contain digits";
@@ -111,71 +103,52 @@ public class CreateUserTest extends TestRunner {
         AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
         NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
-        List<By> nameInputs = new ArrayList<By>() {{
-            add(NewUserPageLocators.LOGIN_NAME_INPUT);
-            add(NewUserPageLocators.FIRST_NAME_INPUT);
-            add(NewUserPageLocators.LAST_NAME_INPUT);
-        }};
-
-        List<By> errorLabels = new ArrayList<By>() {{
-            add(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL);
-            add(NewUserPageLocators.FIRST_NAME_ERROR_LABEL);
-            add(NewUserPageLocators.LAST_NAME_ERROR_LABEL);
-        }};
-
-
         // Test Login Name, First Name and Last Name don't contain digits
-        List<String> errorMessages = new ArrayList<String>() {{
-            add("Login name" + CANNOT_CONTAIN_DIGITS_MESSAGE);
-            add("First name" + CANNOT_CONTAIN_DIGITS_MESSAGE);
-            add("Last name" + CANNOT_CONTAIN_DIGITS_MESSAGE);
-        }};
+        newUserPage.fillNamesWithDigits();
+        Assert.assertEquals(newUserPage.getElementText(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL),
+                "Login name" + CANNOT_CONTAIN_DIGITS_MESSAGE);
+        Assert.assertEquals(newUserPage.getElementText(NewUserPageLocators.FIRST_NAME_ERROR_LABEL),
+                "First name" + CANNOT_CONTAIN_DIGITS_MESSAGE);
+        Assert.assertEquals(newUserPage.getElementText(NewUserPageLocators.LAST_NAME_ERROR_LABEL),
+                "Last name" + CANNOT_CONTAIN_DIGITS_MESSAGE);
 
-        for (int i = 0; i < 3; i++) {
-            newUserPage.sendTextToElement(generateString("digits", 1, 13) + String.valueOf(HOME), nameInputs.get(i));
-            Assert.assertEquals(newUserPage.getElementText(errorLabels.get(i)), errorMessages.get(i));
-        }
+
+        System.out.println(driver.findElement(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL).isDisplayed());
 
         // Test Login Name, First Name and Last Name' length isn't more 13 symbols
-        errorMessages = new ArrayList<String>() {{
-            add("Login name" + IS_TOO_LONG_MESSAGE);
-            add("First name" + IS_TOO_LONG_MESSAGE);
-            add("Last name" + IS_TOO_LONG_MESSAGE);
-        }};
+        newUserPage.fillNamesWithLongStrings();
+        Assert.assertEquals(newUserPage.getElementText(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL),
+                "Login name" + IS_TOO_LONG_MESSAGE);
+        Assert.assertEquals(newUserPage.getElementText(NewUserPageLocators.FIRST_NAME_ERROR_LABEL),
+                "First name" + IS_TOO_LONG_MESSAGE);
+        Assert.assertEquals(newUserPage.getElementText(NewUserPageLocators.LAST_NAME_ERROR_LABEL),
+                "Last name" + IS_TOO_LONG_MESSAGE);
 
-        for (int i = 0; i < 3; i++) {
-            newUserPage.clearElementText(nameInputs.get(i));
-            newUserPage.sendTextToElement(generateString("name_symbols", 14, 20)
-                    + String.valueOf(HOME), nameInputs.get(i));
-            Assert.assertEquals(newUserPage.getElementText(errorLabels.get(i)), errorMessages.get(i));
-        }
-
-        // Test Password length is between 4 and 10 symbols, Confirm Password
-        newUserPage.sendTextToElement(generateString("password_symbols", 1, 3)
-                + String.valueOf(HOME), NewUserPageLocators.PASSWORD_INPUT);
+        // Test Password length is less than 4 symbols
+        newUserPage.fillPasswordWithShortString();
         Assert.assertEquals(
                 newUserPage.getElementText(NewUserPageLocators.PASSWORD_ERROR_LABEL),
                 PASSWORD_LENGTH_MESSAGE
         );
 
-        newUserPage.sendTextToElement(generateString("password_symbols", 14, 20)
-                + String.valueOf(HOME), NewUserPageLocators.PASSWORD_INPUT);
+        // Test Password length is more than 13 symbols
+        newUserPage.fillPasswordWithLongString();
         Assert.assertEquals(
                 newUserPage.getElementText(NewUserPageLocators.PASSWORD_ERROR_LABEL),
                 PASSWORD_LENGTH_MESSAGE
         );
 
         // Test Confirm Password returns error message if passwords are not equal
-        newUserPage.sendTextToElement(generateString("password_symbols", 1, 13)
-                + String.valueOf(HOME), NewUserPageLocators.CONFIRM_PASSWORD_INPUT);
+        newUserPage.fillPasswordWithNotEqual();
+//        newUserPage.sendTextToElement(generateString("password_symbols", 1, 13)
+//                + String.valueOf(HOME), NewUserPageLocators.CONFIRM_PASSWORD_INPUT);
         Assert.assertEquals(
                 newUserPage.getElementText(NewUserPageLocators.CONFIRM_PASSWORD_ERROR_LABEL),
                 CONFIRM_PASSWORD_MESSAGE
         );
 
         // Test Email
-        newUserPage.sendTextToElement(generateString("digits", 1, 10)
-                + String.valueOf(HOME), NewUserPageLocators.EMAIL_INPUT);
+        newUserPage.fillEmail();
         Assert.assertEquals(newUserPage.getElementText(NewUserPageLocators.EMAIL_ERROR_LABEL), EMAIL_MESSAGE);
 
         administrationPage.clickLogOutButton();
@@ -184,7 +157,7 @@ public class CreateUserTest extends TestRunner {
     /**
      * Test new User creating over existing user
      */
-    @Test
+    @Test(enabled=false)
     public void testExistingUserCreate() {
         final String ALREADY_IN_USE = " already in use";
 
@@ -195,17 +168,10 @@ public class CreateUserTest extends TestRunner {
 
         AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
 
-        // get random User from table
-        Random randomGenerator = new Random();
-        int randomLoginRow = randomGenerator.nextInt(4) + 1;
-
-        String login = administrationPage.getElementText(
-                By.xpath(String.format(AdministrationPageLocators.LOGIN_CELL, randomLoginRow)));
-
-        // and try to create new User with same login
+        String login = administrationPage.getRadomLoginFromView();
         NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
-        newUserPage.sendTextToElement(login + HOME, NewUserPageLocators.LOGIN_NAME_INPUT);
+        newUserPage.fillLogin(login);
         Assert.assertEquals(login + ALREADY_IN_USE,
                 newUserPage.getElementText(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
 

@@ -22,7 +22,7 @@ public class UserDAO extends AbstractDAO<User> {
      */
     @Override
     public String getSelectQuery() {
-        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName  \n" +
+        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, IsUserActive  \n" +
                 "from users \n" +
                 "left outer join customertypes on users.CustomerTypeRef = customertypes.ID \n" +
                 "inner join regions on users.RegionRef = regions.ID \n" +
@@ -56,6 +56,7 @@ public class UserDAO extends AbstractDAO<User> {
                 user.setRoleName(resultSet.getString("RoleName"));
                 user.setCustomerType(resultSet.getString("TypeName"));
                 user.setRegionName(resultSet.getString("RegionName"));
+                user.setIsUserActive(resultSet.getString("IsUserActive"));
                 resultList.add(user);
             }
         } catch (Exception e) {
