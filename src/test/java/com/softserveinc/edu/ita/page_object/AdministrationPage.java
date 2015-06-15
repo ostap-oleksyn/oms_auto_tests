@@ -76,17 +76,29 @@ public class AdministrationPage extends LogOutBase {
         return Integer.valueOf(getElementText(AdministrationPageLocators.QUANTITY_OF_TABLE_PAGES));
     }
 
+    private interface comparisonCondition{
+        String callMethod(UserFromView method);
+    }
+
     /**
      * A method to verify equality of tables by given column.
      */
     public boolean verifyEqualityOfTablesByColumn(List<UserFromView> sortedBaseTableFromView, List<UserFromView> sortedTableByView, UsersTable header)
             throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+
+        Map<UsersTable, comparisonCondition> sortConditionsMap = new HashMap<>();
+        sortConditionsMap.put(UsersTable.FIRST_NAME, UserFromView::getFirstName);
+        sortConditionsMap.put(UsersTable.LAST_NAME, UserFromView::getLastName);
+        sortConditionsMap.put(UsersTable.LOGIN, UserFromView::getLogin);
+        sortConditionsMap.put(UsersTable.ROLE, UserFromView::getRole);
+        sortConditionsMap.put(UsersTable.REGION, UserFromView::getRegion);
+
         Iterator baseTableIterator = sortedBaseTableFromView.iterator();
         Iterator tableIterator = sortedTableByView.iterator();
+
         int equalsCells = 0;
-        while (baseTableIterator.hasNext() &&
-                UserFromView.class.getDeclaredMethod(header.getMethodName()).invoke(baseTableIterator.next())
-                        .equals(UserFromView.class.getDeclaredMethod(header.getMethodName()).invoke(tableIterator.next()))) {
+        while (baseTableIterator.hasNext() && sortConditionsMap.get(header).callMethod((UserFromView) baseTableIterator.next())
+                .equals(sortConditionsMap.get(header).callMethod((UserFromView) tableIterator.next()))) {
             equalsCells++;
         }
         return (equalsCells == sortedBaseTableFromView.size());

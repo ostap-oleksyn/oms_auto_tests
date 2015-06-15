@@ -11,15 +11,6 @@ public class UserFromView {
     private String login;
     private String role;
     private String region;
-    private String defaultHeader;
-
-    public String getDefaultHeader(){
-        return this.defaultHeader;
-    }
-
-    public void setDefaultHeader(String defaultHeader){
-        this.defaultHeader = defaultHeader.toLowerCase();
-    }
 
     public String getFirstName() {
         return firstName;
