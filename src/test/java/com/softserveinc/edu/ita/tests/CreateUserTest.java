@@ -103,7 +103,7 @@ public class CreateUserTest extends TestRunner {
         loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.PASSWORD_ERROR_LABEL),
                 NewUserPageLocators.PASSWORD_ERROR_LABEL.getName() + " displayed");
 
-        newUserPage.fillConfirmPasswordField(newUser.getPassword());
+        newUserPage.fillConfirmPasswordField(newUser.getPassword() + "_");
         loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.CONFIRM_PASSWORD_ERROR_LABEL),
                 NewUserPageLocators.CONFIRM_PASSWORD_ERROR_LABEL.getName() + " displayed");
 

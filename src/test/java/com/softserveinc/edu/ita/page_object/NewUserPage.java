@@ -38,7 +38,7 @@ public class NewUserPage extends LogOutBase {
     }
 
     public void fillConfirmPasswordField(String password) {
-        sendKeys(NewUserPageLocators.CONFIRM_PASSWORD_INPUT, password + "_");
+        sendKeys(NewUserPageLocators.CONFIRM_PASSWORD_INPUT, password);
     }
 
     public void fillEmailField(String email) {
@@ -60,7 +60,7 @@ public class NewUserPage extends LogOutBase {
         fillFirstNameField(newUser.getFirstName());
         fillLastNameField(newUser.getLastName());
         fillPasswordField(newUser.getPassword());
-        fillConfirmPasswordField(newUser.getPassword() + "_");
+        fillConfirmPasswordField(newUser.getPassword());
         fillEmailField(newUser.getEmail());
         selectRegion(newUser.getRegionName());
         clickRoleRadioButton(newUser.getRoleName());

@@ -57,7 +57,7 @@ public abstract class PageObjectBase {
         Alert alert = driver.switchTo().alert();
         String alertText = alert.getText();
         alert.accept();
-        Reporter.log(String.format("INFO   - Accepted alert %s", alertText));
+        Reporter.log(String.format("INFO   - Accepted alert: %s", alertText));
     }
 
 }
