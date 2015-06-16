@@ -67,7 +67,7 @@ public class AdministrationPage extends LogOutBase {
      */
     public void clickAdministrationTableColumn(UsersTableColumns tableColumn) {
         driver.findElement(By.xpath(String.format(AdministrationPageLocators.TABLE_COLUMN, tableColumn))).click();
-        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Clicked <b>%s</b>", tableColumn.toString()));
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Clicked <b>%s</b>", tableColumn));
     }
 
     /**
