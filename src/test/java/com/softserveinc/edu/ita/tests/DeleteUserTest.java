@@ -23,7 +23,7 @@ public class DeleteUserTest extends TestRunner {
         administrationPage.clickLastButton();
 
         final String lastUserLogin = administrationPage.getLastLogin();
-        administrationPage.clickDeleteLastUser();
+        administrationPage.clickDeleteLastUserLink();
         administrationPage.acceptAlert();
 
         final User user = DBUtility.getByLogin(lastUserLogin);

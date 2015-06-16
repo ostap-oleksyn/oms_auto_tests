@@ -43,7 +43,7 @@ public class AdministrationPage extends LogOutBase {
         return login;
     }
 
-    public void clickDeleteLastUser() {
+    public void clickDeleteLastUserLink() {
         WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
         int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
         driver.findElement(By.xpath(String

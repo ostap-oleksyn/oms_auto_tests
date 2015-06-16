@@ -47,6 +47,15 @@ public class NewUserPage extends LogOutBase {
         sendKeys(NewUserPageLocators.EMAIL_INPUT, email);
     }
 
+    public void clickRoleRadioButton (String roleName) {
+        driver.findElement(By.xpath(String.format(NewUserPageLocators.ROLE_SELECT, roleName))).click();
+    }
+
+    public void selectRegion(String regionName) {
+        Select regionSelect = new Select(driver.findElement(NewUserPageLocators.REGION_SELECT.getBy()));
+        regionSelect.selectByVisibleText(regionName);
+    }
+
     public void fillAllFields(User newUser) {
 
         fillLoginNameField(newUser.getLogin());
@@ -55,11 +64,7 @@ public class NewUserPage extends LogOutBase {
         fillPasswordField(newUser.getPassword());
         fillConfirmPasswordField(newUser.getPassword() + "_");
         fillEmailField(newUser.getEmail());
-
-        Select regionSelect = new Select(driver.findElement(NewUserPageLocators.REGION_SELECT.getBy()));
-        regionSelect.selectByVisibleText(newUser.getRegionName());
-
-        driver.findElement(By.xpath(
-                String.format(NewUserPageLocators.ROLE_SELECT, newUser.getRoleName()))).click();
+        selectRegion(newUser.getRegionName());
+        clickRoleRadioButton(newUser.getRoleName());
     }
 }
