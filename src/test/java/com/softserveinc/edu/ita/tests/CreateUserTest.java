@@ -33,7 +33,8 @@ public class CreateUserTest extends TestRunner {
         administrationPage = newUserPage.clickCreateButton();
 
         final User lastUser = DBUtility.getLastUser();
-        Assert.assertEquals(newUser.getLogin(), lastUser.getLogin());
+        loggingAssert.assertEquals(newUser.getLogin(), lastUser.getLogin(),
+                "New user has stored into database.");
 
         administrationPage.clickLogOutButton();
     }
@@ -54,11 +55,20 @@ public class CreateUserTest extends TestRunner {
         newUserPage.acceptAlert();
 
         // test fields returns error message for empty data
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.FIRST_NAME_ERROR_LABEL));
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LAST_NAME_ERROR_LABEL));
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.PASSWORD_ERROR_LABEL));
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.EMAIL_ERROR_LABEL));
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL.getBy()),
+                NewUserPageLocators.LOGIN_NAME_ERROR_LABEL.getName() + " displayed");
+
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.FIRST_NAME_ERROR_LABEL.getBy()),
+                NewUserPageLocators.FIRST_NAME_ERROR_LABEL.getName() + " displayed");
+
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LAST_NAME_ERROR_LABEL.getBy()),
+                NewUserPageLocators.LAST_NAME_ERROR_LABEL.getName() + " displayed");
+
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.PASSWORD_ERROR_LABEL.getBy()),
+                NewUserPageLocators.PASSWORD_ERROR_LABEL.getName() + " displayed");
+
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.EMAIL_ERROR_LABEL.getBy()),
+                NewUserPageLocators.EMAIL_ERROR_LABEL.getName() + " displayed");
 
         administrationPage.clickLogOutButton();
     }
@@ -76,22 +86,28 @@ public class CreateUserTest extends TestRunner {
         final NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
         newUserPage.fillLoginNameField(newUser.getLogin());
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL.getBy()),
+                NewUserPageLocators.LOGIN_NAME_ERROR_LABEL.getName() + " displayed");
 
         newUserPage.fillFirstNameField(newUser.getFirstName());
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.FIRST_NAME_ERROR_LABEL));
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.FIRST_NAME_ERROR_LABEL.getBy()),
+                NewUserPageLocators.FIRST_NAME_ERROR_LABEL.getName() + " displayed");
 
         newUserPage.fillLastNameField(newUser.getLastName());
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LAST_NAME_ERROR_LABEL));
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LAST_NAME_ERROR_LABEL.getBy()),
+                NewUserPageLocators.LAST_NAME_ERROR_LABEL.getName() + " displayed");
 
         newUserPage.fillPasswordField(newUser.getPassword());
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.PASSWORD_ERROR_LABEL));
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.PASSWORD_ERROR_LABEL.getBy()),
+                NewUserPageLocators.PASSWORD_ERROR_LABEL.getName() + " displayed");
 
         newUserPage.fillConfirmPasswordField(newUser.getPassword());
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.CONFIRM_PASSWORD_ERROR_LABEL));
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.CONFIRM_PASSWORD_ERROR_LABEL.getBy()),
+                NewUserPageLocators.CONFIRM_PASSWORD_ERROR_LABEL.getName() + " displayed");
 
         newUserPage.fillEmailField(newUser.getEmail());
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.EMAIL_ERROR_LABEL));
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.EMAIL_ERROR_LABEL.getBy()),
+                NewUserPageLocators.EMAIL_ERROR_LABEL.getName() + " displayed");
 
         newUserPage.clickCreateButton();
         newUserPage.acceptAlert();
@@ -112,8 +128,9 @@ public class CreateUserTest extends TestRunner {
         final String login = administrationPage.getRandomLoginFromView();
         final NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
-        newUserPage.fillUserDataInput(NewUserPageLocators.LOGIN_NAME_INPUT, login);
-        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
+        newUserPage.fillUserDataInput(NewUserPageLocators.LOGIN_NAME_INPUT.getBy(), login);
+        loggingAssert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL.getBy()),
+                NewUserPageLocators.LOGIN_NAME_ERROR_LABEL.getName() + " displayed");
 
         newUserPage.clickLogOutButton();
     }

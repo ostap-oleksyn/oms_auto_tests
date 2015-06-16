@@ -37,20 +37,20 @@ public class AdministrationPage extends LogOutBase {
     }
 
     public void clickLastButton() {
-        driver.findElement(AdministrationPageLocators.LAST_BUTTON).click();
+        driver.findElement(AdministrationPageLocators.LAST_BUTTON.getBy()).click();
     }
 
     public String getLastLogin() {
-        WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE);
-        int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS).size();
+        WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
+        int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
         String login = driver.findElement(By.xpath(String
                 .format(AdministrationPageLocators.LOGIN_CELL, tableSize))).getText();
         return login;
     }
 
     public void clickDeleteLastUser() {
-        WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE);
-        int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS).size();
+        WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
+        int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
         driver.findElement(By.xpath(String
                 .format(AdministrationPageLocators.DELETE_LINK, tableSize))).click();
     }

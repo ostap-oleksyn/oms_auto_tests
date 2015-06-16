@@ -28,7 +28,7 @@ public class DeleteUserTest extends TestRunner {
         administrationPage.acceptAlert();
 
         final User user = DBUtility.getByLogin(lastUserLogin);
-        Assert.assertEquals(user.getIsUserActive(), "0");
+        loggingAssert.assertEquals(user.getIsUserActive(), "0", "User status is changed in database");
 
         administrationPage.clickLogOutButton();
     }
