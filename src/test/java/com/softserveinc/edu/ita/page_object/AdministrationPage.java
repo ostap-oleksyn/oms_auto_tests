@@ -1,15 +1,13 @@
 package com.softserveinc.edu.ita.page_object;
 
-import com.softserveinc.edu.ita.dao_jdbc.domains.UserFromView;
+import com.softserveinc.edu.ita.domains.UserFromView;
 import com.softserveinc.edu.ita.enums.UsersTable;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-import java.util.function.Function;
 
 /**
  * This class describes "Administration" page according to "Page Object" pattern.
@@ -27,11 +25,11 @@ public class AdministrationPage extends LogOutBase {
         List<UserFromView> usersList = new LinkedList<>();
         int pagination = 0;
         do {
-            if (driver.findElements(AdministrationPageLocators.TABLE_ROWS).size() <= 1) {
+            if (driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy()).size() <= 1) {
             } else {
-                List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS);
+                List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy());
                 for (int j = 1; j < rowsList.size(); j++) {
-                    List<WebElement> cellsList = rowsList.get(j).findElements(AdministrationPageLocators.ROW_CELLS);
+                    List<WebElement> cellsList = rowsList.get(j).findElements(AdministrationPageLocators.ROW_CELLS.getBy());
                     usersList.add(new UserFromView.UserFromViewBuilder()
                             .withFirstName(cellsList.get(0).getText())
                             .withLastName(cellsList.get(1).getText())
@@ -52,14 +50,14 @@ public class AdministrationPage extends LogOutBase {
      * A method to click "First" button below "Ordering" table of "Ordering" page.
      */
     public void clickFirstButton() {
-        driver.findElement(AdministrationPageLocators.FIRST_BUTTON).click();
+        driver.findElement(AdministrationPageLocators.FIRST_BUTTON.getBy()).click();
     }
 
     /**
      * A method to click "Next" button below "Ordering" table of "Ordering" page.
      */
     public void clickNextButton() {
-        driver.findElement(AdministrationPageLocators.NEXT_BUTTON).click();
+        click(AdministrationPageLocators.NEXT_BUTTON);
     }
 
     /**

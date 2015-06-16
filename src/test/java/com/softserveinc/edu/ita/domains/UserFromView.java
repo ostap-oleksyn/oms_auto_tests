@@ -1,6 +1,4 @@
-package com.softserveinc.edu.ita.dao_jdbc.domains;
-
-import java.lang.reflect.Method;
+package com.softserveinc.edu.ita.domains;
 
 /**
  * Class to initiate user using "Step Builder" Pattern.
