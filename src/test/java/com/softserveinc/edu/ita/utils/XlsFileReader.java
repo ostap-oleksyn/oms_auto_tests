@@ -26,6 +26,8 @@ public final class XlsFileReader {
     private static File excelFile;
     private static FileInputStream fileInputStream;
 
+    private XlsFileReader() {
+    }
 
     /**
      * This method reads all rows from a specific sheet from xls file, skipping the first row with column names.
