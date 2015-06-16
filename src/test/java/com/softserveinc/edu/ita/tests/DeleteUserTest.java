@@ -25,11 +25,10 @@ public class DeleteUserTest extends TestRunner {
 
         final String lastUserLogin = administrationPage.getLastLogin();
         administrationPage.clickDeleteLastUser();
-
         administrationPage.acceptAlert();
 
         final User user = DBUtility.getByLogin(lastUserLogin);
-        Assert.assertEquals("0", user.getIsUserActive());
+        Assert.assertEquals(user.getIsUserActive(), "0");
 
         administrationPage.clickLogOutButton();
     }
