@@ -15,13 +15,8 @@ public class AdministrationPage extends LogOutBase {
     }
 
     public NewUserPage clickCreateUserLink() {
-        driver.findElement(AdministrationPageLocators.CREATE_NEW_USER_LINK.getBy()).click();
+        click(AdministrationPageLocators.CREATE_NEW_USER_LINK);
         return new NewUserPage(driver);
-    }
-
-    public void acceptAlert() {
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
     }
 
     // TODO if somebody else need this method stay it here
@@ -37,7 +32,7 @@ public class AdministrationPage extends LogOutBase {
     }
 
     public void clickLastButton() {
-        driver.findElement(AdministrationPageLocators.LAST_BUTTON.getBy()).click();
+        click(AdministrationPageLocators.LAST_BUTTON);
     }
 
     public String getLastLogin() {

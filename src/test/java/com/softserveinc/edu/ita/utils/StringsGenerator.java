@@ -16,7 +16,6 @@ public class StringsGenerator {
      */
     public static String generateString(String symbolsSet, int minimalLength, int maximalLength) {
 
-        //final String SYMBOLS_FILENAME = "symbol_sets.properties";
         final String WORKSHEET_NAME = "SymbolSets";
 
         StringBuilder generatedString = new StringBuilder(maximalLength);

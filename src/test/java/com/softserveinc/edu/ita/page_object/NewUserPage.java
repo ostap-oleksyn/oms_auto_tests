@@ -19,75 +19,47 @@ public class NewUserPage extends LogOutBase {
     }
 
     public AdministrationPage clickCreateButton() {
-        driver.findElement(NewUserPageLocators.CREATE_BUTTON.getBy()).click();
+        click(NewUserPageLocators.CREATE_BUTTON);
         return new AdministrationPage(driver);
     }
 
-    public void fillUserDataInput(By inputLocator, String inputValue) {
-        WebElement input = driver.findElement(inputLocator);
-        input.sendKeys(inputValue);
-    }
-
     public void fillLoginNameField(String loginName) {
-        WebElement input = driver.findElement(NewUserPageLocators.LOGIN_NAME_INPUT.getBy());
-        input.sendKeys(loginName);
+        sendKeys(NewUserPageLocators.LOGIN_NAME_INPUT, loginName);
     }
 
     public void fillFirstNameField(String firstName) {
-        WebElement input = driver.findElement(NewUserPageLocators.FIRST_NAME_INPUT.getBy());
-        input.sendKeys(firstName);
+        sendKeys(NewUserPageLocators.FIRST_NAME_INPUT, firstName);
     }
 
     public void fillLastNameField(String lastName) {
-        WebElement input = driver.findElement(NewUserPageLocators.LAST_NAME_INPUT.getBy());
-        input.sendKeys(lastName);
+        sendKeys(NewUserPageLocators.LAST_NAME_INPUT, lastName);
     }
 
     public void fillPasswordField(String password) {
-        WebElement input = driver.findElement(NewUserPageLocators.PASSWORD_INPUT.getBy());
-        input.sendKeys(password);
+        sendKeys(NewUserPageLocators.PASSWORD_INPUT, password);
     }
 
     public void fillConfirmPasswordField(String password) {
-        WebElement input = driver.findElement(NewUserPageLocators.CONFIRM_PASSWORD_INPUT.getBy());
-        input.sendKeys(password + "_");
+        sendKeys(NewUserPageLocators.CONFIRM_PASSWORD_INPUT, password + "_");
     }
 
     public void fillEmailField(String email) {
-        WebElement input = driver.findElement(NewUserPageLocators.EMAIL_INPUT.getBy());
-        input.sendKeys(email);
-    }
-
-    public void acceptAlert() {
-        Alert alert = driver.switchTo().alert();
-        alert.accept();
+        sendKeys(NewUserPageLocators.EMAIL_INPUT, email);
     }
 
     public void fillAllFields(User newUser) {
 
-        WebElement loginInput = driver.findElement(NewUserPageLocators.LOGIN_NAME_INPUT.getBy());
-        loginInput.sendKeys(newUser.getLogin());
-
-        WebElement firstNameInput = driver.findElement(NewUserPageLocators.FIRST_NAME_INPUT.getBy());
-        firstNameInput.sendKeys(newUser.getFirstName());
-
-        WebElement lastNameInput = driver.findElement(NewUserPageLocators.LAST_NAME_INPUT.getBy());
-        lastNameInput.sendKeys(newUser.getLastName());
-
-        WebElement passwordInput = driver.findElement(NewUserPageLocators.PASSWORD_INPUT.getBy());
-        passwordInput.sendKeys(newUser.getPassword());
-
-        WebElement confirmPasswordInput = driver.findElement(NewUserPageLocators.CONFIRM_PASSWORD_INPUT.getBy());
-        confirmPasswordInput.sendKeys(newUser.getPassword());
-
-        WebElement emailInput = driver.findElement(NewUserPageLocators.EMAIL_INPUT.getBy());
-        emailInput.sendKeys(newUser.getEmail());
+        fillLoginNameField(newUser.getLogin());
+        fillFirstNameField(newUser.getFirstName());
+        fillLastNameField(newUser.getLastName());
+        fillPasswordField(newUser.getPassword());
+        fillConfirmPasswordField(newUser.getPassword() + "_");
+        fillEmailField(newUser.getEmail());
 
         Select regionSelect = new Select(driver.findElement(NewUserPageLocators.REGION_SELECT.getBy()));
         regionSelect.selectByVisibleText(newUser.getRegionName());
 
-        WebElement roleButton = driver.findElement(By.xpath(
-                String.format(NewUserPageLocators.ROLE_SELECT, newUser.getRoleName())));
-        roleButton.click();
+        driver.findElement(By.xpath(
+                String.format(NewUserPageLocators.ROLE_SELECT, newUser.getRoleName()))).click();
     }
 }

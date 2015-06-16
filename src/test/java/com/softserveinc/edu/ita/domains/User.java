@@ -13,7 +13,7 @@ public class User {
     private String email;
     private String roleName;
     private String customerType;
-    private String isUserActive;
+    private String status;
     private String regionName;
 
     public Integer getId() {
@@ -80,12 +80,12 @@ public class User {
         this.customerType = customerType;
     }
 
-    public String getIsUserActive() {
-        return isUserActive;
+    public String getStatus() {
+        return status;
     }
 
-    public void setIsUserActive(String isUserActive) {
-        this.isUserActive = isUserActive;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getRegionName() {

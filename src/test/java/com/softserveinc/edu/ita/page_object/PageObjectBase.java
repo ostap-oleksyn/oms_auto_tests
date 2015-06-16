@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.page_object;
 
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import com.softserveinc.edu.ita.locators.CommonLocators;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
@@ -50,6 +51,11 @@ public abstract class PageObjectBase {
     public void sendKeys(ILocator locator, String text) {
         driver.findElement(locator.getBy()).sendKeys(text);
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Typed '%s' in <b>%s</b>", text, locator.getName()));
+    }
+
+    public void acceptAlert() {
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
     }
 
 }

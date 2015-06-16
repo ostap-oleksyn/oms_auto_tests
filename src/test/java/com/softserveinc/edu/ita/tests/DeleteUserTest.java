@@ -5,7 +5,6 @@ import com.softserveinc.edu.ita.page_object.AdministrationPage;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
 import com.softserveinc.edu.ita.utils.DBUtility;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
@@ -28,7 +27,7 @@ public class DeleteUserTest extends TestRunner {
         administrationPage.acceptAlert();
 
         final User user = DBUtility.getByLogin(lastUserLogin);
-        loggingAssert.assertEquals(user.getIsUserActive(), "0", "User status is changed in database");
+        loggingAssert.assertEquals(user.getStatus(), "0", "User status is changed in database");
 
         administrationPage.clickLogOutButton();
     }
