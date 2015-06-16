@@ -23,21 +23,17 @@ import java.util.List;
 import java.util.stream.Stream;
 
 
-
 public class DataProviders {
 
-
-
+    /**
+     * Returns names of 'Users' table columns.
+     */
     @DataProvider(name = "getUsersTableColumns")
     public static Iterator<Object[]> getTestDataIterator() {
         List<Object[]> testDataList = new ArrayList<>();
-        try {
-            Stream.of(UsersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
-        } catch (Exception exception) {
-        }
+        Stream.of(UsersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
         return testDataList.iterator();
     }
-
 
     /**
      * Returns all users with Administrator role from database;
