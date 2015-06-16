@@ -75,7 +75,7 @@ public class AdministrationPage extends LogOutBase {
     public int getQuantityOfTablePages() {
         return Integer.valueOf(getElementText(AdministrationPageLocators.QUANTITY_OF_TABLE_PAGES));
     }
-
+    //todo move out to test class
     /**
      * Interface with method used in method "verifyEqualityOfTablesByColumn".
      */
@@ -113,6 +113,7 @@ public class AdministrationPage extends LogOutBase {
         sortConditionsMap.put(UsersTable.LOGIN, UserFromView::getLogin);
         sortConditionsMap.put(UsersTable.ROLE, UserFromView::getRole);
         sortConditionsMap.put(UsersTable.REGION, UserFromView::getRegion);
+
         baseTableFromView.sort(Comparator.comparing(sortConditionsMap.get(header)));
     }
 
@@ -122,6 +123,7 @@ public class AdministrationPage extends LogOutBase {
     public boolean verifyIntegrityOfTableAfterSorting(List<UserFromView> baseTable, List<UserFromView> tableAfterSorting) {
         int quantityOfIntactTableRowsAfterSorting = 0;
         Iterator tableIterator = tableAfterSorting.iterator();
+
         while (tableIterator.hasNext() && baseTable.toString().contains(tableIterator.next().toString())) {
             quantityOfIntactTableRowsAfterSorting++;
         }

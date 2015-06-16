@@ -30,13 +30,14 @@ public class AdministrationPageSortingTest extends TestRunner {
     List<UserFromView> tableFromViewSortedDesc;
 
     @Test(dataProvider = "getEnums")
+    //todo rename userstable
     public void testSorting(UsersTable header) {
 
         administrationPage.clickAdministrationTableColumn(header);
         tableFromViewSortedAsc = administrationPage.getTableFromView();
         administrationPage.clickAdministrationTableColumn(header);
         tableFromViewSortedDesc = administrationPage.getTableFromView();
-
+        //todo asserts
         Assert.assertTrue(administrationPage.verifyIntegrityOfTableAfterSorting(baseTableFromView, tableFromViewSortedAsc),
                 "Integrity of table was broken after sorting in ascending direction.");
         Assert.assertTrue(administrationPage.verifyIntegrityOfTableAfterSorting(baseTableFromView, tableFromViewSortedDesc),
@@ -51,14 +52,14 @@ public class AdministrationPageSortingTest extends TestRunner {
                 "Table sorted in descendant direction by clicking accordant header isn't equal to base table sorted by comparator.");
 
     }
-
+    //todo move out
     @DataProvider(name = "getEnums")
     public Iterator<Object[]> getTestDataIterator() {
         final List<Object[]> testDataList = new ArrayList<>();
         Stream.of(UsersTable.values()).forEach(header -> testDataList.add(new Object[]{header}));
         return testDataList.iterator();
     }
-
+    //todo remove
     @BeforeClass
     public void logIn() {
         homePage = new HomePage(driver);
