@@ -9,7 +9,8 @@ public enum Regions {
     NORTH("North"),
     EAST("East"),
     SOUTH("South"),
-    WEST("West");
+    WEST("West"),
+    ALL("ALL");
 
     private String region;
 
@@ -19,7 +20,7 @@ public enum Regions {
 
     public static Regions getRandomRegion() {
         Random randomGenerator = new Random();
-        return values()[randomGenerator.nextInt(values().length)];
+        return values()[randomGenerator.nextInt(values().length - 1)];
     }
 
     @Override

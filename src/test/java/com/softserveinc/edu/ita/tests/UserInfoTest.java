@@ -16,8 +16,8 @@ public class UserInfoTest extends TestRunner {
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
     public void testUserInfoTab(User user) {
 
-        HomePage homePage = new HomePage(driver);
-        UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
+        final HomePage homePage = new HomePage(driver);
+        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         Assert.assertEquals(user.getFirstName(), userInfoPage
                 .getElementText(UserInfoPageLocators.FIRST_NAME_LABEL));

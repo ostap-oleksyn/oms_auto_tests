@@ -18,21 +18,21 @@ public class CreateUserTest extends TestRunner {
      *
      * @param newUser new valid User data from dataprovider
      */
-    @Test(dataProvider = "generatedValidUserData", dataProviderClass = DataProviders.class, enabled = true)
+    @Test(dataProvider = "generatedValidUserData", dataProviderClass = DataProviders.class)
     public void testValidUserCreating(User newUser) {
 
-        HomePage homePage = new HomePage(driver);
-
-        User admin = DBUtility.getAdmin();
-        UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        final HomePage homePage = new HomePage(driver);
+        final User admin = DBUtility.getAdmin();
+        final UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
 
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
-        NewUserPage newUserPage = administrationPage.clickCreateUserLink();
+        final NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
-        newUserPage.fillAllUserData(newUser);
-        administrationPage = newUserPage.clickCreateButtonForValidData();
+        newUserPage.fillAllFields(newUser);
+        // TODO try to resolve for valid and not valid data ?
+        administrationPage = newUserPage.clickCreateButton();
 
-        User lastUser = DBUtility.getLastUser();
+        final User lastUser = DBUtility.getLastUser();
         Assert.assertEquals(newUser.getLogin(), lastUser.getLogin());
 
         administrationPage.clickLogOutButton();
@@ -41,26 +41,24 @@ public class CreateUserTest extends TestRunner {
     /**
      * Test new User creating with empty data
      */
-    @Test(enabled = true)
+    @Test
     public void testEmptyUserCreate() {
 
-        HomePage homePage = new HomePage(driver);
+        final HomePage homePage = new HomePage(driver);
+        final User admin = DBUtility.getAdmin();
+        final UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        final NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
-        User admin = DBUtility.getAdmin();
-        LogOutBase logOutPage = homePage.logIn(admin.getLogin(), admin.getPassword());
-
-        AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
-        NewUserPage newUserPage = administrationPage.clickCreateUserLink();
-        newUserPage.clickCreateButtonForNotValidData();
-
-        newUserPage.closeAlert();
+        newUserPage.clickCreateButton();
+        newUserPage.acceptAlert();
 
         // test fields returns error message for empty data
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.FIRST_NAME_ERROR_LABEL));
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.LAST_NAME_ERROR_LABEL));
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.PASSWORD_ERROR_LABEL));
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.EMAIL_ERROR_LABEL));
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.FIRST_NAME_ERROR_LABEL));
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LAST_NAME_ERROR_LABEL));
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.PASSWORD_ERROR_LABEL));
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.EMAIL_ERROR_LABEL));
 
         administrationPage.clickLogOutButton();
     }
@@ -68,37 +66,35 @@ public class CreateUserTest extends TestRunner {
     /**
      * Test new User creating not valid data
      */
-    @Test(dataProvider = "generatedNotValidUserData", dataProviderClass = DataProviders.class, enabled = true)
+    @Test(dataProvider = "generatedNotValidUserData", dataProviderClass = DataProviders.class)
     public void testNotValidUserCreate(User newUser) {
 
-        HomePage homePage = new HomePage(driver);
+        final HomePage homePage = new HomePage(driver);
+        final User admin = DBUtility.getAdmin();
+        final UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        final NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
-        User admin = DBUtility.getAdmin();
-        LogOutBase logOutPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        newUserPage.fillLoginNameField(newUser.getLogin());
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
 
-        AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
-        NewUserPage newUserPage = administrationPage.clickCreateUserLink();
+        newUserPage.fillFirstNameField(newUser.getFirstName());
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.FIRST_NAME_ERROR_LABEL));
 
-        newUserPage.fillUserDataInput(NewUserPageLocators.LOGIN_NAME_INPUT, newUser.getLogin());
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
+        newUserPage.fillLastNameField(newUser.getLastName());
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LAST_NAME_ERROR_LABEL));
 
-        newUserPage.fillUserDataInput(NewUserPageLocators.FIRST_NAME_INPUT, newUser.getFirstName());
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.FIRST_NAME_ERROR_LABEL));
+        newUserPage.fillPasswordField(newUser.getPassword());
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.PASSWORD_ERROR_LABEL));
 
-        newUserPage.fillUserDataInput(NewUserPageLocators.LAST_NAME_INPUT, newUser.getLastName());
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.LAST_NAME_ERROR_LABEL));
+        newUserPage.fillConfirmPasswordField(newUser.getPassword());
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.CONFIRM_PASSWORD_ERROR_LABEL));
 
-        newUserPage.fillUserDataInput(NewUserPageLocators.PASSWORD_INPUT, newUser.getPassword());
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.PASSWORD_ERROR_LABEL));
+        newUserPage.fillEmailField(newUser.getEmail());
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.EMAIL_ERROR_LABEL));
 
-        newUserPage.fillUserDataInput(NewUserPageLocators.CONFIRM_PASSWORD_INPUT, newUser.getPassword() + "_");
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.CONFIRM_PASSWORD_ERROR_LABEL));
-
-        newUserPage.fillUserDataInput(NewUserPageLocators.EMAIL_INPUT, newUser.getEmail());
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.EMAIL_ERROR_LABEL));
-
-        newUserPage.clickCreateButtonForNotValidData();
-        newUserPage.closeAlert();
+        newUserPage.clickCreateButton();
+        newUserPage.acceptAlert();
 
         administrationPage.clickLogOutButton();
     }
@@ -106,20 +102,18 @@ public class CreateUserTest extends TestRunner {
     /**
      * Test new User creating over existing user
      */
-    @Test(enabled = true)
+    @Test
     public void testExistingUserCreate() {
-        HomePage homePage = new HomePage(driver);
 
-        User admin = DBUtility.getAdmin();
-        LogOutBase logOutPage = homePage.logIn(admin.getLogin(), admin.getPassword());
-
-        AdministrationPage administrationPage = logOutPage.clickAdministrationTab();
-
-        String login = administrationPage.getRadomLoginFromView();
-        NewUserPage newUserPage = administrationPage.clickCreateUserLink();
+        final HomePage homePage = new HomePage(driver);
+        final User admin = DBUtility.getAdmin();
+        final UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        final String login = administrationPage.getRandomLoginFromView();
+        final NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
         newUserPage.fillUserDataInput(NewUserPageLocators.LOGIN_NAME_INPUT, login);
-        Assert.assertTrue(newUserPage.isErrorDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
+        Assert.assertTrue(newUserPage.isElementDisplayed(NewUserPageLocators.LOGIN_NAME_ERROR_LABEL));
 
         newUserPage.clickLogOutButton();
     }

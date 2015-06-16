@@ -1,12 +1,10 @@
 package com.softserveinc.edu.ita.tests;
 
 import com.softserveinc.edu.ita.dao_jdbc.domains.User;
-import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import com.softserveinc.edu.ita.page_object.AdministrationPage;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
 import com.softserveinc.edu.ita.utils.DBUtility;
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,19 +15,21 @@ public class DeleteUserTest extends TestRunner {
 
     @Test
     public void testUserDeleting() {
-        User admin = DBUtility.getAdmin();
-        HomePage homePage = new HomePage(driver);
 
-        UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
-        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        final HomePage homePage = new HomePage(driver);
+        final User admin = DBUtility.getAdmin();
+        final UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+
         administrationPage.clickLastButton();
 
-        String lastUserLogin = administrationPage.getLastLogin();
+        final String lastUserLogin = administrationPage.getLastLogin();
         administrationPage.clickDeleteLastUser();
 
-        administrationPage.closeAlert();
+        // TODO rename
+        administrationPage.acceptAlert();
 
-        User user = DBUtility.getByLogin(lastUserLogin);
+        final User user = DBUtility.getByLogin(lastUserLogin);
         Assert.assertEquals("0", user.getIsUserActive());
 
         administrationPage.clickLogOutButton();

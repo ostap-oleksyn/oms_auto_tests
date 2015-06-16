@@ -2,11 +2,9 @@ package com.softserveinc.edu.ita.page_object;
 
 
 import com.softserveinc.edu.ita.dao_jdbc.domains.User;
+import com.softserveinc.edu.ita.interfaces.LogOutAble;
 import com.softserveinc.edu.ita.locators.NewUserPageLocators;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
@@ -25,13 +23,9 @@ public class NewUserPage extends LogOutBase {
         super(driver);
     }
 
-    public AdministrationPage clickCreateButtonForValidData() {
+    public AdministrationPage clickCreateButton() {
         driver.findElement(NewUserPageLocators.CREATE_BUTTON).click();
         return new AdministrationPage(driver);
-    }
-
-    public void clickCreateButtonForNotValidData() {
-        driver.findElement(NewUserPageLocators.CREATE_BUTTON).click();
     }
 
     public void fillUserDataInput(By inputLocator, String inputValue) {
@@ -39,12 +33,42 @@ public class NewUserPage extends LogOutBase {
         input.sendKeys(inputValue);
     }
 
-    public void closeAlert() {
+    public void fillLoginNameField(String loginName) {
+        WebElement input = driver.findElement(NewUserPageLocators.LOGIN_NAME_INPUT);
+        input.sendKeys(loginName);
+    }
+
+    public void fillFirstNameField(String firstName) {
+        WebElement input = driver.findElement(NewUserPageLocators.FIRST_NAME_INPUT);
+        input.sendKeys(firstName);
+    }
+
+    public void fillLastNameField(String lastName) {
+        WebElement input = driver.findElement(NewUserPageLocators.LAST_NAME_INPUT);
+        input.sendKeys(lastName);
+    }
+
+    public void fillPasswordField(String password) {
+        WebElement input = driver.findElement(NewUserPageLocators.PASSWORD_INPUT);
+        input.sendKeys(password);
+    }
+
+    public void fillConfirmPasswordField(String password) {
+        WebElement input = driver.findElement(NewUserPageLocators.CONFIRM_PASSWORD_INPUT);
+        input.sendKeys(password + "_");
+    }
+
+    public void fillEmailField(String email) {
+        WebElement input = driver.findElement(NewUserPageLocators.EMAIL_INPUT);
+        input.sendKeys(email);
+    }
+
+    public void acceptAlert() {
         Alert alert = driver.switchTo().alert();
         alert.accept();
     }
 
-    public void fillAllUserData(User newUser) {
+    public void fillAllFields(User newUser) {
 
         WebElement loginInput = driver.findElement(NewUserPageLocators.LOGIN_NAME_INPUT);
         loginInput.sendKeys(newUser.getLogin());
@@ -70,10 +94,5 @@ public class NewUserPage extends LogOutBase {
         WebElement roleButton = driver.findElement(By.xpath(
                 String.format(NewUserPageLocators.ROLE_SELECT, newUser.getRoleName())));
         roleButton.click();
-    }
-
-    public boolean isErrorDisplayed(By messageLocator) {
-        WebElement errorMessageLabel = driver.findElement(messageLocator);
-        return errorMessageLabel.isDisplayed();
     }
 }
