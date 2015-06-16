@@ -93,7 +93,7 @@ public class DataProviders {
     public static Object[][] getInvalidCredentials() {
         Object[][] invalidUsers = null;
         try {
-            invalidUsers = XlsFileReader.readFromXlsByRows("InvalidCredentials");
+            invalidUsers = XlsFileReader.getAllRowsFromXlsSheet("InvalidCredentials");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,7 +105,7 @@ public class DataProviders {
         final Connection connection = factory.getConnection();
         final AbstractDAO userDAO = (AbstractDAO) factory.getDAO(connection, User.class);
 
-        final List<String> usersLoginFromXls = XlsFileReader.readFromXlsByColumns("Users", role.toString());
+        final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.toString());
         final List<User> users = new ArrayList<>();
         for (String usersLogin : usersLoginFromXls) {
             users.add((User) userDAO.getByLogin(usersLogin));
