@@ -94,7 +94,7 @@ public class UserDAO extends AbstractDAO<User> {
     public User getLastUser() throws DAOException {
         List<User> usersList;
         String sqlQuery = getSelectQuery();
-        sqlQuery += " ORDER BY ID DESC";
+        sqlQuery += " WHERE IsUserActive = 1 ORDER BY ID DESC ";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();
             usersList = parseResultSet(resultSet);
