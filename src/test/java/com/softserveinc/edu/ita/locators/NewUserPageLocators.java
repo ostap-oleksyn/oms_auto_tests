@@ -68,8 +68,8 @@ public enum NewUserPageLocators implements ILocator {
     private By locator;
 
     NewUserPageLocators(String name, By locator) {
-            this.name = name;
-            this.locator = locator;
+        this.name = name;
+        this.locator = locator;
     }
 
     @Override

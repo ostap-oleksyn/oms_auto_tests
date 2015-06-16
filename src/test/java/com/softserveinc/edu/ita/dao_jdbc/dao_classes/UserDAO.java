@@ -23,7 +23,7 @@ public class UserDAO extends AbstractDAO<User> {
     @Override
     protected String getSelectQuery() {
         return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, " +
-                    "IsUserActive as Status  \n" +
+                "IsUserActive as Status  \n" +
                 "from users \n" +
                 "left outer join customertypes on users.CustomerTypeRef = customertypes.ID \n" +
                 "inner join regions on users.RegionRef = regions.ID \n" +

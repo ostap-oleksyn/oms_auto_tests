@@ -3,16 +3,14 @@ package com.softserveinc.edu.ita.utils;
 import java.io.IOException;
 import java.util.Random;
 
-import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
-
 public class StringsGenerator {
 
     /**
      * Random String generator
      *
-     * @param symbolsSet set of symbols for generate string in valid_symbols.prop
-     * @param minimalLength      minimal length of returned string
-     * @param maximalLength      maximal length of returned string
+     * @param symbolsSet    set of symbols for generate string in valid_symbols.prop
+     * @param minimalLength minimal length of returned string
+     * @param maximalLength maximal length of returned string
      */
     public static String generateString(String symbolsSet, int minimalLength, int maximalLength) {
 
