@@ -8,28 +8,21 @@ import com.softserveinc.edu.ita.dao_jdbc.domains.UserFromView;
  */
 //todo rename
 public enum UsersTable {
-    FIRST_NAME("First name", "getFirstName"),
-    LAST_NAME("Last name", "getLastName"),
-    LOGIN("Login", "getLogin"),
-    ROLE("Role", "getRole"),
-    REGION("Region", "getRegion");
+    FIRST_NAME("First name"),
+    LAST_NAME("Last name"),
+    LOGIN("Login"),
+    ROLE("Role"),
+    REGION("Region");
 
     private String name;
-    private String methodName;
 
-    UsersTable(String name, String methodName) {
+    UsersTable(String name) {
         this.name = name;
-        this.methodName = methodName;
-
     }
 
-    public String getName() {
+    @Override
+    public String toString() {
         return this.name;
     }
-    //tode remove
-    public String getMethodName() {
-        return this.methodName;
-    }
-
 
 }
