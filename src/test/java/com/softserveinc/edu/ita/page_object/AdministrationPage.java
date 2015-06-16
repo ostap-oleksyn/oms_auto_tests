@@ -1,11 +1,12 @@
 package com.softserveinc.edu.ita.page_object;
 
 import com.softserveinc.edu.ita.domains.UserFromView;
-import com.softserveinc.edu.ita.enums.UsersTable;
+import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.testng.Reporter;
 
 import java.util.*;
 
@@ -43,6 +44,7 @@ public class AdministrationPage extends LogOutBase {
             clickNextButton();
         } while (pagination < getQuantityOfTablePages());
         clickFirstButton();
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - <b>We got a table.</b>"));
         return usersList;
     }
 
@@ -50,7 +52,7 @@ public class AdministrationPage extends LogOutBase {
      * A method to click "First" button below "Ordering" table of "Ordering" page.
      */
     public void clickFirstButton() {
-        driver.findElement(AdministrationPageLocators.FIRST_BUTTON.getBy()).click();
+        click(AdministrationPageLocators.FIRST_BUTTON);
     }
 
     /**
@@ -63,8 +65,9 @@ public class AdministrationPage extends LogOutBase {
     /**
      * A method to click one of "Administration" table headers to make sorting actions in the table.
      */
-    public void clickAdministrationTableColumn(UsersTable tableColumn) {
+    public void clickAdministrationTableColumn(UsersTableColumns tableColumn) {
         driver.findElement(By.xpath(String.format(AdministrationPageLocators.TABLE_COLUMN, tableColumn))).click();
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Clicked <b>%s</b>", tableColumn.toString()));
     }
 
     /**

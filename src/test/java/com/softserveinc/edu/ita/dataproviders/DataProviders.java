@@ -4,6 +4,7 @@ import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
+import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import com.softserveinc.edu.ita.enums.Roles;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -18,8 +19,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
 
@@ -28,6 +31,15 @@ public class DataProviders {
 
     private static HSSFSheet sheet;
     private static HSSFWorkbook workbook;
+
+    @DataProvider(name = "getUsersTableColumns")
+    public static Iterator<Object[]> getTestDataIterator() {
+        List<Object[]> testDataList = new ArrayList<>();
+        try {
+            Stream.of(UsersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
+        }catch(Exception exception){}
+        return testDataList.iterator();
+    }
 
     /**
      * Returns all users with Administrator role from database;
