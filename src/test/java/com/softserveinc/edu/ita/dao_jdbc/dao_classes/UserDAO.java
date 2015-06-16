@@ -2,6 +2,7 @@
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
 import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.enums.Roles;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -88,5 +89,41 @@ public class UserDAO extends AbstractDAO<User> {
             throw new DAOException("Received more than one record.");
         }
         return list.iterator().next();
+    }
+
+    public User getLastUser() throws DAOException {
+        List<User> usersList;
+        String sqlQuery = getSelectQuery();
+        sqlQuery += " ORDER BY ID DESC";
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            ResultSet resultSet = statement.executeQuery();
+            usersList = parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        if (usersList == null || usersList.size() == 0) {
+            throw new DAOException("Users not found.");
+        }
+
+        return usersList.get(0);
+    }
+
+    public User getByRoleName(Roles role) throws DAOException {
+        List<User> list;
+        String sqlQuery = getSelectQuery();
+        //todo add limit 1
+        sqlQuery += " WHERE RoleName= ?";
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setString(1, String.valueOf(role));
+            ResultSet resultSet = statement.executeQuery();
+            list = parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        if (list == null || list.size() == 0) {
+            throw new DAOException("Record with RoleName = " + role + " not found.");
+        }
+
+        return list.get(0);
     }
 }
