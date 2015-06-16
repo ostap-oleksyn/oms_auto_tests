@@ -1,3 +1,4 @@
+
 package com.softserveinc.edu.ita.dataproviders;
 
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
@@ -5,16 +6,38 @@ import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
+
+
+import com.softserveinc.edu.ita.enums.UsersTableColumns;
+
 import com.softserveinc.edu.ita.utils.XlsFileReader;
 import org.testng.annotations.DataProvider;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
+import java.util.stream.Stream;
+
+
+
 public class DataProviders {
+
+
+
+    @DataProvider(name = "getUsersTableColumns")
+    public static Iterator<Object[]> getTestDataIterator() {
+        List<Object[]> testDataList = new ArrayList<>();
+        try {
+            Stream.of(UsersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
+        } catch (Exception exception) {
+        }
+        return testDataList.iterator();
+    }
+
 
     /**
      * Returns all users with Administrator role from database;
