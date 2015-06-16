@@ -44,7 +44,6 @@ public class AdministrationPage extends LogOutBase {
             clickNextButton();
         } while (pagination < getQuantityOfTablePages());
         clickFirstButton();
-        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - <b>We got a table.</b>"));
         return usersList;
     }
 
