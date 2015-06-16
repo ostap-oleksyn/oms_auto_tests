@@ -114,13 +114,13 @@ public class DataProviders {
         for (int i=0; i < GENERATED_USERS_COUNT; i++) {
             User user = new User();
 
-            user.setLogin(generateString("name_symbols", 1, 13).toLowerCase());
-            user.setLastName(generateString("name_symbols", 1, 13).toLowerCase());
-            user.setFirstName(generateString("name_symbols", 1, 13).toLowerCase());
-            user.setPassword(generateString("password_symbols", 4, 10));
-            user.setEmail(generateString("email_symbols", 4, 8) + "@"
-                    + generateString("domain_names_symbols", 4, 8) + "."
-                    + generateString("domain_names_symbols", 3, 4));
+            user.setLogin(generateString("NameSymbols", 1, 13).toLowerCase());
+            user.setLastName(generateString("NameSymbols", 1, 13).toLowerCase());
+            user.setFirstName(generateString("NameSymbols", 1, 13).toLowerCase());
+            user.setPassword(generateString("PasswordSymbols", 4, 10));
+            user.setEmail(generateString("EmailSymbols", 4, 8) + "@"
+                    + generateString("DomainNamesSymbols", 4, 8) + "."
+                    + generateString("DomainNamesSymbols", 3, 4));
             user.setRegionName(String.valueOf(Regions.getRandomRegion()));
             user.setRoleName(String.valueOf(Roles.getRandomRole()));
 
@@ -143,25 +143,25 @@ public class DataProviders {
 
             // generate string with digits
             if (randomGenerator.nextBoolean()) {
-                user.setLogin(generateString("digits", 1, 13));
-                user.setFirstName(generateString("digits", 1, 13));
-                user.setLastName(generateString("digits", 1, 13));
-                // or with length > 13 symbols
+                user.setLogin(generateString("Digits", 1, 13));
+                user.setFirstName(generateString("Digits", 1, 13));
+                user.setLastName(generateString("Digits", 1, 13));
+            // or with length > 13 symbols
             } else {
-                user.setLogin(generateString("name_symbols", 14, 20));
-                user.setFirstName(generateString("name_symbols", 14, 20));
-                user.setLastName(generateString("name_symbols", 14, 20));
+                user.setLogin(generateString("NameSymbols", 14, 20));
+                user.setFirstName(generateString("NameSymbols", 14, 20));
+                user.setLastName(generateString("NameSymbols", 14, 20));
             }
 
             // generate string with length < 4
             if (randomGenerator.nextBoolean()) {
-                user.setPassword(generateString("password_symbols", 1, 3));
-                // or > 14
+                user.setPassword(generateString("PasswordSymbols", 1, 3));
+            // or > 14
             } else {
-                user.setPassword(generateString("password_symbols", 14, 20));
+                user.setPassword(generateString("PasswordSymbols", 14, 20));
             }
 
-            user.setEmail(generateString("digits", 2, 20));
+            user.setEmail(generateString("Digits", 2, 20));
 
             usersInfoData[i][0] = user;
         }
