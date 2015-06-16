@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.page_object;
 
-import com.softserveinc.edu.ita.dao_jdbc.domains.Order;
+import com.softserveinc.edu.ita.domains.Order;
 import com.softserveinc.edu.ita.enums.OrdersTable;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
 import org.openqa.selenium.By;
@@ -27,9 +27,9 @@ public class OrderingPage extends LogOutBase {
     public List<Order> getTableFromView() {
         List<Order> table = new LinkedList<>();
         //This line is needed to find out quantity of orders per table.
-        int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS).getAttribute("value"));
+        int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS.getBy()).getAttribute("value"));
         //This line is needed to find out quantity of orders per page.
-        int quantityOfOrdersPerPage = driver.findElements(OrderingPageLocators.QUANTITY_OF_ROWS_PER_PAGE).size();
+        int quantityOfOrdersPerPage = driver.findElements(OrderingPageLocators.QUANTITY_OF_ROWS_PER_PAGE.getBy()).size();
         //There is calculating size of pagination.
         double iteration = new BigDecimal(quantityOfOrdersPerTable / quantityOfOrdersPerPage).setScale(0, RoundingMode.UP).doubleValue();
         //Iteration through table pages.
@@ -41,7 +41,7 @@ public class OrderingPage extends LogOutBase {
                     //Recording displayed row.
                     List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(OrderingPageLocators.TABLE_ROW, j)));
                     //There is used StepBuilderPattern.
-                    table.add(new Order.OrdersBuilder()
+                    table.add(new Order.Builder()
                             .withOrderName(ordersFields.get(0).getText())
                             .withTotalPrice(ordersFields.get(1).getText())
                             .withMaxDiscount(ordersFields.get(2).getText())
@@ -69,14 +69,14 @@ public class OrderingPage extends LogOutBase {
      * There is method to click "First" button below "Ordering" table of "Ordering" page.
      */
     public void clickFirstButton() {
-        driver.findElement(OrderingPageLocators.CLICK_FIRST_BUTTON).click();
+        click(OrderingPageLocators.CLICK_FIRST_BUTTON);
     }
 
     /**
      * There is method to click "Next" button below "Ordering" table of "Ordering" page.
      */
     public void clickNextButton() {
-        driver.findElement(OrderingPageLocators.CLICK_NEXT_BUTTON).click();
+        click(OrderingPageLocators.CLICK_NEXT_BUTTON);
     }
 
     /**

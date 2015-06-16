@@ -1,22 +1,49 @@
 package com.softserveinc.edu.ita.locators;
 
+import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
-/**
- * Created by Olia on 15.06.2015.
- */
-public class EditUserPageLocators {
+public enum EditUserPageLocators implements ILocator {
 
+    CREATE_BUTTON(
+            "Create button",
+            By.xpath(".//input[@type='submit'][@value='Create']")),
 
-    private EditUserPageLocators() {
+    EDIT_PAGE_MESSAGE(
+            "Message of edit page",
+            By.xpath(".//*[@id='edit']/h3")),
+
+    FIRST_NAME_INPUT(
+            "First name input",
+            By.xpath(".//*[@id='firstName']")),
+
+    PASSWORD_INPUT(
+            "Password input",
+            By.xpath(".//*[@id='password']")),
+    CONFIRM_PASSWORD_INPUT(
+            "Confirm password input",
+            By.xpath(".//*[@id='confirmPassword']"));
+
+    EditUserPageLocators(String name, By locator) {
+        this.name = name;
+        this.locator = locator;
     }
 
-    public static final By EDIT_PAGE_MESSAGE = By.xpath(".//*[@id='edit']/h3[contains(text()," +
-            " 'This page is appointed for creating new user for particular role.')]");
-    public static final By REGION_SELECT = By.xpath(".//*[@id='regionID']");
-    public static final By CREATE_BUTTON = By.xpath(".//input[@type='submit'][@value='Create']");
-    public static final By FIRST_NAME_INPUT = By.xpath(".//*[@id='firstName']");
-    public static final By PASSWORD_INPUT = By.xpath(".//*[@id='password']");
-    public static final By CONFIRM_PASSWORD_INPUT = By.xpath(".//*[@id='confirmPassword']");
-}
+    private String name;
+    private By locator;
 
+    @Override
+    public String toString() {
+        return this.name;
+    }
+
+    @Override
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public By getBy() {
+        return null;
+    }
+}

@@ -23,6 +23,8 @@ $RECYCLE.BIN/
 # Log files
 *.log
 
+test-output/
+
 ### Intellij ###
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 

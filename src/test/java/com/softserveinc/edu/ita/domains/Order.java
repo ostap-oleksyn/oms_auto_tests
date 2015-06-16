@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.dao_jdbc.domains;
+package com.softserveinc.edu.ita.domains;
 
 /**
  * Class to initiate order using "Step Builder" Pattern.
@@ -100,7 +100,7 @@ public class Order {
         Order build();
     }
 
-    public static class OrdersBuilder implements OrderNameStep, TotalPriceStep, MaxDiscountStep, DeliveryDateStep, StatusStep, AssigneeStep, RoleStep, BuildStep {
+    public static class Builder implements OrderNameStep, TotalPriceStep, MaxDiscountStep, DeliveryDateStep, StatusStep, AssigneeStep, RoleStep, BuildStep {
         private String orderName;
         private String totalPrice;
         private String maxDiscount;
@@ -109,11 +109,11 @@ public class Order {
         private String assignee;
         private String role;
 
-        public OrdersBuilder() {
+        public Builder() {
         }
 
         public static OrderNameStep newOrders() {
-            return new OrdersBuilder();
+            return new Builder();
         }
 
         @Override

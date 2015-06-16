@@ -1,7 +1,7 @@
 
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
-import com.softserveinc.edu.ita.dao_jdbc.domains.User;
+import com.softserveinc.edu.ita.domains.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ public class UserDAO extends AbstractDAO<User> {
      * @return
      */
     @Override
-    public String getSelectQuery() {
+    protected String getSelectQuery() {
         return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName \n" +
                 "from users inner join roles on users.RoleRef = roles.ID \n" +
                 "inner join customertypes on \n" +

@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.dataproviders;
 
-import com.softserveinc.edu.ita.dao_jdbc.domains.User;
+import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;

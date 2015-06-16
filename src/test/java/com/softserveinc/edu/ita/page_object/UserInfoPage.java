@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.page_object;
 
 
-import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
+import com.softserveinc.edu.ita.locators.CommonLocators;
 import org.openqa.selenium.WebDriver;
 
 
@@ -12,17 +12,17 @@ public class UserInfoPage extends LogOutBase {
     }
 
     public ItemManagementPage clickItemManagementTab() {
-        driver.findElement(UserInfoPageLocators.USER_ITEM_MANAGEMENT_TAB).click();
+        click(CommonLocators.ITEM_MANAGEMENT_TAB);
         return new ItemManagementPage(driver);
     }
 
     public AdministrationPage clickAdministrationTab() {
-        driver.findElement(UserInfoPageLocators.ADMINISTRATION_TAB).click();
+        click(CommonLocators.ADMINISTRATION_TAB);
         return new AdministrationPage(driver);
     }
 
     public OrderingPage clickOrderingTab() {
-        driver.findElement(UserInfoPageLocators.ORDERING_TAB).click();
+        click(CommonLocators.ORDERING_TAB);
         return new OrderingPage(driver);
     }
 }
