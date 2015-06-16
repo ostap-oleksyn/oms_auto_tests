@@ -31,7 +31,7 @@ public class AdministrationPage extends LogOutBase {
                 List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy());
                 for (int j = 1; j < rowsList.size(); j++) {
                     List<WebElement> cellsList = rowsList.get(j).findElements(AdministrationPageLocators.ROW_CELLS.getBy());
-                    usersList.add(new UserFromView.UserFromViewBuilder()
+                    usersList.add(new UserFromView.Builder()
                             .withFirstName(cellsList.get(0).getText())
                             .withLastName(cellsList.get(1).getText())
                             .withLogin(cellsList.get(2).getText())

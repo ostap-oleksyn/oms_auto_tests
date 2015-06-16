@@ -74,18 +74,18 @@ public class UserFromView {
         UserFromView build();
     }
 
-    public static class UserFromViewBuilder implements FirstNameStep, LastNameStep, LoginStep, RoleStep, RegionStep, BuildStep {
+    public static class Builder implements FirstNameStep, LastNameStep, LoginStep, RoleStep, RegionStep, BuildStep {
         private String firstName;
         private String lastName;
         private String login;
         private String role;
         private String region;
 
-        public UserFromViewBuilder() {
+        public Builder() {
         }
 
         public static FirstNameStep newUserFromView() {
-            return new UserFromViewBuilder();
+            return new Builder();
         }
 
         @Override
