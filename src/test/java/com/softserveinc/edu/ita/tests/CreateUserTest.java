@@ -35,8 +35,7 @@ public class CreateUserTest extends TestRunner {
         administrationPage = newUserPage.clickCreateButton();
 
         final User lastUser = DBUtility.getLastUser();
-        loggingAssert.assertEquals(newUser.getLogin(), lastUser.getLogin(),
-                "New user adding.");
+        loggingAssert.assertEquals(newUser.getLogin(), lastUser.getLogin(), "New user adding.");
 
         administrationPage.clickLogOutButton();
     }

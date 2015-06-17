@@ -18,8 +18,6 @@ public class AdministrationPage extends LogOutBase {
         return new NewUserPage(driver);
     }
 
-    // TODO if somebody else need this method stay it here
-    // else remove to test
     public String getRandomLoginFromView() {
         Random randomGenerator = new Random();
         int randomLoginRow = randomGenerator.nextInt(4) + 1;

@@ -2,6 +2,8 @@ package com.softserveinc.edu.ita.page_object;
 
 
 import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.enums.Regions;
+import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.locators.NewUserPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -45,13 +47,13 @@ public class NewUserPage extends LogOutBase {
         sendKeys(NewUserPageLocators.EMAIL_INPUT, email);
     }
 
-    public void clickRoleRadioButton(String roleName) {
-        driver.findElement(By.xpath(String.format(NewUserPageLocators.ROLE_SELECT, roleName))).click();
+    public void clickRoleRadioButton(Roles roleName) {
+        driver.findElement(By.xpath(String.format(NewUserPageLocators.ROLE_SELECT, roleName.toString()))).click();
     }
 
-    public void selectRegion(String regionName) {
+    public void selectRegion(Regions regionName) {
         Select regionSelect = new Select(driver.findElement(NewUserPageLocators.REGION_SELECT.getBy()));
-        regionSelect.selectByVisibleText(regionName);
+        regionSelect.selectByVisibleText(regionName.toString());
     }
 
     public void fillAllFields(User newUser) {
@@ -62,7 +64,7 @@ public class NewUserPage extends LogOutBase {
         fillPasswordField(newUser.getPassword());
         fillConfirmPasswordField(newUser.getPassword());
         fillEmailField(newUser.getEmail());
-        selectRegion(newUser.getRegionName());
-        clickRoleRadioButton(newUser.getRoleName());
+        selectRegion(Regions.valueOf(newUser.getRegionName().toUpperCase()));
+        clickRoleRadioButton(Roles.valueOf(newUser.getRoleName().toUpperCase()));
     }
 }

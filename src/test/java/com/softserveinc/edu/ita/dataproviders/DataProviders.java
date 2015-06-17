@@ -109,7 +109,7 @@ public class DataProviders {
 
         final int GENERATED_USERS_COUNT = 5;
 
-        Object[][] usersInfoData = new Object[GENERATED_USERS_COUNT][1];
+        Object[][] usersList = new Object[GENERATED_USERS_COUNT][1];
 
         for (int i=0; i < GENERATED_USERS_COUNT; i++) {
             User user = new User();
@@ -124,10 +124,10 @@ public class DataProviders {
             user.setRegionName(String.valueOf(Regions.getRandomRegion()));
             user.setRoleName(String.valueOf(Roles.getRandomRole()));
 
-            usersInfoData[i][0] = user;
+            usersList[i][0] = user;
         }
 
-        return usersInfoData;
+        return usersList;
     }
 
     @DataProvider(name="generatedNotValidUserData")
@@ -135,7 +135,7 @@ public class DataProviders {
 
         final int GENERATED_USERS_COUNT = 5;
 
-        Object[][] usersInfoData = new Object[GENERATED_USERS_COUNT][1];
+        Object[][] usersList = new Object[GENERATED_USERS_COUNT][1];
         Random randomGenerator = new Random();
 
         for (int i=0; i < GENERATED_USERS_COUNT; i++) {
@@ -163,10 +163,10 @@ public class DataProviders {
 
             user.setEmail(generateString("Digits", 2, 20));
 
-            usersInfoData[i][0] = user;
+            usersList[i][0] = user;
         }
 
-        return usersInfoData;
+        return usersList;
     }
 
 
