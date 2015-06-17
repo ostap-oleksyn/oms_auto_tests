@@ -1,8 +1,6 @@
 package com.softserveinc.edu.ita.tests;
 
-import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.locators.EditUserPageLocators;
 import com.softserveinc.edu.ita.page_object.AdministrationPage;
 import com.softserveinc.edu.ita.page_object.EditUserPage;
 import com.softserveinc.edu.ita.page_object.HomePage;
@@ -28,10 +26,7 @@ public class AdminEditTest extends TestRunner{
 
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
-        EditUserPage editUserPage = administrationPage.clickEditButton();
-      //  loggingAssert.assertTrue(editUserPage.getElementText(EditUserPageLocators.EDIT_PAGE_MESSAGE)
-      //          .contains("This page is appointed for creating new user for particular role."),
-      //          "Edit page message is displayed");
+        EditUserPage editUserPage = administrationPage.clickRandomEditButton();
 
         editUserPage.changeFirstName("Tomas");
 

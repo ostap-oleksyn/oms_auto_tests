@@ -9,9 +9,13 @@ public enum AdministrationPageLocators implements ILocator {
             "Create new user link",
             By.xpath(".//*[@id='list']/a[contains(text(), 'Create New User')]")),
 
-    EDIT_USER_LINK(
-            "Edit new user link",
-            By.xpath(".//*[@id='table']/tbody/tr[4]/td[6]/a[contains(text(), 'Edit')]"));
+    USERS_TABLE_ROWS(
+            "Users table rows",
+            By.xpath(".//tbody/tr"));
+
+
+    public static final String EDIT_USER_LINK = ".//*[@id='table']/tbody/tr[4]/td[6]/a[contains(text(), 'Edit')]";
+    public static final String LOGIN_CELL = ".//*[@id='table']/tbody/tr[%s]/td[3]";
 
     AdministrationPageLocators(String name, By locator) {
         this.name = name;
