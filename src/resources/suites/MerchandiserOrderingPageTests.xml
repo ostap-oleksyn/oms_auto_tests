@@ -1,0 +1,67 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Merchandiser Ordering Page Tests" verbose="1">
+    <test name="Sort by 'Name' column test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+                <methods>
+                    <include name="testOrderNameColumn"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Sort by 'Total Price' column test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+                <methods>
+                    <include name="testTotalPriceColumn"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Sort by 'Max Discount' column test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+                <methods>
+                    <include name="testMaxDiscountColumn"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Sort by 'Delivery Date' column test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+                <methods>
+                    <include name="testDeliveryDateColumn"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Sort by 'Status' column test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+                <methods>
+                    <include name="testStatusColumn"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Sort by 'Assignee' column test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+                <methods>
+                    <include name="testAssigneeColumn"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Sort by 'Role' column test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+                <methods>
+                    <include name="testRoleColumn"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

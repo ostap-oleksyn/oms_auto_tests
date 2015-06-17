@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="All Tests" verbose="1">
+    <test name="All tests">
+        <packages>
+            <package name="com.softserveinc.edu.ita.tests"/>
+        </packages>
+    </test>
+</suite>

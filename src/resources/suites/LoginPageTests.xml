@@ -1,0 +1,40 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Login Page Tests" verbose="1">
+    <test name="Empty login test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.LoginTest">
+                <methods>
+                    <include name="emptyLoginTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Invalid login test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.LoginTest">
+                <methods>
+                    <include name="invalidLoginTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Valid login test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.LoginTest">
+                <methods>
+                    <include name="validLoginTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Logout test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.LoginTest">
+                <methods>
+                    <include name="logOutTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

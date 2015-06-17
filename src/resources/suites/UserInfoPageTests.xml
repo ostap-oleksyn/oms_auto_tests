@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="User Info Page Test" verbose="1">
+    <test name="User info test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.UserInfoTest">
+            </class>
+        </classes>
+    </test>
+</suite>

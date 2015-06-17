@@ -1,0 +1,40 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Tabs Navigation Tests" verbose="1">
+    <test name="Administrator tab navigation test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
+                <methods>
+                    <include name="administratorTabsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Merchendaiser tab navigation test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
+                <methods>
+                    <include name="merchandiserTabsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Customer tab navigation test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
+                <methods>
+                    <include name="customerTabsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Supervisor tab navigation test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
+                <methods>
+                    <include name="supervisorTabsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
