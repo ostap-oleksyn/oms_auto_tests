@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class AdminEditTest extends TestRunner{
+public class EditUserTest extends TestRunner{
 
     @Test()//dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
 

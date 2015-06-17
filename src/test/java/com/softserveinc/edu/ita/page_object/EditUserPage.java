@@ -22,6 +22,10 @@ public class EditUserPage extends LogOutBase {
          driver.findElement(EditUserPageLocators.FIRST_NAME_INPUT.getBy()).sendKeys(newName);
    }
 
+    public void changeRole(String roleName) {
+        driver.findElement(By.xpath(String.format(EditUserPageLocators.ROLE_SELECT, roleName))).click();
+    }
+
 
 
 }

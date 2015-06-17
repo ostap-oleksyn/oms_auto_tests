@@ -24,6 +24,8 @@ public enum EditUserPageLocators implements ILocator {
             "Confirm password input",
             By.xpath(".//*[@id='confirmPassword']"));
 
+    public static final String ROLE_SELECT = ".//label[.='%s']/preceding::input[1]";
+
     EditUserPageLocators(String name, By locator) {
         this.name = name;
         this.locator = locator;
