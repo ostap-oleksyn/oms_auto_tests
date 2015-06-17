@@ -10,12 +10,8 @@ public class UserFromView {
     private String role;
     private String region;
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName.toLowerCase();
+    public UserFromView(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -23,7 +19,7 @@ public class UserFromView {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName.toLowerCase();
+        this.lastName = lastName;
     }
 
     public String getLogin() {
@@ -31,7 +27,7 @@ public class UserFromView {
     }
 
     public void setLogin(String login) {
-        this.login = login.toLowerCase();
+        this.login = login;
     }
 
     public String getRole() {
@@ -39,7 +35,7 @@ public class UserFromView {
     }
 
     public void setRole(String role) {
-        this.role = role.toLowerCase();
+        this.role = role;
     }
 
     public String getRegion() {
@@ -47,87 +43,11 @@ public class UserFromView {
     }
 
     public void setRegion(String region) {
-        this.region = region.toLowerCase();
+        this.region = region;
     }
 
-    public interface FirstNameStep {
-        LastNameStep withFirstName(String firstName);
-    }
-
-    public interface LastNameStep {
-        LoginStep withLastName(String lastName);
-    }
-
-    public interface LoginStep {
-        RoleStep withLogin(String login);
-    }
-
-    public interface RoleStep {
-        RegionStep withRole(String role);
-    }
-
-    public interface RegionStep {
-        BuildStep withRegion(String region);
-    }
-
-    public interface BuildStep {
-        UserFromView build();
-    }
-
-    public static class Builder implements FirstNameStep, LastNameStep, LoginStep, RoleStep, RegionStep, BuildStep {
-        private String firstName;
-        private String lastName;
-        private String login;
-        private String role;
-        private String region;
-
-        public Builder() {
-        }
-
-        public static FirstNameStep newUserFromView() {
-            return new Builder();
-        }
-
-        @Override
-        public LastNameStep withFirstName(String firstName) {
-            this.firstName = firstName;
-            return this;
-        }
-
-        @Override
-        public LoginStep withLastName(String lastName) {
-            this.lastName = lastName;
-            return this;
-        }
-
-        @Override
-        public RoleStep withLogin(String login) {
-            this.login = login;
-            return this;
-        }
-
-        @Override
-        public RegionStep withRole(String role) {
-            this.role = role;
-            return this;
-        }
-
-        @Override
-        public BuildStep withRegion(String region) {
-            this.region = region;
-            return this;
-        }
-
-        @Override
-        public UserFromView build() {
-            UserFromView userFromView = new UserFromView();
-            userFromView.setFirstName(this.firstName);
-            userFromView.setLastName(this.lastName);
-            userFromView.setLogin(this.login);
-            userFromView.setRole(this.role);
-            userFromView.setRegion(this.region);
-            return userFromView;
-        }
+    public String getFirstName() {
+        return firstName;
     }
 
     @Override
@@ -139,5 +59,89 @@ public class UserFromView {
                 ", role='" + role + '\'' +
                 ", region='" + region + '\'' +
                 '}';
+    }
+
+    private UserFromView(){
+
+    }
+
+    public static FirstNameStep newBuilder() {
+        return new Steps();
+    }
+
+    public interface FirstNameStep {
+        LastNameStep firstName(String firstName);
+    }
+
+    public interface LastNameStep {
+        LoginStep lastName(String lastName);
+    }
+
+    public interface LoginStep {
+        RoleStep login(String login);
+    }
+
+    public interface RoleStep {
+        RegionStep role(String role);
+    }
+
+    public interface RegionStep {
+        BuildStep region(String region);
+    }
+
+    public interface BuildStep {
+        UserFromView build();
+    }
+
+    private static class Steps implements FirstNameStep, LastNameStep, LoginStep, RoleStep, RegionStep, BuildStep {
+        private String firstName;
+        private String lastName;
+        private String login;
+        private String role;
+        private String region;
+
+        public LastNameStep firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public LoginStep lastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public RoleStep login(String login) {
+            this.login = login;
+            return this;
+        }
+
+        public RegionStep role(String role) {
+            this.role = role;
+            return this;
+        }
+
+        public BuildStep region(String region) {
+            this.region = region;
+            return this;
+        }
+
+
+        public UserFromView build(){
+            final UserFromView userFromView = new UserFromView(firstName);
+
+            userFromView.setLastName(lastName);
+
+            if (login != null) {
+                userFromView.setLogin(login);
+            }
+            if (role != null){
+                userFromView.setRole(role);
+            }
+            if (region != null) {
+                userFromView.setRegion(region);
+            }
+
+            return userFromView;
+        }
     }
 }
