@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.tests;
 
-import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.locators.*;
 import com.softserveinc.edu.ita.page_object.*;
 import org.testng.annotations.AfterMethod;
@@ -9,9 +9,11 @@ import org.testng.annotations.Test;
 
 public class TabsNavigationTest extends TestRunner {
 
-    private HomePage homePage;
-    private UserInfoPage userInfoPage;
-    private OrderingPage orderingPage;
+    HomePage homePage;
+    UserInfoPage userInfoPage;
+    AdministrationPage administrationPage;
+    OrderingPage orderingPage;
+    ItemManagementPage itemManagementPage;
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
     public void administratorTabsTest(User user) {
@@ -30,7 +32,7 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
                 "User info tab is the default tab");
 
-        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        administrationPage = userInfoPage.clickAdministrationTab();
 
         loggingAssert.assertTrue(administrationPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(administrationPage.getElementText(CommonLocators.ADMINISTRATION_TAB)),
@@ -129,7 +131,7 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
                 "User info tab is the default tab");
 
-        ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
+        itemManagementPage = userInfoPage.clickItemManagementTab();
 
         loggingAssert.assertTrue(itemManagementPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(itemManagementPage.getElementText(CommonLocators.ITEM_MANAGEMENT_TAB)),
