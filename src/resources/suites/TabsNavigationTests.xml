@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Tabs Navigation Tests" verbose="1">
+<suite name="Tabs Navigation Tests" verbose="1" parallel="tests" thread-count="4">
     <test name="Administrator tab navigation test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">

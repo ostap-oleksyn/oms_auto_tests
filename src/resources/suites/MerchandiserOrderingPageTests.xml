@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Merchandiser Ordering Page Tests" verbose="1">
+<suite name="Merchandiser Ordering Page Tests" verbose="1" parallel="tests" thread-count="7">
     <test name="Sort by 'Name' column test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">

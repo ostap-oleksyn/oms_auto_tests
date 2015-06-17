@@ -17,7 +17,7 @@
         <apache.poi.version>3.12</apache.poi.version>
         <reportng.version>1.1.4</reportng.version>
         <guice.version>3.0</guice.version>
-        <testng.suite>AllTests.xml</testng.suite>
+        <suite>AllTests</suite>
     </properties>
 
     <build>
@@ -47,6 +47,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
+                    <reportsDirectory>${project.basedir}/test-output</reportsDirectory>
                     <properties>
                         <property>
                             <name>usedefaultlisteners</name>
@@ -59,8 +60,20 @@
                         </property>
                     </properties>
                     <suiteXmlFiles>
-                        <suiteXmlFile>${testng.suite}</suiteXmlFile>
+                        <suiteXmlFile>src\resources\suites\${suite}.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.6.1</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>test-output</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>
+                    </filesets>
                 </configuration>
             </plugin>
         </plugins>
