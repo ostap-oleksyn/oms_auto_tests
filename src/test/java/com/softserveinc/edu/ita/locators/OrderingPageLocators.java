@@ -21,6 +21,8 @@ public enum OrderingPageLocators implements ILocator {
     CLICK_FIRST_BUTTON(
             "First button",
             By.xpath(".//*[@name='firstPage']")),;
+
+    // TODO redo to enum
     public static final String TABLE_ROW_CELL = ".//div[@id='list']/table/tbody/tr[%s]/td[1]";
     public static final String TABLE_ROW = ".//div[@id='list']/table/tbody/tr[%s]/td";
     public static final String TABLE_COLUMN = ".//*[@id='list']/table/tbody/tr[1]/th/a[contains(text(), '%s')]";

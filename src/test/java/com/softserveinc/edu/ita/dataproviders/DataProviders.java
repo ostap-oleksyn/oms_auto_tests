@@ -5,6 +5,7 @@ import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
 import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.enums.Regions;
 import com.softserveinc.edu.ita.enums.Roles;
 
 
@@ -20,7 +21,10 @@ import java.util.Iterator;
 import java.util.List;
 
 
+import java.util.Random;
 import java.util.stream.Stream;
+
+import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 
 public class DataProviders {
@@ -134,6 +138,71 @@ public class DataProviders {
 
         for (int i = 0; i < users.size(); i++) {
             usersList[i][0] = users.get(i);
+        }
+
+        return usersList;
+    }
+
+    @DataProvider(name="generatedValidUserData")
+    public static Object[][] generateValidUserData() {
+
+        final int GENERATED_USERS_COUNT = 5;
+
+        Object[][] usersList = new Object[GENERATED_USERS_COUNT][1];
+
+        for (int i=0; i < GENERATED_USERS_COUNT; i++) {
+            User user = new User();
+
+            user.setLogin(generateString("NameSymbols", 1, 13).toLowerCase());
+            user.setLastName(generateString("NameSymbols", 1, 13).toLowerCase());
+            user.setFirstName(generateString("NameSymbols", 1, 13).toLowerCase());
+            user.setPassword(generateString("PasswordSymbols", 4, 10));
+            user.setEmail(generateString("EmailSymbols", 4, 8) + "@"
+                    + generateString("DomainNamesSymbols", 4, 8) + "."
+                    + generateString("DomainNamesSymbols", 3, 4));
+            user.setRegionName(String.valueOf(Regions.getRandomRegion()));
+            user.setRoleName(String.valueOf(Roles.getRandomRole()));
+
+            usersList[i][0] = user;
+        }
+
+        return usersList;
+    }
+
+    @DataProvider(name="generatedNotValidUserData")
+    public static Object[][] generateNotValidUserData() {
+
+        final int GENERATED_USERS_COUNT = 5;
+
+        Object[][] usersList = new Object[GENERATED_USERS_COUNT][1];
+        Random randomGenerator = new Random();
+
+        for (int i=0; i < GENERATED_USERS_COUNT; i++) {
+            User user = new User();
+
+            // generate string with digits
+            if (randomGenerator.nextBoolean()) {
+                user.setLogin(generateString("Digits", 1, 13));
+                user.setFirstName(generateString("Digits", 1, 13));
+                user.setLastName(generateString("Digits", 1, 13));
+                // or with length > 13 symbols
+            } else {
+                user.setLogin(generateString("NameSymbols", 14, 20));
+                user.setFirstName(generateString("NameSymbols", 14, 20));
+                user.setLastName(generateString("NameSymbols", 14, 20));
+            }
+
+            // generate string with length < 4
+            if (randomGenerator.nextBoolean()) {
+                user.setPassword(generateString("PasswordSymbols", 1, 3));
+                // or > 14
+            } else {
+                user.setPassword(generateString("PasswordSymbols", 14, 20));
+            }
+
+            user.setEmail(generateString("Digits", 2, 20));
+
+            usersList[i][0] = user;
         }
 
         return usersList;

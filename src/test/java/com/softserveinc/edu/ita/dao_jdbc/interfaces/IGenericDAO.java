@@ -2,6 +2,7 @@
 package com.softserveinc.edu.ita.dao_jdbc.interfaces;
 
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
+import com.softserveinc.edu.ita.enums.Roles;
 
 import java.util.List;
 
@@ -16,7 +17,9 @@ public interface IGenericDAO<T> {
 
     public T getByLogin(String login) throws DAOException;
 
-    public T getByRoleName(String roleName) throws DAOException;
+    public T getByRoleName(Roles roleName) throws DAOException;
+
+    public T getLastUser() throws DAOException;
 
     List<T> getAll() throws DAOException;
 

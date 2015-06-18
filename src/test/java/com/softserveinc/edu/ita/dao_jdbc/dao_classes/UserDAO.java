@@ -2,6 +2,7 @@
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
 import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.enums.Roles;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,10 +22,12 @@ public class UserDAO extends AbstractDAO<User> {
      */
     @Override
     protected String getSelectQuery() {
-        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName \n" +
-                "from users inner join roles on users.RoleRef = roles.ID \n" +
-                "inner join customertypes on \n" +
-                "users.CustomerTypeRef = customertypes.ID";
+        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, " +
+                "IsUserActive as Status  \n" +
+                "from users \n" +
+                "left outer join customertypes on users.CustomerTypeRef = customertypes.ID \n" +
+                "inner join regions on users.RegionRef = regions.ID \n" +
+                "inner join roles on users.RoleRef = roles.ID";
     }
 
     public UserDAO(Connection connection) {
@@ -52,6 +55,8 @@ public class UserDAO extends AbstractDAO<User> {
                 user.setEmail(resultSet.getString("Email"));
                 user.setRoleName(resultSet.getString("RoleName"));
                 user.setCustomerType(resultSet.getString("TypeName"));
+                user.setRegionName(resultSet.getString("RegionName"));
+                user.setStatus(resultSet.getString("Status"));
                 resultList.add(user);
             }
         } catch (Exception e) {
@@ -85,5 +90,41 @@ public class UserDAO extends AbstractDAO<User> {
             throw new DAOException("Received more than one record.");
         }
         return list.iterator().next();
+    }
+
+    public User getLastUser() throws DAOException {
+        List<User> usersList;
+        String sqlQuery = getSelectQuery();
+        sqlQuery += " WHERE IsUserActive = 1 ORDER BY ID DESC ";
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            ResultSet resultSet = statement.executeQuery();
+            usersList = parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        if (usersList == null || usersList.size() == 0) {
+            throw new DAOException("Users not found.");
+        }
+
+        return usersList.get(0);
+    }
+
+    public User getByRoleName(Roles role) throws DAOException {
+        List<User> list;
+        String sqlQuery = getSelectQuery();
+        //todo add limit 1
+        sqlQuery += " WHERE RoleName= ?";
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setString(1, String.valueOf(role));
+            ResultSet resultSet = statement.executeQuery();
+            list = parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        if (list == null || list.size() == 0) {
+            throw new DAOException("Record with RoleName = " + role + " not found.");
+        }
+
+        return list.get(0);
     }
 }
