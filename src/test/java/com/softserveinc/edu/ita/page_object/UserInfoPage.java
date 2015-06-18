@@ -27,7 +27,7 @@ public class UserInfoPage extends LogOutBase {
         return new OrderingPage(driver);
     }
 
-    public UserInfoPage changeLanguageTo(ILocator locator){
+    public UserInfoPage clickLanguageTo(ILocator locator){
         click(locator);
         return new UserInfoPage(driver);
     }

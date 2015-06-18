@@ -28,7 +28,7 @@ public class LocalizationTest extends TestRunner {
                 .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
                 .equals("First name"), "Verify EN text present");
 
-        userInfoPage.changeLanguageTo(CommonLocators.UA_BUTTON);
+        userInfoPage.clickLanguageTo(CommonLocators.UA_BUTTON);
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
@@ -58,7 +58,7 @@ public class LocalizationTest extends TestRunner {
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
-        userInfoPage.changeLanguageTo(CommonLocators.EN_BUTTON);
+        userInfoPage.clickLanguageTo(CommonLocators.EN_BUTTON);
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
@@ -73,7 +73,7 @@ public class LocalizationTest extends TestRunner {
                 .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
                 .equals("First name"), "Verify EN text present");
 
-        userInfoPage.changeLanguageTo(CommonLocators.UA_BUTTON);
+        userInfoPage.clickLanguageTo(CommonLocators.UA_BUTTON);
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
@@ -93,7 +93,7 @@ public class LocalizationTest extends TestRunner {
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
-        userInfoPage.changeLanguageTo(CommonLocators.EN_BUTTON);
+        userInfoPage.clickLanguageTo(CommonLocators.EN_BUTTON);
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
@@ -108,7 +108,7 @@ public class LocalizationTest extends TestRunner {
                 .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
                 .equals("First name"), "Verify EN text present");
 
-        userInfoPage.changeLanguageTo(CommonLocators.UA_BUTTON);
+        userInfoPage.clickLanguageTo(CommonLocators.UA_BUTTON);
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
@@ -128,7 +128,7 @@ public class LocalizationTest extends TestRunner {
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
-        userInfoPage.changeLanguageTo(CommonLocators.EN_BUTTON);
+        userInfoPage.clickLanguageTo(CommonLocators.EN_BUTTON);
 
     }
 
@@ -144,7 +144,7 @@ public class LocalizationTest extends TestRunner {
                 .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
                 .equals("First name"), "Verify EN text present");
 
-        userInfoPage.changeLanguageTo(CommonLocators.UA_BUTTON);
+        userInfoPage.clickLanguageTo(CommonLocators.UA_BUTTON);
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
@@ -165,7 +165,7 @@ public class LocalizationTest extends TestRunner {
 
         userInfoPage = itemManagementPage.clickUserInfoTab();
 
-        userInfoPage.changeLanguageTo(CommonLocators.EN_BUTTON);
+        userInfoPage.clickLanguageTo(CommonLocators.EN_BUTTON);
     }
 
     @AfterMethod
