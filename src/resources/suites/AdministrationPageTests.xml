@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Administration Page Tests" verbose="1">
+    <test name="Administration page sorting Test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.AdministrationPageSortingTest">
+            </class>
+        </classes>
+    </test>
+</suite>

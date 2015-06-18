@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="All Tests" verbose="1" parallel="classes" thread-count="5">
+    <test name="All tests" preserve-order="true">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.LoginTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.AdministrationPageSortingTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.UserInfoTest"></class>
+        </classes>
+    </test>
+</suite>
