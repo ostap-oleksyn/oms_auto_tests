@@ -13,6 +13,8 @@ public class User {
     private String email;
     private String roleName;
     private String customerType;
+    private String status;
+    private String regionName;
 
     public Integer getId() {
         return id;
@@ -76,6 +78,22 @@ public class User {
 
     public void setCustomerType(String customerType) {
         this.customerType = customerType;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public void setRegionName(String reginOnName) {
+        this.regionName = reginOnName;
     }
 
     /**

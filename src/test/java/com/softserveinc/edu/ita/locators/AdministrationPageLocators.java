@@ -22,8 +22,22 @@ public enum AdministrationPageLocators implements ILocator {
             By.xpath(".//*[@id='first']")),
     NEXT_BUTTON(
             "Next button",
-            By.xpath(".//input[@id='next']"));
+            By.xpath(".//input[@id='next']")),
+    LAST_BUTTON(
+            "Last Button",
+            By.xpath(".//*[@id='last']")),
+
+    USERS_TABLE(
+            "Users table",
+            By.xpath(".//*[@id='table']")),
+
+    USERS_TABLE_ROWS(
+            "Users table rows",
+            By.xpath(".//tbody/tr"));
+
     public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";
+    public static final String DELETE_LINK = ".//*[@id='table']/tbody/tr[%s]/td[7]/a";
+    public static final String LOGIN_CELL = ".//*[@id='table']/tbody/tr[%s]/td[3]";
 
     AdministrationPageLocators(String name, By locator) {
         this.name = name;
