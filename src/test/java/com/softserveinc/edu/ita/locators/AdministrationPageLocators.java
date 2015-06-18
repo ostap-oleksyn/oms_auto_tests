@@ -33,12 +33,34 @@ public enum AdministrationPageLocators implements ILocator {
 
     USERS_TABLE_ROWS(
             "Users table rows",
-            By.xpath(".//tbody/tr"));
+            By.xpath(".//tbody/tr")),
+
+    FILTER_SELECT(
+            "Filter select",
+            By.xpath(".//fieldset/form/select[1]")),
+
+    CONDITION_SELECT(
+            "Condition select",
+            By.xpath(".//fieldset/form/select[2]")),
+
+    SHOW_10_ITEMS(
+            "Show 10 items",
+            By.xpath(".//*[@id='list']/p/a")),
+
+    SEARCH_FIELD(
+            "Search field",
+            By.xpath(".//*[@id='searchField']")),
+
+    SEARCH_BUTTON(
+            "Search button",
+            By.xpath(".//*[@id='searchForm']/input[2]"));
 
     // TODO redo to enum
     public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";
     public static final String DELETE_LINK = ".//*[@id='table']/tbody/tr[%s]/td[7]/a";
     public static final String LOGIN_CELL = ".//*[@id='table']/tbody/tr[%s]/td[3]";
+
+
 
     AdministrationPageLocators(String name, By locator) {
         this.name = name;

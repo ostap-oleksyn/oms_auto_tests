@@ -106,13 +106,14 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + getFirstName() + '\'' +
-                ", lastName='" + getLastName() + '\'' +
-                ", login='" + getLogin() + '\'' +
-                ", password='" + getPassword() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", roleName='" + getRoleName() + '\'' +
-                ", customerType='" + getCustomerType() + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", roleName='" + roleName + '\'' +
+                ", customerType='" + customerType + '\'' +
+                ", regionName='" + regionName + '\'' +
                 '}';
     }
 }
