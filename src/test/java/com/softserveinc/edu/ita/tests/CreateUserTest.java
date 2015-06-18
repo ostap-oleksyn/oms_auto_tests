@@ -31,7 +31,7 @@ public class CreateUserTest extends TestRunner {
         final NewUserPage newUserPage = administrationPage.clickCreateUserLink();
 
         newUserPage.fillAllFields(newUser);
-        // TODO try to resolve for valid and not valid data ?
+        // TODO try to resolve for valid and not valid data
         administrationPage = newUserPage.clickCreateButton();
 
         final User lastUser = DBUtility.getLastUser();
