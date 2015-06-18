@@ -22,12 +22,12 @@ public class AdministrationSearchTest extends TestRunner {
     List<UserFromView> expectedUsersList;
     List<User> actualUsersList;
     private String searchTerm;
-
+    
     @Test(dataProvider = "getSearchFilters", dataProviderClass = DataProviders.class)
     public void testAllColumnsSearch(AdministrationTabFilters filters) throws DAOException {
         HomePage homePage = new HomePage(driver);
-
-        UserInfoPage userInfoPage = homePage.logIn("iva", "qwerty");
+        User admin = DBUtility.getAdmin();
+        UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
         searchTerm = "ivanka";
@@ -41,9 +41,14 @@ public class AdministrationSearchTest extends TestRunner {
             clearSearchField();
             actualUsersList = DBUtility.getUserDao().getUsersBy(filters.getValue(), conditions, searchTerm);
 
-            loggingAssert.assertEquals(actualUsersList.size(), expectedUsersList.size(), filters + " " + conditions +" " + searchTerm);
+            loggingAssert.assertEquals(actualUsersList.size(), expectedUsersList.size(), filters + " " + conditions + " " + searchTerm);
         }
         administrationPage.clickLogOutButton();
+    }
+
+    @Test
+    public void testNavigation() {
+
     }
 
     /**
