@@ -92,8 +92,8 @@ public class User {
         return regionName;
     }
 
-    public void setRegionName(String reginOnName) {
-        this.regionName = reginOnName;
+    public void setRegionName(String regionName) {
+        this.regionName = regionName;
     }
 
     /**
@@ -113,6 +113,7 @@ public class User {
                 ", email='" + getEmail() + '\'' +
                 ", roleName='" + getRoleName() + '\'' +
                 ", customerType='" + getCustomerType() + '\'' +
+                ", status='" + getStatus() + '\'' +
                 '}';
     }
 }
