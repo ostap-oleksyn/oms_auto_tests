@@ -22,7 +22,7 @@ public class AdministrationSearchTest extends TestRunner {
     List<UserFromView> expectedUsersList;
     List<User> actualUsersList;
     private String searchTerm;
-    
+
     @Test(dataProvider = "getSearchFilters", dataProviderClass = DataProviders.class)
     public void testAllColumnsSearch(AdministrationTabFilters filters) throws DAOException {
         HomePage homePage = new HomePage(driver);
@@ -45,12 +45,7 @@ public class AdministrationSearchTest extends TestRunner {
         }
         administrationPage.clickLogOutButton();
     }
-
-    @Test
-    public void testNavigation() {
-
-    }
-
+    
     /**
      * selects filter type
      *
