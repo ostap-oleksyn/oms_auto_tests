@@ -48,7 +48,7 @@ public class NewUserPage extends LogOutBase {
     }
 
     public void clickRoleRadioButton(Roles roleName) {
-        driver.findElement(By.xpath(String.format(NewUserPageLocators.ROLE_SELECT, roleName.toString()))).click();
+        driver.findElement(By.xpath(String.format(NewUserPageLocators.ROLE_SELECT, roleName.ordinal()))).click();
     }
 
     public void selectRegion(Regions regionName) {

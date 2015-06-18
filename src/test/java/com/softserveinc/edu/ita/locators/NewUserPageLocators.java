@@ -61,8 +61,7 @@ public enum NewUserPageLocators implements ILocator {
             "Email error label",
             By.xpath(".//*[@id='emailError']"));
 
-
-    public static final String ROLE_SELECT = ".//label[.='%s']/preceding::input[1]";
+    public static final String ROLE_SELECT = ".//*[@id='roleID%s']";
 
     private String name;
     private By locator;
