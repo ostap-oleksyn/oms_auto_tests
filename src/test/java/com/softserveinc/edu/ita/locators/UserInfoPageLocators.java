@@ -6,6 +6,12 @@ import org.openqa.selenium.By;
 
 public enum UserInfoPageLocators implements ILocator {
 
+    USER_INFO_TITLE_TEXT (
+            "Title User Info Table",
+            By.xpath("//fieldset/legend")),
+    FIRST_NAME_TITLE_TEXT (
+            "Title first name label",
+            By.xpath("//fieldset//tr[1]/td[1]")),
     FIRST_NAME_LABEL(
             "User first name label",
             By.xpath("//fieldset//tr[1]/td[2]")),

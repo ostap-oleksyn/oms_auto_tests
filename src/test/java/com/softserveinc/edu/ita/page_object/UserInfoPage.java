@@ -1,6 +1,7 @@
 package com.softserveinc.edu.ita.page_object;
 
 
+import com.softserveinc.edu.ita.interfaces.ILocator;
 import com.softserveinc.edu.ita.locators.CommonLocators;
 import org.openqa.selenium.WebDriver;
 
@@ -24,5 +25,10 @@ public class UserInfoPage extends LogOutBase {
     public OrderingPage clickOrderingTab() {
         click(CommonLocators.ORDERING_TAB);
         return new OrderingPage(driver);
+    }
+
+    public UserInfoPage changeLanguageTo(ILocator locator){
+        click(locator);
+        return new UserInfoPage(driver);
     }
 }

@@ -20,7 +20,13 @@ public enum OrderingPageLocators implements ILocator {
             By.xpath(".//*[@name='nextPage']")),
     CLICK_FIRST_BUTTON(
             "First button",
-            By.xpath(".//*[@name='firstPage']")),;
+            By.xpath(".//*[@name='firstPage']")),
+    SEARCH_FILTER_TEXT(
+            "Search filter title text",
+            By.xpath("//tr[2]/td[1]")),
+    EDIT_TABLE_TEXT(
+            "Edit text in table",
+            By.xpath("//tr[1]/th[8]")),;
 
     // TODO redo to enum
     public static final String TABLE_ROW_CELL = ".//div[@id='list']/table/tbody/tr[%s]/td[1]";

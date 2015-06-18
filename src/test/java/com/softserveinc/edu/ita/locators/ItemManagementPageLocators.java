@@ -8,7 +8,13 @@ public enum ItemManagementPageLocators implements ILocator {
 
     ADD_PRODUCT_LINK(
             "Add product link",
-            By.xpath(".//*[@id='list']/a[contains(text(), 'Add Product')]"));
+            By.xpath(".//*[@id='list']/a[contains(text(), 'Add Product')]")),
+    SUPERVISOR_APPOINTED_TEXT(
+            "Supervisor appointed Info text",
+            By.xpath(".//*[@id='list']/h2")),
+    SUPERVISOR_FIELD_FILTER_TEXT(
+            "Field filter text",
+            By.xpath(".//*[@id='searchForm']/label"));
 
 
     ItemManagementPageLocators(String name, By locator) {
