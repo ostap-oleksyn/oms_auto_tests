@@ -5,11 +5,8 @@ import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
 import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.enums.Regions;
-import com.softserveinc.edu.ita.enums.Roles;
+import com.softserveinc.edu.ita.enums.*;
 
-
-import com.softserveinc.edu.ita.enums.UsersTableColumns;
 
 import com.softserveinc.edu.ita.utils.XlsFileReader;
 import org.testng.annotations.DataProvider;
@@ -24,10 +21,40 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
+import static com.softserveinc.edu.ita.enums.AdministrationTabConditions.*;
+import static com.softserveinc.edu.ita.enums.AdministrationTabFilters.*;
 import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 
 public class DataProviders {
+    /**
+     * returns all  searching filters from administration tab
+     */
+    @DataProvider(name = "getSearchFilters")
+    public static Object[][] getFilters() {
+        return new Object[][]{
+                new AdministrationTabFilters[]{ALL_COLUMNS},
+                new AdministrationTabFilters[]{FIRST_NAME},
+                new AdministrationTabFilters[]{LAST_NAME},
+                new AdministrationTabFilters[]{LOGIN_NAME},
+                new AdministrationTabFilters[]{ROLE}
+        };
+    }
+
+    /**
+     *  returns all searching conditions from administration tab
+     * @return
+     */
+    @DataProvider(name = "getSearchCondition")
+    public static Object[][] getCondition() {
+        return new Object[][]{
+                new AdministrationTabConditions[]{EQUALS},
+                new AdministrationTabConditions[]{NOT_EQUALS_TO},
+                new AdministrationTabConditions[]{CONTAINS},
+                new AdministrationTabConditions[]{DOES_NOT_CONTAINS},
+                new AdministrationTabConditions[]{STARTS_WITH}
+        };
+    }
 
     /**
      * Returns names of 'Users' table columns.
