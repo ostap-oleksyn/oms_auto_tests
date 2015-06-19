@@ -85,11 +85,6 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
         return list;
     }
 
-    /**
-     * Returns the number of active users in the database
-     */
-    public abstract int getActiveUsersNumber() throws DAOException;
-
     public AbstractDAO(Connection connection) {
         this.connection = connection;
     }
