@@ -231,4 +231,30 @@ public class UserDAO extends AbstractDAO<User> {
         }
         return list;
     }
+
+    public List<User> getAllUsersFromDB() throws DAOException {
+
+            List<User> usersList;
+        String sqlQuery = "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, \n" +
+                "IsUserActive as Status \n" +
+                "from users inner join roles on users.RoleRef = roles.ID \n" +
+                "inner join customertypes on\n" +
+                "users.CustomerTypeRef = customertypes.ID\n" +
+                "inner join regions on \n" +
+                "users.RegionRef = regions.ID";
+            try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+                ResultSet resultSet = statement.executeQuery();
+                usersList = parseResultSet(resultSet);
+                for (User user : usersList) {
+                    user.setId(0);
+                    user.setEmail(null);
+                    user.setCustomerType(null);
+                    user.setStatus(null);
+                }
+            } catch (Exception e) {
+                throw new DAOException(e);
+            }
+            return usersList;
+    }
 }
+

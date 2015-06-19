@@ -1,7 +1,6 @@
 package com.softserveinc.edu.ita.tests;
 
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
-import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.domains.UserFromView;
 import com.softserveinc.edu.ita.enums.AdministrationTabConditions;
@@ -10,85 +9,77 @@ import com.softserveinc.edu.ita.page_object.AdministrationPage;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
 import com.softserveinc.edu.ita.utils.DBUtility;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.*;
+import static com.softserveinc.edu.ita.enums.AdministrationTabFilters.*;
+import static com.softserveinc.edu.ita.enums.AdministrationTabFilters.ALL_COLUMNS;
 
 
 public class AdministrationSearchTest extends TestRunner {
-    List<UserFromView> expectedUsersList;
-    List<User> actualUsersList;
+    List<UserFromView> usersListFromView;
+    List<User> usersListFromDB;
     private String searchTerm;
 
-    @Test(dataProvider = "getSearchFilters", dataProviderClass = DataProviders.class)
-    public void testAllColumnsSearch(AdministrationTabFilters filters) throws DAOException {
+    @Test()
+    public void testEquals() throws DAOException {
         HomePage homePage = new HomePage(driver);
         User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
-        searchTerm = "ivanka";
-        for (AdministrationTabConditions conditions : AdministrationTabConditions.values()) {
-            setFilters(filters.getFilterName())
-                    .setConditions(conditions)
-                    .fillSearchField(searchTerm)
-                    .clickSearchButton();
+        administrationPage.setFilters(ALL_COLUMNS.getFilterName())
+                .setConditions(AdministrationTabConditions.EQUALS)
+                .fillSearchField("")
+                .clickSearchButton();
 
-            expectedUsersList = administrationPage.getTableFromView();
-            clearSearchField();
-            actualUsersList = DBUtility.getUserDao().getUsersBy(filters.getValue(), conditions, searchTerm);
+        usersListFromView = administrationPage.getTableFromView();
+        administrationPage.clearSearchField();
 
-            loggingAssert.assertEquals(actualUsersList.size(), expectedUsersList.size(), filters + " " + conditions + " " + searchTerm);
+        usersListFromDB = DBUtility.getUserDao().getAllUsersFromDB();
+        for (User user : usersListFromDB) {
+            System.out.println(user);
         }
+        loggingAssert.assertEquals(usersListFromView.size(), usersListFromDB.size());
+
         administrationPage.clickLogOutButton();
     }
-    
-    /**
-     * selects filter type
-     *
-     * @param filters
-     * @return
-     */
-    private AdministrationSearchTest setFilters(String filters) {
-        Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
-        fieldSelect.selectByVisibleText(filters.toString());
-        return this;
+
+
+    private interface SearchFilters {
+        String callMethod(User user);
     }
 
-    /**
-     * selects condition type
-     *
-     * @param conditions
-     * @return
-     */
-    private AdministrationSearchTest setConditions(AdministrationTabConditions conditions) {
-        Select conditionSelect = new Select(driver.findElement(CONDITION_SELECT.getBy()));
-        conditionSelect.selectByVisibleText(conditions.toString());
-        return this;
+    private List<User> getFilter(List<User> userList, AdministrationTabConditions conditions,String searchTerm ) {
+        final Map<AdministrationTabFilters, SearchFilters> searchConditionMap = new HashMap<>();
+        searchConditionMap.put(FIRST_NAME, User::getFirstName);
+        searchConditionMap.put(LAST_NAME, User::getLastName);
+        searchConditionMap.put(LOGIN_NAME, User::getLogin);
+        searchConditionMap.put(ROLE, User::getRoleName);
+
+
+       return userList.stream().filter(user -> searchConditionMap.get(conditions).callMethod(User).equals(searchTerm));
     }
 
-    /**
-     * inputs search text into search field
-     *
-     * @param searchTerm
-     * @return
-     */
-    private AdministrationSearchTest fillSearchField(String searchTerm) {
-        driver.findElement(SEARCH_FIELD.getBy()).sendKeys(searchTerm);
-        return this;
-    }
-
-    /**
-     * click on the search button
-     */
-    private void clickSearchButton() {
-        driver.findElement(SEARCH_BUTTON.getBy()).click();
-    }
-
-    private void clearSearchField() {
-        driver.findElement(SEARCH_FIELD.getBy()).clear();
-    }
+    //    private boolean equalsUsersList(List<User> usersListFromView, List<User> usersListFromDB) {
+//        if (usersListFromDB == null && usersListFromView == null) {
+//            return true;
+//        }
+//        if ((usersListFromDB == null && usersListFromView == null)
+//                || usersListFromDB != null && usersListFromView != null
+//                || usersListFromDB.size() != usersListFromView.size()) {
+//            return false;
+//        }
+//        usersListFromDB = new ArrayList<>();
+//        usersListFromView = new ArrayList<>();
+//
+//
+//        return true;
+//    }
 }
+
+
+

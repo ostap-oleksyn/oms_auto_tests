@@ -1,10 +1,12 @@
 package com.softserveinc.edu.ita.page_object;
 
 import com.softserveinc.edu.ita.domains.UserFromView;
+import com.softserveinc.edu.ita.enums.AdministrationTabConditions;
 import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Reporter;
 
 import java.util.LinkedList;
@@ -114,4 +116,54 @@ public class AdministrationPage extends LogOutBase {
     public int getQuantityOfTablePages() {
         return Integer.valueOf(getElementText(QUANTITY_OF_TABLE_PAGES));
     }
+    /**
+     * selects filter type
+     *
+     * @param filters
+     * @return
+     */
+    public AdministrationPage setFilters(String filters) {
+        Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
+        fieldSelect.selectByVisibleText(filters.toString());
+        return this;
+    }
+
+    /**
+     * selects condition type
+     *
+     * @param conditions
+     * @return
+     */
+    public AdministrationPage setConditions(AdministrationTabConditions conditions) {
+        Select conditionSelect = new Select(driver.findElement(CONDITION_SELECT.getBy()));
+        conditionSelect.selectByVisibleText(conditions.toString());
+        return this;
+    }
+
+    /**
+     * inputs search text into search field
+     *
+     * @param searchTerm
+     * @return
+     */
+//    public AdministrationPage fillSearchField(String searchTerm) {
+//        sendKeys(SEARCH_BUTTON,searchTerm);
+//        return this;
+//    }
+    public AdministrationPage fillSearchField(String searchTerm) {
+        driver.findElement(SEARCH_FIELD.getBy()).sendKeys(searchTerm);
+        return this;
+    }
+
+    /**
+     * click on the search button
+     */
+    public void clickSearchButton() {
+        click(SEARCH_BUTTON);
+    }
+
+    public void clearSearchField() {
+        driver.findElement(SEARCH_FIELD.getBy()).clear();
+    }
 }
+
