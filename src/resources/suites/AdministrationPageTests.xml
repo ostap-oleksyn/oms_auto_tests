@@ -1,10 +1,52 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+        <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Administration Page Tests" verbose="1">
-    <test name="Administration page sorting Test">
-        <classes>
-            <class name="com.softserveinc.edu.ita.tests.AdministrationPageSortingTest">
-            </class>
-        </classes>
-    </test>
+<suite name="Administration Page Tests" verbose="1" parallel="tests" thread-count="6">
+<test name="Administration page sorting test">
+    <classes>
+        <class name="com.softserveinc.edu.ita.tests.AdministrationPageSortingTest">
+        </class>
+    </classes>
+</test>
+<test name="Administration page navigation test">
+    <classes>
+        <class name="com.softserveinc.edu.ita.tests.AdministrationPageNavigationTest">
+        </class>
+    </classes>
+</test>
+<test name="Valid user creation test">
+    <classes>
+        <class name="com.softserveinc.edu.ita.tests.CreateUserTest">
+            <methods>
+                <include name="testValidUserCreating" />
+            </methods>
+        </class>
+    </classes>
+</test>
+<test name="Invalid user creation test">
+    <classes>
+        <class name="com.softserveinc.edu.ita.tests.CreateUserTest">
+            <methods>
+                <include name="testNotValidUserCreate" />
+            </methods>
+        </class>
+    </classes>
+</test>
+<test name="Empty user creation test">
+    <classes>
+        <class name="com.softserveinc.edu.ita.tests.CreateUserTest">
+            <methods>
+                <include name="testEmptyUserCreate" />
+            </methods>
+        </class>
+    </classes>
+</test>
+<test name="Existing user creation test">
+    <classes>
+        <class name="com.softserveinc.edu.ita.tests.CreateUserTest">
+            <methods>
+                <include name="testExistingUserCreate" />
+            </methods>
+        </class>
+    </classes>
+</test>
 </suite>

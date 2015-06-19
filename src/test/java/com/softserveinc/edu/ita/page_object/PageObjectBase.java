@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.page_object;
 
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import com.softserveinc.edu.ita.locators.CommonLocators;
+import com.sun.org.apache.bcel.internal.generic.ILOAD;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -58,6 +59,10 @@ public abstract class PageObjectBase {
         String alertText = alert.getText();
         alert.accept();
         Reporter.log(String.format("INFO   - Accepted alert: %s", alertText));
+    }
+
+    public boolean isElementEnabled(ILocator locator){
+        return driver.findElement(locator.getBy()).isEnabled();
     }
 
 }

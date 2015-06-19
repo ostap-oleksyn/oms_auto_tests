@@ -7,6 +7,7 @@ import com.softserveinc.edu.ita.enums.Roles;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -126,5 +127,21 @@ public class UserDAO extends AbstractDAO<User> {
         }
 
         return list.get(0);
+    }
+
+    public int getActiveUsersNumber() throws DAOException {
+        final String sqlQuery = "SELECT Count(Id) as ActiveUsersCount FROM Users WHERE IsUserActive = 1";
+        int activeUsersCount = 0;
+        try (Statement statement = connection.createStatement()) {
+            final ResultSet resultSet = statement.executeQuery(sqlQuery);
+
+            while (resultSet.next()) {
+                activeUsersCount = resultSet.getInt("ActiveUsersCount");
+            }
+
+        } catch (Exception e) {
+            throw new DAOException("There are no active users in database");
+        }
+        return activeUsersCount;
     }
 }
