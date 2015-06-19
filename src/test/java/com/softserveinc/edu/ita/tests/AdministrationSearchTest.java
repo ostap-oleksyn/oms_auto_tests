@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.softserveinc.edu.ita.enums.AdministrationTabConditions.EQUALS;
-import static com.softserveinc.edu.ita.enums.AdministrationTabConditions.NOT_EQUALS_TO;
 import static com.softserveinc.edu.ita.enums.AdministrationTabFilters.*;
 
 
@@ -34,32 +32,42 @@ public class AdministrationSearchTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
         searchTerm = "ivanka";
-        administrationPage.setFilters(filters.getFilterName())
-                .setConditions(NOT_EQUALS_TO)
-                .fillSearchField(searchTerm)
-                .clickSearchButton();
 
-        usersListFromView = administrationPage.getTableFromView();
-        administrationPage.clearSearchField();
+        for (AdministrationTabConditions conditions : AdministrationTabConditions.values()) {
+            administrationPage.setFilters(filters.getFilterName())
+                    .setConditions(conditions)
+                    .fillSearchField(searchTerm)
+                    .clickSearchButton();
 
-        usersListFromDB = DBUtility.getUserDao().getAllUsersFromDB();
+            usersListFromView = administrationPage.getTableFromView();
+            administrationPage.clearSearchField();
 
+            usersListFromDB = DBUtility.getUserDao().getAllUsersFromDB();
 
-        List<User>usersList = searchUsers(usersListFromDB, filters, NOT_EQUALS_TO, searchTerm);
+            List<User> usersList = searchUsersInList(usersListFromDB, filters, conditions, searchTerm);
 
-        loggingAssert.assertEquals(usersListFromView.size(),usersList.size(), filters + " " + EQUALS + " " + searchTerm);
-
+            loggingAssert.assertEquals(usersListFromView.size(), usersList.size(), filters + " " + conditions + " " + searchTerm);
+        }
         administrationPage.clickLogOutButton();
 
     }
 
-    private List<User> searchUsers(List<User>usersList, AdministrationTabFilters filters,AdministrationTabConditions conditions, String searchTerm){
+    /**
+     * searches users from users which were found from data base via parameters
+     * @param usersList
+     * @param filters
+     * @param conditions
+     * @param searchTerm
+     * @return
+     */
+    private List<User> searchUsersInList(List<User> usersList, AdministrationTabFilters filters, AdministrationTabConditions conditions, String searchTerm){
         Map<AdministrationTabFilters, SearchFilters> searchConditionMap = new HashMap<>();
         searchConditionMap.put(FIRST_NAME, User::getFirstName);
         searchConditionMap.put(LAST_NAME, User::getLastName);
         searchConditionMap.put(LOGIN_NAME, User::getLogin);
         searchConditionMap.put(ROLE, User::getRoleName);
         switch (conditions) {
+
             case EQUALS:
                 return usersList.stream()
                         .filter(user -> searchConditionMap.get(filters)
@@ -85,12 +93,10 @@ public class AdministrationSearchTest extends TestRunner {
                         .filter(user -> searchConditionMap.get(filters)
                                 .callMethod(user).startsWith(searchTerm))
                         .collect(Collectors.toList());
-
             default:
                 return usersList;
         }
     }
-
 
     private interface SearchFilters {
         String callMethod(User user);

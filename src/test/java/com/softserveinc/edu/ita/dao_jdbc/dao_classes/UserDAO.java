@@ -2,8 +2,6 @@
 package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
 
 import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.enums.AdministrationTabConditions;
-import com.softserveinc.edu.ita.enums.AdministrationTabFilters;
 import com.softserveinc.edu.ita.enums.Roles;
 
 import java.sql.Connection;
@@ -94,6 +92,13 @@ public class UserDAO extends AbstractDAO<User> {
         return list.iterator().next();
     }
 
+
+    /**
+     * gets last user from database
+     *
+     * @return
+     * @throws DAOException
+     */
     public User getLastUser() throws DAOException {
         List<User> usersList;
         String sqlQuery = getSelectQuery();
@@ -111,6 +116,13 @@ public class UserDAO extends AbstractDAO<User> {
         return usersList.get(0);
     }
 
+    /**
+     * gets user via role name from database
+     *
+     * @param role
+     * @return
+     * @throws DAOException
+     */
     public User getByRoleName(Roles role) throws DAOException {
         List<User> list;
         String sqlQuery = getSelectQuery();
@@ -129,109 +141,13 @@ public class UserDAO extends AbstractDAO<User> {
 
         return list.get(0);
     }
+
     /**
-     * gets users from data base via search parameters
+     * get all users from database
      *
-     * @param searchFilter
-     * @param condition
-     * @param searchTerm
      * @return
      * @throws DAOException
      */
-    public List<User> getUsersBy(String searchFilter, AdministrationTabConditions condition, String searchTerm) throws DAOException {
-        List<User> list;
-        String sqlQuery = "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, \n" +
-                "IsUserActive as Status \n" +
-                "from users inner join roles on users.RoleRef = roles.ID \n" +
-                "inner join customertypes on\n" +
-                "users.CustomerTypeRef = customertypes.ID\n" +
-                "inner join regions on \n" +
-                "users.RegionRef = regions.ID";
-
-        if (searchFilter == AdministrationTabFilters.ALL_COLUMNS.getValue()) {
-            switch (condition) {
-                case EQUALS:
-                    sqlQuery += " WHERE FirstName = ? OR " +
-                            " LastName = ? OR " +
-                            " RoleName = ? OR " +
-                            " Login = ? OR " +
-                            " RegionName = ?";
-                    break;
-                case NOT_EQUALS_TO:
-                    sqlQuery += " WHERE FirstName != ? AND" +
-                            " LastName != ? AND " +
-                            " RoleName != ? AND" +
-                            " Login != ? AND" +
-                            " RegionName != ?";
-                    break;
-                case CONTAINS:
-                    sqlQuery += " WHERE FirstName LIKE ? OR" +
-                            " LastName LIKE ? OR " +
-                            " RoleName LIKE ? OR" +
-                            " Login LIKE ? OR" +
-                            " RegionName LIKE ?";
-                    break;
-                case DOES_NOT_CONTAINS:
-                    sqlQuery += " WHERE FirstName NOT LIKE ? AND" +
-                            " LastName NOT LIKE ? AND " +
-                            " RoleName NOT LIKE ? AND" +
-                            " Login NOT LIKE ? AND" +
-                            " RegionName NOT LIKE ?";
-                    break;
-                case STARTS_WITH :
-                    sqlQuery += " WHERE FirstName LIKE ? OR" +
-                            " LastName LIKE ? OR " +
-                            " RoleName LIKE ? OR" +
-                            " Login LIKE ? OR" +
-                            " RegionName LIKE ?";
-                    break;
-            }
-        } else {
-
-            switch (condition) {
-                case EQUALS:
-                    sqlQuery += " WHERE " + searchFilter + " = ?";
-                    break;
-                case NOT_EQUALS_TO:
-                    sqlQuery += " WHERE " + searchFilter + " != ?";
-                    break;
-                case CONTAINS:
-                    sqlQuery += " WHERE " + searchFilter + " LIKE ?";
-                    break;
-                case DOES_NOT_CONTAINS:
-                    sqlQuery += " WHERE " + searchFilter + " NOT LIKE ?";
-                    break;
-                case STARTS_WITH:
-                    sqlQuery += " WHERE " + searchFilter + " LIKE ?";
-                    break;
-            }
-        }
-
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            if (searchFilter == AdministrationTabFilters.ALL_COLUMNS.getValue()) {
-                statement.setString(1, searchTerm);
-                statement.setString(2, searchTerm);
-                statement.setString(3, searchTerm);
-                statement.setString(4, searchTerm);
-                statement.setString(5, searchTerm);
-            }else{
-                statement.setString(1, searchTerm);
-            }
-
-            ResultSet resultSet = statement.executeQuery();
-            list = parseResultSet(resultSet);
-            for (User user : list) {
-                user.setId(0);
-                user.setEmail(null);
-                user.setCustomerType(null);
-                user.setStatus(null);
-            }
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-        return list;
-    }
-
     public List<User> getAllUsersFromDB() throws DAOException {
 
             List<User> usersList;
