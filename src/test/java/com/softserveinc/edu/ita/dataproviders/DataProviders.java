@@ -33,7 +33,7 @@ public class DataProviders {
     @DataProvider(name = "getSearchFilters")
     public static Object[][] getFilters() {
         return new Object[][]{
-                new AdministrationTabFilters[]{ALL_COLUMNS},
+//                new AdministrationTabFilters[]{ALL_COLUMNS},
                 new AdministrationTabFilters[]{FIRST_NAME},
                 new AdministrationTabFilters[]{LAST_NAME},
                 new AdministrationTabFilters[]{LOGIN_NAME},

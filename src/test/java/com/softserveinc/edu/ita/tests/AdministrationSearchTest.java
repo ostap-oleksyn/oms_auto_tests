@@ -1,6 +1,7 @@
 package com.softserveinc.edu.ita.tests;
 
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
+import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.domains.UserFromView;
 import com.softserveinc.edu.ita.enums.AdministrationTabConditions;
@@ -14,9 +15,11 @@ import org.testng.annotations.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import static com.softserveinc.edu.ita.enums.AdministrationTabConditions.EQUALS;
+import static com.softserveinc.edu.ita.enums.AdministrationTabConditions.NOT_EQUALS_TO;
 import static com.softserveinc.edu.ita.enums.AdministrationTabFilters.*;
-import static com.softserveinc.edu.ita.enums.AdministrationTabFilters.ALL_COLUMNS;
 
 
 public class AdministrationSearchTest extends TestRunner {
@@ -24,28 +27,68 @@ public class AdministrationSearchTest extends TestRunner {
     List<User> usersListFromDB;
     private String searchTerm;
 
-    @Test()
-    public void testEquals() throws DAOException {
+    @Test(dataProvider = "getSearchFilters", dataProviderClass = DataProviders.class)
+    public void testEquals(AdministrationTabFilters filters) throws DAOException {
         HomePage homePage = new HomePage(driver);
         User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
-
-        administrationPage.setFilters(ALL_COLUMNS.getFilterName())
-                .setConditions(AdministrationTabConditions.EQUALS)
-                .fillSearchField("")
+        searchTerm = "ivanka";
+        administrationPage.setFilters(filters.getFilterName())
+                .setConditions(NOT_EQUALS_TO)
+                .fillSearchField(searchTerm)
                 .clickSearchButton();
 
         usersListFromView = administrationPage.getTableFromView();
         administrationPage.clearSearchField();
 
         usersListFromDB = DBUtility.getUserDao().getAllUsersFromDB();
-        for (User user : usersListFromDB) {
-            System.out.println(user);
-        }
-        loggingAssert.assertEquals(usersListFromView.size(), usersListFromDB.size());
+
+
+        List<User>usersList = searchUsers(usersListFromDB, filters, NOT_EQUALS_TO, searchTerm);
+
+        loggingAssert.assertEquals(usersListFromView.size(),usersList.size(), filters + " " + EQUALS + " " + searchTerm);
 
         administrationPage.clickLogOutButton();
+
+    }
+
+    private List<User> searchUsers(List<User>usersList, AdministrationTabFilters filters,AdministrationTabConditions conditions, String searchTerm){
+        Map<AdministrationTabFilters, SearchFilters> searchConditionMap = new HashMap<>();
+        searchConditionMap.put(FIRST_NAME, User::getFirstName);
+        searchConditionMap.put(LAST_NAME, User::getLastName);
+        searchConditionMap.put(LOGIN_NAME, User::getLogin);
+        searchConditionMap.put(ROLE, User::getRoleName);
+        switch (conditions) {
+            case EQUALS:
+                return usersList.stream()
+                        .filter(user -> searchConditionMap.get(filters)
+                                .callMethod(user).equals(searchTerm))
+                        .collect(Collectors.toList());
+            case NOT_EQUALS_TO:
+                return usersList.stream()
+                        .filter(user -> !searchConditionMap.get(filters)
+                                .callMethod(user).equals(searchTerm))
+                        .collect(Collectors.toList());
+            case CONTAINS:
+                return usersList.stream()
+                        .filter(user -> searchConditionMap.get(filters)
+                                .callMethod(user).contains(searchTerm))
+                        .collect(Collectors.toList());
+            case DOES_NOT_CONTAINS:
+                return usersList.stream()
+                        .filter(user -> !searchConditionMap.get(filters)
+                                .callMethod(user).contains(searchTerm))
+                        .collect(Collectors.toList());
+            case STARTS_WITH:
+                return usersList.stream()
+                        .filter(user -> searchConditionMap.get(filters)
+                                .callMethod(user).startsWith(searchTerm))
+                        .collect(Collectors.toList());
+
+            default:
+                return usersList;
+        }
     }
 
 
@@ -53,32 +96,6 @@ public class AdministrationSearchTest extends TestRunner {
         String callMethod(User user);
     }
 
-    private List<User> getFilter(List<User> userList, AdministrationTabConditions conditions,String searchTerm ) {
-        final Map<AdministrationTabFilters, SearchFilters> searchConditionMap = new HashMap<>();
-        searchConditionMap.put(FIRST_NAME, User::getFirstName);
-        searchConditionMap.put(LAST_NAME, User::getLastName);
-        searchConditionMap.put(LOGIN_NAME, User::getLogin);
-        searchConditionMap.put(ROLE, User::getRoleName);
-
-
-       return userList.stream().filter(user -> searchConditionMap.get(conditions).callMethod(User).equals(searchTerm));
-    }
-
-    //    private boolean equalsUsersList(List<User> usersListFromView, List<User> usersListFromDB) {
-//        if (usersListFromDB == null && usersListFromView == null) {
-//            return true;
-//        }
-//        if ((usersListFromDB == null && usersListFromView == null)
-//                || usersListFromDB != null && usersListFromView != null
-//                || usersListFromDB.size() != usersListFromView.size()) {
-//            return false;
-//        }
-//        usersListFromDB = new ArrayList<>();
-//        usersListFromView = new ArrayList<>();
-//
-//
-//        return true;
-//    }
 }
 
 
