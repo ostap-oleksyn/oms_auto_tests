@@ -91,10 +91,4 @@ public class DBUtility {
         return user;
     }
 
-    /**
-     * Changes user status active/notActive
-     */
-    public static void changeUserStatus(String login) {
-
-    }
 }
