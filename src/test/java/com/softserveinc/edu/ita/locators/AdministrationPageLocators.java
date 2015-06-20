@@ -32,11 +32,11 @@ public enum AdministrationPageLocators implements ILocator {
     USERS_TABLE_ROWS(
             "Users table rows",
             By.xpath(".//tbody/tr")),
-    ADMINISTRATOR_APPOINTED_TEXT(
-            "Admin appointed Info text",
+    ADMINISTRATOR_APPOINTED_LABEL(
+            "Admin appointed Info label",
             By.xpath(".//*[@id='list']/h2")),
-    FIELD_FILTER_TEXT(
-            "Field filter text",
+    FILTER_LABEL(
+            "Filter label",
             By.xpath(".//*[@id='searchForm']/label"));
 
     // TODO redo to enum

@@ -5,15 +5,15 @@ import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
 public enum ItemManagementPageLocators implements ILocator {
-
+    //TODO refactor into not using text label inside the locator
     ADD_PRODUCT_LINK(
             "Add product link",
             By.xpath(".//*[@id='list']/a[contains(text(), 'Add Product')]")),
-    SUPERVISOR_APPOINTED_TEXT(
-            "Supervisor appointed Info text",
+    SUPERVISOR_APPOINTED_LABEL(
+            "Supervisor appointed Info label",
             By.xpath(".//*[@id='list']/h2")),
-    SUPERVISOR_FIELD_FILTER_TEXT(
-            "Field filter text",
+    SUPERVISOR_FILTER_LABEL(
+            "Filter label",
             By.xpath(".//*[@id='searchForm']/label"));
 
 

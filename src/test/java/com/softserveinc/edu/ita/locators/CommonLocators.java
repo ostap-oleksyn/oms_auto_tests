@@ -24,11 +24,11 @@ public enum CommonLocators implements ILocator {
     ACTIVE_TAB(
             "Active tab",
             By.xpath(".//a[parent::li[@class='cur']]")),
-    EN_BUTTON(
-            "English language",
+    EN_LINK(
+            "English language link",
             By.xpath(".//*[@id='content']/div/a[1]")),
-    UA_BUTTON(
-            "Ukrainian language",
+    UA_LINK(
+            "Ukrainian language link",
             By.xpath(".//*[@id='content']/div/a[2]"));
 
     CommonLocators(String name, By locator) {

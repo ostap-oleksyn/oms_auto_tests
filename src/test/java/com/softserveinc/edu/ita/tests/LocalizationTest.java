@@ -7,7 +7,6 @@ import com.softserveinc.edu.ita.page_object.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-
 public class LocalizationTest extends TestRunner {
 
     HomePage homePage;
@@ -22,43 +21,43 @@ public class LocalizationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
-                .equals("User Info"), "Verify EN title text present");
+                .getElementText(UserInfoPageLocators.USER_INFO_LABEL)
+                .equals("User Info"), "User info label is in English");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
-                .equals("First name"), "Verify EN text present");
+                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
+                .equals("First name"), "User first name is in English");
 
-        userInfoPage.changeLanguageTo(CommonLocators.UA_BUTTON);
+        userInfoPage.clickLanguageLink(CommonLocators.UA_LINK);
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
-                .equals("Деталі Користувача"), "Verify UA title text present");
+                .getElementText(UserInfoPageLocators.USER_INFO_LABEL)
+                .equals("Деталі Користувача"), "Changing User info to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
-                .equals("Ім'я"), "Verify UA text present");
+                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
+                .equals("Ім'я"), "Changing User first name to Ukrainian");
 
         orderingPage = userInfoPage.clickOrderingTab();
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(OrderingPageLocators.SEARCH_FILTER_TEXT)
-                .equals("Шукати замовлення за:"), "Verify UA filter title text present");
+                .getElementText(OrderingPageLocators.SEARCH_FILTER_LABEL)
+                .equals("Шукати замовлення за:"), "Changing Filter label to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(OrderingPageLocators.EDIT_TABLE_TEXT)
-                .equals("Редагувати"), "Verify UA table text 'Edit'");
+                .getElementText(OrderingPageLocators.EDIT_TABLE_LABEL)
+                .equals("Редагувати"), "Changing Edit table label to Ukrainian");
 
         administrationPage = userInfoPage.clickAdministrationTab();
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(AdministrationPageLocators.ADMINISTRATOR_APPOINTED_TEXT)
+                .getElementText(AdministrationPageLocators.ADMINISTRATOR_APPOINTED_LABEL)
                 .equals("Дана сторінка призначена для створення " +
-                        "та керування користувачами"), "Verify UA admin appointed text present");
+                        "та керування користувачами"), "Changing Administration appointed label to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(AdministrationPageLocators.FIELD_FILTER_TEXT)
-                .equals("Фільтр на поле:"), "Verify UA filter field text");
+                .getElementText(AdministrationPageLocators.FILTER_LABEL)
+                .equals("Фільтр на поле:"), "Changing Filter label to Ukrainian");
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
-        userInfoPage.changeLanguageTo(CommonLocators.EN_BUTTON);
+        userInfoPage.clickLanguageLink(CommonLocators.EN_LINK);
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
@@ -67,33 +66,33 @@ public class LocalizationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
-                .equals("User Info"), "Verify EN title text present");
+                .getElementText(UserInfoPageLocators.USER_INFO_LABEL)
+                .equals("User Info"), "User info is in English");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
-                .equals("First name"), "Verify EN text present");
+                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
+                .equals("First name"), "User first name is in English");
 
-        userInfoPage.changeLanguageTo(CommonLocators.UA_BUTTON);
+        userInfoPage.clickLanguageLink(CommonLocators.UA_LINK);
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
-                .equals("Деталі Користувача"), "Verify UA title text present");
+                .getElementText(UserInfoPageLocators.USER_INFO_LABEL)
+                .equals("Деталі Користувача"), "Changing User info to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
-                .equals("Ім'я"), "Verify UA text present");
+                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
+                .equals("Ім'я"), "Changing User first name label to Ukrainian");
 
         orderingPage = userInfoPage.clickOrderingTab();
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(OrderingPageLocators.SEARCH_FILTER_TEXT)
-                .equals("Шукати замовлення за:"), "Verify UA filter title text present");
+                .getElementText(OrderingPageLocators.SEARCH_FILTER_LABEL)
+                .equals("Шукати замовлення за:"), "Changing Search filter label to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(OrderingPageLocators.EDIT_TABLE_TEXT)
-                .equals("Редагувати"), "Verify UA table text 'Edit'");
+                .getElementText(OrderingPageLocators.EDIT_TABLE_LABEL)
+                .equals("Редагувати"), "Changing Edit table label to Ukrainian");
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
-        userInfoPage.changeLanguageTo(CommonLocators.EN_BUTTON);
+        userInfoPage.clickLanguageLink(CommonLocators.EN_LINK);
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
@@ -102,33 +101,33 @@ public class LocalizationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
-                .equals("User Info"), "Verify EN title text present");
+                .getElementText(UserInfoPageLocators.USER_INFO_LABEL)
+                .equals("User Info"), "User info is in English");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
-                .equals("First name"), "Verify EN text present");
+                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
+                .equals("First name"), "First name title is in English");
 
-        userInfoPage.changeLanguageTo(CommonLocators.UA_BUTTON);
+        userInfoPage.clickLanguageLink(CommonLocators.UA_LINK);
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
-                .equals("Деталі Користувача"), "Verify UA title text present");
+                .getElementText(UserInfoPageLocators.USER_INFO_LABEL)
+                .equals("Деталі Користувача"), "Changing User info to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
-                .equals("Ім'я"), "Verify UA text present");
+                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
+                .equals("Ім'я"), "Changing User first name title to Ukrainian");
 
         orderingPage = userInfoPage.clickOrderingTab();
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(OrderingPageLocators.SEARCH_FILTER_TEXT)
-                .equals("Шукати замовлення за:"), "Verify UA filter title text present");
+                .getElementText(OrderingPageLocators.SEARCH_FILTER_LABEL)
+                .equals("Шукати замовлення за:"), "Changing Search filter label to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(OrderingPageLocators.EDIT_TABLE_TEXT)
-                .equals("Редагувати"), "Verify UA table text 'Edit'");
+                .getElementText(OrderingPageLocators.EDIT_TABLE_LABEL)
+                .equals("Редагувати"), "Changing Edit table label to Ukrainian");
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
-        userInfoPage.changeLanguageTo(CommonLocators.EN_BUTTON);
+        userInfoPage.clickLanguageLink(CommonLocators.EN_LINK);
 
     }
 
@@ -138,34 +137,34 @@ public class LocalizationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
-                .equals("User Info"), "Verify EN title text present");
+                .getElementText(UserInfoPageLocators.USER_INFO_LABEL)
+                .equals("User Info"), "User info is in English");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
-                .equals("First name"), "Verify EN text present");
+                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
+                .equals("First name"), "First name title is in English");
 
-        userInfoPage.changeLanguageTo(CommonLocators.UA_BUTTON);
+        userInfoPage.clickLanguageLink(CommonLocators.UA_LINK);
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.USER_INFO_TITLE_TEXT)
-                .equals("Деталі Користувача"), "Verify UA title text present");
+                .getElementText(UserInfoPageLocators.USER_INFO_LABEL)
+                .equals("Деталі Користувача"), "Changing User info to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_TEXT)
-                .equals("Ім'я"), "Verify UA text present");
+                .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
+                .equals("Ім'я"), "Changing First name title to Ukrainian");
 
         itemManagementPage = userInfoPage.clickItemManagementTab();
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(ItemManagementPageLocators.SUPERVISOR_APPOINTED_TEXT)
+                .getElementText(ItemManagementPageLocators.SUPERVISOR_APPOINTED_LABEL)
                 .equals("Дана сторінка призначена для додавання нових та " +
-                        "редагування існуючих продуктів."), "Verify UA Supervisor appointed text present");
+                        "редагування існуючих продуктів."), "Changing Supervisor appointed label to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(ItemManagementPageLocators.SUPERVISOR_FIELD_FILTER_TEXT)
-                .equals("Фільтр на поле:"), "Verify UA filter field text");
+                .getElementText(ItemManagementPageLocators.SUPERVISOR_FILTER_LABEL)
+                .equals("Фільтр на поле:"), "Changing Filter label appointed label to Ukrainian");
 
         userInfoPage = itemManagementPage.clickUserInfoTab();
 
-        userInfoPage.changeLanguageTo(CommonLocators.EN_BUTTON);
+        userInfoPage.clickLanguageLink(CommonLocators.EN_LINK);
     }
 
     @AfterMethod
