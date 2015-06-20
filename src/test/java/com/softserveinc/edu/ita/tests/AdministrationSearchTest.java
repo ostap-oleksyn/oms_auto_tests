@@ -77,18 +77,6 @@ public class AdministrationSearchTest extends TestRunner {
                         user1.getRegion().equalsIgnoreCase(user2.getRegionName())) {
                     return true;
                 }
-                if (user1.getLastName().equalsIgnoreCase(user2.getLastName())) {
-                    return true;
-                }
-                if (user1.getLogin().equalsIgnoreCase(user2.getLogin())) {
-                    return true;
-                }
-                if (user1.getRole().equalsIgnoreCase(user2.getRoleName())) {
-                    return true;
-                }
-                if (user1.getRegion().equalsIgnoreCase(user2.getRegionName())) {
-                    return true;
-                }
             }
         }
         return false;
