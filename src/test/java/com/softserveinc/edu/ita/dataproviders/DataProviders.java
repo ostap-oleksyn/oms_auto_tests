@@ -21,8 +21,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
-import static com.softserveinc.edu.ita.enums.AdministrationTabConditions.*;
-import static com.softserveinc.edu.ita.enums.AdministrationTabFilters.*;
+import static com.softserveinc.edu.ita.enums.SearchConditions.*;
+import static com.softserveinc.edu.ita.enums.SearchFilters.*;
 import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 
@@ -33,11 +33,11 @@ public class DataProviders {
     @DataProvider(name = "getSearchFilters")
     public static Object[][] getFilters() {
         return new Object[][]{
-//                new AdministrationTabFilters[]{ALL_COLUMNS},
-                new AdministrationTabFilters[]{FIRST_NAME},
-                new AdministrationTabFilters[]{LAST_NAME},
-                new AdministrationTabFilters[]{LOGIN_NAME},
-                new AdministrationTabFilters[]{ROLE}
+//                new SearchFilters[]{ALL_COLUMNS},
+                new SearchFilters[]{FIRST_NAME},
+                new SearchFilters[]{LAST_NAME},
+                new SearchFilters[]{LOGIN_NAME},
+                new SearchFilters[]{ROLE}
         };
     }
 
@@ -48,11 +48,11 @@ public class DataProviders {
     @DataProvider(name = "getSearchCondition")
     public static Object[][] getCondition() {
         return new Object[][]{
-                new AdministrationTabConditions[]{EQUALS},
-                new AdministrationTabConditions[]{NOT_EQUALS_TO},
-                new AdministrationTabConditions[]{CONTAINS},
-                new AdministrationTabConditions[]{DOES_NOT_CONTAINS},
-                new AdministrationTabConditions[]{STARTS_WITH}
+                new SearchConditions[]{EQUALS},
+                new SearchConditions[]{NOT_EQUALS_TO},
+                new SearchConditions[]{CONTAINS},
+                new SearchConditions[]{DOES_NOT_CONTAINS},
+                new SearchConditions[]{STARTS_WITH}
         };
     }
 

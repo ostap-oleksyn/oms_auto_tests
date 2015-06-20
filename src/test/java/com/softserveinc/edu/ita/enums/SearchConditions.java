@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.enums;
 
-public enum AdministrationTabConditions {
+public enum SearchConditions {
     EQUALS("equals"),
     NOT_EQUALS_TO("not equals to"),
     STARTS_WITH("starts with"),
@@ -9,7 +9,7 @@ public enum AdministrationTabConditions {
 
     private String condition;
 
-    AdministrationTabConditions(String condition) {
+    SearchConditions(String condition) {
         this.condition = condition;
     }
 

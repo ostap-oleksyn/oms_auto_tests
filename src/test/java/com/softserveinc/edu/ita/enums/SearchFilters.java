@@ -3,7 +3,7 @@ package com.softserveinc.edu.ita.enums;
 /**
  * Created by Ihor-Dynka on 18.06.2015.
  */
-public enum AdministrationTabFilters {
+public enum SearchFilters {
     ALL_COLUMNS("All Columns",""),
     FIRST_NAME("First Name","FirstName"),
     LAST_NAME("Last Name","LastName"),
@@ -13,7 +13,7 @@ public enum AdministrationTabFilters {
     private String filterName;
     private String value;
 
-    AdministrationTabFilters(String filterName, String value) {
+    SearchFilters(String filterName, String value) {
         this.filterName = filterName;
         this.value = value;
     }

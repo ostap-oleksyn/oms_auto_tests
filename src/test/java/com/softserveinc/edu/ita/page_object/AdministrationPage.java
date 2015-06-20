@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.page_object;
 
 import com.softserveinc.edu.ita.domains.UserFromView;
-import com.softserveinc.edu.ita.enums.AdministrationTabConditions;
+import com.softserveinc.edu.ita.enums.SearchConditions;
 import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -134,7 +134,7 @@ public class AdministrationPage extends LogOutBase {
      * @param conditions
      * @return
      */
-    public AdministrationPage setConditions(AdministrationTabConditions conditions) {
+    public AdministrationPage setCondition(SearchConditions conditions) {
         Select conditionSelect = new Select(driver.findElement(CONDITION_SELECT.getBy()));
         conditionSelect.selectByVisibleText(conditions.toString());
         return this;
