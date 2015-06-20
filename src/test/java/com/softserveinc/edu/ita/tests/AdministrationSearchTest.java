@@ -28,15 +28,15 @@ public class AdministrationSearchTest extends TestRunner {
     List<User> filteredListFromDB;
     private String searchTerm;
 
+
     @Test(dataProvider = "getSearchFilters", dataProviderClass = DataProviders.class)
-    public void testEquals(SearchFilters filters) throws DAOException {
+    public void testSearch(SearchFilters filters) throws DAOException {
         HomePage homePage = new HomePage(driver);
         User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
         //TODO move out to dataprovider
-        searchTerm = "ivanka";
-
+       searchTerm = "ivanka";
         for (SearchConditions conditions : SearchConditions.values()) {
             administrationPage.setFilters(filters.getFilterName())
                     .setCondition(conditions)
@@ -49,17 +49,49 @@ public class AdministrationSearchTest extends TestRunner {
             usersListFromDB = DBUtility.getUserDao().getAllUsersFromDB();
             filteredListFromDB = getFilteredList(usersListFromDB, filters, conditions, searchTerm);
 
-            usersListFromDB.sort(new UserComparator());
+            filteredListFromDB.sort(new UserComparator());
             usersListFromView.sort(new UserFromViewComparator());
 
-            loggingAssert.assertTrue(equalsList(usersListFromView, filteredListFromDB), filters + " " + conditions + " " + searchTerm);
+            loggingSoftAssert.assertTrue(equalsList(usersListFromView, filteredListFromDB), filters + " " + conditions + " " + searchTerm);
+            loggingSoftAssert.assertAll();
         }
         administrationPage.clickLogOutButton();
 
     }
 
+    @Test(dataProvider = "getSearchCondition", dataProviderClass = DataProviders.class)
+    public void testAllColumns(SearchConditions conditions) throws DAOException {
+        HomePage homePage = new HomePage(driver);
+        User admin = DBUtility.getAdmin();
+        UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        //TODO move out to dataprovider
+        searchTerm = "ivanka";
+
+            administrationPage.setFilters(ALL_COLUMNS.getFilterName())
+                    .setCondition(conditions)
+                    .fillSearchField(searchTerm)
+                    .clickSearchButton();
+
+            usersListFromView = administrationPage.getTableFromView();
+            administrationPage.clearSearchField();
+
+        administrationPage.clickLogOutButton();
+        usersListFromDB = DBUtility.getUserDao().getFilteredUsersFromDB(conditions, searchTerm);
+
+        usersListFromDB.sort(new UserComparator());
+        usersListFromView.sort(new UserFromViewComparator());
+
+        loggingSoftAssert.assertTrue(equalsList(usersListFromView, usersListFromDB), ALL_COLUMNS + " " + conditions + " " + searchTerm);
+        loggingSoftAssert.assertAll();
+
+
+    }
+
+
     /**
      * compares two list of users
+     *
      * @param userlist1
      * @param userList2
      * @return
@@ -84,18 +116,20 @@ public class AdministrationSearchTest extends TestRunner {
 
     /**
      * searches users from users which were found from data base via parameters
+     *
      * @param usersList
      * @param filters
      * @param conditions
      * @param searchTerm
      * @return
      */
-    private List<User> getFilteredList(List<User> usersList, SearchFilters filters, SearchConditions conditions, String searchTerm){
+    private List<User> getFilteredList(List<User> usersList, SearchFilters filters, SearchConditions conditions, String searchTerm) {
         Map<SearchFilters, ISearchFilters> searchConditionMap = new HashMap<>();
         searchConditionMap.put(FIRST_NAME, User::getFirstName);
         searchConditionMap.put(LAST_NAME, User::getLastName);
         searchConditionMap.put(LOGIN_NAME, User::getLogin);
         searchConditionMap.put(ROLE, User::getRoleName);
+        
         switch (conditions) {
 
             case EQUALS:

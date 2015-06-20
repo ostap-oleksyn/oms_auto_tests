@@ -6,8 +6,6 @@ import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.*;
-
-
 import com.softserveinc.edu.ita.utils.XlsFileReader;
 import org.testng.annotations.DataProvider;
 
@@ -16,8 +14,6 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -148,6 +144,17 @@ public class DataProviders {
             e.printStackTrace();
         }
         return invalidUsers;
+    }
+
+    @DataProvider(name = "getSearchTerms")
+    public static Object[][] getSearchTerms() {
+        Object[][] searchTerms = null;
+        try {
+            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("SearchTerms");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return searchTerms;
     }
 
     private static Object[][] getUsersFromList(Roles role) throws DAOException, IOException {
