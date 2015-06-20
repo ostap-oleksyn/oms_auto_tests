@@ -7,7 +7,8 @@ import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
 import org.testng.annotations.Test;
 
-import static com.softserveinc.edu.ita.utils.DBUtility.*;
+import static com.softserveinc.edu.ita.utils.DBUtility.getActiveUsersNumber;
+import static com.softserveinc.edu.ita.utils.DBUtility.getAdmin;
 
 public class AdministrationPageNavigationTest extends TestRunner {
 
@@ -25,7 +26,7 @@ public class AdministrationPageNavigationTest extends TestRunner {
 
         loggingAssert.assertEquals(getActiveUsersNumber(), administrationPage.getFoundUsersNumber(),
                 String.format("Number of users match: found users - <b>%d</b>; active users - <b>%d</b>;",
-                        getActiveUsersNumber(), administrationPage.getFoundUsersNumber()));
+                        administrationPage.getFoundUsersNumber(), getActiveUsersNumber()));
 
 
         loggingAssert.assertTrue(administrationPage.getNumberOfRows() == 5, "Users list default size is <b>5</b> rows");
