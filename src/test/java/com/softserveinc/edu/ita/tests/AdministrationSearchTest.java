@@ -31,10 +31,12 @@ public class AdministrationSearchTest extends TestRunner {
         User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        //TODO move out to dataprovider
         searchTerm = "ivanka";
-
+        //TODO AdministrationTabConditions rename to SearchConditions
         for (AdministrationTabConditions conditions : AdministrationTabConditions.values()) {
             administrationPage.setFilters(filters.getFilterName())
+                    //TODO setCondition()
                     .setConditions(conditions)
                     .fillSearchField(searchTerm)
                     .clickSearchButton();
@@ -43,7 +45,7 @@ public class AdministrationSearchTest extends TestRunner {
             administrationPage.clearSearchField();
 
             usersListFromDB = DBUtility.getUserDao().getAllUsersFromDB();
-
+            //TODO searchUsersInList rename to getFilteredList()
             List<User> usersList = searchUsersInList(usersListFromDB, filters, conditions, searchTerm);
 
             loggingAssert.assertEquals(usersListFromView.size(), usersList.size(), filters + " " + conditions + " " + searchTerm);
