@@ -26,14 +26,18 @@ public enum AdministrationPageLocators implements ILocator {
     LAST_BUTTON(
             "Last Button",
             By.xpath(".//*[@id='last']")),
-
     USERS_TABLE(
             "Users table",
             By.xpath(".//*[@id='table']")),
-
     USERS_TABLE_ROWS(
             "Users table rows",
             By.xpath(".//tbody/tr")),
+    ADMINISTRATOR_APPOINTED_LABEL(
+            "Admin appointed Info label",
+            By.xpath(".//*[@id='list']/h2")),
+    FILTER_LABEL(
+            "Filter label",
+            By.xpath(".//*[@id='searchForm']/label")),
     FOUND_USERS_NUMBER(
             "Number of found users",
             By.xpath(".//*[@id='usersFound']")),
