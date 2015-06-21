@@ -59,15 +59,14 @@ public class AdministrationSearchTest extends TestRunner {
 
     }
 
-    @Test(dataProvider = "getSearchCondition", dataProviderClass = DataProviders.class)
-    public void testAllColumns(SearchConditions conditions) throws DAOException {
+    @Test(dataProvider = "getSearchTerms", dataProviderClass = DataProviders.class)
+    public void testAllColumns(String searchTerm) throws DAOException {
         HomePage homePage = new HomePage(driver);
         User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
-        //TODO move out to dataprovider
-        searchTerm = "ivanka";
 
+        for (SearchConditions conditions:SearchConditions.values()) {
             administrationPage.setFilters(ALL_COLUMNS.getFilterName())
                     .setCondition(conditions)
                     .fillSearchField(searchTerm)
@@ -76,16 +75,16 @@ public class AdministrationSearchTest extends TestRunner {
             usersListFromView = administrationPage.getTableFromView();
             administrationPage.clearSearchField();
 
+            usersListFromDB = DBUtility.getUserDao().getFilteredUsersFromDB(conditions, searchTerm);
+
+            usersListFromDB.sort(new UserComparator());
+            usersListFromView.sort(new UserFromViewComparator());
+
+            loggingSoftAssert.assertTrue(equalsList(usersListFromView, usersListFromDB), ALL_COLUMNS + " " + conditions + " " + searchTerm);
+            loggingSoftAssert.assertAll();
+
+        }
         administrationPage.clickLogOutButton();
-        usersListFromDB = DBUtility.getUserDao().getFilteredUsersFromDB(conditions, searchTerm);
-
-        usersListFromDB.sort(new UserComparator());
-        usersListFromView.sort(new UserFromViewComparator());
-
-        loggingSoftAssert.assertTrue(equalsList(usersListFromView, usersListFromDB), ALL_COLUMNS + " " + conditions + " " + searchTerm);
-        loggingSoftAssert.assertAll();
-
-
     }
 
 

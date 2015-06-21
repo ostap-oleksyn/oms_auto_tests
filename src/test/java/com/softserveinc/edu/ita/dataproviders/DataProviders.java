@@ -150,7 +150,7 @@ public class DataProviders {
     public static Object[][] getSearchTerms() {
         Object[][] searchTerms = null;
         try {
-            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("SearchTerms");
+            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("searchTerms");
         } catch (IOException e) {
             e.printStackTrace();
         }
