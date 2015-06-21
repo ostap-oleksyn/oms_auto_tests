@@ -73,31 +73,31 @@ public class Order {
     }
 
     public interface OrderNameStep {
-        TotalPriceStep orderName(String orderName);
+        TotalPriceStep setOrderName(String orderName);
     }
 
     public interface TotalPriceStep {
-        MaxDiscountStep totalPrice(String totalPrice);
+        MaxDiscountStep setTotalPrice(String totalPrice);
     }
 
     public interface MaxDiscountStep {
-        DeliveryDateStep maxDiscount(String maxDiscount);
+        DeliveryDateStep setMaxDiscount(String maxDiscount);
     }
 
     public interface DeliveryDateStep {
-        StatusStep deliveryDate(String deliveryDate);
+        StatusStep setDeliveryDate(String deliveryDate);
     }
 
     public interface StatusStep {
-        AssigneeStep status(String status);
+        AssigneeStep setStatus(String status);
     }
 
     public interface AssigneeStep {
-        RoleStep assignee(String assignee);
+        RoleStep setAssignee(String assignee);
     }
 
     public interface RoleStep {
-        BuildStep role(String role);
+        BuildStep setRole(String role);
     }
 
     public interface BuildStep {
@@ -113,37 +113,37 @@ public class Order {
         private String assignee;
         private String role;
 
-        public TotalPriceStep orderName(String orderName) {
+        public TotalPriceStep setOrderName(String orderName) {
             this.orderName = orderName;
             return this;
         }
 
-        public MaxDiscountStep totalPrice(String totalPrice) {
+        public MaxDiscountStep setTotalPrice(String totalPrice) {
             this.totalPrice = totalPrice;
             return this;
         }
 
-        public DeliveryDateStep maxDiscount(String maxDiscount) {
+        public DeliveryDateStep setMaxDiscount(String maxDiscount) {
             this.maxDiscount = maxDiscount;
             return this;
         }
 
-        public StatusStep deliveryDate(String deliveryDate) {
+        public StatusStep setDeliveryDate(String deliveryDate) {
             this.deliveryDate = deliveryDate;
             return this;
         }
 
-        public AssigneeStep status(String status) {
+        public AssigneeStep setStatus(String status) {
             this.status = status;
             return this;
         }
 
-        public RoleStep assignee(String assignee) {
+        public RoleStep setAssignee(String assignee) {
             this.assignee = assignee;
             return this;
         }
 
-        public BuildStep role(String role) {
+        public BuildStep setRole(String role) {
             this.role = role;
             return this;
         }

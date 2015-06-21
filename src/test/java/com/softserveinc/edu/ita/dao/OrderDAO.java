@@ -43,13 +43,13 @@ public class OrderDAO extends AbstractDAO<Order> {
         try {
             while (resultSet.next()) {
                 Order order = Order.newBuilder()
-                        .orderName(resultSet.getString("OrderName"))
-                        .totalPrice(resultSet.getString("TotalPrice"))
-                        .maxDiscount(resultSet.getString("MaxDiscount"))
-                        .deliveryDate(resultSet.getString("DeliveryDate"))
-                        .status(resultSet.getString("OrederStatusName"))
-                        .assignee(resultSet.getString("Login"))
-                        .role(resultSet.getString("RoleName"))
+                        .setOrderName(resultSet.getString("OrderName"))
+                        .setTotalPrice(resultSet.getString("TotalPrice"))
+                        .setMaxDiscount(resultSet.getString("MaxDiscount"))
+                        .setDeliveryDate(resultSet.getString("DeliveryDate"))
+                        .setStatus(resultSet.getString("OrederStatusName"))
+                        .setAssignee(resultSet.getString("Login"))
+                        .setRole(resultSet.getString("RoleName"))
                         .build();
                 resultList.add(order);
             }
