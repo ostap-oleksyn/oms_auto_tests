@@ -3,7 +3,7 @@
 <suite name="Merchandiser Ordering Page Tests" verbose="1" parallel="tests" thread-count="7">
     <test name="Sort by 'Name' column test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.SortingTest">
                 <methods>
                     <include name="testOrderNameColumn"/>
                 </methods>
@@ -12,7 +12,7 @@
     </test>
     <test name="Sort by 'Total Price' column test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.SortingTest">
                 <methods>
                     <include name="testTotalPriceColumn"/>
                 </methods>
@@ -21,7 +21,7 @@
     </test>
     <test name="Sort by 'Max Discount' column test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.SortingTest">
                 <methods>
                     <include name="testMaxDiscountColumn"/>
                 </methods>
@@ -30,7 +30,7 @@
     </test>
     <test name="Sort by 'Delivery Date' column test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.SortingTest">
                 <methods>
                     <include name="testDeliveryDateColumn"/>
                 </methods>
@@ -39,7 +39,7 @@
     </test>
     <test name="Sort by 'Status' column test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.SortingTest">
                 <methods>
                     <include name="testStatusColumn"/>
                 </methods>
@@ -48,7 +48,7 @@
     </test>
     <test name="Sort by 'Assignee' column test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.SortingTest">
                 <methods>
                     <include name="testAssigneeColumn"/>
                 </methods>
@@ -57,7 +57,7 @@
     </test>
     <test name="Sort by 'Role' column test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.OrderingPageSortingTest">
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.SortingTest">
                 <methods>
                     <include name="testRoleColumn"/>
                 </methods>

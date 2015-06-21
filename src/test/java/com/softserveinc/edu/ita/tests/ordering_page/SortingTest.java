@@ -1,12 +1,13 @@
-package com.softserveinc.edu.ita.tests;
+package com.softserveinc.edu.ita.tests.ordering_page;
 
+import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.domains.Order;
 import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.enums.OrdersTable;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.OrderingPage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
+import com.softserveinc.edu.ita.tests.TestRunner;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -16,7 +17,7 @@ import java.util.List;
 /**
  * This class is used to test sorting actions in 'Ordering' table of 'Ordering' page.
  */
-public class OrderingPageSortingTest extends TestRunner {
+public class SortingTest extends TestRunner {
     //Test sorting by Order Name
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
     public void testOrderNameColumn(User user) {

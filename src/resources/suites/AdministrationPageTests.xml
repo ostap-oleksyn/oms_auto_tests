@@ -1,21 +1,27 @@
         <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Administration Page Tests" verbose="1" parallel="tests" thread-count="6">
-<test name="Administration page sorting test">
+<test name="Sorting test">
     <classes>
-        <class name="com.softserveinc.edu.ita.tests.AdministrationPageSortingTest">
+        <class name="com.softserveinc.edu.ita.tests.administration_page.SortingTest">
+            <methods>
+                <include name="testSorting" />
+            </methods>
         </class>
     </classes>
 </test>
-<test name="Administration page navigation test">
+<test name="Navigation test">
     <classes>
-        <class name="com.softserveinc.edu.ita.tests.AdministrationPageNavigationTest">
+        <class name="com.softserveinc.edu.ita.tests.administration_page.NavigationTest">
+            <methods>
+                <include name="navigationTest" />
+            </methods>
         </class>
     </classes>
 </test>
 <test name="Valid user creation test">
     <classes>
-        <class name="com.softserveinc.edu.ita.tests.CreateUserTest">
+        <class name="com.softserveinc.edu.ita.tests.administration_page.CreateUserTest">
             <methods>
                 <include name="testValidUserCreating" />
             </methods>
@@ -24,7 +30,7 @@
 </test>
 <test name="Invalid user creation test">
     <classes>
-        <class name="com.softserveinc.edu.ita.tests.CreateUserTest">
+        <class name="com.softserveinc.edu.ita.tests.administration_page.CreateUserTest">
             <methods>
                 <include name="testNotValidUserCreate" />
             </methods>
@@ -33,7 +39,7 @@
 </test>
 <test name="Empty user creation test">
     <classes>
-        <class name="com.softserveinc.edu.ita.tests.CreateUserTest">
+        <class name="com.softserveinc.edu.ita.tests.administration_page.CreateUserTest">
             <methods>
                 <include name="testEmptyUserCreate" />
             </methods>
@@ -42,7 +48,7 @@
 </test>
 <test name="Existing user creation test">
     <classes>
-        <class name="com.softserveinc.edu.ita.tests.CreateUserTest">
+        <class name="com.softserveinc.edu.ita.tests.administration_page.CreateUserTest">
             <methods>
                 <include name="testExistingUserCreate" />
             </methods>

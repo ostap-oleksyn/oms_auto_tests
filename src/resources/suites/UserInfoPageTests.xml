@@ -3,7 +3,7 @@
 <suite name="User Info Page Test" verbose="1">
     <test name="User info test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.UserInfoTest">
+            <class name="com.softserveinc.edu.ita.tests.userinfo_page.UserInfoTest">
             </class>
         </classes>
     </test>

@@ -3,7 +3,7 @@
 <suite name="Login Page Tests" verbose="1" parallel="tests" thread-count="4">
     <test name="Empty login test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.LoginTest">
+            <class name="com.softserveinc.edu.ita.tests.home_page.LoginTest">
                 <methods>
                     <include name="emptyLoginTest"/>
                 </methods>
@@ -12,7 +12,7 @@
     </test>
     <test name="Invalid login test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.LoginTest">
+            <class name="com.softserveinc.edu.ita.tests.home_page.LoginTest">
                 <methods>
                     <include name="invalidLoginTest"/>
                 </methods>
@@ -21,7 +21,7 @@
     </test>
     <test name="Valid login test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.LoginTest">
+            <class name="com.softserveinc.edu.ita.tests.home_page.LoginTest">
                 <methods>
                     <include name="validLoginTest"/>
                 </methods>
@@ -30,7 +30,7 @@
     </test>
     <test name="Logout test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.LoginTest">
+            <class name="com.softserveinc.edu.ita.tests.home_page.LoginTest">
                 <methods>
                     <include name="logOutTest"/>
                 </methods>

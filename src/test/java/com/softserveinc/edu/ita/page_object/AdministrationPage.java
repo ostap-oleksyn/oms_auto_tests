@@ -118,9 +118,8 @@ public class AdministrationPage extends LogOutBase {
         return driver.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
     }
 
-    public AdministrationPage clickUsersListResizeLink(){
+    public void clickUsersListResizeLink(){
         click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);
-        return new AdministrationPage(driver);
     }
 
     public int getCurrentPageNumber(){
