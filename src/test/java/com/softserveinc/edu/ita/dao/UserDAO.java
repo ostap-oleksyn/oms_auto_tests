@@ -67,34 +67,7 @@ public class UserDAO extends AbstractDAO<User> {
         return resultList;
     }
 
-    /**
-     * gets records from database for their login
-     *
-     * @param login
-     * @return
-     * @throws DAOException
-     */
-    public User getByLogin(String login) throws DAOException {
-        List<User> list;
-        String sqlQuery = getSelectQuery();
-        sqlQuery += " WHERE Login= ?";
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setString(1, login);
-            ResultSet resultSet = statement.executeQuery();
-            list = parseResultSet(resultSet);
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-        if (list == null || list.size() == 0) {
-            throw new DAOException("Record with PK = " + login + " not found.");
-        }
-        if (list.size() > 1) {
-            throw new DAOException("Received more than one record.");
-        }
-        return list.iterator().next();
-    }
-
-    public User getLastUser() throws DAOException {
+    public User getLast() throws DAOException {
         List<User> usersList;
         String sqlQuery = getSelectQuery();
         sqlQuery += " WHERE IsUserActive = 1 ORDER BY ID DESC ";
