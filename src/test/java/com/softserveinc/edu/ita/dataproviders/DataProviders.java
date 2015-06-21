@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
+import static com.softserveinc.edu.ita.utils.DBUtility.getByLogin;
 import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 
@@ -131,7 +132,7 @@ public class DataProviders {
         final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.toString());
         final List<User> users = new ArrayList<>();
         for (String usersLogin : usersLoginFromXls) {
-            users.add((User) userDAO.getByLogin(usersLogin));
+            users.add(getByLogin(usersLogin));
         }
 
         final Object[][] usersList = new Object[users.size()][1];

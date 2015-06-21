@@ -7,6 +7,9 @@ import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Static methods for work with database
@@ -91,4 +94,30 @@ public class DBUtility {
         return user;
     }
 
+    /**
+     * Returns the number of active users in the database
+     */
+    public static int getActiveUsersNumber() {
+        FactoryDAO factory = new FactoryDAO();
+        Connection connection;
+        AbstractDAO userDAO = null;
+
+        List<User> activeUsersList = new ArrayList<>();
+
+        try {
+            connection = factory.getConnection();
+            userDAO = (AbstractDAO) factory.getDAO(connection, User.class);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            activeUsersList  = userDAO.getAll();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        return  activeUsersList.stream()
+                .filter(user -> user.getStatus().equals("1"))
+                .collect(Collectors.toList()).size();
+    }
 }

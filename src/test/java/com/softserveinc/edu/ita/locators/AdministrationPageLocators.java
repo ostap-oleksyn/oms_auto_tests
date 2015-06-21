@@ -37,7 +37,20 @@ public enum AdministrationPageLocators implements ILocator {
             By.xpath(".//*[@id='list']/h2")),
     FILTER_LABEL(
             "Filter label",
-            By.xpath(".//*[@id='searchForm']/label"));
+            By.xpath(".//*[@id='searchForm']/label")),
+    FOUND_USERS_NUMBER(
+            "Number of found users",
+            By.xpath(".//*[@id='usersFound']")),
+    USERS_LIST_RESIZE_LINK(
+            "Users list resize link",
+            By.xpath(".//a[@href=\"resizeUsersList.htm\"]")),
+    CURRENT_PAGE_NUMBER(
+            "Current page number",
+            By.xpath(".//*[@id='pageNumber']")),
+    BACKWARD_BUTTON(
+            "Backward button",
+            By.xpath(".//*[@id='previous']"))
+    ;
 
     // TODO redo to enum
     public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";

@@ -1,9 +1,10 @@
-package com.softserveinc.edu.ita.tests;
+package com.softserveinc.edu.ita.tests.administration_page;
 
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.page_object.AdministrationPage;
 import com.softserveinc.edu.ita.page_object.HomePage;
 import com.softserveinc.edu.ita.page_object.UserInfoPage;
+import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import org.testng.annotations.Test;
 

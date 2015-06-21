@@ -109,4 +109,24 @@ public class AdministrationPage extends LogOutBase {
     public int getQuantityOfTablePages() {
         return Integer.valueOf(getElementText(AdministrationPageLocators.QUANTITY_OF_TABLE_PAGES));
     }
+
+    public int getFoundUsersNumber(){
+        return Integer.parseInt(getElementText(AdministrationPageLocators.FOUND_USERS_NUMBER));
+    }
+
+    public int getNumberOfRows(){
+        return driver.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
+    }
+
+    public void clickUsersListResizeLink(){
+        click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);
+    }
+
+    public int getCurrentPageNumber(){
+        return Integer.parseInt(getElementText(AdministrationPageLocators.CURRENT_PAGE_NUMBER));
+    }
+    public void clickPreviousButton() {
+        click(AdministrationPageLocators.BACKWARD_BUTTON);
+    }
+
 }
