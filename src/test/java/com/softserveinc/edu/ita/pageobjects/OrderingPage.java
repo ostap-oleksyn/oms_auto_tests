@@ -41,14 +41,14 @@ public class OrderingPage extends LogOutBase {
                     //Recording displayed row.
                     List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(OrderingPageLocators.TABLE_ROW, j)));
                     //There is used StepBuilderPattern.
-                    table.add(new Order.Builder()
-                            .withOrderName(ordersFields.get(0).getText())
-                            .withTotalPrice(ordersFields.get(1).getText())
-                            .withMaxDiscount(ordersFields.get(2).getText())
-                            .withDeliveryDate(ordersFields.get(3).getText())
-                            .withStatus(ordersFields.get(4).getText())
-                            .withAssignee(ordersFields.get(5).getText())
-                            .withRole(ordersFields.get(6).getText())
+                    table.add(Order.newBuilder()
+                            .setOrderName(ordersFields.get(0).getText())
+                            .setTotalPrice(ordersFields.get(1).getText())
+                            .setMaxDiscount(ordersFields.get(2).getText())
+                            .setDeliveryDate(ordersFields.get(3).getText())
+                            .setStatus(ordersFields.get(4).getText())
+                            .setAssignee(ordersFields.get(5).getText())
+                            .setRole(ordersFields.get(6).getText())
                             .build());
                 }
 
