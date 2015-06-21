@@ -1,7 +1,7 @@
 
-package com.softserveinc.edu.ita.dao_jdbc.interfaces;
+package com.softserveinc.edu.ita.dao.interfaces;
 
-import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
+import com.softserveinc.edu.ita.dao.DAOException;
 
 /**
  * represent a contract for IFactoryDAO model

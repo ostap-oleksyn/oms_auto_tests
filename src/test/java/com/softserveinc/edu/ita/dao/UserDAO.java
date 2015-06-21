@@ -1,6 +1,8 @@
 
-package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
+package com.softserveinc.edu.ita.dao;
 
+import com.softserveinc.edu.ita.dao.AbstractDAO;
+import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 

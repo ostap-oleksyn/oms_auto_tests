@@ -1,9 +1,9 @@
 
 package com.softserveinc.edu.ita.utils;
 
-import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
-import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;
-import com.softserveinc.edu.ita.dao_jdbc.dao_classes.FactoryDAO;
+import com.softserveinc.edu.ita.dao.AbstractDAO;
+import com.softserveinc.edu.ita.dao.DAOException;
+import com.softserveinc.edu.ita.dao.FactoryDAO;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Regions;
 import com.softserveinc.edu.ita.enums.Roles;
@@ -11,7 +11,6 @@ import com.softserveinc.edu.ita.enums.Roles;
 
 import com.softserveinc.edu.ita.enums.UsersTableColumns;
 
-import com.softserveinc.edu.ita.utils.XlsFileReader;
 import org.testng.annotations.DataProvider;
 
 import java.io.IOException;

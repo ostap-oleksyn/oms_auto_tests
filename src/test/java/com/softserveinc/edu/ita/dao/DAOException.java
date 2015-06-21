@@ -1,5 +1,5 @@
 
-package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
+package com.softserveinc.edu.ita.dao;
 
 /**
  * represents exceptions which DAO model throws

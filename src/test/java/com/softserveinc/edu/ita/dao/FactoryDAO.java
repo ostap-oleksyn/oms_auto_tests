@@ -1,9 +1,9 @@
 
-package com.softserveinc.edu.ita.dao_jdbc.dao_classes;
+package com.softserveinc.edu.ita.dao;
 
 import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.dao_jdbc.interfaces.IFactoryDAO;
-import com.softserveinc.edu.ita.dao_jdbc.interfaces.IGenericDAO;
+import com.softserveinc.edu.ita.dao.interfaces.IFactoryDAO;
+import com.softserveinc.edu.ita.dao.interfaces.IGenericDAO;
 
 import java.io.IOException;
 import java.sql.Connection;
