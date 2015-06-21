@@ -1,9 +1,9 @@
 package com.softserveinc.edu.ita.tests;
 
-import com.softserveinc.edu.ita.dataproviders.DataProviders;
+import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.*;
-import com.softserveinc.edu.ita.page_object.*;
+import com.softserveinc.edu.ita.pageobjects.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 

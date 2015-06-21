@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.utils;
+package com.softserveinc.edu.ita.logging;
 
 import org.testng.Reporter;
 import org.testng.asserts.IAssert;

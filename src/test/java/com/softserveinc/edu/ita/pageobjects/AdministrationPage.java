@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.page_object;
+package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.UserFromView;
 import com.softserveinc.edu.ita.enums.UsersTableColumns;

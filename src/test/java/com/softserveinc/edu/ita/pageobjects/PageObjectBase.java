@@ -1,15 +1,15 @@
-package com.softserveinc.edu.ita.page_object;
+package com.softserveinc.edu.ita.pageobjects;
 
 
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import com.softserveinc.edu.ita.locators.CommonLocators;
-import com.sun.org.apache.bcel.internal.generic.ILOAD;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 
 public abstract class PageObjectBase {
+
     protected WebDriver driver;
 
     public PageObjectBase(WebDriver driver) {

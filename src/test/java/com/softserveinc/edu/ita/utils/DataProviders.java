@@ -1,5 +1,5 @@
 
-package com.softserveinc.edu.ita.dataproviders;
+package com.softserveinc.edu.ita.utils;
 
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.AbstractDAO;
 import com.softserveinc.edu.ita.dao_jdbc.dao_classes.DAOException;

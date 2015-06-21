@@ -1,10 +1,10 @@
 package com.softserveinc.edu.ita.tests.userinfo_page;
 
-import com.softserveinc.edu.ita.dataproviders.DataProviders;
+import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
-import com.softserveinc.edu.ita.page_object.HomePage;
-import com.softserveinc.edu.ita.page_object.UserInfoPage;
+import com.softserveinc.edu.ita.pageobjects.HomePage;
+import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
 import org.testng.annotations.Test;
 

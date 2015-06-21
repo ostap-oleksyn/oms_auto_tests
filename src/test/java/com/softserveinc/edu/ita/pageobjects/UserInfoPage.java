@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.page_object;
+package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import com.softserveinc.edu.ita.locators.CommonLocators;

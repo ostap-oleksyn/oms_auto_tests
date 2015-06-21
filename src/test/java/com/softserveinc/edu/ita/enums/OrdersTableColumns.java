@@ -3,7 +3,7 @@ package com.softserveinc.edu.ita.enums;
 /**
  * This enum serves to limit possible columns of 'Ordering' table in 'Ordering' page.
  */
-public enum OrdersTable {
+public enum OrdersTableColumns {
     ORDER_NAME("Order Name"),
     TOTAL_PRICE("Total price"),
     MAX_DISCOUNT("Max Discount "),
@@ -14,7 +14,7 @@ public enum OrdersTable {
 
     private String name;
 
-    OrdersTable(String name) {
+    OrdersTableColumns(String name) {
         this.name = name;
     }
 
