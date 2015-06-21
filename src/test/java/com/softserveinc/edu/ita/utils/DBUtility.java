@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.utils;
 import com.softserveinc.edu.ita.dao.AbstractDAO;
 import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.dao.FactoryDAO;
+import com.softserveinc.edu.ita.dao.UserDAO;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 
@@ -119,5 +120,17 @@ public class DBUtility {
         return  activeUsersList.stream()
                 .filter(user -> user.getStatus().equals("1"))
                 .collect(Collectors.toList()).size();
+    }
+    /**
+     *  connects to database and returns userDAO object
+     * @return
+     * @throws DAOException
+     */
+    public static UserDAO getUserDao() throws DAOException {
+        FactoryDAO factory = new FactoryDAO();
+        Connection connection = factory.getConnection();
+        UserDAO userDAO = (UserDAO) factory.getDAO(connection, User.class);
+        return userDAO;
+
     }
 }
