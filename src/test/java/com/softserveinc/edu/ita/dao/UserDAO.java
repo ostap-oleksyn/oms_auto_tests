@@ -1,8 +1,6 @@
 
 package com.softserveinc.edu.ita.dao;
 
-import com.softserveinc.edu.ita.dao.AbstractDAO;
-import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 
@@ -55,9 +53,9 @@ public class UserDAO extends AbstractDAO<User> {
                 user.setLogin(resultSet.getString("Login"));
                 user.setPassword(resultSet.getString("Password"));
                 user.setEmail(resultSet.getString("Email"));
-                user.setRoleName(resultSet.getString("RoleName"));
-                user.setCustomerType(resultSet.getString("TypeName"));
-                user.setRegionName(resultSet.getString("RegionName"));
+                user.setRoleRef(resultSet.getString("RoleName"));
+                user.setCustomerTypeRef(resultSet.getString("TypeName"));
+                user.setRegionRef(resultSet.getString("RegionName"));
                 user.setStatus(resultSet.getString("Status"));
                 resultList.add(user);
             }
