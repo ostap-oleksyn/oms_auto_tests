@@ -64,7 +64,7 @@ public class NewUserPage extends LogOutBase {
         fillPasswordField(newUser.getPassword());
         fillConfirmPasswordField(newUser.getPassword());
         fillEmailField(newUser.getEmail());
-        selectRegion(Regions.valueOf(newUser.getRegionRef().toUpperCase()));
-        clickRoleRadioButton(Roles.valueOf(newUser.getRoleRef().toUpperCase()));
+        selectRegion(Regions.valueOf(newUser.getRegionReference().toUpperCase()));
+        clickRoleRadioButton(Roles.valueOf(newUser.getRoleReference().toUpperCase()));
     }
 }

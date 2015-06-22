@@ -19,7 +19,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleRef()), "User roles match");
+                .equals(user.getRoleReference()), "User roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -52,7 +52,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleRef()), "Users roles match");
+                .equals(user.getRoleReference()), "Users roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -85,7 +85,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleRef()), "User rolees match");
+                .equals(user.getRoleReference()), "User rolees match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -118,7 +118,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleRef()), "User roles match");
+                .equals(user.getRoleReference()), "User roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");

@@ -11,10 +11,10 @@ public class User {
     private String login;
     private String password;
     private String email;
-    private String roleRef;
-    private String customerTypeRef;
+    private String roleReference;
+    private String customerTypeReference;
     private String status;
-    private String regionRef;
+    private String regionReference;
 
     public Integer getId() {
         return id;
@@ -64,20 +64,20 @@ public class User {
         this.password = password;
     }
 
-    public String getRoleRef() {
-        return roleRef;
+    public String getRoleReference() {
+        return roleReference;
     }
 
-    public void setRoleRef(String roleRef) {
-        this.roleRef = roleRef;
+    public void setRoleReference(String roleReference) {
+        this.roleReference = roleReference;
     }
 
-    public String getCustomerTypeRef() {
-        return customerTypeRef;
+    public String getCustomerTypeReference() {
+        return customerTypeReference;
     }
 
-    public void setCustomerTypeRef(String customerTypeRef) {
-        this.customerTypeRef = customerTypeRef;
+    public void setCustomerTypeReference(String customerTypeReference) {
+        this.customerTypeReference = customerTypeReference;
     }
 
     public String getStatus() {
@@ -88,12 +88,12 @@ public class User {
         this.status = status;
     }
 
-    public String getRegionRef() {
-        return regionRef;
+    public String getRegionReference() {
+        return regionReference;
     }
 
-    public void setRegionRef(String regionRef) {
-        this.regionRef = regionRef;
+    public void setRegionReference(String regionReference) {
+        this.regionReference = regionReference;
     }
 
     @Override
@@ -105,8 +105,8 @@ public class User {
                 ", login='" + getLogin() + '\'' +
                 ", password='" + getPassword() + '\'' +
                 ", email='" + getEmail() + '\'' +
-                ", roleRef='" + getRoleRef() + '\'' +
-                ", customerTypeRef='" + getCustomerTypeRef() + '\'' +
+                ", roleReference='" + getRoleReference() + '\'' +
+                ", customerTypeReference='" + getCustomerTypeReference() + '\'' +
                 ", status='" + getStatus() + '\'' +
                 '}';
     }
@@ -137,25 +137,25 @@ public class User {
     }
 
     public interface PasswordStep {
-        RoleRefStep withPassword(String password);
+        RoleReferenceStep withPassword(String password);
     }
 
-    public interface RoleRefStep {
-        CustomerTypeRefStep withRoleRef(String roleName);
-        CustomerTypeRefStep withoutRoleRef();
+    public interface RoleReferenceStep {
+        CustomerTypeReferenceStep withRoleRef(String roleName);
+        CustomerTypeReferenceStep withoutRoleRef();
     }
 
-    public interface CustomerTypeRefStep {
+    public interface CustomerTypeReferenceStep {
         StatusStep withCustomerTypeRef(String customerType);
         StatusStep withoutCustomerTypeRef();
     }
 
     public interface StatusStep {
-        RegionRefStep withStatus(String status);
-        RegionRefStep withoutStatus();
+        RegionReferenceStep withStatus(String status);
+        RegionReferenceStep withoutStatus();
     }
 
-    public interface RegionRefStep {
+    public interface RegionReferenceStep {
         BuildStep withRegionRef(String regionName);
         BuildStep withoutRegionRef();
     }
@@ -164,7 +164,7 @@ public class User {
         User build();
     }
 
-    public static class Steps implements UserIdStep, FirstNameStep, LastNameStep, LoginStep, EmailStep, PasswordStep, RoleRefStep, CustomerTypeRefStep, StatusStep, RegionRefStep, BuildStep {
+    public static class Steps implements UserIdStep, FirstNameStep, LastNameStep, LoginStep, EmailStep, PasswordStep, RoleReferenceStep, CustomerTypeReferenceStep, StatusStep, RegionReferenceStep, BuildStep {
         private int id;
         private String firstName;
         private String lastName;
@@ -219,19 +219,19 @@ public class User {
         }
 
         @Override
-        public RoleRefStep withPassword(String password) {
+        public RoleReferenceStep withPassword(String password) {
             this.password = password;
             return this;
         }
 
         @Override
-        public CustomerTypeRefStep withRoleRef(String roleName) {
+        public CustomerTypeReferenceStep withRoleRef(String roleName) {
             this.roleName = roleName;
             return this;
         }
 
         @Override
-        public CustomerTypeRefStep withoutRoleRef() {
+        public CustomerTypeReferenceStep withoutRoleRef() {
             return this;
         }
 
@@ -247,13 +247,13 @@ public class User {
         }
 
         @Override
-        public RegionRefStep withStatus(String status) {
+        public RegionReferenceStep withStatus(String status) {
             this.status = status;
             return this;
         }
 
         @Override
-        public RegionRefStep withoutStatus() {
+        public RegionReferenceStep withoutStatus() {
             return this;
         }
 
@@ -277,10 +277,10 @@ public class User {
             user.setLogin(this.login);
             user.setEmail(this.email);
             user.setPassword(this.password);
-            user.setRoleRef(this.roleName);
-            user.setCustomerTypeRef(this.customerType);
+            user.setRoleReference(this.roleName);
+            user.setCustomerTypeReference(this.customerType);
             user.setStatus(this.status);
-            user.setRegionRef(this.regionName);
+            user.setRegionReference(this.regionName);
             return user;
         }
     }

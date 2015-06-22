@@ -53,9 +53,9 @@ public class UserDAO extends AbstractDAO<User> {
                 user.setLogin(resultSet.getString("Login"));
                 user.setPassword(resultSet.getString("Password"));
                 user.setEmail(resultSet.getString("Email"));
-                user.setRoleRef(resultSet.getString("RoleName"));
-                user.setCustomerTypeRef(resultSet.getString("TypeName"));
-                user.setRegionRef(resultSet.getString("RegionName"));
+                user.setRoleReference(resultSet.getString("RoleName"));
+                user.setCustomerTypeReference(resultSet.getString("TypeName"));
+                user.setRegionReference(resultSet.getString("RegionName"));
                 user.setStatus(resultSet.getString("Status"));
                 resultList.add(user);
             }

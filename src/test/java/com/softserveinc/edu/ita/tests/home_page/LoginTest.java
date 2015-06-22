@@ -30,7 +30,7 @@ public class LoginTest extends TestRunner {
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleRef()), "User roles match");
+                .equals(user.getRoleReference()), "User roles match");
 
         userInfoPage.clickLogOutButton();
     }
@@ -50,7 +50,7 @@ public class LoginTest extends TestRunner {
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleRef()), "User roles match");
+                .equals(user.getRoleReference()), "User roles match");
         userInfoPage.clickLogOutButton();
         loggingAssert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_USER_INPUT), "User logged out");
     }
