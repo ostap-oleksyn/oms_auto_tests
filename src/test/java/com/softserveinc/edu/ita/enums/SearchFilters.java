@@ -1,8 +1,5 @@
 package com.softserveinc.edu.ita.enums;
 
-/**
- * Created by Ihor-Dynka on 18.06.2015.
- */
 public enum SearchFilters {
     ALL_COLUMNS("All Columns"),
     FIRST_NAME("First Name"),

@@ -2,6 +2,7 @@ package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.UserFromView;
 import com.softserveinc.edu.ita.enums.SearchConditions;
+import com.softserveinc.edu.ita.enums.SearchFilters;
 import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import org.openqa.selenium.By;
@@ -140,24 +141,24 @@ public class AdministrationPage extends LogOutBase {
     /**
      * selects filter type
      *
-     * @param filters
+     * @param filter
      * @return
      */
-    public AdministrationPage setFilters(String filters) {
+    public AdministrationPage setFilters(SearchFilters filter) {
         Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
-        fieldSelect.selectByVisibleText(filters.toString());
+        fieldSelect.selectByVisibleText(filter.toString());
         return this;
     }
 
     /**
      * selects condition type
      *
-     * @param conditions
+     * @param condition
      * @return
      */
-    public AdministrationPage setCondition(SearchConditions conditions) {
+    public AdministrationPage setCondition(SearchConditions condition) {
         Select conditionSelect = new Select(driver.findElement(CONDITION_SELECT.getBy()));
-        conditionSelect.selectByVisibleText(conditions.toString());
+        conditionSelect.selectByVisibleText(condition.toString());
         return this;
     }
 

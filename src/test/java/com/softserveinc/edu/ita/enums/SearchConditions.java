@@ -9,8 +9,8 @@ public enum SearchConditions {
 
     private String condition;
 
-    SearchConditions(String condition) {
-        this.condition = condition;
+    SearchConditions(String name) {
+        this.condition = name;
     }
 
     @Override

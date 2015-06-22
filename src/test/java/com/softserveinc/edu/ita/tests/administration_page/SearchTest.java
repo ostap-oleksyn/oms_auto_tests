@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 import static com.softserveinc.edu.ita.enums.SearchFilters.*;
 
 public class SearchTest extends TestRunner {
-    List<UserFromView> usersListFromView;
-    List<User> usersListFromDB;
-    List<User> filteredListFromDB;
+    private List<UserFromView> usersListFromView;
+    private List<User> usersListFromDB;
+    private List<User> filteredListFromDB;
 
     @Test(dataProvider = "getSearchTerms", dataProviderClass = DataProviders.class)
     public void testSearch(String searchTerm) throws DAOException {
@@ -33,13 +33,13 @@ public class SearchTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
-        for (SearchFilters filters : SearchFilters.values()) {
+        for (SearchFilters filter : SearchFilters.values()) {
             for (SearchConditions conditions : SearchConditions.values()) {
-            // skip ALL COLUMNS filter, because we have testAllColumns separately
-                if (filters == ALL_COLUMNS) {
+                // skip ALL COLUMNS filter, because we have testAllColumns separately
+                if (filter == ALL_COLUMNS) {
                     continue;
                 } else {
-                    administrationPage.setFilters(filters.getFilterName())
+                    administrationPage.setFilters(filter)
                             .setCondition(conditions)
                             .fillSearchField(searchTerm)
                             .clickSearchButton();
@@ -48,15 +48,12 @@ public class SearchTest extends TestRunner {
                     administrationPage.clearSearchField();
 
                     usersListFromDB = DBUtility.getUserDao().getAllUsers();
-                    filteredListFromDB = getFilteredList(usersListFromDB, filters, conditions, searchTerm);
+                    filteredListFromDB = getFilteredList(usersListFromDB, filter, conditions, searchTerm);
 
-                    Comparator<User> userComparator = Comparator.comparing(User::getLogin);
-                    Comparator<UserFromView> userFromViewComparator = Comparator.comparing(UserFromView::getLogin);
+                    filteredListFromDB.sort(Comparator.comparing(User::getLogin));
+                    usersListFromView.sort(Comparator.comparing(UserFromView::getLogin));
 
-                    filteredListFromDB.sort(userComparator);
-                    usersListFromView.sort(userFromViewComparator);
-
-                    loggingSoftAssert.assertTrue(areListsEqual(usersListFromView, filteredListFromDB), filters + " " + conditions + " " + searchTerm);
+                    loggingSoftAssert.assertTrue(areListsEqual(usersListFromView, filteredListFromDB), filter + " " + conditions + " " + searchTerm);
                     loggingSoftAssert.assertAll();
                 }
             }
@@ -66,7 +63,7 @@ public class SearchTest extends TestRunner {
 
     @Test(dataProvider = "getSearchTerms", dataProviderClass = DataProviders.class)
     public void testAllColumns(String searchTerm) throws DAOException {
-        final String filter = ALL_COLUMNS.getFilterName();
+        final SearchFilters filter = ALL_COLUMNS;
         HomePage homePage = new HomePage(driver);
         User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
@@ -125,43 +122,43 @@ public class SearchTest extends TestRunner {
      * searches users from users which were found from data base via parameters
      *
      * @param usersList
-     * @param filters
-     * @param conditions
+     * @param filter
+     * @param condition
      * @param searchTerm
      * @return
      */
-    private List<User> getFilteredList(List<User> usersList, SearchFilters filters, SearchConditions conditions, String searchTerm) {
+    private List<User> getFilteredList(List<User> usersList, SearchFilters filter, SearchConditions condition, String searchTerm) {
         Map<SearchFilters, ISearchFilters> searchConditionMap = new HashMap<>();
         searchConditionMap.put(FIRST_NAME, User::getFirstName);
         searchConditionMap.put(LAST_NAME, User::getLastName);
         searchConditionMap.put(LOGIN_NAME, User::getLogin);
         searchConditionMap.put(ROLE, User::getRoleName);
 
-        switch (conditions) {
+        switch (condition) {
 
             case EQUALS:
                 return usersList.stream()
-                        .filter(user -> searchConditionMap.get(filters)
+                        .filter(user -> searchConditionMap.get(filter)
                                 .callMethod(user).equals(searchTerm))
                         .collect(Collectors.toList());
             case NOT_EQUALS_TO:
                 return usersList.stream()
-                        .filter(user -> !searchConditionMap.get(filters)
+                        .filter(user -> !searchConditionMap.get(filter)
                                 .callMethod(user).equals(searchTerm))
                         .collect(Collectors.toList());
             case CONTAINS:
                 return usersList.stream()
-                        .filter(user -> searchConditionMap.get(filters)
+                        .filter(user -> searchConditionMap.get(filter)
                                 .callMethod(user).contains(searchTerm))
                         .collect(Collectors.toList());
             case DOES_NOT_CONTAINS:
                 return usersList.stream()
-                        .filter(user -> !searchConditionMap.get(filters)
+                        .filter(user -> !searchConditionMap.get(filter)
                                 .callMethod(user).contains(searchTerm))
                         .collect(Collectors.toList());
             case STARTS_WITH:
                 return usersList.stream()
-                        .filter(user -> searchConditionMap.get(filters)
+                        .filter(user -> searchConditionMap.get(filter)
                                 .callMethod(user).startsWith(searchTerm))
                         .collect(Collectors.toList());
             default:

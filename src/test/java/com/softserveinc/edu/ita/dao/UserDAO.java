@@ -158,9 +158,9 @@ public class UserDAO extends AbstractDAO<User> {
         return usersList;
     }
 
-    public List<User> getFilteredUsers(SearchConditions conditions, String searchTerm) throws DAOException {
+    public List<User> getFilteredUsers(SearchConditions condition, String searchTerm) throws DAOException {
         List<User> usersList;
-        switch (conditions) {
+        switch (condition) {
             case EQUALS:
                 getAllUsersQuery += " where FirstName = ? or LastName = ? or Login = ? or RoleName = ? " +
                         "or RegionName = ?";
