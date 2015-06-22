@@ -30,7 +30,7 @@ public class UserDAO extends AbstractDAO<User> {
                 "inner join regions on users.RegionRef = regions.ID \n" +
                 "inner join roles on users.RoleRef = roles.ID";
     }
-    String administrationQuery = "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, \n" +
+    String getAllUsersQuery = "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, \n" +
             "IsUserActive as Status \n" +
             "from users inner join roles on users.RoleRef = roles.ID \n" +
             "inner join customertypes on\n" +
@@ -141,9 +141,9 @@ public class UserDAO extends AbstractDAO<User> {
      * @return
      * @throws DAOException
      */
-    public List<User> getAllUsersFromDB() throws DAOException {
+    public List<User> getAllUsers() throws DAOException {
         List<User> usersList;
-        try (PreparedStatement statement = connection.prepareStatement(administrationQuery)) {
+        try (PreparedStatement statement = connection.prepareStatement(getAllUsersQuery)) {
             ResultSet resultSet = statement.executeQuery();
             usersList = parseResultSet(resultSet);
             for (User user : usersList) {
@@ -158,31 +158,31 @@ public class UserDAO extends AbstractDAO<User> {
         return usersList;
     }
 
-    public List<User> getFilteredUsersFromDB(SearchConditions conditions, String searchTerm) throws DAOException {
+    public List<User> getFilteredUsers(SearchConditions conditions, String searchTerm) throws DAOException {
         List<User> usersList;
         switch (conditions) {
             case EQUALS:
-                administrationQuery += " where FirstName = ? or LastName = ? or Login = ? or RoleName = ? " +
+                getAllUsersQuery += " where FirstName = ? or LastName = ? or Login = ? or RoleName = ? " +
                         "or RegionName = ?";
                 break;
             case NOT_EQUALS_TO:
-                administrationQuery += " where FirstName != ? or LastName != ? or Login != ? or RoleName != ? " +
+                getAllUsersQuery += " where FirstName != ? or LastName != ? or Login != ? or RoleName != ? " +
                         "or RegionName != ?";
                 break;
             case CONTAINS:
-                administrationQuery += " where FirstName like ? or LastName like ? or Login like ? or RoleName like ?" +
+                getAllUsersQuery += " where FirstName like ? or LastName like ? or Login like ? or RoleName like ?" +
                         " or RegionName like ?";
                 break;
             case DOES_NOT_CONTAINS:
-                administrationQuery += " where FirstName not like? or LastName not like ? or Login not like ? " +
+                getAllUsersQuery += " where FirstName not like? or LastName not like ? or Login not like ? " +
                         "or RoleName not like ? or RegionName not like ?";
                 break;
             case STARTS_WITH:
-                administrationQuery += " where FirstName like ? or LastName like ? or Login like ? or " +
+                getAllUsersQuery += " where FirstName like ? or LastName like ? or Login like ? or " +
                         "RoleName like ? or RegionName like ?";
                 break;
         }
-        try (PreparedStatement statement = connection.prepareStatement(administrationQuery)) {
+        try (PreparedStatement statement = connection.prepareStatement(getAllUsersQuery)) {
             statement.setString(1, searchTerm);
             statement.setString(2, searchTerm);
             statement.setString(3, searchTerm);

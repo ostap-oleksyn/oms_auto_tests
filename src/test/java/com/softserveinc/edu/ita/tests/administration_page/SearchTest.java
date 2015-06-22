@@ -11,10 +11,9 @@ import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
-import com.softserveinc.edu.ita.utils.UserComparator;
-import com.softserveinc.edu.ita.utils.UserFromViewComparator;
 import org.testng.annotations.Test;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 
 import static com.softserveinc.edu.ita.enums.SearchFilters.*;
 
-public class SearchingTest extends TestRunner {
+public class SearchTest extends TestRunner {
     List<UserFromView> usersListFromView;
     List<User> usersListFromDB;
     List<User> filteredListFromDB;
@@ -36,22 +35,30 @@ public class SearchingTest extends TestRunner {
 
         for (SearchFilters filters : SearchFilters.values()) {
             for (SearchConditions conditions : SearchConditions.values()) {
-                administrationPage.setFilters(filters.getFilterName())
-                        .setCondition(conditions)
-                        .fillSearchField(searchTerm)
-                        .clickSearchButton();
+            // skip ALL COLUMNS filter, because we have testAllColumns separately
+                if (filters == ALL_COLUMNS) {
+                    continue;
+                } else {
+                    administrationPage.setFilters(filters.getFilterName())
+                            .setCondition(conditions)
+                            .fillSearchField(searchTerm)
+                            .clickSearchButton();
 
-                usersListFromView = administrationPage.getTableFromView();
-                administrationPage.clearSearchField();
+                    usersListFromView = administrationPage.getTableFromView();
+                    administrationPage.clearSearchField();
 
-                usersListFromDB = DBUtility.getUserDao().getAllUsersFromDB();
-                filteredListFromDB = getFilteredList(usersListFromDB, filters, conditions, searchTerm);
+                    usersListFromDB = DBUtility.getUserDao().getAllUsers();
+                    filteredListFromDB = getFilteredList(usersListFromDB, filters, conditions, searchTerm);
 
-                filteredListFromDB.sort(new UserComparator());
-                usersListFromView.sort(new UserFromViewComparator());
+                    Comparator<User> userComparator = Comparator.comparing(User::getLogin);
+                    Comparator<UserFromView> userFromViewComparator = Comparator.comparing(UserFromView::getLogin);
 
-                loggingSoftAssert.assertTrue(equalsList(usersListFromView, filteredListFromDB), filters + " " + conditions + " " + searchTerm);
-                loggingSoftAssert.assertAll();
+                    filteredListFromDB.sort(userComparator);
+                    usersListFromView.sort(userFromViewComparator);
+
+                    loggingSoftAssert.assertTrue(areListsEqual(usersListFromView, filteredListFromDB), filters + " " + conditions + " " + searchTerm);
+                    loggingSoftAssert.assertAll();
+                }
             }
         }
         administrationPage.clickLogOutButton();
@@ -59,7 +66,7 @@ public class SearchingTest extends TestRunner {
 
     @Test(dataProvider = "getSearchTerms", dataProviderClass = DataProviders.class)
     public void testAllColumns(String searchTerm) throws DAOException {
-        final String filter = "All Columns";
+        final String filter = ALL_COLUMNS.getFilterName();
         HomePage homePage = new HomePage(driver);
         User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
@@ -74,12 +81,15 @@ public class SearchingTest extends TestRunner {
             usersListFromView = administrationPage.getTableFromView();
             administrationPage.clearSearchField();
 
-            usersListFromDB = DBUtility.getUserDao().getFilteredUsersFromDB(conditions, searchTerm);
+            usersListFromDB = DBUtility.getUserDao().getFilteredUsers(conditions, searchTerm);
 
-            usersListFromDB.sort(new UserComparator());
-            usersListFromView.sort(new UserFromViewComparator());
+            Comparator<User> userComparator = Comparator.comparing(User::getLogin);
+            Comparator<UserFromView> userFromViewComparator = Comparator.comparing(UserFromView::getLogin);
 
-            loggingSoftAssert.assertTrue(equalsList(usersListFromView, usersListFromDB), filter + " " + conditions + " " + searchTerm);
+            usersListFromDB.sort(userComparator);
+            usersListFromView.sort(userFromViewComparator);
+
+            loggingSoftAssert.assertTrue(areListsEqual(usersListFromView, usersListFromDB), filter + " " + conditions + " " + searchTerm);
             loggingSoftAssert.assertAll();
         }
         administrationPage.clickLogOutButton();
@@ -93,8 +103,8 @@ public class SearchingTest extends TestRunner {
      * @param userList2
      * @return
      */
-    private boolean equalsList(List<UserFromView> userlist1, List<User> userList2) {
-        if (userlist1.size() == 0 && userList2.size() == 0) {
+    private boolean areListsEqual(List<UserFromView> userlist1, List<User> userList2) {
+        if (userlist1.isEmpty() && userList2.isEmpty()) {
             return true;
         }
         for (UserFromView user1 : userlist1) {

@@ -65,7 +65,7 @@ public class AdministrationPage extends LogOutBase {
     public List<UserFromView> getTableFromView() {
         List<UserFromView> usersList = new LinkedList<>();
         int pagination = 0;
-        driver.findElement(SHOW_10_ITEMS.getBy()).click();
+        click(SHOW_10_ITEMS_LINK);
         do {
             if (driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy()).size() <= 1) {
                     return usersList;
@@ -169,7 +169,7 @@ public class AdministrationPage extends LogOutBase {
      */
 
     public AdministrationPage fillSearchField(String searchTerm) {
-        driver.findElement(SEARCH_FIELD.getBy()).sendKeys(searchTerm);
+        sendKeys(SEARCH_FIELD,searchTerm);
         return this;
     }
 

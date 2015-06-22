@@ -58,7 +58,7 @@ public enum AdministrationPageLocators implements ILocator {
             "Condition select",
             By.xpath(".//fieldset/form/select[2]")),
 
-    SHOW_10_ITEMS(
+    SHOW_10_ITEMS_LINK(
             "Show 10 items",
             By.xpath(".//*[@id='list']/p/a")),
 
