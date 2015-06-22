@@ -19,7 +19,7 @@ public interface IGenericDAO<T> {
 
     public T getByRoleName(Roles roleName) throws DAOException;
 
-    public T getLastUser() throws DAOException;
+    public T getLast() throws DAOException;
 
     List<T> getAll() throws DAOException;
 

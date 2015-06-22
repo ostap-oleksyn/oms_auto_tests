@@ -24,9 +24,9 @@ public class UserInfoTest extends TestRunner {
                 .getElementText(UserInfoPageLocators.FIRST_NAME_LABEL), "User first names match");
         loggingAssert.assertEquals(user.getLastName(), userInfoPage
                 .getElementText(UserInfoPageLocators.LAST_NAME_LABEL), "User last names match");
-        loggingAssert.assertEquals(user.getCustomerType(), userInfoPage
+        loggingAssert.assertEquals(user.getCustomerTypeReference(), userInfoPage
                 .getElementText(UserInfoPageLocators.CUSTOMER_TYPE_LABEL), "User customer types match");
-        loggingAssert.assertEquals(user.getRoleName(), userInfoPage
+        loggingAssert.assertEquals(user.getRoleReference(), userInfoPage
                 .getElementText(UserInfoPageLocators.USER_ROLE_LABEL), "User roles match");
 
         userInfoPage.clickLogOutButton();

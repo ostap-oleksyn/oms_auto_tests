@@ -16,8 +16,8 @@ public class Order {
         return orderName;
     }
 
-    private void setOrderName(String orderName) {
-        this.orderName = orderName;
+    private Order (String orderName) {
+        this.orderName = orderName.toLowerCase();
     }
 
     public String getTotalPrice() {
@@ -25,7 +25,7 @@ public class Order {
     }
 
     private void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice;
+        this.totalPrice = totalPrice.toLowerCase();
     }
 
     public String getMaxDiscount() {
@@ -33,7 +33,7 @@ public class Order {
     }
 
     private void setMaxDiscount(String maxDiscount) {
-        this.maxDiscount = maxDiscount;
+        this.maxDiscount = maxDiscount.toLowerCase();
     }
 
     public String getDeliveryDate() {
@@ -41,7 +41,7 @@ public class Order {
     }
 
     private void setDeliveryDate(String deliveryDate) {
-        this.deliveryDate = deliveryDate;
+        this.deliveryDate = deliveryDate.toLowerCase();
     }
 
     public String getStatus() {
@@ -49,7 +49,7 @@ public class Order {
     }
 
     private void setStatus(String status) {
-        this.status = status;
+        this.status = status.toLowerCase();
     }
 
     public String getAssignee() {
@@ -57,7 +57,7 @@ public class Order {
     }
 
     private void setAssignee(String assignee) {
-        this.assignee = assignee;
+        this.assignee = assignee.toLowerCase();
     }
 
     public String getRole() {
@@ -65,42 +65,46 @@ public class Order {
     }
 
     private void setRole(String role) {
-        this.role = role;
+        this.role = role.toLowerCase();
+    }
+
+    public static OrderNameStep newBuilder() {
+        return new Steps();
     }
 
     public interface OrderNameStep {
-        TotalPriceStep withOrderName(String orderName);
+        TotalPriceStep setOrderName(String orderName);
     }
 
     public interface TotalPriceStep {
-        MaxDiscountStep withTotalPrice(String totalPrice);
+        MaxDiscountStep setTotalPrice(String totalPrice);
     }
 
     public interface MaxDiscountStep {
-        DeliveryDateStep withMaxDiscount(String maxDiscount);
+        DeliveryDateStep setMaxDiscount(String maxDiscount);
     }
 
     public interface DeliveryDateStep {
-        StatusStep withDeliveryDate(String deliveryDate);
+        StatusStep setDeliveryDate(String deliveryDate);
     }
 
     public interface StatusStep {
-        AssigneeStep withStatus(String status);
+        AssigneeStep setStatus(String status);
     }
 
     public interface AssigneeStep {
-        RoleStep withAssignee(String assignee);
+        RoleStep setAssignee(String assignee);
     }
 
     public interface RoleStep {
-        BuildStep withRole(String role);
+        BuildStep setRole(String role);
     }
 
     public interface BuildStep {
         Order build();
     }
 
-    public static class Builder implements OrderNameStep, TotalPriceStep, MaxDiscountStep, DeliveryDateStep, StatusStep, AssigneeStep, RoleStep, BuildStep {
+    private static class Steps implements OrderNameStep, TotalPriceStep, MaxDiscountStep, DeliveryDateStep, StatusStep, AssigneeStep, RoleStep, BuildStep {
         private String orderName;
         private String totalPrice;
         private String maxDiscount;
@@ -109,66 +113,64 @@ public class Order {
         private String assignee;
         private String role;
 
-        public Builder() {
-        }
-
-        public static OrderNameStep newOrders() {
-            return new Builder();
-        }
-
-        @Override
-        public TotalPriceStep withOrderName(String orderName) {
+        public TotalPriceStep setOrderName(String orderName) {
             this.orderName = orderName;
             return this;
         }
 
-        @Override
-        public MaxDiscountStep withTotalPrice(String totalPrice) {
+        public MaxDiscountStep setTotalPrice(String totalPrice) {
             this.totalPrice = totalPrice;
             return this;
         }
 
-        @Override
-        public DeliveryDateStep withMaxDiscount(String maxDiscount) {
+        public DeliveryDateStep setMaxDiscount(String maxDiscount) {
             this.maxDiscount = maxDiscount;
             return this;
         }
 
-        @Override
-        public StatusStep withDeliveryDate(String deliveryDate) {
+        public StatusStep setDeliveryDate(String deliveryDate) {
             this.deliveryDate = deliveryDate;
             return this;
         }
 
-        @Override
-        public AssigneeStep withStatus(String status) {
+        public AssigneeStep setStatus(String status) {
             this.status = status;
             return this;
         }
 
-        @Override
-        public RoleStep withAssignee(String assignee) {
+        public RoleStep setAssignee(String assignee) {
             this.assignee = assignee;
             return this;
         }
 
-        @Override
-        public BuildStep withRole(String role) {
+        public BuildStep setRole(String role) {
             this.role = role;
             return this;
         }
 
-        @Override
-        public Order build() {
-            Order orders = new Order();
-            orders.setOrderName(this.orderName);
-            orders.setTotalPrice(this.totalPrice);
-            orders.setMaxDiscount(this.maxDiscount);
-            orders.setDeliveryDate(this.deliveryDate);
-            orders.setStatus(this.status);
-            orders.setAssignee(this.assignee);
-            orders.setRole(this.role);
-            return orders;
+        public Order build(){
+            final Order order = new Order(orderName);
+            order.setTotalPrice(totalPrice);
+            order.setMaxDiscount(maxDiscount);
+            order.setDeliveryDate(deliveryDate);
+            order.setStatus(status);
+            order.setAssignee(assignee);
+            order.setRole(role);
+            return order;
         }
+    }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "orderName='" + getOrderName() + '\'' +
+                ", totalPrice='" + getTotalPrice() + '\'' +
+                ", maxDiscount='" + getMaxDiscount() + '\'' +
+                ", deliveryDate='" + getDeliveryDate() + '\'' +
+                ", status='" + getStatus() + '\'' +
+                ", assignee='" + getAssignee() + '\'' +
+                ", role='" + getRole() + '\'' +
+                '}';
     }
 }

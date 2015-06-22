@@ -61,7 +61,7 @@ public class DBUtility {
         User lastUser = null;
 
         try {
-            lastUser = (User) userDAO.getLastUser();
+            lastUser = (User) userDAO.getLast();
         } catch (DAOException e) {
             e.printStackTrace();
         }

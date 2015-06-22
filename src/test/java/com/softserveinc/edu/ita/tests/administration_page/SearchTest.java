@@ -109,8 +109,8 @@ public class SearchTest extends TestRunner {
                 if (user1.getFirstName().equalsIgnoreCase(user2.getFirstName()) &&
                         user1.getLastName().equalsIgnoreCase(user2.getLastName()) &&
                         user1.getLogin().equalsIgnoreCase(user2.getLogin()) &&
-                        user1.getRole().equalsIgnoreCase(user2.getRoleName()) &&
-                        user1.getRegion().equalsIgnoreCase(user2.getRegionName())) {
+                        user1.getRole().equalsIgnoreCase(user2.getRoleReference()) &&
+                        user1.getRegion().equalsIgnoreCase(user2.getRegionReference())) {
                     return true;
                 }
             }
@@ -132,7 +132,7 @@ public class SearchTest extends TestRunner {
         searchConditionMap.put(FIRST_NAME, User::getFirstName);
         searchConditionMap.put(LAST_NAME, User::getLastName);
         searchConditionMap.put(LOGIN_NAME, User::getLogin);
-        searchConditionMap.put(ROLE, User::getRoleName);
+        searchConditionMap.put(ROLE, User::getRoleReference);
 
         switch (condition) {
 

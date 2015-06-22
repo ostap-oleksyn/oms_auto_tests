@@ -153,25 +153,28 @@ public class DataProviders {
         return usersList;
     }
 
-    @DataProvider(name="generatedValidUserData")
+    @DataProvider(name = "generatedValidUserData")
     public static Object[][] generateValidUserData() {
 
         final int GENERATED_USERS_COUNT = 5;
 
         Object[][] usersList = new Object[GENERATED_USERS_COUNT][1];
 
-        for (int i=0; i < GENERATED_USERS_COUNT; i++) {
-            User user = new User();
-
-            user.setLogin(generateString("NameSymbols", 1, 13).toLowerCase());
-            user.setLastName(generateString("NameSymbols", 1, 13).toLowerCase());
-            user.setFirstName(generateString("NameSymbols", 1, 13).toLowerCase());
-            user.setPassword(generateString("PasswordSymbols", 4, 10));
-            user.setEmail(generateString("EmailSymbols", 4, 8) + "@"
-                    + generateString("DomainNamesSymbols", 4, 8) + "."
-                    + generateString("DomainNamesSymbols", 3, 4));
-            user.setRegionName(String.valueOf(Regions.getRandomRegion()));
-            user.setRoleName(String.valueOf(Roles.getRandomRole()));
+        for (int i = 0; i < GENERATED_USERS_COUNT; i++) {
+            User user = User.newBuilder()
+                    .withoutId()
+                    .withFirstName(generateString("NameSymbols", 1, 13).toLowerCase())
+                    .withLastName(generateString("NameSymbols", 1, 13).toLowerCase())
+                    .withLogin(generateString("NameSymbols", 1, 13).toLowerCase())
+                    .withEmail(generateString("EmailSymbols", 4, 8) + "@"
+                            + generateString("DomainNamesSymbols", 4, 8) + "."
+                            + generateString("DomainNamesSymbols", 3, 4))
+                    .withPassword(generateString("PasswordSymbols", 4, 10))
+                    .withRoleRef(String.valueOf(Roles.getRandomRole()))
+                    .withoutCustomerTypeRef()
+                    .withStatus("1")
+                    .withRegionRef(String.valueOf(Regions.getRandomRegion()))
+                    .build();
 
             usersList[i][0] = user;
         }
@@ -179,38 +182,55 @@ public class DataProviders {
         return usersList;
     }
 
-    @DataProvider(name="generatedNotValidUserData")
+    @DataProvider(name = "generatedNotValidUserData")
     public static Object[][] generateNotValidUserData() {
 
         final int GENERATED_USERS_COUNT = 5;
+        String login;
+        String firstName;
+        String lastName;
+        String password;
+        String email;
 
         Object[][] usersList = new Object[GENERATED_USERS_COUNT][1];
         Random randomGenerator = new Random();
 
-        for (int i=0; i < GENERATED_USERS_COUNT; i++) {
-            User user = new User();
+        for (int i = 0; i < GENERATED_USERS_COUNT; i++) {
 
             // generate string with digits
             if (randomGenerator.nextBoolean()) {
-                user.setLogin(generateString("Digits", 1, 13));
-                user.setFirstName(generateString("Digits", 1, 13));
-                user.setLastName(generateString("Digits", 1, 13));
+                login = generateString("Digits", 1, 13);
+                firstName = generateString("Digits", 1, 13);
+                lastName = generateString("Digits", 1, 13);
                 // or with length > 13 symbols
             } else {
-                user.setLogin(generateString("NameSymbols", 14, 20));
-                user.setFirstName(generateString("NameSymbols", 14, 20));
-                user.setLastName(generateString("NameSymbols", 14, 20));
+                login = generateString("NameSymbols", 14, 20);
+                firstName = generateString("NameSymbols", 14, 20);
+                lastName = generateString("NameSymbols", 14, 20);
             }
 
             // generate string with length < 4
             if (randomGenerator.nextBoolean()) {
-                user.setPassword(generateString("PasswordSymbols", 1, 3));
+                password = generateString("PasswordSymbols", 1, 3);
                 // or > 14
             } else {
-                user.setPassword(generateString("PasswordSymbols", 14, 20));
+                password = generateString("PasswordSymbols", 14, 20);
             }
 
-            user.setEmail(generateString("Digits", 2, 20));
+            email = generateString("Digits", 2, 20);
+
+            User user = User.newBuilder()
+                    .withoutId()
+                    .withFirstName(firstName)
+                    .withLastName(lastName)
+                    .withLogin(login)
+                    .withEmail(email)
+                    .withPassword(password)
+                    .withoutRoleRef()
+                    .withoutCustomerTypeRef()
+                    .withoutStatus()
+                    .withoutRegionRef()
+                    .build();
 
             usersList[i][0] = user;
         }

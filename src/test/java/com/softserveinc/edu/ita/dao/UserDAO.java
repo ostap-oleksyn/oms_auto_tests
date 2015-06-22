@@ -61,9 +61,9 @@ public class UserDAO extends AbstractDAO<User> {
                 user.setLogin(resultSet.getString("Login"));
                 user.setPassword(resultSet.getString("Password"));
                 user.setEmail(resultSet.getString("Email"));
-                user.setRoleName(resultSet.getString("RoleName"));
-                user.setCustomerType(resultSet.getString("TypeName"));
-                user.setRegionName(resultSet.getString("RegionName"));
+                user.setRoleReference(resultSet.getString("RoleName"));
+                user.setCustomerTypeReference(resultSet.getString("TypeName"));
+                user.setRegionReference(resultSet.getString("RegionName"));
                 user.setStatus(resultSet.getString("Status"));
                 resultList.add(user);
             }
@@ -73,34 +73,7 @@ public class UserDAO extends AbstractDAO<User> {
         return resultList;
     }
 
-    /**
-     * gets records from database for their login
-     *
-     * @param login
-     * @return
-     * @throws DAOException
-     */
-    public User getByLogin(String login) throws DAOException {
-        List<User> list;
-        String sqlQuery = getSelectQuery();
-        sqlQuery += " WHERE Login= ?";
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setString(1, login);
-            ResultSet resultSet = statement.executeQuery();
-            list = parseResultSet(resultSet);
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-        if (list == null || list.size() == 0) {
-            throw new DAOException("Record with PK = " + login + " not found.");
-        }
-        if (list.size() > 1) {
-            throw new DAOException("Received more than one record.");
-        }
-        return list.iterator().next();
-    }
-
-    public User getLastUser() throws DAOException {
+    public User getLast() throws DAOException {
         List<User> usersList;
         String sqlQuery = getSelectQuery();
         sqlQuery += " WHERE IsUserActive = 1 ORDER BY ID DESC ";
@@ -149,7 +122,6 @@ public class UserDAO extends AbstractDAO<User> {
             for (User user : usersList) {
                 user.setId(0);
                 user.setEmail(null);
-                user.setCustomerType(null);
                 user.setStatus(null);
             }
         } catch (Exception e) {
@@ -194,7 +166,6 @@ public class UserDAO extends AbstractDAO<User> {
             for (User user : usersList) {
                 user.setId(0);
                 user.setEmail(null);
-                user.setCustomerType(null);
                 user.setStatus(null);
             }
         } catch (Exception e) {
