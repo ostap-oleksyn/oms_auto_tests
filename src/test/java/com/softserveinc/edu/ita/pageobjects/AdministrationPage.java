@@ -1,8 +1,8 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.UserFromView;
-import com.softserveinc.edu.ita.enums.SearchConditions;
-import com.softserveinc.edu.ita.enums.SearchFilters;
+import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
+import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
 import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import org.openqa.selenium.By;

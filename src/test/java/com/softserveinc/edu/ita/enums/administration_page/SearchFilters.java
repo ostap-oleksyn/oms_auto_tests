@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.enums;
+package com.softserveinc.edu.ita.enums.administration_page;
 
 public enum SearchFilters {
     ALL_COLUMNS("All Columns"),

@@ -3,8 +3,8 @@ package com.softserveinc.edu.ita.tests.administration_page;
 import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.domains.UserFromView;
-import com.softserveinc.edu.ita.enums.SearchConditions;
-import com.softserveinc.edu.ita.enums.SearchFilters;
+import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
+import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
 import com.softserveinc.edu.ita.pageobjects.AdministrationPage;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.softserveinc.edu.ita.enums.SearchFilters.*;
+import static com.softserveinc.edu.ita.enums.administration_page.SearchFilters.*;
 
 public class SearchTest extends TestRunner {
     private List<UserFromView> usersListFromView;

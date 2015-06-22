@@ -3,7 +3,7 @@ package com.softserveinc.edu.ita.dao;
 
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
-import com.softserveinc.edu.ita.enums.SearchConditions;
+import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
