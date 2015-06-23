@@ -61,8 +61,12 @@ public abstract class PageObjectBase {
         Reporter.log(String.format("INFO   - Accepted alert: %s", alertText));
     }
 
-    public boolean isElementEnabled(ILocator locator){
+    public boolean isElementEnabled(ILocator locator) {
         return driver.findElement(locator.getBy()).isEnabled();
+    }
+
+    public String getElementAttribute(ILocator locator, String attribute) {
+        return driver.findElement(locator.getBy()).getAttribute(attribute);
     }
 
 }
