@@ -26,7 +26,7 @@ import java.util.List;
 public class SortingTest extends TestRunner {
     //Test sorting by Order Name
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void testOrderNameColumn(User user) throws DAOException {
+    public void testOrderNameColumn(User user) {
         HomePage homePage = new HomePage(driver);
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
