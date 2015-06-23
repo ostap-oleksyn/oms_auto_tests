@@ -1,14 +1,21 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.UserFromView;
+import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
+import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
 import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Reporter;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
+import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.*;
 
 /**
  * This class describes "Administration" page according to "Page Object" pattern.
@@ -59,8 +66,10 @@ public class AdministrationPage extends LogOutBase {
     public List<UserFromView> getTableFromView() {
         List<UserFromView> usersList = new LinkedList<>();
         int pagination = 0;
+        click(USERS_LIST_RESIZE_LINK);
         do {
             if (driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy()).size() <= 1) {
+                    return usersList;
             } else {
                 List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy());
                 for (int j = 1; j < rowsList.size(); j++) {
@@ -127,6 +136,53 @@ public class AdministrationPage extends LogOutBase {
     }
     public void clickPreviousButton() {
         click(AdministrationPageLocators.BACKWARD_BUTTON);
+    }
+
+    /**
+     * selects filter type
+     *
+     * @param filter
+     * @return
+     */
+    public AdministrationPage setFilters(SearchFilters filter) {
+        Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
+        fieldSelect.selectByVisibleText(filter.toString());
+        return this;
+    }
+
+    /**
+     * selects condition type
+     *
+     * @param condition
+     * @return
+     */
+    public AdministrationPage setCondition(SearchConditions condition) {
+        Select conditionSelect = new Select(driver.findElement(CONDITION_SELECT.getBy()));
+        conditionSelect.selectByVisibleText(condition.toString());
+        return this;
+    }
+
+    /**
+     * inputs search text into search field
+     *
+     * @param searchTerm
+     * @return
+     */
+
+    public AdministrationPage fillSearchField(String searchTerm) {
+        sendKeys(SEARCH_FIELD,searchTerm);
+        return this;
+    }
+
+    /**
+     * click on the search button
+     */
+    public void clickSearchButton() {
+        click(SEARCH_BUTTON);
+    }
+
+    public void clearSearchField() {
+        driver.findElement(SEARCH_FIELD.getBy()).clear();
     }
 
 }

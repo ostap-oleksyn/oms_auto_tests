@@ -12,6 +12,8 @@ import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
 
+import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
+
 /**
  * This class describes "Ordering" page according to "Page Object" pattern.
  */
@@ -27,9 +29,12 @@ public class OrderingPage extends LogOutBase {
     public List<Order> getTableFromView() {
         List<Order> table = new LinkedList<>();
         //This line is needed to find out quantity of orders per table.
-        int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS.getBy()).getAttribute("value"));
+        int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(QUANTITY_OF_ROWS.getBy()).getAttribute("value"));
         //This line is needed to find out quantity of orders per page.
-        int quantityOfOrdersPerPage = driver.findElements(OrderingPageLocators.QUANTITY_OF_ROWS_PER_PAGE.getBy()).size();
+        int quantityOfOrdersPerPage = driver.findElements(QUANTITY_OF_ROWS_PER_PAGE.getBy()).size();
+        if (quantityOfOrdersPerPage <= 1) {
+            return table;
+        }
         //There is calculating size of pagination.
         double iteration = new BigDecimal(quantityOfOrdersPerTable / quantityOfOrdersPerPage).setScale(0, RoundingMode.UP).doubleValue();
         //Iteration through table pages.
@@ -37,9 +42,9 @@ public class OrderingPage extends LogOutBase {
             //Iteration through table rows (per page).
             for (int j = 2; j <= quantityOfOrdersPerPage + 1; j++) {
                 //There is checking of row displaying.
-                if (isElementDisplayed(By.xpath(String.format(OrderingPageLocators.TABLE_ROW_CELL, j)))) {
+                if (isElementDisplayed(By.xpath(String.format(TABLE_ROW_CELL, j)))) {
                     //Recording displayed row.
-                    List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(OrderingPageLocators.TABLE_ROW, j)));
+                    List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(TABLE_ROW, j)));
                     //There is used StepBuilderPattern.
                     table.add(Order.newBuilder()
                             .setOrderName(ordersFields.get(0).getText())
@@ -85,4 +90,6 @@ public class OrderingPage extends LogOutBase {
     public void clickOrdersTableColumn(OrdersTableColumns tableColumn) {
         driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, tableColumn.toString()))).click();
     }
+
 }
+

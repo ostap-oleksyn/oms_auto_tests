@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.dao;
 
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
+import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,6 +30,13 @@ public class UserDAO extends AbstractDAO<User> {
                 "inner join regions on users.RegionRef = regions.ID \n" +
                 "inner join roles on users.RoleRef = roles.ID";
     }
+    String getAllUsersQuery = "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, \n" +
+            "IsUserActive as Status \n" +
+            "from users inner join roles on users.RoleRef = roles.ID \n" +
+            "inner join customertypes on\n" +
+            "users.CustomerTypeRef = customertypes.ID\n" +
+            "inner join regions on \n" +
+            "users.RegionRef = regions.ID";
 
     public UserDAO(Connection connection) {
         super(connection);
@@ -99,5 +107,70 @@ public class UserDAO extends AbstractDAO<User> {
         }
 
         return list.get(0);
+    }
+    /**
+     * get all users from database
+     *
+     * @return
+     * @throws DAOException
+     */
+    public List<User> getAllUsers() throws DAOException {
+        List<User> usersList;
+        try (PreparedStatement statement = connection.prepareStatement(getAllUsersQuery)) {
+            ResultSet resultSet = statement.executeQuery();
+            usersList = parseResultSet(resultSet);
+            for (User user : usersList) {
+                user.setId(0);
+                user.setEmail(null);
+                user.setStatus(null);
+            }
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return usersList;
+    }
+
+    public List<User> getFilteredUsers(SearchConditions condition, String searchTerm) throws DAOException {
+        List<User> usersList;
+        switch (condition) {
+            case EQUALS:
+                getAllUsersQuery += " where FirstName = ? or LastName = ? or Login = ? or RoleName = ? " +
+                        "or RegionName = ?";
+                break;
+            case NOT_EQUALS_TO:
+                getAllUsersQuery += " where FirstName != ? or LastName != ? or Login != ? or RoleName != ? " +
+                        "or RegionName != ?";
+                break;
+            case CONTAINS:
+                getAllUsersQuery += " where FirstName like ? or LastName like ? or Login like ? or RoleName like ?" +
+                        " or RegionName like ?";
+                break;
+            case DOES_NOT_CONTAINS:
+                getAllUsersQuery += " where FirstName not like? or LastName not like ? or Login not like ? " +
+                        "or RoleName not like ? or RegionName not like ?";
+                break;
+            case STARTS_WITH:
+                getAllUsersQuery += " where FirstName like ? or LastName like ? or Login like ? or " +
+                        "RoleName like ? or RegionName like ?";
+                break;
+        }
+        try (PreparedStatement statement = connection.prepareStatement(getAllUsersQuery)) {
+            statement.setString(1, searchTerm);
+            statement.setString(2, searchTerm);
+            statement.setString(3, searchTerm);
+            statement.setString(4, searchTerm);
+            statement.setString(5, searchTerm);
+
+            ResultSet resultSet = statement.executeQuery();
+            usersList = parseResultSet(resultSet);
+            for (User user : usersList) {
+                user.setId(0);
+                user.setEmail(null);
+                user.setStatus(null);
+            }
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return usersList;
     }
 }

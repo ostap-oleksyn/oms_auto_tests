@@ -25,6 +25,21 @@ import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 public class DataProviders {
 
     /**
+     * returns searchterms from xls file
+     * @return
+     */
+    @DataProvider(name = "getSearchTerms")
+    public static Object[][] getSearchTerms() {
+        Object[][] searchTerms = null;
+        try {
+            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("searchTerms");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return searchTerms;
+    }
+
+    /**
      * Returns names of 'Users' table columns.
      */
     @DataProvider(name = "getUsersTableColumns")
