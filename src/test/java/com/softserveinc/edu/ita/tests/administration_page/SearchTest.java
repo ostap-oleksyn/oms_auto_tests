@@ -34,13 +34,11 @@ public class SearchTest extends TestRunner {
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
         for (SearchFilters filter : SearchFilters.values()) {
-            for (SearchConditions conditions : SearchConditions.values()) {
+            for (SearchConditions condition : SearchConditions.values()) {
                 // skip ALL COLUMNS filter, because we have testAllColumns separately
-                if (filter == ALL_COLUMNS) {
-                    continue;
-                } else {
+                if (filter != ALL_COLUMNS) {
                     administrationPage.setFilters(filter)
-                            .setCondition(conditions)
+                            .setCondition(condition)
                             .fillSearchField(searchTerm)
                             .clickSearchButton();
 
@@ -48,12 +46,12 @@ public class SearchTest extends TestRunner {
                     administrationPage.clearSearchField();
 
                     usersListFromDB = DBUtility.getUserDao().getAllUsers();
-                    filteredListFromDB = getFilteredList(usersListFromDB, filter, conditions, searchTerm);
+                    filteredListFromDB = getFilteredList(usersListFromDB, filter, condition, searchTerm);
 
                     filteredListFromDB.sort(Comparator.comparing(User::getLogin));
                     usersListFromView.sort(Comparator.comparing(UserFromView::getLogin));
 
-                    loggingSoftAssert.assertTrue(areListsEqual(usersListFromView, filteredListFromDB), filter + " " + conditions + " " + searchTerm);
+                    loggingSoftAssert.assertTrue(areListsEqual(usersListFromView, filteredListFromDB), filter + " " + condition + " " + searchTerm);
                     loggingSoftAssert.assertAll();
                 }
             }
@@ -69,16 +67,16 @@ public class SearchTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
-        for (SearchConditions conditions : SearchConditions.values()) {
+        for (SearchConditions condition : SearchConditions.values()) {
             administrationPage.setFilters(filter)
-                    .setCondition(conditions)
+                    .setCondition(condition)
                     .fillSearchField(searchTerm)
                     .clickSearchButton();
 
             usersListFromView = administrationPage.getTableFromView();
             administrationPage.clearSearchField();
 
-            usersListFromDB = DBUtility.getUserDao().getFilteredUsers(conditions, searchTerm);
+            usersListFromDB = DBUtility.getUserDao().getFilteredUsers(condition, searchTerm);
 
             Comparator<User> userComparator = Comparator.comparing(User::getLogin);
             Comparator<UserFromView> userFromViewComparator = Comparator.comparing(UserFromView::getLogin);
@@ -86,7 +84,7 @@ public class SearchTest extends TestRunner {
             usersListFromDB.sort(userComparator);
             usersListFromView.sort(userFromViewComparator);
 
-            loggingSoftAssert.assertTrue(areListsEqual(usersListFromView, usersListFromDB), filter + " " + conditions + " " + searchTerm);
+            loggingSoftAssert.assertTrue(areListsEqual(usersListFromView, usersListFromDB), filter + " " + condition + " " + searchTerm);
             loggingSoftAssert.assertAll();
         }
         administrationPage.clickLogOutButton();
