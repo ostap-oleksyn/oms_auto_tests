@@ -10,8 +10,8 @@ public enum StatusFilterValue {
 
     private String filterValue;
 
-    StatusFilterValue(String filterName) {
-        this.filterValue = filterName;
+    StatusFilterValue(String filterValue) {
+        this.filterValue = filterValue;
     }
 
     @Override

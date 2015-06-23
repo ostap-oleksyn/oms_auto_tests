@@ -8,8 +8,8 @@ public enum OrderSearchCondition {
 
     private String searchCondition;
 
-    OrderSearchCondition(String filterName) {
-        this.searchCondition = filterName;
+    OrderSearchCondition(String searchCondition) {
+        this.searchCondition = searchCondition;
     }
 
     public String getSearchCondition() {

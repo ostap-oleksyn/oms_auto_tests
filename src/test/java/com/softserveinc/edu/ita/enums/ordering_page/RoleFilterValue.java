@@ -10,8 +10,8 @@ public enum RoleFilterValue {
 
     private String filterValue;
 
-    RoleFilterValue(String filterName) {
-        this.filterValue = filterName;
+    RoleFilterValue(String filterValue) {
+        this.filterValue = filterValue;
     }
 
     @Override
