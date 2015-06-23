@@ -16,7 +16,7 @@ public class Order {
         return orderName;
     }
 
-    private Order (String orderName) {
+    private Order(String orderName) {
         this.orderName = orderName.toLowerCase();
     }
 
@@ -148,11 +148,15 @@ public class Order {
             return this;
         }
 
-        public Order build(){
+        public Order build() {
             final Order order = new Order(orderName);
             order.setTotalPrice(totalPrice);
             order.setMaxDiscount(maxDiscount);
-            order.setDeliveryDate(deliveryDate);
+            if (deliveryDate != null) {
+                order.setDeliveryDate(deliveryDate);
+            } else {
+                order.setDeliveryDate("");
+            }
             order.setStatus(status);
             order.setAssignee(assignee);
             order.setRole(role);

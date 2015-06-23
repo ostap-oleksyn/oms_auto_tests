@@ -1,5 +1,9 @@
 package com.softserveinc.edu.ita.tests.ordering_page;
 
+import com.softserveinc.edu.ita.dao.AbstractDAO;
+import com.softserveinc.edu.ita.dao.DAOException;
+import com.softserveinc.edu.ita.dao.FactoryDAO;
+import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.Order;
 import com.softserveinc.edu.ita.domains.User;
@@ -8,9 +12,11 @@ import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import java.sql.Connection;
 import java.util.Comparator;
 import java.util.List;
 
@@ -20,7 +26,7 @@ import java.util.List;
 public class SortingTest extends TestRunner {
     //Test sorting by Order Name
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void testOrderNameColumn(User user) {
+    public void testOrderNameColumn(User user) throws DAOException {
         HomePage homePage = new HomePage(driver);
         UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
