@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Revert To Default State Tests" verbose="1" parallel="classes" thread-count="5">
+<suite name="Revert To Default State Tests" verbose="1" parallel="tests" thread-count="4">
     <test name="Administartion tab test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.RevertToDefaultStateTest">
@@ -14,7 +14,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.RevertToDefaultStateTest">
                 <methods>
-                    <include name="customerTabTest"/>
+                    <include name="customerOrderingTabTest"/>
                 </methods>
             </class>
         </classes>
@@ -23,7 +23,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.RevertToDefaultStateTest">
                 <methods>
-                    <include name="supervisorTabTest"/>
+                    <include name="itemManagementTabTest"/>
                 </methods>
             </class>
         </classes>
@@ -32,7 +32,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.RevertToDefaultStateTest">
                 <methods>
-                    <include name="merchandiserTabTest"/>
+                    <include name="merchandiserOrderingTabTest"/>
                 </methods>
             </class>
         </classes>
