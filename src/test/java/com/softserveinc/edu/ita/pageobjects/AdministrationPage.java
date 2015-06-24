@@ -109,8 +109,7 @@ public class AdministrationPage extends LogOutBase {
      * A method to click one of "Administration" table headers to make sorting actions in the table.
      */
     public void clickAdministrationTableColumn(UsersTableColumns tableColumn) {
-        AdministrationPageStringLocators.TABLE_COLUMN.setByWithParameter(tableColumn.toString());
-        click(AdministrationPageStringLocators.TABLE_COLUMN);
+        click(AdministrationPageStringLocators.TABLE_COLUMN.getByWithParameter(tableColumn.toString()));
     }
 
     /**

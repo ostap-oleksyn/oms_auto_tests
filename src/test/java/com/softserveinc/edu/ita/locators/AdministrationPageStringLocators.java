@@ -9,28 +9,22 @@ import org.openqa.selenium.By;
 
 public enum AdministrationPageStringLocators implements ILocator {
 
-    TABLE_COLUMN(
-            "Table column",
-            ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
-    DELETE_LINK(
-            "Delete link",
-            ".//*[@id='table']/tbody/tr[%s]/td[7]/a"),
-    LOGIN_CELL(
-            "Login cell",
-            ".//*[@id='table']/tbody/tr[%s]/td[3]");
+    TABLE_COLUMN(".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
+    DELETE_LINK(".//*[@id='table']/tbody/tr[%s]/td[7]/a"),
+    LOGIN_CELL(".//*[@id='table']/tbody/tr[%s]/td[3]");
 
-    AdministrationPageStringLocators(String name, String stringLocator) {
-        this.name = name;
+    AdministrationPageStringLocators(String stringLocator){
         this.stringLocator = stringLocator;
     }
 
-    private String name;
     private String stringLocator;
+    private String name;
     private By byLocator;
 
-    public void setByWithParameter(String parameter) {
+    public AdministrationPageStringLocators getByWithParameter(String parameter) {
         this.name = parameter;
         this.byLocator = By.xpath(String.format(this.stringLocator, parameter));
+        return this;
     }
 
     @Override
