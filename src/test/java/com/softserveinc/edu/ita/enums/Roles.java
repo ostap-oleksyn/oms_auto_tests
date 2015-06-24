@@ -1,6 +1,10 @@
 package com.softserveinc.edu.ita.enums;
 
+import java.util.Random;
 
+/**
+ * Enum with roles names. Can generate random values
+ */
 public enum Roles {
     ADMINISTRATOR("Administrator"),
     CUSTOMER("Customer"),
@@ -17,5 +21,10 @@ public enum Roles {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    public static Roles getRandomRole() {
+        Random randomGenerator = new Random();
+        return values()[randomGenerator.nextInt(values().length - 1)];
     }
 }

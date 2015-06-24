@@ -1,8 +1,8 @@
 package com.softserveinc.edu.ita.tests;
 
 import com.softserveinc.edu.ita.enums.BrowserTypes;
-import com.softserveinc.edu.ita.utils.LoggingAssert;
-import com.softserveinc.edu.ita.utils.LoggingSoftAssert;
+import com.softserveinc.edu.ita.logging.LoggingAssert;
+import com.softserveinc.edu.ita.logging.LoggingSoftAssert;
 import com.softserveinc.edu.ita.utils.PropertyLoader;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

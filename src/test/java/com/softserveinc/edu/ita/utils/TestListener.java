@@ -29,6 +29,13 @@ public final class TestListener extends TestListenerAdapter {
     @Override
     public void onTestFailure(ITestResult result) {
 
+        //Timeout to wait for the page to load completely, before taking a screenshot
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         final Object currentClass = result.getInstance();
         final WebDriver driver = ((TestRunner) currentClass).getDriver();
 

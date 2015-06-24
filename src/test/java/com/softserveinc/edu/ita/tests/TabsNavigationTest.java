@@ -1,19 +1,17 @@
 package com.softserveinc.edu.ita.tests;
 
+import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.dataproviders.DataProviders;
 import com.softserveinc.edu.ita.locators.*;
-import com.softserveinc.edu.ita.page_object.*;
+import com.softserveinc.edu.ita.pageobjects.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 public class TabsNavigationTest extends TestRunner {
 
-    HomePage homePage;
-    UserInfoPage userInfoPage;
-    AdministrationPage administrationPage;
-    OrderingPage orderingPage;
-    ItemManagementPage itemManagementPage;
+    private HomePage homePage;
+    private UserInfoPage userInfoPage;
+    private OrderingPage orderingPage;
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
     public void administratorTabsTest(User user) {
@@ -21,7 +19,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleName()), "User roles match");
+                .equals(user.getRoleReference()), "User roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -32,7 +30,7 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
                 "User info tab is the default tab");
 
-        administrationPage = userInfoPage.clickAdministrationTab();
+        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
         loggingAssert.assertTrue(administrationPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(administrationPage.getElementText(CommonLocators.ADMINISTRATION_TAB)),
@@ -54,7 +52,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleName()), "Users roles match");
+                .equals(user.getRoleReference()), "Users roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -87,7 +85,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleName()), "User rolees match");
+                .equals(user.getRoleReference()), "User rolees match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -120,7 +118,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleName()), "User roles match");
+                .equals(user.getRoleReference()), "User roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -131,7 +129,7 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
                 "User info tab is the default tab");
 
-        itemManagementPage = userInfoPage.clickItemManagementTab();
+        ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
 
         loggingAssert.assertTrue(itemManagementPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(itemManagementPage.getElementText(CommonLocators.ITEM_MANAGEMENT_TAB)),

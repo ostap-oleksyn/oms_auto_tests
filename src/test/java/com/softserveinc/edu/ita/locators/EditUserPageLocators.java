@@ -17,6 +17,10 @@ public enum EditUserPageLocators implements ILocator {
             "First name input",
             By.xpath(".//*[@id='firstName']")),
 
+    LOGIN_INPUT(
+            "Login input",
+            By.xpath(".//*[@id='login']")),
+
     PASSWORD_INPUT(
             "Password input",
             By.xpath(".//*[@id='password']")),
