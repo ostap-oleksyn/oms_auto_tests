@@ -95,30 +95,35 @@ public class OrderingPage extends LogOutBase {
         driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, tableColumn.toString()))).click();
     }
 
-    public void setFilter(OrderFilter filter) {
+    public OrderingPage setFilter(OrderFilter filter) {
         Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filter.getFilterName());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
+        return this;
     }
 
-    public void setFilterValue(Enum filterValue) {
+    public OrderingPage setFilterValue(Enum filterValue) {
         Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_VALUE_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filterValue.toString());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter value - <b>'%s'</b>", filterValue.toString()));
+        return this;
     }
 
-    public void setSearchCondition(OrderSearchCondition searchCondition) {
+    public OrderingPage setSearchCondition(OrderSearchCondition searchCondition) {
         Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.SEARCH_CONDITION_SELECT.getBy()));
         fieldSelect.selectByVisibleText(searchCondition.getSearchCondition());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected search condition - <b>'%s'</b>", searchCondition.getSearchCondition()));
+        return this;
     }
 
-    public void clickApplyButton() {
+    public OrderingPage clickApplyButton() {
         click(OrderingPageLocators.APPLY_BUTTON);
+        return this;
     }
 
-    public void fillSearchField(String searchTerm) {
+    public OrderingPage fillSearchField(String searchTerm) {
         sendKeys(OrderingPageLocators.SEARCH_FIELD, searchTerm);
+        return this;
     }
 
     public String getSelectedFilter() {

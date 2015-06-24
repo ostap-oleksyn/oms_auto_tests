@@ -9,6 +9,7 @@ import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
 import com.softserveinc.edu.ita.enums.ordering_page.RoleFilterValue;
 import com.softserveinc.edu.ita.enums.ordering_page.StatusFilterValue;
+import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import com.softserveinc.edu.ita.pageobjects.*;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
@@ -29,23 +30,23 @@ public class RevertToDefaultStateTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
-        final SearchConditions condition = getRandomEnum(SearchConditions.class, 0);
-        final SearchFilters filter = getRandomEnum(SearchFilters.class, 0);
+        final SearchConditions condition = getRandomEnum(SearchConditions.class);
+        final SearchFilters filter = getRandomEnum(SearchFilters.class);
         searchTerm = generateString("NameSymbols", 5, 10);
 
-        administrationPage.setFilters(filter);
-        administrationPage.setCondition(condition);
-        administrationPage.fillSearchField(searchTerm);
-        administrationPage.clickSearchButton();
+        administrationPage.setFilters(filter)
+                .setCondition(condition)
+                .fillSearchField(searchTerm)
+                .clickSearchButton();
 
         userInfoPage = administrationPage.clickUserInfoTab();
         administrationPage = userInfoPage.clickAdministrationTab();
 
-        loggingSoftAssert.assertEquals(administrationPage.getSelectedFilter(), filter.getFilterName(),
+        loggingSoftAssert.assertEquals(administrationPage.getElementText(AdministrationPageLocators.SELECTED_FILTER), filter.getFilterName(),
                 String.format("Selected filter didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
                         , filter.getFilterName(), administrationPage.getSelectedFilter()));
 
-        loggingSoftAssert.assertEquals(administrationPage.getSelectedCondition(), condition.getCondition(),
+        loggingSoftAssert.assertEquals(administrationPage.getElementText(AdministrationPageLocators.SELECTED_CONDITION), condition.getCondition(),
                 String.format("Selected condition didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
                         , condition.getCondition(), administrationPage.getSelectedCondition()));
 
@@ -62,12 +63,12 @@ public class RevertToDefaultStateTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
 
-        final ItemFilter filter = getRandomEnum(ItemFilter.class, 0);
+        final ItemFilter filter = getRandomEnum(ItemFilter.class);
         searchTerm = generateString("NameSymbols", 5, 10);
 
-        itemManagementPage.setFilters(filter);
-        itemManagementPage.fillSearchField(searchTerm);
-        itemManagementPage.clickSearchButton();
+        itemManagementPage.setFilters(filter)
+                .fillSearchField(searchTerm)
+                .clickSearchButton();
 
         userInfoPage = itemManagementPage.clickUserInfoTab();
         itemManagementPage = userInfoPage.clickItemManagementTab();
@@ -89,23 +90,23 @@ public class RevertToDefaultStateTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         orderingPage = userInfoPage.clickOrderingTab();
 
-        final OrderFilter filter = getRandomEnum(OrderFilter.class, 0);
+        final OrderFilter filter = getRandomEnum(OrderFilter.class);
         final Enum filterValue;
-        final OrderSearchCondition searchCondition = getRandomEnum(OrderSearchCondition.class, 0);
+        final OrderSearchCondition searchCondition = getRandomEnum(OrderSearchCondition.class);
         searchTerm = generateString("NameSymbols", 5, 10);
 
         if (filter.equals(OrderFilter.ROLE)) {
-            filterValue = getRandomEnum(RoleFilterValue.class, 0);
+            filterValue = getRandomEnum(RoleFilterValue.class);
         } else {
-            filterValue = getRandomEnum(StatusFilterValue.class, 0);
+            filterValue = getRandomEnum(StatusFilterValue.class);
         }
 
-        orderingPage.setFilter(filter);
-        orderingPage.clickApplyButton();
-        orderingPage.setFilterValue(filterValue);
-        orderingPage.setSearchCondition(searchCondition);
-        orderingPage.fillSearchField(searchTerm);
-        orderingPage.clickApplyButton();
+        orderingPage.setFilter(filter)
+                .clickApplyButton()
+                .setFilterValue(filterValue)
+                .setSearchCondition(searchCondition)
+                .fillSearchField(searchTerm)
+                .clickApplyButton();
 
         userInfoPage = orderingPage.clickUserInfoTab();
         orderingPage = userInfoPage.clickOrderingTab();
@@ -135,9 +136,9 @@ public class RevertToDefaultStateTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         orderingPage = userInfoPage.clickOrderingTab();
 
-        final OrderFilter filter = getRandomEnum(OrderFilter.class, 0);
+        final OrderFilter filter = getRandomEnum(OrderFilter.class);
         final Enum filterValue;
-        final OrderSearchCondition searchCondition = getRandomEnum(OrderSearchCondition.class, 0);
+        final OrderSearchCondition searchCondition = getRandomEnum(OrderSearchCondition.class);
         searchTerm = generateString("NameSymbols", 5, 10);
 
         if (filter.equals(OrderFilter.ROLE)) {
@@ -146,12 +147,12 @@ public class RevertToDefaultStateTest extends TestRunner {
             filterValue = getRandomEnum(StatusFilterValue.class, 0);
         }
 
-        orderingPage.setFilter(filter);
-        orderingPage.clickApplyButton();
-        orderingPage.setFilterValue(filterValue);
-        orderingPage.setSearchCondition(searchCondition);
-        orderingPage.fillSearchField(searchTerm);
-        orderingPage.clickApplyButton();
+        orderingPage.setFilter(filter)
+                .clickApplyButton()
+                .setFilterValue(filterValue)
+                .setSearchCondition(searchCondition)
+                .fillSearchField(searchTerm)
+                .clickApplyButton();
 
         userInfoPage = orderingPage.clickUserInfoTab();
         orderingPage = userInfoPage.clickOrderingTab();

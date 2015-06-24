@@ -15,9 +15,13 @@ public final class EnumUtil {
      * @param modifier  - limits the number of proccesed enums, 0 - get random enum from all enums in class,
      *                  1 - get random enum from all enums in class, except the last one, etc.
      */
-    public static <T extends Enum<?>> T getRandomEnum(Class<T> className, int modifier) {
+    public static <T extends Enum> T getRandomEnum(Class<T> className, int... modifier) {
         final Random random = new Random();
-        final int i = random.nextInt(className.getEnumConstants().length - modifier);
+        int mod = 0;
+        for (int value : modifier) {
+            mod += value;
+        }
+        final int i = random.nextInt(className.getEnumConstants().length - mod);
         return className.getEnumConstants()[i];
     }
 }

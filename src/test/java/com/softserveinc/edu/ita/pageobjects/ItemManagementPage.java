@@ -15,22 +15,25 @@ public class ItemManagementPage extends LogOutBase {
         super(driver);
     }
 
-    public void setFilters(ItemFilter filter) {
+    public ItemManagementPage setFilters(ItemFilter filter) {
         Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filter.getFilterName());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
+        return this;
     }
 
-    public void fillSearchField(String searchTerm) {
+    public ItemManagementPage fillSearchField(String searchTerm) {
         sendKeys(ItemManagementPageLocators.SEARCH_FIELD, searchTerm);
+        return this;
     }
 
     public String getSelectedFilter() {
         return getElementText(ItemManagementPageLocators.SELECTED_FILTER);
     }
 
-    public void clickSearchButton() {
+    public ItemManagementPage clickSearchButton() {
         click(SEARCH_BUTTON);
+        return this;
     }
 
     public String getSearchFieldText() {
