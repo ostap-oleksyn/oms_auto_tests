@@ -1,6 +1,8 @@
 package com.softserveinc.edu.ita.dao;
 
 import com.softserveinc.edu.ita.domains.Order;
+import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.enums.Roles;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,9 +22,9 @@ public class OrderDAO extends AbstractDAO<Order> {
      */
     @Override
     protected String getSelectQuery() {
-        return "select orders.ordername, orders.totalprice, orders.maxdiscount, orders.deliverydate, orderstatuses.orederstatusname, users.login, roles.rolename " +
-                "from orders left outer join orderstatuses on orders.orderstatusref = orderstatuses.id" +
-                "join users on orders.assigne = users.id " +
+        return "select orders.ordername, orders.totalprice, orders.maxdiscount, orders.deliverydate, orderstatuses.orederstatusname, users.login, roles.rolename \n" +
+                "from orders left outer join orderstatuses on orders.orderstatusref = orderstatuses.id \n" +
+                "join users on orders.assigne = users.id \n" +
                 "join roles on users.roleref = roles.id";
     }
 
@@ -78,7 +80,7 @@ public class OrderDAO extends AbstractDAO<Order> {
         } catch (Exception e) {
             throw new DAOException(e);
         }
-        return (Order) list;
+        return list.get(0);
     }
 
     /**
@@ -98,6 +100,25 @@ public class OrderDAO extends AbstractDAO<Order> {
         } catch (Exception e) {
             throw new DAOException(e);
         }
-        return (Order) list;
+        return list.get(0);
+    }
+
+    /**
+     * gets all records from database
+     *
+     * @return
+     * @throws DAOException
+     */
+    @Override
+    public List<Order> getAll() throws DAOException {
+        List<Order> list;
+        String selectQuery = getSelectQuery();
+        try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
+            ResultSet resultSet = statement.executeQuery();
+            list = parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return list;
     }
 }
