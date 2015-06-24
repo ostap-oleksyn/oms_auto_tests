@@ -1,124 +1,128 @@
 package com.softserveinc.edu.ita.dao;
 
+
+
 import com.softserveinc.edu.ita.domains.Order;
-import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.enums.Roles;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * This class represents a concrete implementation of Order model.
- */
-public class OrderDAO extends AbstractDAO<Order> {
 
-    /**
-     * This query to database for getting records.
-     *
-     * @return
-     */
-    @Override
-    protected String getSelectQuery() {
-        return "select orders.ordername, orders.totalprice, orders.maxdiscount, orders.deliverydate, orderstatuses.orederstatusname, users.login, roles.rolename \n" +
-                "from orders left outer join orderstatuses on orders.orderstatusref = orderstatuses.id \n" +
-                "join users on orders.assigne = users.id \n" +
-                "join roles on users.roleref = roles.id";
-    }
+public class OrderDAO<T> extends AbstractDAO<T> {
 
-    public OrderDAO(Connection connection) {
+    protected OrderDAO(Connection connection) {
         super(connection);
     }
 
-    /**
-     * sets records to list
-     *
-     * @param resultSet
-     * @return list with records
-     * @throws DAOException
-     */
     @Override
-    protected List<Order> parseResultSet(ResultSet resultSet) throws DAOException {
-        LinkedList<Order> resultList = new LinkedList<>();
+    protected String getSelectAllQuery() {
+        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef\n" +
+                "from orders";
+    }
+
+    @Override
+    protected String getSelectQuery() {
+        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef \n" +
+                "from orders \n" +
+                "where id=?";
+    }
+
+    @Override
+    protected String getUpdateQuery() {
+        return "update orders set OrderName=?, OrderNumber=?, TotalPrice=?, " +
+                "Assigne=?, Customer=?, OrderStatusRef=? \n" +
+                "where id = ?";
+    }
+
+    @Override
+    protected String getInsertQuery() {
+        return "insert into orders (OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef) " +
+                "values (?, ?, ?, ?, ?, ?)";
+    }
+
+    protected String getByOrderNumberQuery() {
+        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef \n" +
+                "from orders \n" +
+                "where OrderNumber=?";
+    }
+
+    @Override
+    protected String getDeleteQuery() {
+        return "delete from orders where id = ?";
+    }
+
+    @Override
+    protected void setUpdateParameters(PreparedStatement statement, T object) {
+        Order order = (Order) object;
+        try {
+            int i = 1;
+            statement.setString(i++, order.getOrderName());
+            statement.setInt(i++, order.getOrderNumber());
+            statement.setDouble(i++, order.getTotalPrice());
+            statement.setInt(i++, order.getAssignee());
+            statement.setInt(i++, order.getCustomer());
+            statement.setInt(i++, order.getOrderStatusReference());
+            statement.setInt(i++, order.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void setInsertParameters(PreparedStatement statement, T object) {
+        Order order = (Order) object;
+        try {
+            int i = 1;
+            statement.setString(i++, order.getOrderName());
+            statement.setInt(i++, order.getOrderNumber());
+            statement.setDouble(i++, order.getTotalPrice());
+            statement.setInt(i++, order.getAssignee());
+            statement.setInt(i++, order.getCustomer());
+            statement.setInt(i++, order.getOrderStatusReference());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected List<T> parseResultSet(ResultSet resultSet) throws DAOException {
+        List<T> resultList = new LinkedList<>();
         try {
             while (resultSet.next()) {
                 Order order = Order.newBuilder()
-                        .setOrderName(resultSet.getString("OrderName"))
-                        .setTotalPrice(resultSet.getString("TotalPrice"))
-                        .setMaxDiscount(resultSet.getString("MaxDiscount"))
-                        .setDeliveryDate(resultSet.getString("DeliveryDate"))
-                        .setStatus(resultSet.getString("OrederStatusName"))
-                        .setAssignee(resultSet.getString("Login"))
-                        .setRole(resultSet.getString("RoleName"))
+                        .withId(resultSet.getInt("Id"))
+                        .withOrderName(resultSet.getString("OrderName"))
+                        .withOrderNumber(resultSet.getInt("OrderNumber"))
+                        .withTotalPrice(resultSet.getDouble("TotalPrice"))
+                        .withAssignee(resultSet.getInt("Assigne"))
+                        .withCustomer(resultSet.getInt("Customer"))
+                        .withOrderStatusReference(resultSet.getInt("OrderStatusRef"))
                         .build();
-                resultList.add(order);
+                resultList.add((T) (order));
             }
         } catch (Exception e) {
             throw new DAOException(e);
         }
+
         return resultList;
     }
 
-    /**
-     * gets records from database by their ID
-     *
-     * @param id
-     * @return
-     * @throws DAOException
-     */
-    @Override
-    public Order getById(int id) throws DAOException {
+    public Order getByOrderNumber(int orderNumber) throws DAOException {
         List<Order> list;
-        String sqlQuery = getSelectQuery();
-        sqlQuery += " where orders.id = ?";
+        String sqlQuery = getByOrderNumberQuery();
+
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setInt(1, id);
+            statement.setInt(1, orderNumber);
             ResultSet resultSet = statement.executeQuery();
-            list = parseResultSet(resultSet);
+            list = (List<Order>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
         }
         return list.get(0);
     }
 
-    /**
-     * gets last order from database
-     *
-     * @return
-     * @throws DAOException
-     */
-    @Override
-    public Order getLast() throws DAOException {
-        List<Order> list;
-        String selectQuery = getSelectQuery();
-        selectQuery += " ORDER BY orders.id DESC LIMIT 1";
-        try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
-            ResultSet resultSet = statement.executeQuery();
-            list = parseResultSet(resultSet);
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-        return list.get(0);
-    }
-
-    /**
-     * gets all records from database
-     *
-     * @return
-     * @throws DAOException
-     */
-    @Override
-    public List<Order> getAll() throws DAOException {
-        List<Order> list;
-        String selectQuery = getSelectQuery();
-        try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
-            ResultSet resultSet = statement.executeQuery();
-            list = parseResultSet(resultSet);
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-        return list;
-    }
 }

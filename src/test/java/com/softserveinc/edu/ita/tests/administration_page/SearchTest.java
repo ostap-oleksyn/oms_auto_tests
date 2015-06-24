@@ -1,8 +1,11 @@
 package com.softserveinc.edu.ita.tests.administration_page;
 
 import com.softserveinc.edu.ita.dao.DAOException;
+import com.softserveinc.edu.ita.dao.UserDAO;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.domains.UserFromView;
+import com.softserveinc.edu.ita.enums.Regions;
+import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
 import com.softserveinc.edu.ita.pageobjects.AdministrationPage;
@@ -45,7 +48,7 @@ public class SearchTest extends TestRunner {
                     usersListFromView = administrationPage.getTableFromView();
                     administrationPage.clearSearchField();
 
-                    usersListFromDB = DBUtility.getUserDao().getAllUsers();
+                    usersListFromDB = DBUtility.getAllUsers();
                     filteredListFromDB = getFilteredList(usersListFromDB, filter, condition, searchTerm);
 
                     filteredListFromDB.sort(Comparator.comparing(User::getLogin));
@@ -76,7 +79,8 @@ public class SearchTest extends TestRunner {
             usersListFromView = administrationPage.getTableFromView();
             administrationPage.clearSearchField();
 
-            usersListFromDB = DBUtility.getUserDao().getFilteredUsers(condition, searchTerm);
+
+            usersListFromDB = DBUtility.getFilteredUsers(condition, searchTerm);
 
             Comparator<User> userComparator = Comparator.comparing(User::getLogin);
             Comparator<UserFromView> userFromViewComparator = Comparator.comparing(UserFromView::getLogin);
@@ -107,8 +111,8 @@ public class SearchTest extends TestRunner {
                 if (user1.getFirstName().equalsIgnoreCase(user2.getFirstName()) &&
                         user1.getLastName().equalsIgnoreCase(user2.getLastName()) &&
                         user1.getLogin().equalsIgnoreCase(user2.getLogin()) &&
-                        user1.getRole().equalsIgnoreCase(user2.getRoleReference()) &&
-                        user1.getRegion().equalsIgnoreCase(user2.getRegionReference())) {
+                        user1.getRole().equalsIgnoreCase(Roles.getRoleName(user2.getRoleReference())) &&
+                        user1.getRegion().equalsIgnoreCase(Regions.getRegionName(user2.getRegionReference()))) {
                     return true;
                 }
             }

@@ -6,22 +6,33 @@ package com.softserveinc.edu.ita.domains;
 public class User {
 
     private int id;
+    private int status;
     private String firstName;
     private String lastName;
     private String login;
     private String password;
     private String email;
-    private String roleReference;
-    private String customerTypeReference;
-    private String status;
-    private String regionReference;
+    private int roleReference;
+    private int customerTypeReference;
+    private int regionReference;
 
-    public Integer getId() {
+    private User() {
+    }
+
+    public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public String getFirstName() {
@@ -52,6 +63,10 @@ public class User {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -60,39 +75,27 @@ public class User {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getRoleReference() {
+    public int getRoleReference() {
         return roleReference;
     }
 
-    public void setRoleReference(String roleReference) {
+    public void setRoleReference(int roleReference) {
         this.roleReference = roleReference;
     }
 
-    public String getCustomerTypeReference() {
+    public int getCustomerTypeReference() {
         return customerTypeReference;
     }
 
-    public void setCustomerTypeReference(String customerTypeReference) {
+    public void setCustomerTypeReference(int customerTypeReference) {
         this.customerTypeReference = customerTypeReference;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getRegionReference() {
+    public int getRegionReference() {
         return regionReference;
     }
 
-    public void setRegionReference(String regionReference) {
+    public void setRegionReference(int regionReference) {
         this.regionReference = regionReference;
     }
 
@@ -100,24 +103,30 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", firstName='" + getFirstName() + '\'' +
-                ", lastName='" + getLastName() + '\'' +
-                ", login='" + getLogin() + '\'' +
-                ", password='" + getPassword() + '\'' +
-                ", email='" + getEmail() + '\'' +
-                ", roleReference='" + getRoleReference() + '\'' +
-                ", customerTypeReference='" + getCustomerTypeReference() + '\'' +
-                ", status='" + getStatus() + '\'' +
+                ", status=" + status +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", roleReference=" + roleReference +
+                ", customerTypeReference=" + customerTypeReference +
+                ", regionReference=" + regionReference +
                 '}';
     }
 
-    public static UserIdStep newBuilder() {
-        return new Steps();
+    public static IdStep newBuilder() {
+        return new Builder();
     }
 
-    public interface UserIdStep {
-        FirstNameStep withId(int id);
-        FirstNameStep withoutId();
+    public interface IdStep {
+        StatusStep withId(int id);
+        StatusStep withoutId();
+    }
+
+    public interface StatusStep {
+        FirstNameStep withStatus(int status);
+        FirstNameStep withoutStatus();
     }
 
     public interface FirstNameStep {
@@ -129,68 +138,76 @@ public class User {
     }
 
     public interface LoginStep {
-        EmailStep withLogin(String login);
-    }
-
-    public interface EmailStep {
-        PasswordStep withEmail(String email);
+        PasswordStep withLogin(String login);
     }
 
     public interface PasswordStep {
-        RoleReferenceStep withPassword(String password);
+        EmailStep withPassword(String password);
+    }
+
+    public interface EmailStep {
+        RoleReferenceStep withEmail(String email);
     }
 
     public interface RoleReferenceStep {
-        CustomerTypeReferenceStep withRoleRef(String roleName);
-        CustomerTypeReferenceStep withoutRoleRef();
+        CustomerTypeReferenceStep withRoleReference(int roleReference);
+        CustomerTypeReferenceStep withoutRoleReference();
     }
 
     public interface CustomerTypeReferenceStep {
-        StatusStep withCustomerTypeRef(String customerType);
-        StatusStep withoutCustomerTypeRef();
-    }
-
-    public interface StatusStep {
-        RegionReferenceStep withStatus(String status);
-        RegionReferenceStep withoutStatus();
+        RegionReferenceStep withCustomerTypeReference(int customerTypeReference);
+        RegionReferenceStep withoutCustomerTypeReference();
     }
 
     public interface RegionReferenceStep {
-        BuildStep withRegionRef(String regionName);
-        BuildStep withoutRegionRef();
+        BuildStep withRegionReference(int regionReference);
+        BuildStep withoutRegionReference();
     }
 
     public interface BuildStep {
         User build();
     }
 
-    public static class Steps implements UserIdStep, FirstNameStep, LastNameStep, LoginStep, EmailStep, PasswordStep, RoleReferenceStep, CustomerTypeReferenceStep, StatusStep, RegionReferenceStep, BuildStep {
+
+    public static class Builder implements IdStep, StatusStep, FirstNameStep, LastNameStep, LoginStep, PasswordStep,
+            EmailStep, RoleReferenceStep, CustomerTypeReferenceStep, RegionReferenceStep, BuildStep {
         private int id;
+        private int status;
         private String firstName;
         private String lastName;
         private String login;
-        private String email;
         private String password;
-        private String roleName;
-        private String customerType;
-        private String status;
-        private String regionName;
+        private String email;
+        private int roleReference;
+        private int customerTypeReference;
+        private int regionReference;
 
-        private Steps() {
+        private Builder() {
         }
 
-        public static UserIdStep user() {
-            return new Steps();
+        public static IdStep user() {
+            return new Builder();
         }
 
         @Override
-        public FirstNameStep withId(int id) {
+        public StatusStep withId(int id) {
             this.id = id;
             return this;
         }
 
         @Override
-        public FirstNameStep withoutId() {
+        public StatusStep withoutId() {
+            return this;
+        }
+
+        @Override
+        public FirstNameStep withStatus(int status) {
+            this.status = status;
+            return this;
+        }
+
+        @Override
+        public FirstNameStep withoutStatus() {
             return this;
         }
 
@@ -207,64 +224,53 @@ public class User {
         }
 
         @Override
-        public EmailStep withLogin(String login) {
+        public PasswordStep withLogin(String login) {
             this.login = login;
             return this;
         }
 
         @Override
-        public PasswordStep withEmail(String email) {
-            this.email = email;
-            return this;
-        }
-
-        @Override
-        public RoleReferenceStep withPassword(String password) {
+        public EmailStep withPassword(String password) {
             this.password = password;
             return this;
         }
 
         @Override
-        public CustomerTypeReferenceStep withRoleRef(String roleName) {
-            this.roleName = roleName;
+        public RoleReferenceStep withEmail(String email) {
+            this.email = email;
             return this;
         }
 
         @Override
-        public CustomerTypeReferenceStep withoutRoleRef() {
+        public CustomerTypeReferenceStep withRoleReference(int roleReference) {
+            this.roleReference = roleReference;
             return this;
         }
 
         @Override
-        public StatusStep withCustomerTypeRef(String customerType) {
-            this.customerType = customerType;
+        public CustomerTypeReferenceStep withoutRoleReference() {
             return this;
         }
 
         @Override
-        public StatusStep withoutCustomerTypeRef() {
+        public RegionReferenceStep withCustomerTypeReference(int customerTypeReference) {
+            this.customerTypeReference = customerTypeReference;
             return this;
         }
 
         @Override
-        public RegionReferenceStep withStatus(String status) {
-            this.status = status;
+        public RegionReferenceStep withoutCustomerTypeReference() {
             return this;
         }
 
         @Override
-        public RegionReferenceStep withoutStatus() {
+        public BuildStep withRegionReference(int regionReference) {
+            this.regionReference = regionReference;
             return this;
         }
 
         @Override
-        public BuildStep withRegionRef(String regionName) {
-            this.regionName = regionName;
-            return this;
-        }
-
-        @Override
-        public BuildStep withoutRegionRef() {
+        public BuildStep withoutRegionReference() {
             return this;
         }
 
@@ -272,15 +278,15 @@ public class User {
         public User build() {
             User user = new User();
             user.setId(this.id);
+            user.setStatus(this.status);
             user.setFirstName(this.firstName);
             user.setLastName(this.lastName);
             user.setLogin(this.login);
-            user.setEmail(this.email);
             user.setPassword(this.password);
-            user.setRoleReference(this.roleName);
-            user.setCustomerTypeReference(this.customerType);
-            user.setStatus(this.status);
-            user.setRegionReference(this.regionName);
+            user.setEmail(this.email);
+            user.setRoleReference(this.roleReference);
+            user.setCustomerTypeReference(this.customerTypeReference);
+            user.setRegionReference(this.regionReference);
             return user;
         }
     }

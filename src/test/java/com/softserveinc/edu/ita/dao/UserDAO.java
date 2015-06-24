@@ -1,157 +1,212 @@
-
 package com.softserveinc.edu.ita.dao;
 
-import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
+import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * represents a concrete implementation of User model
- */
-public class UserDAO extends AbstractDAO<User> {
 
-    /**
-     * query to database for getting records
-     *
-     * @return
-     */
-    @Override
-    protected String getSelectQuery() {
-        return "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, " +
-                "IsUserActive as Status  \n" +
-                "from users \n" +
-                "left outer join customertypes on users.CustomerTypeRef = customertypes.ID \n" +
-                "inner join regions on users.RegionRef = regions.ID \n" +
-                "inner join roles on users.RoleRef = roles.ID";
-    }
-    String getAllUsersQuery = "select  users.Id, FirstName, LastName, Login, Password, Email, RoleName, TypeName, RegionName, \n" +
-            "IsUserActive as Status \n" +
-            "from users inner join roles on users.RoleRef = roles.ID \n" +
-            "inner join customertypes on\n" +
-            "users.CustomerTypeRef = customertypes.ID\n" +
-            "inner join regions on \n" +
-            "users.RegionRef = regions.ID";
+public class UserDAO<T> extends AbstractDAO<T> {
 
-    public UserDAO(Connection connection) {
+    protected UserDAO(Connection connection) {
         super(connection);
     }
 
-    /**
-     * sets records to list
-     *
-     * @param resultSet
-     * @return list with records
-     * @throws DAOException
-     */
     @Override
-    protected List<User> parseResultSet(ResultSet resultSet) throws DAOException {
-        LinkedList<User> resultList = new LinkedList<>();
+    protected String getSelectAllQuery() {
+        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+                "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
+                "from users";
+    }
+
+    @Override
+    protected String getSelectQuery() {
+        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+                "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
+                "from users \n" +
+                "where id=?";
+    }
+
+    @Override
+    protected String getUpdateQuery() {
+        return "update users set IsUserActive=?, Email=?, FirstName=?, LastName=?, \n" +
+                "Login=?, Password=?, CustomerTypeRef=?, RegionRef=?, RoleRef=? \n" +
+                "where id = ?";
+    }
+
+    @Override
+    protected String getInsertQuery() {
+        return "insert into users (IsUserActive, Email, FirstName, LastName, " +
+                "Login, Password, CustomerTypeRef, RegionRef, RoleRef) " +
+                "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    }
+
+    @Override
+    protected String getDeleteQuery() {
+        return "delete from users where id = ?";
+    }
+
+    protected String getByLoginQuery() {
+        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+                "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
+                "from users \n" +
+                "where login=?";
+    }
+
+    private String getByRoleQuery() {
+        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+                "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
+                "from users \n" +
+                "where RoleRef=? \n" +
+                "limit 1";
+    }
+
+    private String getLastFormDBQuery() {
+        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+                "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
+                "from users \n" +
+                "order by id desc \n" +
+                "limit 1";
+    }
+
+    @Override
+    protected void setUpdateParameters(PreparedStatement statement, T object) {
+        User user = (User) object;
+        try {
+            int i = 1;
+            statement.setInt(i++, user.getStatus());
+            statement.setString(i++, user.getEmail());
+            statement.setString(i++, user.getFirstName());
+            statement.setString(i++, user.getLastName());
+            statement.setString(i++, user.getLogin());
+            statement.setString(i++, user.getPassword());
+            statement.setInt(i++,  user.getCustomerTypeReference());
+            statement.setInt(i++, user.getRegionReference());
+            statement.setInt(i++, user.getRoleReference());
+            statement.setInt(i++, user.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void setInsertParameters(PreparedStatement statement, T object) {
+        User user = (User) object;
+        try {
+            int i = 1;
+            statement.setInt(i++, user.getStatus());
+            statement.setString(i++, user.getEmail());
+            statement.setString(i++, user.getFirstName());
+            statement.setString(i++, user.getLastName());
+            statement.setString(i++, user.getLogin());
+            statement.setString(i++, user.getPassword());
+            statement.setInt(i++,  user.getCustomerTypeReference());
+            statement.setInt(i++, user.getRegionReference());
+            statement.setInt(i++, user.getRoleReference());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected List<T> parseResultSet(ResultSet resultSet) throws DAOException {
+        List<T> resultList = new LinkedList<>();
         try {
             while (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("Id"));
-                user.setFirstName(resultSet.getString("FirstName"));
-                user.setLastName(resultSet.getString("LastName"));
-                user.setLogin(resultSet.getString("Login"));
-                user.setPassword(resultSet.getString("Password"));
-                user.setEmail(resultSet.getString("Email"));
-                user.setRoleReference(resultSet.getString("RoleName"));
-                user.setCustomerTypeReference(resultSet.getString("TypeName"));
-                user.setRegionReference(resultSet.getString("RegionName"));
-                user.setStatus(resultSet.getString("Status"));
-                resultList.add(user);
+
+                User user = User.newBuilder()
+                        .withId(resultSet.getInt("Id"))
+                        .withStatus(resultSet.getInt("Status"))
+                        .withFirstName(resultSet.getString("FirstName"))
+                        .withLastName(resultSet.getString("LastName"))
+                        .withLogin(resultSet.getString("Login"))
+                        .withPassword(resultSet.getString("Password"))
+                        .withEmail(resultSet.getString("Email"))
+                        .withRoleReference(resultSet.getInt("RoleRef"))
+                        .withCustomerTypeReference(resultSet.getInt("CustomerTypeRef"))
+                        .withRegionReference(resultSet.getInt("RegionRef"))
+                        .build();
+
+                resultList.add((T) (user));
             }
         } catch (Exception e) {
             throw new DAOException(e);
         }
+
         return resultList;
     }
 
-    public User getLast() throws DAOException {
-        List<User> usersList;
-        String sqlQuery = getSelectQuery();
-        sqlQuery += " WHERE IsUserActive = 1 ORDER BY ID DESC ";
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            ResultSet resultSet = statement.executeQuery();
-            usersList = parseResultSet(resultSet);
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-        if (usersList == null || usersList.size() == 0) {
-            throw new DAOException("Users not found.");
-        }
-
-        return usersList.get(0);
-    }
-
-    public User getByRoleName(Roles role) throws DAOException {
+    public User getByLogin(String login) throws DAOException {
         List<User> list;
-        String sqlQuery = getSelectQuery();
-        //todo add limit 1
-        sqlQuery += " WHERE RoleName= ?";
+        String sqlQuery = getByLoginQuery();
+
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setString(1, String.valueOf(role));
+            statement.setString(1, login);
             ResultSet resultSet = statement.executeQuery();
-            list = parseResultSet(resultSet);
+            list = (List<User>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
         }
-        if (list == null || list.size() == 0) {
-            throw new DAOException("Record with RoleName = " + role + " not found.");
-        }
-
         return list.get(0);
     }
-    /**
-     * get all users from database
-     *
-     * @return
-     * @throws DAOException
-     */
-    public List<User> getAllUsers() throws DAOException {
-        List<User> usersList;
-        try (PreparedStatement statement = connection.prepareStatement(getAllUsersQuery)) {
+
+    public User getByRole(Roles role) throws DAOException {
+        List<User> list;
+        String sqlQuery = getByRoleQuery();
+
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setInt(1, role.ordinal() + 1);
             ResultSet resultSet = statement.executeQuery();
-            usersList = parseResultSet(resultSet);
-            for (User user : usersList) {
-                user.setId(0);
-                user.setEmail(null);
-                user.setStatus(null);
-            }
+            list = (List<User>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
         }
-        return usersList;
+        return list.get(0);
+    }
+
+    public User getLastFromDB() throws DAOException {
+        List<User> list;
+        String sqlQuery = getLastFormDBQuery();
+
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            ResultSet resultSet = statement.executeQuery();
+            list = (List<User>) parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return list.get(0);
     }
 
     public List<User> getFilteredUsers(SearchConditions condition, String searchTerm) throws DAOException {
         List<User> usersList;
+        String getAllUsersQuery = null;
+
         switch (condition) {
             case EQUALS:
-                getAllUsersQuery += " where FirstName = ? or LastName = ? or Login = ? or RoleName = ? " +
-                        "or RegionName = ?";
+                getAllUsersQuery = getSelectAllQuery() + " where FirstName = ? or LastName = ? or Login = ? or RoleRef = ? " +
+                        "or RegionRef = ?";
                 break;
             case NOT_EQUALS_TO:
-                getAllUsersQuery += " where FirstName != ? or LastName != ? or Login != ? or RoleName != ? " +
-                        "or RegionName != ?";
+                getAllUsersQuery = getSelectAllQuery() + " where FirstName != ? or LastName != ? or Login != ? or RoleRef != ? " +
+                        "or RegionRef != ?";
                 break;
             case CONTAINS:
-                getAllUsersQuery += " where FirstName like ? or LastName like ? or Login like ? or RoleName like ?" +
-                        " or RegionName like ?";
+                getAllUsersQuery = getSelectAllQuery() + " where FirstName like ? or LastName like ? or Login like ? or RoleRef like ?" +
+                        " or RegionRef like ?";
                 break;
             case DOES_NOT_CONTAINS:
-                getAllUsersQuery += " where FirstName not like? or LastName not like ? or Login not like ? " +
-                        "or RoleName not like ? or RegionName not like ?";
+                getAllUsersQuery = getSelectAllQuery() + " where FirstName not like? or LastName not like ? or Login not like ? " +
+                        "or RoleRef not like ? or RegionRef not like ?";
                 break;
             case STARTS_WITH:
-                getAllUsersQuery += " where FirstName like ? or LastName like ? or Login like ? or " +
-                        "RoleName like ? or RegionName like ?";
+                getAllUsersQuery = getSelectAllQuery() + " where FirstName like ? or LastName like ? or Login like ? or " +
+                        "RoleRef like ? or RegionRef like ?";
                 break;
         }
         try (PreparedStatement statement = connection.prepareStatement(getAllUsersQuery)) {
@@ -162,15 +217,16 @@ public class UserDAO extends AbstractDAO<User> {
             statement.setString(5, searchTerm);
 
             ResultSet resultSet = statement.executeQuery();
-            usersList = parseResultSet(resultSet);
-            for (User user : usersList) {
-                user.setId(0);
-                user.setEmail(null);
-                user.setStatus(null);
-            }
+            usersList = (List<User>) parseResultSet(resultSet);
+//            for (User user : usersList) {
+//                user.setId(0);
+//                user.setEmail(null);
+//                user.setStatus(null);
+//            }
         } catch (Exception e) {
             throw new DAOException(e);
         }
         return usersList;
     }
+
 }
