@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.domains.Order;
 import com.softserveinc.edu.ita.enums.OrdersTableColumns;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
+import com.softserveinc.edu.ita.locators.OrderingPageStringLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -42,9 +43,9 @@ public class OrderingPage extends LogOutBase {
             //Iteration through table rows (per page).
             for (int j = 2; j <= quantityOfOrdersPerPage + 1; j++) {
                 //There is checking of row displaying.
-                if (isElementDisplayed(By.xpath(String.format(TABLE_ROW_CELL, j)))) {
+                if (isElementDisplayed(OrderingPageStringLocators.TABLE_ROW_CELL.getByWithParameter(String.valueOf(j)))) {
                     //Recording displayed row.
-                    List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(TABLE_ROW, j)));
+                    List<WebElement> ordersFields = driver.findElements(OrderingPageStringLocators.TABLE_ROW.getByWithParameter(String.valueOf(j)).getBy());
                     //There is used StepBuilderPattern.
                     table.add(Order.newBuilder()
                             .setOrderName(ordersFields.get(0).getText())
@@ -88,7 +89,7 @@ public class OrderingPage extends LogOutBase {
      * There is method to click one of "Ordering" table headers to make sorting actions in the table.
      */
     public void clickOrdersTableColumn(OrdersTableColumns tableColumn) {
-        driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, tableColumn.toString()))).click();
+        click(OrderingPageStringLocators.TABLE_COLUMN.getByWithParameter(tableColumn.toString()));
     }
 
 }

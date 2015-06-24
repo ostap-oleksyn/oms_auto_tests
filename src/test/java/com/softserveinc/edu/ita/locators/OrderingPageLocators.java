@@ -28,11 +28,6 @@ public enum OrderingPageLocators implements ILocator {
             "Edit table label",
             By.xpath("//tr[1]/th[8]"));
 
-    // TODO redo to enum
-    public static final String TABLE_ROW_CELL = ".//div[@id='list']/table/tbody/tr[%s]/td[1]";
-    public static final String TABLE_ROW = ".//div[@id='list']/table/tbody/tr[%s]/td";
-    public static final String TABLE_COLUMN = ".//*[@id='list']/table/tbody/tr[1]/th/a[contains(text(), '%s')]";
-
     OrderingPageLocators(String name, By locator) {
         this.name = name;
         this.locator = locator;

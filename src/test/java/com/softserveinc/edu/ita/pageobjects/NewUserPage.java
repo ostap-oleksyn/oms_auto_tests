@@ -5,6 +5,7 @@ import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Regions;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.locators.NewUserPageLocators;
+import com.softserveinc.edu.ita.locators.NewUserPageStringLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -48,7 +49,7 @@ public class NewUserPage extends LogOutBase {
     }
 
     public void clickRoleRadioButton(Roles roleName) {
-        driver.findElement(By.xpath(String.format(NewUserPageLocators.ROLE_SELECT, roleName.ordinal() + 1))).click();
+        click(NewUserPageStringLocators.ROLE_SELECT.getByWithParameter(String.valueOf(roleName.ordinal() + 1)));
     }
 
     public void selectRegion(Regions regionName) {
