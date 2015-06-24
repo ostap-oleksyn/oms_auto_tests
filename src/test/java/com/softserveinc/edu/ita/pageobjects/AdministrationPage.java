@@ -4,6 +4,7 @@ import com.softserveinc.edu.ita.domains.UserFromView;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
 import com.softserveinc.edu.ita.enums.UsersTableColumns;
+import com.softserveinc.edu.ita.locators.AdministrationPageStringLocators;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -69,7 +70,7 @@ public class AdministrationPage extends LogOutBase {
         click(USERS_LIST_RESIZE_LINK);
         do {
             if (driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy()).size() <= 1) {
-                    return usersList;
+                return usersList;
             } else {
                 List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy());
                 for (int j = 1; j < rowsList.size(); j++) {
@@ -108,8 +109,8 @@ public class AdministrationPage extends LogOutBase {
      * A method to click one of "Administration" table headers to make sorting actions in the table.
      */
     public void clickAdministrationTableColumn(UsersTableColumns tableColumn) {
-        driver.findElement(By.xpath(String.format(AdministrationPageLocators.TABLE_COLUMN, tableColumn))).click();
-        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Clicked <b>%s</b>", tableColumn));
+        AdministrationPageStringLocators.TABLE_COLUMN.setByWithParameter(tableColumn.toString());
+        click(AdministrationPageStringLocators.TABLE_COLUMN);
     }
 
     /**
@@ -119,21 +120,22 @@ public class AdministrationPage extends LogOutBase {
         return Integer.valueOf(getElementText(AdministrationPageLocators.QUANTITY_OF_TABLE_PAGES));
     }
 
-    public int getFoundUsersNumber(){
+    public int getFoundUsersNumber() {
         return Integer.parseInt(getElementText(AdministrationPageLocators.FOUND_USERS_NUMBER));
     }
 
-    public int getNumberOfRows(){
+    public int getNumberOfRows() {
         return driver.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
     }
 
-    public void clickUsersListResizeLink(){
+    public void clickUsersListResizeLink() {
         click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);
     }
 
-    public int getCurrentPageNumber(){
+    public int getCurrentPageNumber() {
         return Integer.parseInt(getElementText(AdministrationPageLocators.CURRENT_PAGE_NUMBER));
     }
+
     public void clickPreviousButton() {
         click(AdministrationPageLocators.BACKWARD_BUTTON);
     }
@@ -170,7 +172,7 @@ public class AdministrationPage extends LogOutBase {
      */
 
     public AdministrationPage fillSearchField(String searchTerm) {
-        sendKeys(SEARCH_FIELD,searchTerm);
+        sendKeys(SEARCH_FIELD, searchTerm);
         return this;
     }
 

@@ -67,7 +67,6 @@ public enum AdministrationPageLocators implements ILocator {
             By.xpath(".//*[@id='searchForm']/input[2]"));
 
     // TODO redo to enum
-    public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";
     public static final String DELETE_LINK = ".//*[@id='table']/tbody/tr[%s]/td[7]/a";
     public static final String LOGIN_CELL = ".//*[@id='table']/tbody/tr[%s]/td[3]";
 
