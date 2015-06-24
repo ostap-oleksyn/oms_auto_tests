@@ -1,17 +1,30 @@
 package com.softserveinc.edu.ita.tests;
 
-import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
+import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
+import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
+import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
+import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
+import com.softserveinc.edu.ita.enums.ordering_page.RoleFilterValue;
+import com.softserveinc.edu.ita.enums.ordering_page.StatusFilterValue;
 import com.softserveinc.edu.ita.locators.*;
 import com.softserveinc.edu.ita.pageobjects.*;
+import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
+
+import static com.softserveinc.edu.ita.utils.EnumUtil.getRandomEnum;
+import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 public class TabsNavigationTest extends TestRunner {
 
     private HomePage homePage;
     private UserInfoPage userInfoPage;
+    private AdministrationPage administrationPage;
     private OrderingPage orderingPage;
+    private ItemManagementPage itemManagementPage;
+    private String searchTerm;
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
     public void administratorTabsTest(User user) {
@@ -30,7 +43,7 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
                 "User info tab is the default tab");
 
-        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        administrationPage = userInfoPage.clickAdministrationTab();
 
         loggingAssert.assertTrue(administrationPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(administrationPage.getElementText(CommonLocators.ADMINISTRATION_TAB)),
@@ -129,7 +142,7 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
                 "User info tab is the default tab");
 
-        ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
+        itemManagementPage = userInfoPage.clickItemManagementTab();
 
         loggingAssert.assertTrue(itemManagementPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(itemManagementPage.getElementText(CommonLocators.ITEM_MANAGEMENT_TAB)),
@@ -143,6 +156,158 @@ public class TabsNavigationTest extends TestRunner {
         loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
                         .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
                 "Switched to User Info tab");
+    }
+
+    @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
+    public void administrationTabStateTest(User user) {
+        homePage = new HomePage(driver);
+        userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
+        administrationPage = userInfoPage.clickAdministrationTab();
+
+        final SearchConditions condition = getRandomEnum(SearchConditions.class);
+        final SearchFilters filter = getRandomEnum(SearchFilters.class);
+        searchTerm = generateString("NameSymbols", 5, 10);
+
+        administrationPage.setFilters(filter)
+                .setCondition(condition)
+                .fillSearchField(searchTerm)
+                .clickSearchButton();
+
+        userInfoPage = administrationPage.clickUserInfoTab();
+        administrationPage = userInfoPage.clickAdministrationTab();
+
+        loggingSoftAssert.assertEquals(administrationPage.getElementText(AdministrationPageLocators.SELECTED_FILTER), filter.getFilterName(),
+                String.format("Selected filter didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
+                        , filter.getFilterName(), administrationPage.getElementText(AdministrationPageLocators.SELECTED_FILTER)));
+
+        loggingSoftAssert.assertEquals(administrationPage.getElementText(AdministrationPageLocators.SELECTED_CONDITION), condition.getCondition(),
+                String.format("Selected condition didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
+                        , condition.getCondition(), administrationPage.getElementText(AdministrationPageLocators.SELECTED_CONDITION)));
+
+        loggingSoftAssert.assertEquals(administrationPage.getSearchFieldText(), searchTerm,
+                String.format("Typed in search term didn't cleared: expected - <b>%s</b>; actual - <b>%s</b>;",
+                        searchTerm, administrationPage.getSearchFieldText()));
+
+        loggingSoftAssert.assertAll();
+    }
+
+    @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
+    public void itemManagementTabStateTest(User user) {
+        homePage = new HomePage(driver);
+        userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
+        itemManagementPage = userInfoPage.clickItemManagementTab();
+
+        final ItemFilter filter = getRandomEnum(ItemFilter.class);
+        searchTerm = generateString("NameSymbols", 5, 10);
+
+        itemManagementPage.setFilters(filter)
+                .fillSearchField(searchTerm)
+                .clickSearchButton();
+
+        userInfoPage = itemManagementPage.clickUserInfoTab();
+        itemManagementPage = userInfoPage.clickItemManagementTab();
+
+        loggingSoftAssert.assertEquals(itemManagementPage.getElementText(ItemManagementPageLocators.SELECTED_FILTER), filter.getFilterName(),
+                String.format("Selected filter didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
+                        , filter.getFilterName(), itemManagementPage.getElementText(ItemManagementPageLocators.SELECTED_FILTER)));
+
+        loggingSoftAssert.assertEquals(itemManagementPage.getSearchFieldText(), searchTerm,
+                String.format("Typed in search term didn't cleared: expected - <b>%s</b>; actual - <b>%s</b>;",
+                        searchTerm, itemManagementPage.getSearchFieldText()));
+
+        loggingSoftAssert.assertAll();
+    }
+
+    @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
+    public void merchandiserOrderingTabStateTest(User user) {
+        homePage = new HomePage(driver);
+        userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
+        orderingPage = userInfoPage.clickOrderingTab();
+
+        final OrderFilter filter = getRandomEnum(OrderFilter.class);
+        final Enum filterValue;
+        final OrderSearchCondition searchCondition = getRandomEnum(OrderSearchCondition.class);
+        searchTerm = generateString("NameSymbols", 5, 10);
+
+        if (filter.equals(OrderFilter.ROLE)) {
+            filterValue = getRandomEnum(RoleFilterValue.class);
+        } else {
+            filterValue = getRandomEnum(StatusFilterValue.class);
+        }
+
+        orderingPage.setFilter(filter)
+                .clickApplyButton()
+                .setFilterValue(filterValue)
+                .setSearchCondition(searchCondition)
+                .fillSearchField(searchTerm)
+                .clickApplyButton();
+
+        userInfoPage = orderingPage.clickUserInfoTab();
+        orderingPage = userInfoPage.clickOrderingTab();
+
+        loggingSoftAssert.assertEquals(orderingPage.getElementText(OrderingPageLocators.SELECTED_FILTER), filter.getFilterName(),
+                String.format("Selected filter didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
+                        , filter.getFilterName(), orderingPage.getElementText(OrderingPageLocators.SELECTED_FILTER)));
+
+        loggingSoftAssert.assertEquals(orderingPage.getElementText(OrderingPageLocators.SELECTED_FILTER_VALUE), filterValue.toString(),
+                String.format("Selected filter value didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
+                        , filterValue.toString(), orderingPage.getElementText(OrderingPageLocators.SELECTED_FILTER_VALUE)));
+
+        loggingSoftAssert.assertEquals(orderingPage.getElementText(OrderingPageLocators.SELECTED_SEARCH_CONDITION), searchCondition.getSearchCondition(),
+                String.format("Selected search condition didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
+                        , searchCondition.getSearchCondition(), orderingPage.getElementText(OrderingPageLocators.SELECTED_SEARCH_CONDITION)));
+
+        loggingSoftAssert.assertEquals(orderingPage.getSearchFieldText(), searchTerm,
+                String.format("Typed in search term didn't cleared: expected - <b>%s</b>; actual - <b>%s</b>;",
+                        searchTerm, orderingPage.getSearchFieldText()));
+
+        loggingSoftAssert.assertAll();
+    }
+
+    @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
+    public void customerOrderingTabStateTest(User user) {
+        homePage = new HomePage(driver);
+        userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
+        orderingPage = userInfoPage.clickOrderingTab();
+
+        final OrderFilter filter = getRandomEnum(OrderFilter.class);
+        final Enum filterValue;
+        final OrderSearchCondition searchCondition = getRandomEnum(OrderSearchCondition.class);
+        searchTerm = generateString("NameSymbols", 5, 10);
+
+        if (filter.equals(OrderFilter.ROLE)) {
+            filterValue = getRandomEnum(RoleFilterValue.class, 0);
+        } else {
+            filterValue = getRandomEnum(StatusFilterValue.class, 0);
+        }
+
+        orderingPage.setFilter(filter)
+                .clickApplyButton()
+                .setFilterValue(filterValue)
+                .setSearchCondition(searchCondition)
+                .fillSearchField(searchTerm)
+                .clickApplyButton();
+
+        userInfoPage = orderingPage.clickUserInfoTab();
+        orderingPage = userInfoPage.clickOrderingTab();
+
+        loggingSoftAssert.assertEquals(orderingPage.getElementText(OrderingPageLocators.SELECTED_FILTER), filter.getFilterName(),
+                String.format("Selected filter didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
+                        , filter.getFilterName(), orderingPage.getElementText(OrderingPageLocators.SELECTED_FILTER)));
+
+        loggingSoftAssert.assertEquals(orderingPage.getElementText(OrderingPageLocators.SELECTED_FILTER_VALUE), filterValue.toString(),
+                String.format("Selected filter value didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
+                        , filterValue.toString(), orderingPage.getElementText(OrderingPageLocators.SELECTED_FILTER_VALUE)));
+
+        loggingSoftAssert.assertEquals(orderingPage.getElementText(OrderingPageLocators.SELECTED_SEARCH_CONDITION), searchCondition.getSearchCondition(),
+                String.format("Selected search condition didn't revert to default: expected - <b>%s</b>; actual - <b>%s</b>;"
+                        , searchCondition.getSearchCondition(), orderingPage.getElementText(OrderingPageLocators.SELECTED_SEARCH_CONDITION)));
+
+        loggingSoftAssert.assertEquals(orderingPage.getSearchFieldText(), searchTerm,
+                String.format("Typed in search term didn't cleared: expected - <b>%s</b>; actual - <b>%s</b>;",
+                        searchTerm, orderingPage.getSearchFieldText()));
+
+        loggingSoftAssert.assertAll();
     }
 
     @AfterMethod

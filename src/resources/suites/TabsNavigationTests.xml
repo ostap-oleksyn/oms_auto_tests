@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Tabs Navigation Tests" verbose="1" parallel="tests" thread-count="4">
+<suite name="Tabs Navigation Tests" verbose="1" parallel="tests" thread-count="8">
     <test name="Administrator tab navigation test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
@@ -33,6 +33,42 @@
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
                     <include name="supervisorTabsTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Administartion tab state test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
+                <methods>
+                    <include name="administrationTabStateTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Customer tab state test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
+                <methods>
+                    <include name="customerOrderingTabStateTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Supervisor tab state test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
+                <methods>
+                    <include name="itemManagementTabStateTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Merchandiser tab state test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
+                <methods>
+                    <include name="merchandiserOrderingTabStateTest"/>
                 </methods>
             </class>
         </classes>

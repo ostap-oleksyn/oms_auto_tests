@@ -126,18 +126,6 @@ public class OrderingPage extends LogOutBase {
         return this;
     }
 
-    public String getSelectedFilter() {
-        return getElementText(OrderingPageLocators.SELECTED_FILTER);
-    }
-
-    public String getSelectedFilterValue() {
-        return getElementText(OrderingPageLocators.SELECTED_FILTER_VALUE);
-    }
-
-    public String getSelectedSearchCondition() {
-        return getElementText(OrderingPageLocators.SELECTED_SEARCH_CONDITION);
-    }
-
     public String getSearchFieldText() {
         return getElementAttribute(OrderingPageLocators.SEARCH_FIELD, "value");
     }

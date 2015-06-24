@@ -27,10 +27,6 @@ public class ItemManagementPage extends LogOutBase {
         return this;
     }
 
-    public String getSelectedFilter() {
-        return getElementText(ItemManagementPageLocators.SELECTED_FILTER);
-    }
-
     public ItemManagementPage clickSearchButton() {
         click(SEARCH_BUTTON);
         return this;

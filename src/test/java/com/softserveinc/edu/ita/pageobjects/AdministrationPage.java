@@ -187,14 +187,6 @@ public class AdministrationPage extends LogOutBase {
         driver.findElement(SEARCH_FIELD.getBy()).clear();
     }
 
-    public String getSelectedFilter() {
-        return getElementText(AdministrationPageLocators.SELECTED_FILTER);
-    }
-
-    public String getSelectedCondition() {
-        return getElementText(AdministrationPageLocators.SELECTED_CONDITION);
-    }
-
     public String getSearchFieldText() {
         return getElementAttribute(AdministrationPageLocators.SEARCH_FIELD, "value");
     }
