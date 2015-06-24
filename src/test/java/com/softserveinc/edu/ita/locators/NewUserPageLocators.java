@@ -61,9 +61,6 @@ public enum NewUserPageLocators implements ILocator {
             "Email error label",
             By.xpath(".//*[@id='emailError']"));
 
-    // TODO redo to enum
-    public static final String ROLE_SELECT = ".//*[@id='roleID%s']";
-
     private String name;
     private By locator;
 

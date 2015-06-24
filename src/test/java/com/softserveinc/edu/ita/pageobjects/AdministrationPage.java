@@ -35,11 +35,7 @@ public class AdministrationPage extends LogOutBase {
     public String getRandomLoginFromView() {
         Random randomGenerator = new Random();
         int randomLoginRow = randomGenerator.nextInt(4) + 1;
-
-        WebElement loginCell = driver.findElement(By.xpath(
-                String.format(AdministrationPageLocators.LOGIN_CELL, randomLoginRow)));
-
-        return loginCell.getText();
+        return getElementText(AdministrationPageStringLocators.LOGIN_CELL.getByWithParameter(String.valueOf(randomLoginRow)));
     }
 
     public void clickLastButton() {
@@ -49,16 +45,14 @@ public class AdministrationPage extends LogOutBase {
     public String getLastLogin() {
         WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
         int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
-        String login = driver.findElement(By.xpath(String
-                .format(AdministrationPageLocators.LOGIN_CELL, tableSize))).getText();
-        return login;
+        return getElementText(AdministrationPageStringLocators.LOGIN_CELL.getByWithParameter(String.valueOf(tableSize)));
+
     }
 
     public void clickDeleteLastUserLink() {
         WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
         int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
-        driver.findElement(By.xpath(String
-                .format(AdministrationPageLocators.DELETE_LINK, tableSize))).click();
+        click(AdministrationPageStringLocators.DELETE_LINK.getByWithParameter(String.valueOf(tableSize)));
     }
 
     /**
