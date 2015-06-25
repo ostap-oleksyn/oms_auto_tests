@@ -1,9 +1,9 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.UserFromView;
+import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
-import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -69,7 +69,7 @@ public class AdministrationPage extends LogOutBase {
         click(USERS_LIST_RESIZE_LINK);
         do {
             if (driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy()).size() <= 1) {
-                    return usersList;
+                return usersList;
             } else {
                 List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy());
                 for (int j = 1; j < rowsList.size(); j++) {
@@ -119,21 +119,22 @@ public class AdministrationPage extends LogOutBase {
         return Integer.valueOf(getElementText(AdministrationPageLocators.QUANTITY_OF_TABLE_PAGES));
     }
 
-    public int getFoundUsersNumber(){
+    public int getFoundUsersNumber() {
         return Integer.parseInt(getElementText(AdministrationPageLocators.FOUND_USERS_NUMBER));
     }
 
-    public int getNumberOfRows(){
+    public int getNumberOfRows() {
         return driver.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
     }
 
-    public void clickUsersListResizeLink(){
+    public void clickUsersListResizeLink() {
         click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);
     }
 
-    public int getCurrentPageNumber(){
+    public int getCurrentPageNumber() {
         return Integer.parseInt(getElementText(AdministrationPageLocators.CURRENT_PAGE_NUMBER));
     }
+
     public void clickPreviousButton() {
         click(AdministrationPageLocators.BACKWARD_BUTTON);
     }
@@ -147,6 +148,7 @@ public class AdministrationPage extends LogOutBase {
     public AdministrationPage setFilters(SearchFilters filter) {
         Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filter.toString());
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
         return this;
     }
 
@@ -159,6 +161,7 @@ public class AdministrationPage extends LogOutBase {
     public AdministrationPage setCondition(SearchConditions condition) {
         Select conditionSelect = new Select(driver.findElement(CONDITION_SELECT.getBy()));
         conditionSelect.selectByVisibleText(condition.toString());
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected condition - <b>'%s'</b>", condition.getCondition()));
         return this;
     }
 
@@ -168,7 +171,6 @@ public class AdministrationPage extends LogOutBase {
      * @param searchTerm
      * @return
      */
-
     public AdministrationPage fillSearchField(String searchTerm) {
         sendKeys(SEARCH_FIELD, searchTerm);
         return this;
@@ -185,8 +187,12 @@ public class AdministrationPage extends LogOutBase {
         driver.findElement(SEARCH_FIELD.getBy()).clear();
     }
 
-    public void clickCreateReportLink(){
+
+    public void clickCreateReportLink() {
         click(AdministrationPageLocators.CREATE_REPORT_LINK);
     }
 
+    public String getSearchFieldText() {
+        return getElementAttribute(AdministrationPageLocators.SEARCH_FIELD, "value");
+    }
 }

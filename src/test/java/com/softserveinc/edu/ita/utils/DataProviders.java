@@ -19,6 +19,7 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 import static com.softserveinc.edu.ita.utils.DBUtility.getByLogin;
+import static com.softserveinc.edu.ita.utils.EnumUtil.getRandomEnum;
 import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 
@@ -26,6 +27,7 @@ public class DataProviders {
 
     /**
      * returns searchterms from xls file
+     *
      * @return
      */
     @DataProvider(name = "getSearchTerms")
@@ -134,10 +136,6 @@ public class DataProviders {
     }
 
     private static Object[][] getUsersFromList(Roles role) throws DAOException, IOException {
-        final FactoryDAO factory = new FactoryDAO();
-        final Connection connection = factory.getConnection();
-        final AbstractDAO userDAO = (AbstractDAO) factory.getDAO(connection, User.class);
-
         final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.toString());
         final List<User> users = new ArrayList<>();
         for (String usersLogin : usersLoginFromXls) {
@@ -170,10 +168,10 @@ public class DataProviders {
                             + generateString("DomainNamesSymbols", 4, 8) + "."
                             + generateString("DomainNamesSymbols", 3, 4))
                     .withPassword(generateString("PasswordSymbols", 4, 10))
-                    .withRoleRef(String.valueOf(Roles.getRandomRole()))
+                    .withRoleRef(getRandomEnum(Roles.class, 1).toString())
                     .withoutCustomerTypeRef()
                     .withStatus("1")
-                    .withRegionRef(String.valueOf(Regions.getRandomRegion()))
+                    .withRegionRef(getRandomEnum(Regions.class, 1).toString())
                     .build();
 
             usersList[i][0] = user;

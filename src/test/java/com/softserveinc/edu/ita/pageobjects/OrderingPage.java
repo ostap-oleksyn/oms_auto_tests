@@ -2,10 +2,14 @@ package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.Order;
 import com.softserveinc.edu.ita.enums.OrdersTableColumns;
+import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
+import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Reporter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -91,5 +95,39 @@ public class OrderingPage extends LogOutBase {
         driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, tableColumn.toString()))).click();
     }
 
+    public OrderingPage setFilter(OrderFilter filter) {
+        Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_SELECT.getBy()));
+        fieldSelect.selectByVisibleText(filter.getFilterName());
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
+        return this;
+    }
+
+    public OrderingPage setFilterValue(Enum filterValue) {
+        Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_VALUE_SELECT.getBy()));
+        fieldSelect.selectByVisibleText(filterValue.toString());
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter value - <b>'%s'</b>", filterValue.toString()));
+        return this;
+    }
+
+    public OrderingPage setSearchCondition(OrderSearchCondition searchCondition) {
+        Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.SEARCH_CONDITION_SELECT.getBy()));
+        fieldSelect.selectByVisibleText(searchCondition.getSearchCondition());
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected search condition - <b>'%s'</b>", searchCondition.getSearchCondition()));
+        return this;
+    }
+
+    public OrderingPage clickApplyButton() {
+        click(OrderingPageLocators.APPLY_BUTTON);
+        return this;
+    }
+
+    public OrderingPage fillSearchField(String searchTerm) {
+        sendKeys(OrderingPageLocators.SEARCH_FIELD, searchTerm);
+        return this;
+    }
+
+    public String getSearchFieldText() {
+        return getElementAttribute(OrderingPageLocators.SEARCH_FIELD, "value");
+    }
 }
 

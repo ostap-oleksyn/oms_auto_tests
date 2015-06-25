@@ -14,7 +14,13 @@ public enum ItemManagementPageLocators implements ILocator {
             By.xpath(".//*[@id='list']/h2")),
     SUPERVISOR_FILTER_LABEL(
             "Filter label",
-            By.xpath(".//*[@id='searchForm']/label"));
+            By.xpath(".//*[@id='searchForm']/label")),
+    SELECTED_FILTER(
+            "Selected filter",
+            By.xpath(".//*[@id='field']//option[@selected='selected']")),
+    SEARCH_FIELD(
+            "Search field",
+            By.xpath(".//*[@id='searchField']"));
 
 
     ItemManagementPageLocators(String name, By locator) {
