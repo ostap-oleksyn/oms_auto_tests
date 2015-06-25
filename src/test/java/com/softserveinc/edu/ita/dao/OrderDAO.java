@@ -104,7 +104,6 @@ public class OrderDAO<T> extends AbstractDAO<T> {
         List<T> resultList = new LinkedList<>();
         try {
             while (resultSet.next()) {
-                // TODO add maxDiscount, deliveryDate, preferableDeliveryDate
                 Order order = Order.newBuilder()
                         .withId(resultSet.getInt("Id"))
                         .withOrderName(resultSet.getString("OrderName"))

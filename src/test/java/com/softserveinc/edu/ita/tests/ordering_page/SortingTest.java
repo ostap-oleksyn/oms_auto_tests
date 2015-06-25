@@ -25,8 +25,6 @@ import java.util.List;
  */
 public class SortingTest extends TestRunner {
 
-    // TODO Do smth with Order::getrole
-
     //Test sorting by Order Name
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
     public void testOrderNameColumn(User user) {
@@ -173,6 +171,7 @@ public class SortingTest extends TestRunner {
         List<Order> sortedTableByAssigneeDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
+            // TODO redo getAssignee from table
             loggingAssert.assertTrue(sortedTableByAssigneeAsc.get(i).getAssignee() == tableFromView.get(i).getAssignee(),
                     "Sorting by assignee in ascending order assert.");
         }
