@@ -50,7 +50,16 @@ public enum OrderingPageLocators implements ILocator {
             By.xpath(".//*[@id='search']//*[@selected='selected']")),
     APPLY_BUTTON(
             "Apply button",
-            By.xpath(".//input[@name='Apply']"));
+            By.xpath(".//input[@name='Apply']")),
+    ORDER_NAME(
+            "Order name",
+            By.xpath("//div[2]/table/tbody/tr/td[1]")),
+    ORDER_STATUS(
+            "Order status",
+            By.xpath("//div[2]/table/tbody/tr/td[5]")),
+    ORDER_ASSIGNEE(
+            "Order assignee",
+            By.xpath("//div[2]/table/tbody/tr/td[6]"));
 
     // TODO redo to enum
     public static final String TABLE_ROW_CELL = ".//div[@id='list']/table/tbody/tr[%s]/td[1]";

@@ -75,6 +75,25 @@ public class OrderingPage extends LogOutBase {
     }
 
     /**
+     *  sets orderNames orderStatuses or orderAssignees in list
+     *
+     * @param condition
+     * @return
+     */
+    public List<WebElement> getOrderFromView(OrderSearchCondition condition){
+        switch (condition){
+            case ORDER_NAME:
+                return driver.findElements(ORDER_NAME.getBy());
+            case STATUS:
+                return driver.findElements(ORDER_STATUS.getBy());
+            case ASSIGNEE:
+                return driver.findElements(ORDER_ASSIGNEE.getBy());
+            default:
+                return null;
+        }
+    }
+
+    /**
      * There is method to click "First" button below "Ordering" table of "Ordering" page.
      */
     public void clickFirstButton() {
@@ -123,6 +142,11 @@ public class OrderingPage extends LogOutBase {
 
     public OrderingPage fillSearchField(String searchTerm) {
         sendKeys(OrderingPageLocators.SEARCH_FIELD, searchTerm);
+        return this;
+    }
+
+    public OrderingPage clearSearchField() {
+        clear(SEARCH_FIELD);
         return this;
     }
 

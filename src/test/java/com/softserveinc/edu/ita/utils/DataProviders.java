@@ -40,6 +40,20 @@ public class DataProviders {
         }
         return searchTerms;
     }
+    /**
+     * returns searchterms from xls file
+     * @return
+     */
+    @DataProvider(name = "getOrderSearchTerms")
+    public static Object[][] getOrderSearchTerms() {
+        Object[][] searchTerms = null;
+        try {
+            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("OrderSearchTerms");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return searchTerms;
+    }
 
     /**
      * Returns names of 'Users' table columns.

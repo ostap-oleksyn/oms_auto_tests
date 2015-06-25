@@ -8,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 
+import static com.softserveinc.edu.ita.locators.OrderingPageLocators.SEARCH_FIELD;
+
 public abstract class PageObjectBase {
 
     protected WebDriver driver;
@@ -52,6 +54,11 @@ public abstract class PageObjectBase {
     public void sendKeys(ILocator locator, String text) {
         driver.findElement(locator.getBy()).sendKeys(text);
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Typed '%s' in <b>%s</b>", text, locator.getName()));
+    }
+
+    public void clear(ILocator locator){
+        driver.findElement(SEARCH_FIELD.getBy()).clear();
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - cleared <b>%s</b>", locator.getName()));
     }
 
     public void acceptAlert() {
