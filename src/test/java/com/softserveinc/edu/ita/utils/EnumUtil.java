@@ -18,11 +18,11 @@ public final class EnumUtil {
      */
     public static <T extends Enum> T getRandomEnum(Class<T> className, int... modifier) {
         final Random random = new Random();
-        int mod = 0;
+        int enumsToExclude = 0;
         for (int value : modifier) {
-            mod += value;
+            enumsToExclude += value;
         }
-        final int i = random.nextInt(className.getEnumConstants().length - mod);
+        final int i = random.nextInt(className.getEnumConstants().length - enumsToExclude);
         return className.getEnumConstants()[i];
     }
 }
