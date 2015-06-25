@@ -53,18 +53,21 @@ public enum AdministrationPageLocators implements ILocator {
     FILTER_SELECT(
             "Filter select",
             By.xpath(".//fieldset/form/select[1]")),
-
     CONDITION_SELECT(
             "Condition select",
             By.xpath(".//fieldset/form/select[2]")),
-
     SEARCH_FIELD(
             "Search field",
             By.xpath(".//*[@id='searchField']")),
-
     SEARCH_BUTTON(
             "Search button",
-            By.xpath(".//*[@id='searchForm']/input[2]"));
+            By.xpath(".//*[@id='searchForm']/input[2]")),
+    SELECTED_FILTER(
+            "Selected filter",
+            By.xpath(".//*[@id='field']//*[@selected='selected']")),
+    SELECTED_CONDITION(
+            "Selected condition",
+            By.xpath(".//*[@id='condition']//*[@selected='selected']"));
 
     // TODO redo to enum
     public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";
