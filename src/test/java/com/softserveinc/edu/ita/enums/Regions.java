@@ -34,10 +34,10 @@ public enum Regions {
                 '}';
     }
 
-    public static String getRegionName(int regionRef) {
+    public static String getRegionName(int regionReference) {
 
         for (Regions region: Regions.values()) {
-            if (region.getRegionReference() == regionRef) {
+            if (region.getRegionReference() == regionReference) {
                 return region.getRegionName();
             }
         }

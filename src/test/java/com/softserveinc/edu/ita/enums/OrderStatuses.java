@@ -43,4 +43,16 @@ public enum OrderStatuses {
 
         return null;
     }
+
+    public static int getStatusReference(String statusName) {
+
+        for (OrderStatuses orderStatus: OrderStatuses.values()) {
+            if (orderStatus.getStatusName() == statusName) {
+                return orderStatus.getStatusReference();
+            }
+        }
+
+        return 0;
+    }
+
 }

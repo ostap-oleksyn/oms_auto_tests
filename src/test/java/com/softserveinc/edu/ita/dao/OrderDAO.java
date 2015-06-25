@@ -115,7 +115,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
                         .withOrderStatusReference(resultSet.getInt("OrderStatusRef"))
                         .withMaxDiscount(resultSet.getInt("MaxDiscount"))
                         .withDeliveryDate(resultSet.getString("DeliveryDate"))
-                        .withoutPreferableDeliveryDate(resultSet.getString("PreferableDeliveryDate"))
+                        .withPreferableDeliveryDate(resultSet.getString("PreferableDeliveryDate"))
                         .build();
                 resultList.add((T) (order));
             }

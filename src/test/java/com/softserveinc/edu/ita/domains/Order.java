@@ -15,6 +15,8 @@ public class Order {
     private int orderStatusReference;
     private String deliveryDate;
     private String preferableDeliveryDate;
+    @Deprecated
+    private String Role;
 
     private Order() {}
 
@@ -102,6 +104,14 @@ public class Order {
         return OrderStatuses.getStatusName(orderStatusReference);
     }
 
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String role) {
+        Role = role;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -169,7 +179,7 @@ public class Order {
 
     public static interface PreferableDeliveryDateStep {
         BuildStep withPreferableDeliveryDate(String preferableDeliveryDate);
-        BuildStep withoutPreferableDeliveryDate(String preferableDeliveryDate);
+        BuildStep withoutPreferableDeliveryDate();
     }
 
     public static interface BuildStep {
@@ -302,7 +312,7 @@ public class Order {
         }
 
         @Override
-        public BuildStep withoutPreferableDeliveryDate(String preferableDeliveryDate) {
+        public BuildStep withoutPreferableDeliveryDate() {
             return this;
         }
 

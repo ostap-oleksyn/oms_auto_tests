@@ -24,6 +24,9 @@ import java.util.List;
  * This class is used to test sorting actions in 'Ordering' table of 'Ordering' page.
  */
 public class SortingTest extends TestRunner {
+
+    // TODO Do smth with Order::getrole
+
     //Test sorting by Order Name
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
     public void testOrderNameColumn(User user) {
@@ -92,12 +95,12 @@ public class SortingTest extends TestRunner {
         List<Order> sortedTableByMaxDiscountDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            loggingAssert.assertTrue(sortedTableByMaxDiscountAsc.get(i).getMaxDiscount().equals(tableFromView.get(i).getMaxDiscount()),
+            loggingAssert.assertTrue(sortedTableByMaxDiscountAsc.get(i).getMaxDiscount() == tableFromView.get(i).getMaxDiscount(),
                     "Sorting by max discount in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            loggingAssert.assertTrue(sortedTableByMaxDiscountDesc.get(i).getMaxDiscount().equals(tableFromView.get(j).getMaxDiscount()),
+            loggingAssert.assertTrue(sortedTableByMaxDiscountDesc.get(i).getMaxDiscount() == tableFromView.get(j).getMaxDiscount(),
                     "Sorting by max discount in descending order assert.");
         }
     }
@@ -170,12 +173,12 @@ public class SortingTest extends TestRunner {
         List<Order> sortedTableByAssigneeDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            loggingAssert.assertTrue(sortedTableByAssigneeAsc.get(i).getAssignee().equals(tableFromView.get(i).getAssignee()),
+            loggingAssert.assertTrue(sortedTableByAssigneeAsc.get(i).getAssignee() == tableFromView.get(i).getAssignee(),
                     "Sorting by assignee in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            loggingAssert.assertTrue(sortedTableByAssigneeDesc.get(i).getAssignee().equals(tableFromView.get(j).getAssignee()),
+            loggingAssert.assertTrue(sortedTableByAssigneeDesc.get(i).getAssignee() == tableFromView.get(j).getAssignee(),
                     "Sorting by assignee in descending order assert.");
         }
     }

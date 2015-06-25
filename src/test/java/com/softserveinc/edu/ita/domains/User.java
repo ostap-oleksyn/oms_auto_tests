@@ -1,5 +1,6 @@
 package com.softserveinc.edu.ita.domains;
 
+import com.softserveinc.edu.ita.enums.CustomerTypes;
 import com.softserveinc.edu.ita.enums.Roles;
 
 /**
@@ -119,6 +120,10 @@ public class User {
 
     public String getRoleName() {
         return Roles.getRoleName(roleReference);
+    }
+
+    public String getCustomerTypeName() {
+        return CustomerTypes.getCustomerTypeName(customerTypeReference);
     }
 
     public static IdStep newBuilder() {
