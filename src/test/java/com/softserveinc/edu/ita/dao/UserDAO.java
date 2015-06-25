@@ -218,11 +218,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
 
             ResultSet resultSet = statement.executeQuery();
             usersList = (List<User>) parseResultSet(resultSet);
-//            for (User user : usersList) {
-//                user.setId(0);
-//                user.setEmail(null);
-//                user.setStatus(null);
-//            }
+
         } catch (Exception e) {
             throw new DAOException(e);
         }
