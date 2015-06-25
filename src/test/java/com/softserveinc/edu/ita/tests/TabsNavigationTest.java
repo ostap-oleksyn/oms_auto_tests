@@ -21,28 +21,28 @@ public class TabsNavigationTest extends TestRunner {
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
                 .equals(user.getRoleReference()), "User roles match");
 
-        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
+        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB.setByWithoutParameter()),
                 "User Info tab displayed");
-        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ADMINISTRATION_TAB),
+        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ADMINISTRATION_TAB.setByWithoutParameter()),
                 "Administration tab displayed");
 
-        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
+        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.setByWithoutParameter())),
                 "User info tab is the default tab");
 
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
-        loggingAssert.assertTrue(administrationPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(administrationPage.getElementText(CommonLocators.ADMINISTRATION_TAB)),
+        loggingAssert.assertTrue(administrationPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(administrationPage.getElementText(CommonLocators.ADMINISTRATION_TAB.setByWithoutParameter())),
                 "Switched to Administration tab");
 
-        loggingAssert.assertTrue(administrationPage.isElementDisplayed(AdministrationPageLocators.CREATE_NEW_USER_LINK),
+        loggingAssert.assertTrue(administrationPage.isElementDisplayed(AdministrationPageLocators.CREATE_NEW_USER_LINK.setByWithoutParameter()),
                 "Create new user link displayed");
 
         userInfoPage = administrationPage.clickUserInfoTab();
 
-        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
+        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.setByWithoutParameter())),
                 "Switched to User Info tab");
     }
 
@@ -54,19 +54,19 @@ public class TabsNavigationTest extends TestRunner {
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
                 .equals(user.getRoleReference()), "Users roles match");
 
-        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
+        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB.setByWithoutParameter()),
                 "User Info tab displayed");
-        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ORDERING_TAB),
+        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ORDERING_TAB.setByWithoutParameter()),
                 "Ordering tab displayed");
 
-        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
+        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.setByWithoutParameter())),
                 "User info tab is the default tab");
 
         orderingPage = userInfoPage.clickOrderingTab();
 
-        loggingAssert.assertTrue(orderingPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(orderingPage.getElementText(CommonLocators.ORDERING_TAB)),
+        loggingAssert.assertTrue(orderingPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(orderingPage.getElementText(CommonLocators.ORDERING_TAB.setByWithoutParameter())),
                 "Switched to Ordering tab");
 
         loggingAssert.assertTrue(orderingPage.isElementDisplayed(OrderingPageLocators.CREATE_NEW_ORDER_LINK),
@@ -74,8 +74,8 @@ public class TabsNavigationTest extends TestRunner {
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
-        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
+        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.setByWithoutParameter())),
                 "Switched to User Info tab");
     }
 
@@ -87,19 +87,19 @@ public class TabsNavigationTest extends TestRunner {
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
                 .equals(user.getRoleReference()), "User rolees match");
 
-        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
+        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB.setByWithoutParameter()),
                 "User Info tab displayed");
-        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ORDERING_TAB),
+        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ORDERING_TAB.setByWithoutParameter()),
                 "Ordering tab displayed");
 
-        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
+        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.setByWithoutParameter())),
                 "User info tab is the default tab");
 
         orderingPage = userInfoPage.clickOrderingTab();
 
-        loggingAssert.assertTrue(orderingPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(orderingPage.getElementText(CommonLocators.ORDERING_TAB)),
+        loggingAssert.assertTrue(orderingPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(orderingPage.getElementText(CommonLocators.ORDERING_TAB.setByWithoutParameter())),
                 "Switched to Ordering tab");
 
         loggingAssert.assertTrue(orderingPage.isElementDisplayed(OrderingPageLocators.CREATE_NEW_ORDER_LINK),
@@ -107,8 +107,8 @@ public class TabsNavigationTest extends TestRunner {
 
         userInfoPage = orderingPage.clickUserInfoTab();
 
-        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
+        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.setByWithoutParameter())),
                 "Switched to User Info tab");
     }
 
@@ -120,19 +120,19 @@ public class TabsNavigationTest extends TestRunner {
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
                 .equals(user.getRoleReference()), "User roles match");
 
-        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
+        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB.setByWithoutParameter()),
                 "User Info tab displayed");
-        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ITEM_MANAGEMENT_TAB),
+        loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.ITEM_MANAGEMENT_TAB.setByWithoutParameter()),
                 "Item Management displayed");
 
-        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
+        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.setByWithoutParameter())),
                 "User info tab is the default tab");
 
         ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
 
-        loggingAssert.assertTrue(itemManagementPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(itemManagementPage.getElementText(CommonLocators.ITEM_MANAGEMENT_TAB)),
+        loggingAssert.assertTrue(itemManagementPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(itemManagementPage.getElementText(CommonLocators.ITEM_MANAGEMENT_TAB.setByWithoutParameter())),
                 "Switched to Item Management tab");
 
         loggingAssert.assertTrue(itemManagementPage.isElementDisplayed(ItemManagementPageLocators.ADD_PRODUCT_LINK),
@@ -140,8 +140,8 @@ public class TabsNavigationTest extends TestRunner {
 
         userInfoPage = itemManagementPage.clickUserInfoTab();
 
-        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB)
-                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB)),
+        loggingAssert.assertTrue(userInfoPage.getElementText(CommonLocators.ACTIVE_TAB.setByWithoutParameter())
+                        .equals(userInfoPage.getElementText(CommonLocators.USER_INFO_TAB.setByWithoutParameter())),
                 "Switched to User Info tab");
     }
 

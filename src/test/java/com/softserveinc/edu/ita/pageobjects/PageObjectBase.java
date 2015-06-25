@@ -29,7 +29,7 @@ public abstract class PageObjectBase {
     }
 
     public UserInfoPage clickUserInfoTab() {
-        click(CommonLocators.USER_INFO_TAB);
+        click(CommonLocators.USER_INFO_TAB.setByWithoutParameter());
         return new UserInfoPage(driver);
     }
 

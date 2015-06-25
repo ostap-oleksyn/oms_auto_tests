@@ -21,9 +21,9 @@ public class NavigationTest extends TestRunner {
         final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
         loggingSoftAssert.assertTrue(administrationPage.getCurrentPageNumber() == 1, "Default page number is <b>1</b>");
-        loggingSoftAssert.assertFalse(administrationPage.isElementEnabled(AdministrationPageLocators.FIRST_BUTTON),
+        loggingSoftAssert.assertFalse(administrationPage.isElementEnabled(AdministrationPageLocators.FIRST_BUTTON.setByWithoutParameter()),
                 "'<b>First</b>' button is disabled");
-        loggingSoftAssert.assertFalse(administrationPage.isElementEnabled(AdministrationPageLocators.BACKWARD_BUTTON),
+        loggingSoftAssert.assertFalse(administrationPage.isElementEnabled(AdministrationPageLocators.BACKWARD_BUTTON.setByWithoutParameter()),
                 "'<b>Backward</b>' button is disabled");
 
         loggingSoftAssert.assertEquals(getActiveUsersNumber(), administrationPage.getFoundUsersNumber(),
@@ -33,21 +33,21 @@ public class NavigationTest extends TestRunner {
 
         loggingSoftAssert.assertTrue(administrationPage.getNumberOfRows() == 5, "Users list default size is <b>5</b> rows");
 
-        loggingSoftAssert.assertTrue(administrationPage.getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK)
+        loggingSoftAssert.assertTrue(administrationPage.getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK.setByWithoutParameter())
                 .equals("Show 10 items"), "<b>Show 10 items</b> link is displayed");
 
         administrationPage.clickUsersListResizeLink();
         loggingSoftAssert.assertTrue(administrationPage.getNumberOfRows() == 10, "Users list size changed to <b>10</b> rows");
-        loggingSoftAssert.assertTrue(administrationPage.getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK)
+        loggingSoftAssert.assertTrue(administrationPage.getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK.setByWithoutParameter())
                 .equals("Show 5 items"), "<b>Show 5 items</b> link is displayed");
 
         administrationPage.clickLastButton();
         loggingSoftAssert.assertEquals(administrationPage.getCurrentPageNumber(), administrationPage.getQuantityOfTablePages(),
                 "Navigated to the last page");
 
-        loggingSoftAssert.assertFalse(administrationPage.isElementEnabled(AdministrationPageLocators.LAST_BUTTON),
+        loggingSoftAssert.assertFalse(administrationPage.isElementEnabled(AdministrationPageLocators.LAST_BUTTON.setByWithoutParameter()),
                 "'<b>Last</b>' button is disabled");
-        loggingSoftAssert.assertFalse(administrationPage.isElementEnabled(AdministrationPageLocators.NEXT_BUTTON),
+        loggingSoftAssert.assertFalse(administrationPage.isElementEnabled(AdministrationPageLocators.NEXT_BUTTON.setByWithoutParameter()),
                 "'<b>Forward</b>' button is disabled");
 
         administrationPage.clickPreviousButton();

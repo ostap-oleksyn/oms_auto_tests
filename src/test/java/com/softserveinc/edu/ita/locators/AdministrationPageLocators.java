@@ -7,72 +7,109 @@ public enum AdministrationPageLocators implements ILocator {
 
     CREATE_NEW_USER_LINK(
             "Create new user link",
-            By.xpath(".//*[@id='list']/a[contains(text(), 'Create New User')]")),
+            "xpath",
+            ".//*[@id='list']/a[contains(text(), 'Create New User')]"),
     QUANTITY_OF_TABLE_PAGES(
             "Quantity of table pages",
-            By.xpath(".//*[@id='pageCount']")),
+            "xpath",
+            ".//*[@id='pageCount']"),
     TABLE_ROWS(
             "Table rows",
-            By.xpath(".//*[@id='table']//tr")),
+            "xpath",
+            ".//*[@id='table']//tr"),
     ROW_CELLS(
             "Row cells",
-            By.tagName("td")),
+            "tagName",
+            "td"),
     FIRST_BUTTON(
             "First button",
-            By.xpath(".//*[@id='first']")),
+            "xpath",
+            ".//*[@id='first']"),
     NEXT_BUTTON(
             "Next button",
-            By.xpath(".//input[@id='next']")),
+            "xpath",
+            ".//input[@id='next']"),
     LAST_BUTTON(
             "Last Button",
-            By.xpath(".//*[@id='last']")),
+            "xpath",
+            ".//*[@id='last']"),
     USERS_TABLE(
             "Users table",
-            By.xpath(".//*[@id='table']")),
+            "xpath",
+            ".//*[@id='table']"),
     USERS_TABLE_ROWS(
             "Users table rows",
-            By.xpath(".//tbody/tr")),
+            "xpath",
+            ".//tbody/tr"),
     ADMINISTRATOR_APPOINTED_LABEL(
             "Admin appointed Info label",
-            By.xpath(".//*[@id='list']/h2")),
+            "xpath",
+            ".//*[@id='list']/h2"),
     FILTER_LABEL(
             "Filter label",
-            By.xpath(".//*[@id='searchForm']/label")),
+            "xpath",
+            ".//*[@id='searchForm']/label"),
     FOUND_USERS_NUMBER(
             "Number of found users",
-            By.xpath(".//*[@id='usersFound']")),
+            "xpath",
+            ".//*[@id='usersFound']"),
     USERS_LIST_RESIZE_LINK(
             "Users list resize link",
-            By.xpath(".//a[@href=\"resizeUsersList.htm\"]")),
+            "xpath",
+            ".//a[@href='resizeUsersList.htm']"),
     CURRENT_PAGE_NUMBER(
             "Current page number",
-            By.xpath(".//*[@id='pageNumber']")),
+            "xpath",
+            ".//*[@id='pageNumber']"),
     BACKWARD_BUTTON(
             "Backward button",
-            By.xpath(".//*[@id='previous']")),
+            "xpath",
+            ".//*[@id='previous']"),
     FILTER_SELECT(
             "Filter select",
-            By.xpath(".//fieldset/form/select[1]")),
+            "xpath",
+            ".//fieldset/form/select[1]"),
 
     CONDITION_SELECT(
             "Condition select",
-            By.xpath(".//fieldset/form/select[2]")),
+            "xpath",
+            ".//fieldset/form/select[2]"),
 
     SEARCH_FIELD(
             "Search field",
-            By.xpath(".//*[@id='searchField']")),
+            "xpath",
+            ".//*[@id='searchField']"),
 
     SEARCH_BUTTON(
             "Search button",
-            By.xpath(".//*[@id='searchForm']/input[2]"));
+            "xpath",
+            ".//*[@id='searchForm']/input[2]"),
 
-    AdministrationPageLocators(String name, By locator) {
-        this.name = name;
-        this.locator = locator;
-    }
+    TABLE_COLUMN(
+            "",
+            "xpath",
+            ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
+
+    DELETE_LINK(
+            "",
+            "xpath",
+            ".//*[@id='table']/tbody/tr[%s]/td[7]/a"),
+
+    LOGIN_CELL(
+            "",
+            "xpath",
+            ".//*[@id='table']/tbody/tr[%s]/td[3]");
 
     private String name;
-    private By locator;
+    private String locatorsType;
+    private String locator;
+    private By byLocator;
+
+    AdministrationPageLocators(String name, String locatorsType, String locator) {
+        this.name = name;
+        this.locatorsType = locatorsType;
+        this.locator = locator;
+    }
 
     @Override
     public String toString() {
@@ -86,6 +123,69 @@ public enum AdministrationPageLocators implements ILocator {
 
     @Override
     public By getBy() {
-        return this.locator;
+        return this.byLocator;
+    }
+
+    public AdministrationPageLocators setByWithoutParameter() {
+        if (this.locator.contains("%s")) {
+            return null;
+        } else {
+            switch (this.locatorsType) {
+                case ("className"):
+                    this.byLocator = By.className(this.locator);
+                    break;
+                case ("cssSelector"):
+                    this.byLocator = By.cssSelector(this.locator);
+                    break;
+                case ("id"):
+                    this.byLocator = By.id(this.locator);
+                    break;
+                case ("name"):
+                    this.byLocator = By.name(this.locator);
+                    break;
+                case ("tagName"):
+                    this.byLocator = By.tagName(this.locator);
+                    break;
+                case ("xpath"):
+                    this.byLocator = By.xpath(this.locator);
+                    break;
+                default:
+                    System.out.println("Locator's type is incorrect.");
+                    break;
+            }
+            return this;
+        }
+    }
+
+    public AdministrationPageLocators setByWithParameter(String parameter) {
+        if (this.locator.contains("%s")) {
+            this.name = parameter;
+            switch (this.locatorsType) {
+                case ("className"):
+                    this.byLocator = By.className(String.format(this.locator, parameter));
+                    break;
+                case ("cssSelector"):
+                    this.byLocator = By.cssSelector(String.format(this.locator, parameter));
+                    break;
+                case ("id"):
+                    this.byLocator = By.id(String.format(this.locator, parameter));
+                    break;
+                case ("name"):
+                    this.byLocator = By.name(String.format(this.locator, parameter));
+                    break;
+                case ("tagName"):
+                    this.byLocator = By.tagName(String.format(this.locator, parameter));
+                    break;
+                case ("xpath"):
+                    this.byLocator = By.xpath(String.format(this.locator, parameter));
+                    break;
+                default:
+                    System.out.println("Locator's type is incorrect.");
+                    break;
+            }
+            return this;
+        } else {
+            return null;
+        }
     }
 }

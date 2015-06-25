@@ -7,65 +7,87 @@ public enum NewUserPageLocators implements ILocator {
 
     LOGIN_NAME_INPUT(
             "Login name input",
-            By.xpath(".//*[@id='login']")),
+            "xpath",
+            ".//*[@id='login']"),
 
     FIRST_NAME_INPUT(
             "First name input",
-            By.xpath(".//*[@id='firstName']")),
+            "xpath",
+            ".//*[@id='firstName']"),
 
     LAST_NAME_INPUT(
             "Last name input",
-            By.xpath(".//*[@id='lastName']")),
+            "xpath",
+            ".//*[@id='lastName']"),
 
     PASSWORD_INPUT(
             "Password input",
-            By.xpath(".//*[@id='password']")),
+            "xpath",
+            ".//*[@id='password']"),
 
     CONFIRM_PASSWORD_INPUT(
             "Confirm password input",
-            By.xpath(".//*[@id='confirmPassword']")),
+            "xpath",
+            ".//*[@id='confirmPassword']"),
 
     EMAIL_INPUT(
             "Email input",
-            By.xpath(".//*[@id='email']")),
+            "xpath",
+            ".//*[@id='email']"),
 
     REGION_SELECT(
             "Region select",
-            By.xpath(".//*[@id='regionID']")),
+            "xpath",
+            ".//*[@id='regionID']"),
 
     CREATE_BUTTON(
             "Create button",
-            By.xpath(".//input[@type='submit'][@value='Create']")),
+            "xpath",
+            ".//input[@type='submit'][@value='Create']"),
 
     LOGIN_NAME_ERROR_LABEL(
             "Login name error label",
-            By.xpath(".//*[@id='nameError']")),
+            "xpath",
+            ".//*[@id='nameError']"),
 
     FIRST_NAME_ERROR_LABEL(
             "First name error label",
-            By.xpath(".//*[@id='firstNameError']")),
+            "xpath",
+            ".//*[@id='firstNameError']"),
 
     LAST_NAME_ERROR_LABEL(
             "Last name error label",
-            By.xpath(".//*[@id='lastNameError']")),
+            "xpath",
+            ".//*[@id='lastNameError']"),
 
     PASSWORD_ERROR_LABEL(
             "Password error label",
-            By.xpath(".//*[@id='passwordError']")),
+            "xpath",
+            ".//*[@id='passwordError']"),
 
     CONFIRM_PASSWORD_ERROR_LABEL(
             "Confirm password error label",
-            By.xpath(".//*[@id='confirmError']")),
+            "xpath",
+            ".//*[@id='confirmError']"),
 
     EMAIL_ERROR_LABEL(
             "Email error label",
-            By.xpath(".//*[@id='emailError']"));
+            "xpath",
+            ".//*[@id='emailError']"),
+
+    ROLE_SELECT(
+            "",
+            "string",
+            ".//*[@id='roleID%s']");
 
     private String name;
-    private By locator;
+    private String locatorType;
+    private String locator;
+    private By byLocator;
 
-    NewUserPageLocators(String name, By locator) {
+    NewUserPageLocators(String name, String locatorType, String locator) {
         this.name = name;
+        this.locatorType = locatorType;
         this.locator = locator;
     }
 
@@ -79,8 +101,74 @@ public enum NewUserPageLocators implements ILocator {
         return this.name;
     }
 
+    public String getLocatorType() {
+        return this.locatorType;
+    }
+
+    public String getLocator() {
+        return this.locator;
+    }
+
     @Override
     public By getBy() {
-        return this.locator;
+        if (this.getLocator().contains("%s")) {
+            return null;
+        } else {
+            switch (this.getLocatorType()) {
+                case ("className"):
+                    this.byLocator = By.className(this.getLocator());
+                    break;
+                case ("cssSelector"):
+                    this.byLocator = By.cssSelector(this.getLocator());
+                    break;
+                case ("id"):
+                    this.byLocator = By.id(this.getLocator());
+                    break;
+                case ("name"):
+                    this.byLocator = By.name(this.getLocator());
+                    break;
+                case ("tagName"):
+                    this.byLocator = By.tagName(this.getLocator());
+                    break;
+                case ("xpath"):
+                    this.byLocator = By.xpath(this.getLocator());
+                    break;
+                default:
+                    System.out.println("Locator's type is incorrect.");
+                    break;
+            }
+            return this.byLocator;
+        }
+    }
+
+    public By getBy(String parameter) {
+        if (this.getLocator().contains("%s")) {
+            switch (this.getLocatorType()) {
+                case ("className"):
+                    this.byLocator = By.className(String.format(this.getLocator(), parameter));
+                    break;
+                case ("cssSelector"):
+                    this.byLocator = By.cssSelector(String.format(this.getLocator(), parameter));
+                    break;
+                case ("id"):
+                    this.byLocator = By.id(String.format(this.getLocator(), parameter));
+                    break;
+                case ("name"):
+                    this.byLocator = By.name(String.format(this.getLocator(), parameter));
+                    break;
+                case ("tagName"):
+                    this.byLocator = By.tagName(String.format(this.getLocator(), parameter));
+                    break;
+                case ("xpath"):
+                    this.byLocator = By.xpath(String.format(this.getLocator(), parameter));
+                    break;
+                default:
+                    System.out.println("Locator's type is incorrect.");
+                    break;
+            }
+            return this.byLocator;
+        } else {
+            return null;
+        }
     }
 }
