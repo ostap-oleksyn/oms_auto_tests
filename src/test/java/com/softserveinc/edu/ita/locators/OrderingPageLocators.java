@@ -59,7 +59,10 @@ public enum OrderingPageLocators implements ILocator {
             By.xpath("//div[2]/table/tbody/tr/td[5]")),
     ORDER_ASSIGNEE(
             "Order assignee",
-            By.xpath("//div[2]/table/tbody/tr/td[6]"));
+            By.xpath("//div[2]/table/tbody/tr/td[6]")),
+    ROLE(
+            "Role",
+            By.xpath("//div[2]/table/tbody/tr/td[7]"));
 
     // TODO redo to enum
     public static final String TABLE_ROW_CELL = ".//div[@id='list']/table/tbody/tr[%s]/td[1]";

@@ -16,7 +16,7 @@ import java.util.List;
 
 
 public class SearchTest extends TestRunner {
-    List<WebElement> orderNamesList;
+    List<WebElement> ordersList;
 
     @Test(dataProvider = "getOrderSearchTerms", dataProviderClass = DataProviders.class)
     public void testSearch(String searchTerm) throws DAOException {
@@ -30,15 +30,16 @@ public class SearchTest extends TestRunner {
                 .fillSearchField(searchTerm)
                 .clickApplyButton();
 
-            orderNamesList = orderingPage.getOrderFromView(condition);
+            ordersList = orderingPage.getOrderFromView(condition);
 
-        if (orderNamesList.isEmpty()) {
-            loggingAssert.assertTrue(orderNamesList.isEmpty(),
+        if (ordersList.isEmpty()) {
+            loggingSoftAssert.assertTrue(ordersList.isEmpty(),
                     condition + " " + searchTerm + " not found");
         } else {
-            loggingAssert.assertEquals(orderNamesList.get(0).getText().toLowerCase(), searchTerm.toLowerCase(),
+            loggingSoftAssert.assertEquals(ordersList.get(0).getText().toLowerCase(), searchTerm.toLowerCase(),
                     condition + " " + searchTerm);
         }
+            loggingSoftAssert.assertAll();
         orderingPage.clearSearchField();
         }
         orderingPage.clickLogOutButton();
