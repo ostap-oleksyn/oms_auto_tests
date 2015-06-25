@@ -5,30 +5,37 @@ import org.openqa.selenium.By;
 
 public enum EditUserPageLocators implements ILocator {
 
-    CREATE_BUTTON(
-            "Create button",
-            By.xpath(".//input[@type='submit'][@value='Create']")),
-
-    EDIT_PAGE_MESSAGE(
-            "Message of edit page",
-            By.xpath(".//*[@id='edit']/h3")),
+    LOGIN_INPUT(
+            "Login input",
+            By.xpath(".//*[@id='login']")),
 
     FIRST_NAME_INPUT(
             "First name input",
             By.xpath(".//*[@id='firstName']")),
 
-    LOGIN_INPUT(
-            "Login input",
-            By.xpath(".//*[@id='login']")),
+    LAST_NAME_INPUT(
+            "Last name input",
+            By.xpath(".//*[@id='lastName']")),
 
     PASSWORD_INPUT(
             "Password input",
             By.xpath(".//*[@id='password']")),
+
     CONFIRM_PASSWORD_INPUT(
             "Confirm password input",
-            By.xpath(".//*[@id='confirmPassword']"));
+            By.xpath(".//*[@id='confirmPassword']")),
 
-    public static final String ROLE_SELECT = ".//label[.='%s']/preceding::input[1]";
+    REGION_SELECT(
+            "Region select",
+            By.xpath(".//*[@id='regionID']")),
+
+    ROLE_CUSTOMER_SELECT(
+            "Role customer select",
+            By.xpath(".//*[@id='roleID2']")),
+
+    CREATE_BUTTON(
+            "Create button",
+            By.xpath(".//input[@type='submit'][@value='Create']"));
 
     EditUserPageLocators(String name, By locator) {
         this.name = name;
