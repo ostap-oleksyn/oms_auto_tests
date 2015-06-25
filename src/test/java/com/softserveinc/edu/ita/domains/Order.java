@@ -2,9 +2,6 @@ package com.softserveinc.edu.ita.domains;
 
 
 import com.softserveinc.edu.ita.enums.OrderStatuses;
-import com.softserveinc.edu.ita.enums.Roles;
-
-import java.util.Date;
 
 public class Order {
 
@@ -137,30 +134,50 @@ public class Order {
 
     public static interface OrderNumberStep {
         TotalPriceStep withOrderNumber(int orderNumber);
+        TotalPriceStep withoutOrderNumber();
     }
 
     public static interface TotalPriceStep {
         AssigneeStep withTotalPrice(Double totalPrice);
+        AssigneeStep withoutTotalPrice();
     }
 
     public static interface AssigneeStep {
         CustomerStep withAssignee(int assignee);
+        CustomerStep withoutAssignee();
     }
 
     public static interface CustomerStep {
         OrderStatusReferenceStep withCustomer(int customer);
+        OrderStatusReferenceStep withoutCustomer();
     }
 
     public static interface OrderStatusReferenceStep {
-        BuildStep withOrderStatusReference(int orderStatusReference);
+        MaxDiscountStep withOrderStatusReference(int orderStatusReference);
+        MaxDiscountStep withoutOrderStatusReference();
+    }
+
+    public static interface MaxDiscountStep {
+        DeliveryDateStep withMaxDiscount(int maxDiscount);
+        DeliveryDateStep withoutMaxDiscount();
+    }
+
+    public static interface DeliveryDateStep {
+        PreferableDeliveryDateStep withDeliveryDate(String deliveryDate);
+        PreferableDeliveryDateStep withoutDeliveryDate();
+    }
+
+    public static interface PreferableDeliveryDateStep {
+        BuildStep withPreferableDeliveryDate(String preferableDeliveryDate);
+        BuildStep withoutPreferableDeliveryDate(String preferableDeliveryDate);
     }
 
     public static interface BuildStep {
         Order build();
     }
 
-    public static class Builder implements IdStep, OrderNameStep, OrderNumberStep, TotalPriceStep, AssigneeStep,
-            CustomerStep, OrderStatusReferenceStep, BuildStep {
+
+    public static class Builder implements IdStep, OrderNameStep, OrderNumberStep, TotalPriceStep, AssigneeStep, CustomerStep, OrderStatusReferenceStep, MaxDiscountStep, DeliveryDateStep, PreferableDeliveryDateStep, BuildStep {
         private int id;
         private String orderName;
         private int orderNumber;
@@ -168,6 +185,9 @@ public class Order {
         private int assignee;
         private int customer;
         private int orderStatusReference;
+        private int maxDiscount;
+        private String deliveryDate;
+        private String preferableDeliveryDate;
 
         private Builder() {
         }
@@ -205,8 +225,18 @@ public class Order {
         }
 
         @Override
+        public TotalPriceStep withoutOrderNumber() {
+            return this;
+        }
+
+        @Override
         public AssigneeStep withTotalPrice(Double totalPrice) {
             this.totalPrice = totalPrice;
+            return this;
+        }
+
+        @Override
+        public AssigneeStep withoutTotalPrice() {
             return this;
         }
 
@@ -217,14 +247,62 @@ public class Order {
         }
 
         @Override
+        public CustomerStep withoutAssignee() {
+            return this;
+        }
+
+        @Override
         public OrderStatusReferenceStep withCustomer(int customer) {
             this.customer = customer;
             return this;
         }
 
         @Override
-        public BuildStep withOrderStatusReference(int orderStatusReference) {
+        public OrderStatusReferenceStep withoutCustomer() {
+            return this;
+        }
+
+        @Override
+        public MaxDiscountStep withOrderStatusReference(int orderStatusReference) {
             this.orderStatusReference = orderStatusReference;
+            return this;
+        }
+
+        @Override
+        public MaxDiscountStep withoutOrderStatusReference() {
+            return this;
+        }
+
+        @Override
+        public DeliveryDateStep withMaxDiscount(int maxDiscount) {
+            this.maxDiscount = maxDiscount;
+            return this;
+        }
+
+        @Override
+        public DeliveryDateStep withoutMaxDiscount() {
+            return this;
+        }
+
+        @Override
+        public PreferableDeliveryDateStep withDeliveryDate(String deliveryDate) {
+            this.deliveryDate = deliveryDate;
+            return this;
+        }
+
+        @Override
+        public PreferableDeliveryDateStep withoutDeliveryDate() {
+            return this;
+        }
+
+        @Override
+        public BuildStep withPreferableDeliveryDate(String preferableDeliveryDate) {
+            this.preferableDeliveryDate = preferableDeliveryDate;
+            return this;
+        }
+
+        @Override
+        public BuildStep withoutPreferableDeliveryDate(String preferableDeliveryDate) {
             return this;
         }
 
@@ -238,6 +316,9 @@ public class Order {
             order.setAssignee(this.assignee);
             order.setCustomer(this.customer);
             order.setOrderStatusReference(this.orderStatusReference);
+            order.setMaxDiscount(this.maxDiscount);
+            order.setDeliveryDate(this.deliveryDate);
+            order.setPreferableDeliveryDate(this.preferableDeliveryDate);
             return order;
         }
     }

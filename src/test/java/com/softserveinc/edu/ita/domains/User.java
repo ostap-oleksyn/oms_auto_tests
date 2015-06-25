@@ -137,22 +137,27 @@ public class User {
 
     public interface FirstNameStep {
         LastNameStep withFirstName(String firstName);
+        LastNameStep withoutFirstName();
     }
 
     public interface LastNameStep {
         LoginStep withLastName(String lastName);
+        LoginStep withoutLastName();
     }
 
     public interface LoginStep {
         PasswordStep withLogin(String login);
+        PasswordStep withoutLogin();
     }
 
     public interface PasswordStep {
         EmailStep withPassword(String password);
+        EmailStep withoutPassword();
     }
 
     public interface EmailStep {
         RoleReferenceStep withEmail(String email);
+        RoleReferenceStep withoutEmail();
     }
 
     public interface RoleReferenceStep {
@@ -224,8 +229,18 @@ public class User {
         }
 
         @Override
+        public LastNameStep withoutFirstName() {
+            return this;
+        }
+
+        @Override
         public LoginStep withLastName(String lastName) {
             this.lastName = lastName;
+            return this;
+        }
+
+        @Override
+        public LoginStep withoutLastName() {
             return this;
         }
 
@@ -236,14 +251,29 @@ public class User {
         }
 
         @Override
+        public PasswordStep withoutLogin() {
+            return this;
+        }
+
+        @Override
         public EmailStep withPassword(String password) {
             this.password = password;
             return this;
         }
 
         @Override
+        public EmailStep withoutPassword() {
+            return this;
+        }
+
+        @Override
         public RoleReferenceStep withEmail(String email) {
             this.email = email;
+            return this;
+        }
+
+        @Override
+        public RoleReferenceStep withoutEmail() {
             return this;
         }
 

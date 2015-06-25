@@ -134,11 +134,7 @@ public class DataProviders {
     }
 
     private static Object[][] getUsersFromList(Roles role) throws DAOException, IOException {
-        final FactoryDAO factory = new FactoryDAO();
-        final Connection connection = factory.getConnection();
-        final AbstractDAO userDAO = (AbstractDAO) factory.getDAO(connection, User.class);
-
-        final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.toString());
+        final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.getRoleName());
         final List<User> users = new ArrayList<>();
         for (String usersLogin : usersLoginFromXls) {
             users.add(getByLogin(usersLogin));
