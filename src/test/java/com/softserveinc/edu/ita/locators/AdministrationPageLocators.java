@@ -64,7 +64,13 @@ public enum AdministrationPageLocators implements ILocator {
 
     SEARCH_BUTTON(
             "Search button",
-            By.xpath(".//*[@id='searchForm']/input[2]"));
+            By.xpath(".//*[@id='searchForm']/input[2]")),
+    CREATE_REPORT_LINK(
+            "Create report link",
+            By.xpath(".//a[@href='reportUsers.htm']")),
+    SAVE_REPORT_LINK(
+            "Save report link",
+            By.xpath(".//a[@href='getReport.htm']"));
 
     // TODO redo to enum
     public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";

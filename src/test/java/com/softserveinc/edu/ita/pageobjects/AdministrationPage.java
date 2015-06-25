@@ -170,7 +170,7 @@ public class AdministrationPage extends LogOutBase {
      */
 
     public AdministrationPage fillSearchField(String searchTerm) {
-        sendKeys(SEARCH_FIELD,searchTerm);
+        sendKeys(SEARCH_FIELD, searchTerm);
         return this;
     }
 
@@ -183,6 +183,10 @@ public class AdministrationPage extends LogOutBase {
 
     public void clearSearchField() {
         driver.findElement(SEARCH_FIELD.getBy()).clear();
+    }
+
+    public void clickCreateReportLink(){
+        click(AdministrationPageLocators.CREATE_REPORT_LINK);
     }
 
 }
