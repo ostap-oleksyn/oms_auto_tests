@@ -46,6 +46,7 @@ public class OrderingPage extends LogOutBase {
                     //Recording displayed row.
                     List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(TABLE_ROW, j)));
                     //There is used StepBuilderPattern.
+                    // TODO redo stepBuilder
                     table.add(Order.newBuilder()
                             .setOrderName(ordersFields.get(0).getText())
                             .setTotalPrice(ordersFields.get(1).getText())

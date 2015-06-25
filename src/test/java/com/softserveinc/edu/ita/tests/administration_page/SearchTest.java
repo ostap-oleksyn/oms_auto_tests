@@ -134,7 +134,7 @@ public class SearchTest extends TestRunner {
         searchConditionMap.put(FIRST_NAME, User::getFirstName);
         searchConditionMap.put(LAST_NAME, User::getLastName);
         searchConditionMap.put(LOGIN_NAME, User::getLogin);
-        searchConditionMap.put(ROLE, User::getRoleReference);
+        searchConditionMap.put(ROLE, User::getRoleName);
 
         switch (condition) {
 

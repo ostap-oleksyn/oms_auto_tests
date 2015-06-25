@@ -136,7 +136,7 @@ public class SortingTest extends TestRunner {
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
         List<Order> tableFromView = orderingPage.getTableFromView();
-        tableFromView.sort(Comparator.comparing(Order::getStatus));
+        tableFromView.sort(Comparator.comparing(Order::getStatusName));
 
         orderingPage.clickOrdersTableColumn(OrdersTableColumns.STATUS);
         List<Order> sortedTableByStatusAsc = orderingPage.getTableFromView();
@@ -144,12 +144,12 @@ public class SortingTest extends TestRunner {
         List<Order> sortedTableByStatusDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            loggingAssert.assertTrue(sortedTableByStatusAsc.get(i).getStatus().equals(tableFromView.get(i).getStatus()),
+            loggingAssert.assertTrue(sortedTableByStatusAsc.get(i).getStatusName().equals(tableFromView.get(i).getStatusName()),
                     "Sorting by status in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            loggingAssert.assertTrue(sortedTableByStatusDesc.get(i).getStatus().equals(tableFromView.get(j).getStatus()),
+            loggingAssert.assertTrue(sortedTableByStatusDesc.get(i).getStatusName().equals(tableFromView.get(j).getStatusName()),
                     "Sorting by status in descending order assert.");
         }
     }

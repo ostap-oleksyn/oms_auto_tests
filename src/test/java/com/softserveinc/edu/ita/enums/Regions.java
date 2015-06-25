@@ -1,7 +1,5 @@
 package com.softserveinc.edu.ita.enums;
 
-import java.util.Random;
-
 /**
  * Enum with regions names. Can generate random values
  */
@@ -12,11 +10,11 @@ public enum Regions {
     WEST(4, "West"),
     ALL(5, "ALL");
 
-    private int regionRef;
+    private int regionReference;
     private String regionName;
 
-    Regions(int regionRef, String regionName) {
-        this.regionRef = regionRef;
+    Regions(int regionReference, String regionName) {
+        this.regionReference = regionReference;
         this.regionName = regionName;
     }
 
@@ -24,14 +22,14 @@ public enum Regions {
         return regionName;
     }
 
-    public int getRegionRef() {
-        return regionRef;
+    public int getRegionReference() {
+        return regionReference;
     }
 
     @Override
     public String toString() {
         return "Regions{" +
-                "regionRef=" + regionRef +
+                "regionReference=" + regionReference +
                 ", regionName='" + regionName + '\'' +
                 '}';
     }
@@ -39,7 +37,7 @@ public enum Regions {
     public static String getRegionName(int regionRef) {
 
         for (Regions region: Regions.values()) {
-            if (region.getRegionRef() == regionRef) {
+            if (region.getRegionReference() == regionRef) {
                 return region.getRegionName();
             }
         }

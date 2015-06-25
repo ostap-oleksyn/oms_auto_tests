@@ -1,5 +1,7 @@
 package com.softserveinc.edu.ita.domains;
 
+import com.softserveinc.edu.ita.enums.Roles;
+
 /**
  * This class represents the User model
  */
@@ -113,6 +115,10 @@ public class User {
                 ", customerTypeReference=" + customerTypeReference +
                 ", regionReference=" + regionReference +
                 '}';
+    }
+
+    public String getRoleName() {
+        return Roles.getRoleName(roleReference);
     }
 
     public static IdStep newBuilder() {

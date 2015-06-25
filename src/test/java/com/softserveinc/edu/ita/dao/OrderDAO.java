@@ -20,13 +20,15 @@ public class OrderDAO<T> extends AbstractDAO<T> {
 
     @Override
     protected String getSelectAllQuery() {
-        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef\n" +
+        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
+                "MaxDiscount, DeliveryDate, PreferableDeliveryDate \n" +
                 "from orders";
     }
 
     @Override
     protected String getSelectQuery() {
-        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef \n" +
+        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
+                "MaxDiscount, DeliveryDate, PreferableDeliveryDate\n" +
                 "from orders \n" +
                 "where id=?";
     }
@@ -34,18 +36,21 @@ public class OrderDAO<T> extends AbstractDAO<T> {
     @Override
     protected String getUpdateQuery() {
         return "update orders set OrderName=?, OrderNumber=?, TotalPrice=?, " +
-                "Assigne=?, Customer=?, OrderStatusRef=? \n" +
+                "Assigne=?, Customer=?, OrderStatusRef=?," +
+                "MaxDiscount=?, DeliveryDate=?, PreferableDeliveryDate=? \n" +
                 "where id = ?";
     }
 
     @Override
     protected String getInsertQuery() {
-        return "insert into orders (OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef) " +
+        return "insert into orders (OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
+                "MaxDiscount, DeliveryDate, PreferableDeliveryDate) " +
                 "values (?, ?, ?, ?, ?, ?)";
     }
 
     protected String getByOrderNumberQuery() {
-        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef \n" +
+        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
+                "MaxDiscount, DeliveryDate, PreferableDeliveryDate\n" +
                 "from orders \n" +
                 "where OrderNumber=?";
     }
@@ -66,6 +71,9 @@ public class OrderDAO<T> extends AbstractDAO<T> {
             statement.setInt(i++, order.getAssignee());
             statement.setInt(i++, order.getCustomer());
             statement.setInt(i++, order.getOrderStatusReference());
+            statement.setInt(i++, order.getMaxDiscount());
+            statement.setString(i++, order.getDeliveryDate());
+            statement.setString(i++, order.getPreferableDeliveryDate());
             statement.setInt(i++, order.getId());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,6 +91,9 @@ public class OrderDAO<T> extends AbstractDAO<T> {
             statement.setInt(i++, order.getAssignee());
             statement.setInt(i++, order.getCustomer());
             statement.setInt(i++, order.getOrderStatusReference());
+            statement.setInt(i++, order.getMaxDiscount());
+            statement.setString(i++, order.getDeliveryDate());
+            statement.setString(i++, order.getPreferableDeliveryDate());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -93,6 +104,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
         List<T> resultList = new LinkedList<>();
         try {
             while (resultSet.next()) {
+                // TODO add maxDiscount, deliveryDate, preferableDeliveryDate
                 Order order = Order.newBuilder()
                         .withId(resultSet.getInt("Id"))
                         .withOrderName(resultSet.getString("OrderName"))

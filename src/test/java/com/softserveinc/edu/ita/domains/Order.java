@@ -1,17 +1,23 @@
 package com.softserveinc.edu.ita.domains;
 
 
+import com.softserveinc.edu.ita.enums.OrderStatuses;
+import com.softserveinc.edu.ita.enums.Roles;
+
 import java.util.Date;
 
 public class Order {
 
     private int id;
     private String orderName;
+    private int maxDiscount;
     private int orderNumber;
-    private double totalPrice;
+    private Double totalPrice;
     private int assignee;
     private int customer;
     private int orderStatusReference;
+    private String deliveryDate;
+    private String preferableDeliveryDate;
 
     private Order() {}
 
@@ -39,11 +45,11 @@ public class Order {
         this.orderNumber = orderNumber;
     }
 
-    public double getTotalPrice() {
+    public Double getTotalPrice() {
         return totalPrice;
     }
 
-    public void setTotalPrice(double totalPrice) {
+    public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
 
@@ -71,16 +77,47 @@ public class Order {
         this.orderStatusReference = orderStatusReference;
     }
 
+    public int getMaxDiscount() {
+        return maxDiscount;
+    }
+
+    public void setMaxDiscount(int maxDiscount) {
+        this.maxDiscount = maxDiscount;
+    }
+
+    public String getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
+    public String getPreferableDeliveryDate() {
+        return preferableDeliveryDate;
+    }
+
+    public void setPreferableDeliveryDate(String preferableDeliveryDate) {
+        this.preferableDeliveryDate = preferableDeliveryDate;
+    }
+
+    public String getStatusName() {
+        return OrderStatuses.getStatusName(orderStatusReference);
+    }
+
     @Override
     public String toString() {
         return "Order{" +
                 "id=" + id +
                 ", orderName='" + orderName + '\'' +
+                ", maxDiscount=" + maxDiscount +
                 ", orderNumber=" + orderNumber +
                 ", totalPrice=" + totalPrice +
                 ", assignee=" + assignee +
                 ", customer=" + customer +
                 ", orderStatusReference=" + orderStatusReference +
+                ", deliveryDate='" + deliveryDate + '\'' +
+                ", preferableDeliveryDate='" + preferableDeliveryDate + '\'' +
                 '}';
     }
 
@@ -103,7 +140,7 @@ public class Order {
     }
 
     public static interface TotalPriceStep {
-        AssigneeStep withTotalPrice(double totalPrice);
+        AssigneeStep withTotalPrice(Double totalPrice);
     }
 
     public static interface AssigneeStep {
@@ -127,7 +164,7 @@ public class Order {
         private int id;
         private String orderName;
         private int orderNumber;
-        private double totalPrice;
+        private Double totalPrice;
         private int assignee;
         private int customer;
         private int orderStatusReference;
@@ -168,7 +205,7 @@ public class Order {
         }
 
         @Override
-        public AssigneeStep withTotalPrice(double totalPrice) {
+        public AssigneeStep withTotalPrice(Double totalPrice) {
             this.totalPrice = totalPrice;
             return this;
         }
