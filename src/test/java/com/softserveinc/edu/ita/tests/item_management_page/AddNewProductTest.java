@@ -73,12 +73,12 @@ public class AddNewProductTest extends TestRunner {
                 .fillProductPrice(newProduct.getProductPrice())
                 .clickOkButton();
 
+        loggingAssert.assertEquals(newProduct.getProductName(), getLastAddedProduct().getProductName(),
+                String.format("Product <b>%s</b> added to database", getLastAddedProduct().getProductName()));
+
         loggingAssert.assertEquals(numberOfFoundProducts + 1, itemManagementPage.getFoundProductsNumber(),
                 String.format("Number of found products increased: expected - <b>%s</b>; actual - <b>%s</b>;",
                         numberOfFoundProducts + 1, itemManagementPage.getFoundProductsNumber()));
-
-        loggingAssert.assertEquals(newProduct.getProductName(), getLastAddedProduct().getProductName(),
-                String.format("Product <b>%s</b> added to database", getLastAddedProduct().getProductName()));
 
         itemManagementPage.clickLastButton();
 

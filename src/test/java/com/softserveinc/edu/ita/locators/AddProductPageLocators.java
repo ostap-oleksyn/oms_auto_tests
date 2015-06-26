@@ -16,7 +16,7 @@ public enum AddProductPageLocators implements ILocator {
             "Product price field",
             By.xpath(".//*[@id='price']")),
     OK_BUTTON(
-            "Product description field",
+            "Ok button",
             By.xpath(".//*[@id='productModel']/input[2]")),
     CANCEL_BUTTON(
             "Cancel button",
