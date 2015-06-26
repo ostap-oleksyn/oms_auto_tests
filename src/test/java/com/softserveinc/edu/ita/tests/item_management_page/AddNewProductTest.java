@@ -18,10 +18,10 @@ import static com.softserveinc.edu.ita.utils.DBUtility.getLastAddedProduct;
 
 public class AddNewProductTest extends TestRunner {
 
-    HomePage homePage;
-    UserInfoPage userInfoPage;
-    ItemManagementPage itemManagementPage;
-    AddProductPage addProductPage;
+    private HomePage homePage;
+    private UserInfoPage userInfoPage;
+    private ItemManagementPage itemManagementPage;
+    private AddProductPage addProductPage;
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
     public void cancelProductAddingTest(User user) {
@@ -30,7 +30,7 @@ public class AddNewProductTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         itemManagementPage = userInfoPage.clickItemManagementTab();
 
-        int numberOfFoundProducts = itemManagementPage.getFoundProductsNumber();
+        final int numberOfFoundProducts = itemManagementPage.getFoundProductsNumber();
 
         addProductPage = itemManagementPage.clickAddProductLink();
 
@@ -41,7 +41,7 @@ public class AddNewProductTest extends TestRunner {
         loggingSoftAssert.assertTrue(addProductPage.getProductPriceFieldText().isEmpty(),
                 "<b>Product price field</b> is empty");
 
-        Product newProduct = addProductPage.createRandomProduct();
+        final Product newProduct = addProductPage.createRandomProduct();
 
         itemManagementPage = addProductPage.fillProductName(newProduct.getProductName())
                 .fillProductDescription(newProduct.getProductDescription())
@@ -62,11 +62,11 @@ public class AddNewProductTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         itemManagementPage = userInfoPage.clickItemManagementTab();
 
-        int numberOfFoundProducts = itemManagementPage.getFoundProductsNumber();
+        final int numberOfFoundProducts = itemManagementPage.getFoundProductsNumber();
 
         addProductPage = itemManagementPage.clickAddProductLink();
 
-        Product newProduct = addProductPage.createRandomProduct();
+        final Product newProduct = addProductPage.createRandomProduct();
 
         itemManagementPage = addProductPage.fillProductName(newProduct.getProductName())
                 .fillProductDescription(newProduct.getProductDescription())
