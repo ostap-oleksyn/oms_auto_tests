@@ -101,7 +101,6 @@ public class FilterTest extends TestRunner {
         ordersListAfterFilter = orderingPage.getOrderFromView(STATUS);
         loggingAssert.assertEquals(ordersListBeforeFilter.toString(), ordersListAfterFilter.toString(), STATUS + " " + NONE);
 
-
         ordersListBeforeFilter = orderingPage.getOrderFromView(ROLE);
         orderingPage.setFilter(ROLE)
                 .clickApplyButton()

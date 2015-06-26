@@ -83,11 +83,11 @@ public class OrderingPage extends LogOutBase {
     public List<WebElement> getOrderFromView(OrderSearchCondition condition){
         switch (condition){
             case ORDER_NAME:
-                return driver.findElements(ORDER_NAME.getBy());
+                return driver.findElements(ORDER_NAME_COLUMN.getBy());
             case STATUS:
-                return driver.findElements(ORDER_STATUS.getBy());
+                return driver.findElements(ORDER_STATUS_COLUMN.getBy());
             case ASSIGNEE:
-                return driver.findElements(ORDER_ASSIGNEE.getBy());
+                return driver.findElements(ORDER_ASSIGNEE_COLUMN.getBy());
             default:
                 return null;
         }
@@ -102,9 +102,9 @@ public class OrderingPage extends LogOutBase {
     public List<WebElement> getOrderFromView(OrderFilter filter){
         switch (filter){
             case STATUS:
-                return driver.findElements(ORDER_STATUS.getBy());
+                return driver.findElements(ORDER_STATUS_COLUMN.getBy());
             case ROLE:
-                return driver.findElements(ROLE.getBy());
+                return driver.findElements(ROLE_COLUMN.getBy());
             default:
                 return null;
         }

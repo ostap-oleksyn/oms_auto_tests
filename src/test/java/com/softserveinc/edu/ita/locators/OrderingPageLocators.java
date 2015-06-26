@@ -51,16 +51,16 @@ public enum OrderingPageLocators implements ILocator {
     APPLY_BUTTON(
             "Apply button",
             By.xpath(".//input[@name='Apply']")),
-    ORDER_NAME(
+    ORDER_NAME_COLUMN(
             "Order name",
             By.xpath("//div[2]/table/tbody/tr/td[1]")),
-    ORDER_STATUS(
+    ORDER_STATUS_COLUMN(
             "Order status",
             By.xpath("//div[2]/table/tbody/tr/td[5]")),
-    ORDER_ASSIGNEE(
+    ORDER_ASSIGNEE_COLUMN(
             "Order assignee",
             By.xpath("//div[2]/table/tbody/tr/td[6]")),
-    ROLE(
+    ROLE_COLUMN(
             "Role",
             By.xpath("//div[2]/table/tbody/tr/td[7]"));
 
