@@ -102,13 +102,14 @@ public enum AdministrationPageLocators implements ILocator {
 
     private String name;
     private String locatorsType;
-    private String locator;
+    private String rowLocator;
+    private String modifiedLocator;
     private By byLocator;
 
-    AdministrationPageLocators(String name, String locatorsType, String locator) {
+    AdministrationPageLocators(String name, String locatorsType, String rowLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
-        this.locator = locator;
+        this.rowLocator = rowLocator;
     }
 
     @Override
@@ -121,71 +122,43 @@ public enum AdministrationPageLocators implements ILocator {
         return this.name;
     }
 
+    public AdministrationPageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rowLocator, parameter);
+        return this;
+    }
+
     @Override
     public By getBy() {
+        String locator;
+        if (this.modifiedLocator == null) {
+            locator = this.rowLocator;
+        } else {
+            locator = this.modifiedLocator;
+        }
+        switch (this.locatorsType) {
+            case ("className"):
+                this.byLocator = By.className(locator);
+                break;
+            case ("cssSelector"):
+                this.byLocator = By.cssSelector(locator);
+                break;
+            case ("id"):
+                this.byLocator = By.id(locator);
+                break;
+            case ("name"):
+                this.byLocator = By.name(locator);
+                break;
+            case ("tagName"):
+                this.byLocator = By.tagName(locator);
+                break;
+            case ("xpath"):
+                this.byLocator = By.xpath(locator);
+                break;
+            default:
+                System.out.println("Locator's type is incorrect.");
+                break;
+        }
         return this.byLocator;
-    }
-
-    public AdministrationPageLocators setByWithoutParameter() {
-        if (this.locator.contains("%s")) {
-            return null;
-        } else {
-            switch (this.locatorsType) {
-                case ("className"):
-                    this.byLocator = By.className(this.locator);
-                    break;
-                case ("cssSelector"):
-                    this.byLocator = By.cssSelector(this.locator);
-                    break;
-                case ("id"):
-                    this.byLocator = By.id(this.locator);
-                    break;
-                case ("name"):
-                    this.byLocator = By.name(this.locator);
-                    break;
-                case ("tagName"):
-                    this.byLocator = By.tagName(this.locator);
-                    break;
-                case ("xpath"):
-                    this.byLocator = By.xpath(this.locator);
-                    break;
-                default:
-                    System.out.println("Locator's type is incorrect.");
-                    break;
-            }
-            return this;
-        }
-    }
-
-    public AdministrationPageLocators setByWithParameter(String parameter) {
-        if (this.locator.contains("%s")) {
-            this.name = parameter;
-            switch (this.locatorsType) {
-                case ("className"):
-                    this.byLocator = By.className(String.format(this.locator, parameter));
-                    break;
-                case ("cssSelector"):
-                    this.byLocator = By.cssSelector(String.format(this.locator, parameter));
-                    break;
-                case ("id"):
-                    this.byLocator = By.id(String.format(this.locator, parameter));
-                    break;
-                case ("name"):
-                    this.byLocator = By.name(String.format(this.locator, parameter));
-                    break;
-                case ("tagName"):
-                    this.byLocator = By.tagName(String.format(this.locator, parameter));
-                    break;
-                case ("xpath"):
-                    this.byLocator = By.xpath(String.format(this.locator, parameter));
-                    break;
-                default:
-                    System.out.println("Locator's type is incorrect.");
-                    break;
-            }
-            return this;
-        } else {
-            return null;
-        }
     }
 }

@@ -48,11 +48,11 @@ public class LocalizationTest extends TestRunner {
         administrationPage = userInfoPage.clickAdministrationTab();
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(AdministrationPageLocators.ADMINISTRATOR_APPOINTED_LABEL.setByWithoutParameter())
+                .getElementText(AdministrationPageLocators.ADMINISTRATOR_APPOINTED_LABEL)
                 .equals("Дана сторінка призначена для створення " +
                         "та керування користувачами"), "Changing Administration appointed label to Ukrainian");
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(AdministrationPageLocators.FILTER_LABEL.setByWithoutParameter())
+                .getElementText(AdministrationPageLocators.FILTER_LABEL)
                 .equals("Фільтр на поле:"), "Changing Filter label to Ukrainian");
 
         userInfoPage = orderingPage.clickUserInfoTab();

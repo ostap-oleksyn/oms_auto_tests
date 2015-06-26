@@ -36,7 +36,7 @@ public class TabsNavigationTest extends TestRunner {
                         .equals(administrationPage.getElementText(CommonLocators.ADMINISTRATION_TAB.setByWithoutParameter())),
                 "Switched to Administration tab");
 
-        loggingAssert.assertTrue(administrationPage.isElementDisplayed(AdministrationPageLocators.CREATE_NEW_USER_LINK.setByWithoutParameter()),
+        loggingAssert.assertTrue(administrationPage.isElementDisplayed(AdministrationPageLocators.CREATE_NEW_USER_LINK),
                 "Create new user link displayed");
 
         userInfoPage = administrationPage.clickUserInfoTab();

@@ -17,7 +17,7 @@ public class UserInfoPage extends LogOutBase {
     }
 
     public AdministrationPage clickAdministrationTab() {
-        click(CommonLocators.ADMINISTRATION_TAB);
+        click(CommonLocators.ADMINISTRATION_TAB.setByWithoutParameter());
 
         return new AdministrationPage(driver);
     }
