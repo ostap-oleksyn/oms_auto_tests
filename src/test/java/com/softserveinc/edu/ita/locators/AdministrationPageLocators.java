@@ -98,7 +98,17 @@ public enum AdministrationPageLocators implements ILocator {
     LOGIN_CELL(
             "",
             "xpath",
-            ".//*[@id='table']/tbody/tr[%s]/td[3]");
+            ".//*[@id='table']/tbody/tr[%s]/td[3]"),
+
+    SELECTED_FILTER(
+            "Selected filter",
+            "xpath",
+            ".//*[@id='field']//*[@selected='selected']"),
+
+    SELECTED_CONDITION(
+            "Selected condition",
+            "xpath",
+            ".//*[@id='condition']//*[@selected='selected']");
 
     private String name;
     private String locatorsType;

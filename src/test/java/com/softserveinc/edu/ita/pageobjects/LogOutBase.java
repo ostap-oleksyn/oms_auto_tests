@@ -11,7 +11,7 @@ public class LogOutBase extends PageObjectBase implements ILogOutAble {
     }
 
     public HomePage clickLogOutButton() {
-        click(CommonLocators.LOG_OUT_BUTTON.setByWithoutParameter());
+        click(CommonLocators.LOG_OUT_BUTTON);
         return new HomePage(driver);
     }
 }

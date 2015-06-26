@@ -7,24 +7,32 @@ import org.openqa.selenium.By;
 public enum HomePageLocators implements ILocator {
     LOGIN_USER_INPUT(
             "Login input field",
-            By.xpath(".//*[@id='edit']//input[@name = 'j_username']")),
+            "xpath",
+            ".//*[@id='edit']//input[@name = 'j_username']"),
     LOGIN_PASSWORD_INPUT(
             "Password input field",
-            By.xpath(".//*[@id='edit']//input[@name = 'j_password']")),
+            "xpath",
+            ".//*[@id='edit']//input[@name = 'j_password']"),
     LOGIN_SUBMIT_BUTTON(
             "Login submit button",
-            By.xpath(".//*[@id='edit']//input[@name = 'submit']")),
+            "xpath",
+            ".//*[@id='edit']//input[@name = 'submit']"),
     LOGIN_ERROR_MESSAGE(
             "Login error message",
-            By.xpath(".//*[@id='edit']/fieldset/font"));
-
-    HomePageLocators(String name, By locator) {
-        this.name = name;
-        this.locator = locator;
-    }
+            "xpath",
+            ".//*[@id='edit']/fieldset/font");
 
     private String name;
-    private By locator;
+    private String locatorsType;
+    private String rowLocator;
+    private String modifiedLocator;
+    private By byLocator;
+
+    HomePageLocators(String name, String locatorsType, String rowLocator) {
+        this.name = name;
+        this.locatorsType = locatorsType;
+        this.rowLocator = rowLocator;
+    }
 
     @Override
     public String toString() {
@@ -36,8 +44,43 @@ public enum HomePageLocators implements ILocator {
         return this.name;
     }
 
+    public HomePageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rowLocator, parameter);
+        return this;
+    }
+
     @Override
     public By getBy() {
-        return this.locator;
+        String locator;
+        if (this.modifiedLocator == null) {
+            locator = this.rowLocator;
+        } else {
+            locator = this.modifiedLocator;
+        }
+        switch (this.locatorsType) {
+            case ("className"):
+                this.byLocator = By.className(locator);
+                break;
+            case ("cssSelector"):
+                this.byLocator = By.cssSelector(locator);
+                break;
+            case ("id"):
+                this.byLocator = By.id(locator);
+                break;
+            case ("name"):
+                this.byLocator = By.name(locator);
+                break;
+            case ("tagName"):
+                this.byLocator = By.tagName(locator);
+                break;
+            case ("xpath"):
+                this.byLocator = By.xpath(locator);
+                break;
+            default:
+                System.out.println("Locator's type is incorrect.");
+                break;
+        }
+        return this.byLocator;
     }
 }

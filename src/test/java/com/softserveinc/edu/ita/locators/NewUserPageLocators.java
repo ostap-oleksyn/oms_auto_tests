@@ -77,18 +77,19 @@ public enum NewUserPageLocators implements ILocator {
 
     ROLE_SELECT(
             "",
-            "string",
+            "xpath",
             ".//*[@id='roleID%s']");
 
     private String name;
-    private String locatorType;
-    private String locator;
+    private String locatorsType;
+    private String rowLocator;
+    private String modifiedLocator;
     private By byLocator;
 
-    NewUserPageLocators(String name, String locatorType, String locator) {
+    NewUserPageLocators(String name, String locatorsType, String rowLocator) {
         this.name = name;
-        this.locatorType = locatorType;
-        this.locator = locator;
+        this.locatorsType = locatorsType;
+        this.rowLocator = rowLocator;
     }
 
     @Override
@@ -101,74 +102,43 @@ public enum NewUserPageLocators implements ILocator {
         return this.name;
     }
 
-    public String getLocatorType() {
-        return this.locatorType;
-    }
-
-    public String getLocator() {
-        return this.locator;
+    public NewUserPageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rowLocator, parameter);
+        return this;
     }
 
     @Override
     public By getBy() {
-        if (this.getLocator().contains("%s")) {
-            return null;
+        String locator;
+        if (this.modifiedLocator == null) {
+            locator = this.rowLocator;
         } else {
-            switch (this.getLocatorType()) {
-                case ("className"):
-                    this.byLocator = By.className(this.getLocator());
-                    break;
-                case ("cssSelector"):
-                    this.byLocator = By.cssSelector(this.getLocator());
-                    break;
-                case ("id"):
-                    this.byLocator = By.id(this.getLocator());
-                    break;
-                case ("name"):
-                    this.byLocator = By.name(this.getLocator());
-                    break;
-                case ("tagName"):
-                    this.byLocator = By.tagName(this.getLocator());
-                    break;
-                case ("xpath"):
-                    this.byLocator = By.xpath(this.getLocator());
-                    break;
-                default:
-                    System.out.println("Locator's type is incorrect.");
-                    break;
-            }
-            return this.byLocator;
+            locator = this.modifiedLocator;
         }
-    }
-
-    public By getBy(String parameter) {
-        if (this.getLocator().contains("%s")) {
-            switch (this.getLocatorType()) {
-                case ("className"):
-                    this.byLocator = By.className(String.format(this.getLocator(), parameter));
-                    break;
-                case ("cssSelector"):
-                    this.byLocator = By.cssSelector(String.format(this.getLocator(), parameter));
-                    break;
-                case ("id"):
-                    this.byLocator = By.id(String.format(this.getLocator(), parameter));
-                    break;
-                case ("name"):
-                    this.byLocator = By.name(String.format(this.getLocator(), parameter));
-                    break;
-                case ("tagName"):
-                    this.byLocator = By.tagName(String.format(this.getLocator(), parameter));
-                    break;
-                case ("xpath"):
-                    this.byLocator = By.xpath(String.format(this.getLocator(), parameter));
-                    break;
-                default:
-                    System.out.println("Locator's type is incorrect.");
-                    break;
-            }
-            return this.byLocator;
-        } else {
-            return null;
+        switch (this.locatorsType) {
+            case ("className"):
+                this.byLocator = By.className(locator);
+                break;
+            case ("cssSelector"):
+                this.byLocator = By.cssSelector(locator);
+                break;
+            case ("id"):
+                this.byLocator = By.id(locator);
+                break;
+            case ("name"):
+                this.byLocator = By.name(locator);
+                break;
+            case ("tagName"):
+                this.byLocator = By.tagName(locator);
+                break;
+            case ("xpath"):
+                this.byLocator = By.xpath(locator);
+                break;
+            default:
+                System.out.println("Locator's type is incorrect.");
+                break;
         }
+        return this.byLocator;
     }
 }

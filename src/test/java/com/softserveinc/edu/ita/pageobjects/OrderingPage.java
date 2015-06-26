@@ -3,8 +3,6 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.domains.Order;
 import com.softserveinc.edu.ita.enums.OrdersTableColumns;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
-import com.softserveinc.edu.ita.locators.OrderingPageStringLocators;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -12,8 +10,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
-
-import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
 
 /**
  * This class describes "Ordering" page according to "Page Object" pattern.
@@ -30,9 +26,9 @@ public class OrderingPage extends LogOutBase {
     public List<Order> getTableFromView() {
         List<Order> table = new LinkedList<>();
         //This line is needed to find out quantity of orders per table.
-        int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(QUANTITY_OF_ROWS.getBy()).getAttribute("value"));
+        int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS.getBy()).getAttribute("value"));
         //This line is needed to find out quantity of orders per page.
-        int quantityOfOrdersPerPage = driver.findElements(QUANTITY_OF_ROWS_PER_PAGE.getBy()).size();
+        int quantityOfOrdersPerPage = driver.findElements(OrderingPageLocators.QUANTITY_OF_ROWS_PER_PAGE.getBy()).size();
         if (quantityOfOrdersPerPage <= 1) {
             return table;
         }
@@ -43,9 +39,9 @@ public class OrderingPage extends LogOutBase {
             //Iteration through table rows (per page).
             for (int j = 2; j <= quantityOfOrdersPerPage + 1; j++) {
                 //There is checking of row displaying.
-                if (isElementDisplayed(OrderingPageStringLocators.TABLE_ROW_CELL.getByWithParameter(String.valueOf(j)))) {
+                if (isElementDisplayed(OrderingPageLocators.TABLE_ROW_CELL.modify(String.valueOf(j)))) {
                     //Recording displayed row.
-                    List<WebElement> ordersFields = driver.findElements(OrderingPageStringLocators.TABLE_ROW.getByWithParameter(String.valueOf(j)).getBy());
+                    List<WebElement> ordersFields = driver.findElements(OrderingPageLocators.TABLE_ROW.modify(String.valueOf(j)).getBy());
                     //There is used StepBuilderPattern.
                     table.add(Order.newBuilder()
                             .setOrderName(ordersFields.get(0).getText())
@@ -89,7 +85,7 @@ public class OrderingPage extends LogOutBase {
      * There is method to click one of "Ordering" table headers to make sorting actions in the table.
      */
     public void clickOrdersTableColumn(OrdersTableColumns tableColumn) {
-        click(OrderingPageStringLocators.TABLE_COLUMN.getByWithParameter(tableColumn.toString()));
+        click(OrderingPageLocators.TABLE_COLUMN.modify(tableColumn.toString()));
     }
 
 }

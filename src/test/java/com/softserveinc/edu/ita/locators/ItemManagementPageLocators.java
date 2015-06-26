@@ -8,22 +8,36 @@ public enum ItemManagementPageLocators implements ILocator {
     //TODO refactor into not using text label inside the locator
     ADD_PRODUCT_LINK(
             "Add product link",
-            By.xpath(".//*[@id='list']/a[contains(text(), 'Add Product')]")),
+            "xpath",
+            ".//*[@id='list']/a[contains(text(), 'Add Product')]"),
     SUPERVISOR_APPOINTED_LABEL(
             "Supervisor appointed Info label",
-            By.xpath(".//*[@id='list']/h2")),
+            "xpath",
+            ".//*[@id='list']/h2"),
     SUPERVISOR_FILTER_LABEL(
             "Filter label",
-            By.xpath(".//*[@id='searchForm']/label"));
-
-
-    ItemManagementPageLocators(String name, By locator) {
-        this.name = name;
-        this.locator = locator;
-    }
+            "xpath",
+            ".//*[@id='searchForm']/label"),
+    SELECTED_FILTER(
+            "Selected filter",
+            "xpath",
+            ".//*[@id='field']//option[@selected='selected']"),
+    SEARCH_FIELD(
+            "Search field",
+            "xpath",
+            ".//*[@id='searchField']");
 
     private String name;
-    private By locator;
+    private String locatorsType;
+    private String rowLocator;
+    private String modifiedLocator;
+    private By byLocator;
+
+    ItemManagementPageLocators(String name, String locatorsType, String rowLocator) {
+        this.name = name;
+        this.locatorsType = locatorsType;
+        this.rowLocator = rowLocator;
+    }
 
     @Override
     public String toString() {
@@ -35,8 +49,43 @@ public enum ItemManagementPageLocators implements ILocator {
         return this.name;
     }
 
+    public ItemManagementPageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rowLocator, parameter);
+        return this;
+    }
+
     @Override
     public By getBy() {
-        return this.locator;
+        String locator;
+        if (this.modifiedLocator == null) {
+            locator = this.rowLocator;
+        } else {
+            locator = this.modifiedLocator;
+        }
+        switch (this.locatorsType) {
+            case ("className"):
+                this.byLocator = By.className(locator);
+                break;
+            case ("cssSelector"):
+                this.byLocator = By.cssSelector(locator);
+                break;
+            case ("id"):
+                this.byLocator = By.id(locator);
+                break;
+            case ("name"):
+                this.byLocator = By.name(locator);
+                break;
+            case ("tagName"):
+                this.byLocator = By.tagName(locator);
+                break;
+            case ("xpath"):
+                this.byLocator = By.xpath(locator);
+                break;
+            default:
+                System.out.println("Locator's type is incorrect.");
+                break;
+        }
+        return this.byLocator;
     }
 }
