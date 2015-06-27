@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 /**
  * This enum gives a possibility to choose "by" method depending on selector type.
  */
-public enum ByMethods {
+public enum SeleniumByMethods {
 
     BY_CLASS_NAME {
         @Override
