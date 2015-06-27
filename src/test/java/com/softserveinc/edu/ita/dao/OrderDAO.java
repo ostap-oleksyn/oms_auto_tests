@@ -71,7 +71,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
             statement.setInt(i++, order.getAssignee());
             statement.setInt(i++, order.getCustomer());
             statement.setInt(i++, order.getOrderStatusReference());
-            statement.setInt(i++, order.getMaxDiscount());
+            statement.setDouble(i++, order.getMaxDiscount());
             statement.setString(i++, order.getDeliveryDate());
             statement.setString(i++, order.getPreferableDeliveryDate());
             statement.setInt(i++, order.getId());
@@ -91,7 +91,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
             statement.setInt(i++, order.getAssignee());
             statement.setInt(i++, order.getCustomer());
             statement.setInt(i++, order.getOrderStatusReference());
-            statement.setInt(i++, order.getMaxDiscount());
+            statement.setDouble(i++, order.getMaxDiscount());
             statement.setString(i++, order.getDeliveryDate());
             statement.setString(i++, order.getPreferableDeliveryDate());
         } catch (SQLException e) {
@@ -112,7 +112,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
                         .withAssignee(resultSet.getInt("Assigne"))
                         .withCustomer(resultSet.getInt("Customer"))
                         .withOrderStatusReference(resultSet.getInt("OrderStatusRef"))
-                        .withMaxDiscount(resultSet.getInt("MaxDiscount"))
+                        .withMaxDiscount(resultSet.getDouble("MaxDiscount"))
                         .withDeliveryDate(resultSet.getString("DeliveryDate"))
                         .withPreferableDeliveryDate(resultSet.getString("PreferableDeliveryDate"))
                         .build();

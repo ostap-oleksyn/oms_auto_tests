@@ -61,7 +61,7 @@ public class OrderingPage extends LogOutBase {
                             .withAssignee(DBUtility.getByLogin(ordersFields.get(5).getText()).getId())
                             .withoutCustomer()
                             .withOrderStatusReference(OrderStatuses.getStatusReference(ordersFields.get(4).getText()))
-                            .withMaxDiscount(Integer.valueOf(ordersFields.get(2).getText()))
+                            .withMaxDiscount(Double.valueOf(ordersFields.get(2).getText()))
                             .withDeliveryDate(ordersFields.get(3).getText())
                             .withoutPreferableDeliveryDate()
                             // .setRole(ordersFields.get(6).getText())

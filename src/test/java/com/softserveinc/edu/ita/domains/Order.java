@@ -7,7 +7,7 @@ public class Order {
 
     private int id;
     private String orderName;
-    private int maxDiscount;
+    private Double maxDiscount;
     private int orderNumber;
     private Double totalPrice;
     private int assignee;
@@ -76,11 +76,11 @@ public class Order {
         this.orderStatusReference = orderStatusReference;
     }
 
-    public int getMaxDiscount() {
+    public Double getMaxDiscount() {
         return maxDiscount;
     }
 
-    public void setMaxDiscount(int maxDiscount) {
+    public void setMaxDiscount(Double maxDiscount) {
         this.maxDiscount = maxDiscount;
     }
 
@@ -168,7 +168,7 @@ public class Order {
     }
 
     public static interface MaxDiscountStep {
-        DeliveryDateStep withMaxDiscount(int maxDiscount);
+        DeliveryDateStep withMaxDiscount(Double maxDiscount);
         DeliveryDateStep withoutMaxDiscount();
     }
 
@@ -195,7 +195,7 @@ public class Order {
         private int assignee;
         private int customer;
         private int orderStatusReference;
-        private int maxDiscount;
+        private Double maxDiscount;
         private String deliveryDate;
         private String preferableDeliveryDate;
 
@@ -284,7 +284,7 @@ public class Order {
         }
 
         @Override
-        public DeliveryDateStep withMaxDiscount(int maxDiscount) {
+        public DeliveryDateStep withMaxDiscount(Double maxDiscount) {
             this.maxDiscount = maxDiscount;
             return this;
         }
