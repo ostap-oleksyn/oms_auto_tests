@@ -4,34 +4,50 @@ package com.softserveinc.edu.ita.locators;
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
+/**
+ * This enum includes two type of locators:
+ * the first type locators are used without preliminary preparation;
+ * the second type locators can be used after advance modification.
+ */
 public enum UserInfoPageLocators implements ILocator {
 
     USER_INFO_LABEL(
             "Title User Info Table",
-            By.xpath("//fieldset/legend")),
+            SeleniumByMethods.BY_XPATH,
+            "//fieldset/legend"),
     FIRST_NAME_TITLE_LABEL(
             "Title first name label",
-            By.xpath("//fieldset//tr[1]/td[1]")),
+            SeleniumByMethods.BY_XPATH,
+            "//fieldset//tr[1]/td[1]"),
     FIRST_NAME_LABEL(
             "User first name label",
-            By.xpath("//fieldset//tr[1]/td[2]")),
+            SeleniumByMethods.BY_XPATH,
+            "//fieldset//tr[1]/td[2]"),
     LAST_NAME_LABEL(
             "User last name label",
-            By.xpath("//fieldset//tr[2]/td[2]")),
+            SeleniumByMethods.BY_XPATH,
+            "//fieldset//tr[2]/td[2]"),
     CUSTOMER_TYPE_LABEL(
             "User customer type label",
-            By.xpath("//fieldset//tr[3]/td[2]")),
+            SeleniumByMethods.BY_XPATH,
+            "//fieldset//tr[3]/td[2]"),
     USER_ROLE_LABEL(
             "User role label",
-            By.xpath("//fieldset//tr[4]/td[2]"));
-
-    UserInfoPageLocators(String name, By locator) {
-        this.name = name;
-        this.locator = locator;
-    }
+            SeleniumByMethods.BY_XPATH,
+            "//fieldset//tr[4]/td[2]");
 
     private String name;
-    private By locator;
+    private SeleniumByMethods seleniumByMethod;
+    private String rawLocator;
+    private String modifiedLocator;
+    private By byLocator;
+
+    //This constructor sets only 3 fields of object. The rest are prepared separately.
+    UserInfoPageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
+        this.name = name;
+        this.seleniumByMethod = seleniumByMethod;
+        this.rawLocator = rawLocator;
+    }
 
     @Override
     public String toString() {
@@ -43,8 +59,22 @@ public enum UserInfoPageLocators implements ILocator {
         return this.name;
     }
 
+    //This method prepares locator using additional parameter by means of so called "string-format" method.
+    public UserInfoPageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
+        return this;
+    }
+
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        return this.locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
+        if (this.modifiedLocator == null) {
+            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
+        } else {
+            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
+        }
+        return this.byLocator;
     }
 }

@@ -3,73 +3,85 @@ package com.softserveinc.edu.ita.locators;
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
+/**
+ * This enum includes two type of locators:
+ * the first type locators are used without preliminary preparation;
+ * the second type locators can be used after advance modification.
+ */
 public enum NewUserPageLocators implements ILocator {
 
     LOGIN_NAME_INPUT(
             "Login name input",
-            By.xpath(".//*[@id='login']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='login']"),
     FIRST_NAME_INPUT(
             "First name input",
-            By.xpath(".//*[@id='firstName']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='firstName']"),
     LAST_NAME_INPUT(
             "Last name input",
-            By.xpath(".//*[@id='lastName']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='lastName']"),
     PASSWORD_INPUT(
             "Password input",
-            By.xpath(".//*[@id='password']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='password']"),
     CONFIRM_PASSWORD_INPUT(
             "Confirm password input",
-            By.xpath(".//*[@id='confirmPassword']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='confirmPassword']"),
     EMAIL_INPUT(
             "Email input",
-            By.xpath(".//*[@id='email']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='email']"),
     REGION_SELECT(
             "Region select",
-            By.xpath(".//*[@id='regionID']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='regionID']"),
     CREATE_BUTTON(
             "Create button",
-            By.xpath(".//input[@type='submit'][@value='Create']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//input[@type='submit'][@value='Create']"),
     LOGIN_NAME_ERROR_LABEL(
             "Login name error label",
-            By.xpath(".//*[@id='nameError']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='nameError']"),
     FIRST_NAME_ERROR_LABEL(
             "First name error label",
-            By.xpath(".//*[@id='firstNameError']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='firstNameError']"),
     LAST_NAME_ERROR_LABEL(
             "Last name error label",
-            By.xpath(".//*[@id='lastNameError']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='lastNameError']"),
     PASSWORD_ERROR_LABEL(
             "Password error label",
-            By.xpath(".//*[@id='passwordError']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='passwordError']"),
     CONFIRM_PASSWORD_ERROR_LABEL(
             "Confirm password error label",
-            By.xpath(".//*[@id='confirmError']")),
-
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='confirmError']"),
     EMAIL_ERROR_LABEL(
             "Email error label",
-            By.xpath(".//*[@id='emailError']"));
-
-    // TODO redo to enum
-    public static final String ROLE_SELECT = ".//*[@id='roleID%s']";
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='emailError']"),
+    ROLE_SELECT(
+            "",
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='roleID%s']");
 
     private String name;
-    private By locator;
+    private SeleniumByMethods seleniumByMethod;
+    private String rawLocator;
+    private String modifiedLocator;
+    private By byLocator;
 
-    NewUserPageLocators(String name, By locator) {
+    //This constructor sets only 3 fields of object. The rest are prepared separately.
+    NewUserPageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
         this.name = name;
-        this.locator = locator;
+        this.seleniumByMethod = seleniumByMethod;
+        this.rawLocator = rawLocator;
     }
 
     @Override
@@ -82,8 +94,22 @@ public enum NewUserPageLocators implements ILocator {
         return this.name;
     }
 
+    //This method prepares locator using additional parameter by means of so called "string-format" method.
+    public NewUserPageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
+        return this;
+    }
+
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        return this.locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
+        if (this.modifiedLocator == null) {
+            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
+        } else {
+            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
+        }
+        return this.byLocator;
     }
 }
