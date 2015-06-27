@@ -24,6 +24,7 @@ import java.util.List;
  * This class is used to test sorting actions in 'Ordering' table of 'Ordering' page.
  */
 public class SortingTest extends TestRunner {
+
     //Test sorting by Order Name
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
     public void testOrderNameColumn(User user) {
@@ -92,12 +93,12 @@ public class SortingTest extends TestRunner {
         List<Order> sortedTableByMaxDiscountDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            loggingAssert.assertTrue(sortedTableByMaxDiscountAsc.get(i).getMaxDiscount().equals(tableFromView.get(i).getMaxDiscount()),
+            loggingAssert.assertTrue(sortedTableByMaxDiscountAsc.get(i).getMaxDiscount() == tableFromView.get(i).getMaxDiscount(),
                     "Sorting by max discount in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            loggingAssert.assertTrue(sortedTableByMaxDiscountDesc.get(i).getMaxDiscount().equals(tableFromView.get(j).getMaxDiscount()),
+            loggingAssert.assertTrue(sortedTableByMaxDiscountDesc.get(i).getMaxDiscount() == tableFromView.get(j).getMaxDiscount(),
                     "Sorting by max discount in descending order assert.");
         }
     }
@@ -136,7 +137,7 @@ public class SortingTest extends TestRunner {
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
         List<Order> tableFromView = orderingPage.getTableFromView();
-        tableFromView.sort(Comparator.comparing(Order::getStatus));
+        tableFromView.sort(Comparator.comparing(Order::getStatusName));
 
         orderingPage.clickOrdersTableColumn(OrdersTableColumns.STATUS);
         List<Order> sortedTableByStatusAsc = orderingPage.getTableFromView();
@@ -144,12 +145,12 @@ public class SortingTest extends TestRunner {
         List<Order> sortedTableByStatusDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            loggingAssert.assertTrue(sortedTableByStatusAsc.get(i).getStatus().equals(tableFromView.get(i).getStatus()),
+            loggingAssert.assertTrue(sortedTableByStatusAsc.get(i).getStatusName().equals(tableFromView.get(i).getStatusName()),
                     "Sorting by status in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            loggingAssert.assertTrue(sortedTableByStatusDesc.get(i).getStatus().equals(tableFromView.get(j).getStatus()),
+            loggingAssert.assertTrue(sortedTableByStatusDesc.get(i).getStatusName().equals(tableFromView.get(j).getStatusName()),
                     "Sorting by status in descending order assert.");
         }
     }
@@ -170,12 +171,13 @@ public class SortingTest extends TestRunner {
         List<Order> sortedTableByAssigneeDesc = orderingPage.getTableFromView();
 
         for (int i = 0; i < tableFromView.size(); i++) {
-            loggingAssert.assertTrue(sortedTableByAssigneeAsc.get(i).getAssignee().equals(tableFromView.get(i).getAssignee()),
+            // TODO redo getAssignee from table
+            loggingAssert.assertTrue(sortedTableByAssigneeAsc.get(i).getAssignee() == tableFromView.get(i).getAssignee(),
                     "Sorting by assignee in ascending order assert.");
         }
 
         for (int i = 0, j = tableFromView.size() - 1; i < tableFromView.size(); i++, j--) {
-            loggingAssert.assertTrue(sortedTableByAssigneeDesc.get(i).getAssignee().equals(tableFromView.get(j).getAssignee()),
+            loggingAssert.assertTrue(sortedTableByAssigneeDesc.get(i).getAssignee() == tableFromView.get(j).getAssignee(),
                     "Sorting by assignee in descending order assert.");
         }
     }

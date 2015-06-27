@@ -4,20 +4,44 @@ package com.softserveinc.edu.ita.enums;
  * Enum with regions names. Can generate random values
  */
 public enum Regions {
-    NORTH("North"),
-    EAST("East"),
-    SOUTH("South"),
-    WEST("West"),
-    ALL("ALL");
+    NORTH(1, "North"),
+    EAST(2, "East"),
+    SOUTH(3, "South"),
+    WEST(4, "West"),
+    ALL(5, "ALL");
 
-    private String region;
+    private int regionReference;
+    private String regionName;
 
-    Regions(String region) {
-        this.region = region;
+    Regions(int regionReference, String regionName) {
+        this.regionReference = regionReference;
+        this.regionName = regionName;
+    }
+
+    public String getRegionName() {
+        return regionName;
+    }
+
+    public int getRegionReference() {
+        return regionReference;
     }
 
     @Override
     public String toString() {
-        return this.region;
+        return "Regions{" +
+                "regionReference=" + regionReference +
+                ", regionName='" + regionName + '\'' +
+                '}';
+    }
+
+    public static String getRegionName(int regionReference) {
+
+        for (Regions region: Regions.values()) {
+            if (region.getRegionReference() == regionReference) {
+                return region.getRegionName();
+            }
+        }
+
+        return null;
     }
 }

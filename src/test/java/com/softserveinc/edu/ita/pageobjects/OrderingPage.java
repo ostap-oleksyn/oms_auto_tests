@@ -1,10 +1,12 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.Order;
+import com.softserveinc.edu.ita.enums.OrderStatuses;
 import com.softserveinc.edu.ita.enums.OrdersTableColumns;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
+import com.softserveinc.edu.ita.utils.DBUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -50,14 +52,19 @@ public class OrderingPage extends LogOutBase {
                     //Recording displayed row.
                     List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(TABLE_ROW, j)));
                     //There is used StepBuilderPattern.
+                    // TODO redo stepBuilder
                     table.add(Order.newBuilder()
-                            .setOrderName(ordersFields.get(0).getText())
-                            .setTotalPrice(ordersFields.get(1).getText())
-                            .setMaxDiscount(ordersFields.get(2).getText())
-                            .setDeliveryDate(ordersFields.get(3).getText())
-                            .setStatus(ordersFields.get(4).getText())
-                            .setAssignee(ordersFields.get(5).getText())
-                            .setRole(ordersFields.get(6).getText())
+                            .withoutId()
+                            .withOrderName(ordersFields.get(0).getText())
+                            .withoutOrderNumber()
+                            .withTotalPrice(Double.valueOf(ordersFields.get(1).getText()))
+                            .withAssignee(DBUtility.getByLogin(ordersFields.get(5).getText()).getId())
+                            .withoutCustomer()
+                            .withOrderStatusReference(OrderStatuses.getStatusReference(ordersFields.get(4).getText()))
+                            .withMaxDiscount(Double.valueOf(ordersFields.get(2).getText()))
+                            .withDeliveryDate(ordersFields.get(3).getText())
+                            .withoutPreferableDeliveryDate()
+                            // .setRole(ordersFields.get(6).getText())
                             .build());
                 }
 

@@ -1,5 +1,7 @@
 package com.softserveinc.edu.ita.tests;
 
+import com.softserveinc.edu.ita.enums.Roles;
+import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
@@ -32,7 +34,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleReference()), "User roles match");
+                .equals(Roles.getRoleName(user.getRoleReference())), "User roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -65,7 +67,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleReference()), "Users roles match");
+                .equals(Roles.getRoleName(user.getRoleReference())), "Users roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -98,7 +100,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleReference()), "User rolees match");
+                .equals(Roles.getRoleName(user.getRoleReference())), "User rolees match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
@@ -131,7 +133,7 @@ public class TabsNavigationTest extends TestRunner {
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
         loggingAssert.assertTrue(userInfoPage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleReference()), "User roles match");
+                .equals(Roles.getRoleName(user.getRoleReference())), "User roles match");
 
         loggingAssert.assertTrue(userInfoPage.isElementDisplayed(CommonLocators.USER_INFO_TAB),
                 "User Info tab displayed");
