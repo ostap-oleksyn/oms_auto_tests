@@ -67,7 +67,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
                 "limit 1";
     }
 
-    private String getLastFormDBQuery() {
+    private String getLastFromDBQuery() {
         return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
                 "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
                 "from users \n" +
@@ -172,7 +172,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
 
     public User getLastFromDB() throws DAOException {
         List<User> list;
-        String sqlQuery = getLastFormDBQuery();
+        String sqlQuery = getLastFromDBQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             ResultSet resultSet = statement.executeQuery();
