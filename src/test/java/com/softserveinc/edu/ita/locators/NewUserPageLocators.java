@@ -14,72 +14,58 @@ public enum NewUserPageLocators implements ILocator {
             "Login name input",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='login']"),
-
     FIRST_NAME_INPUT(
             "First name input",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='firstName']"),
-
     LAST_NAME_INPUT(
             "Last name input",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='lastName']"),
-
     PASSWORD_INPUT(
             "Password input",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='password']"),
-
     CONFIRM_PASSWORD_INPUT(
             "Confirm password input",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='confirmPassword']"),
-
     EMAIL_INPUT(
             "Email input",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='email']"),
-
     REGION_SELECT(
             "Region select",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='regionID']"),
-
     CREATE_BUTTON(
             "Create button",
             SeleniumByMethods.BY_XPATH,
             ".//input[@type='submit'][@value='Create']"),
-
     LOGIN_NAME_ERROR_LABEL(
             "Login name error label",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='nameError']"),
-
     FIRST_NAME_ERROR_LABEL(
             "First name error label",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='firstNameError']"),
-
     LAST_NAME_ERROR_LABEL(
             "Last name error label",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='lastNameError']"),
-
     PASSWORD_ERROR_LABEL(
             "Password error label",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='passwordError']"),
-
     CONFIRM_PASSWORD_ERROR_LABEL(
             "Confirm password error label",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='confirmError']"),
-
     EMAIL_ERROR_LABEL(
             "Email error label",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='emailError']"),
-
     ROLE_SELECT(
             "",
             SeleniumByMethods.BY_XPATH,

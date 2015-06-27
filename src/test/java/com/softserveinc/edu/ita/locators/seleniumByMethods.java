@@ -3,10 +3,11 @@ package com.softserveinc.edu.ita.locators;
 import org.openqa.selenium.By;
 
 /**
- * Created by true on 27.06.2015.
+ * This enum gives a possibility to choose "by" method depending on selector type.
  */
 public enum SeleniumByMethods {
-    BY_CLASS_NAME{
+
+    BY_CLASS_NAME {
         @Override
         public By getBy(String locator) {
             return By.className(locator);
@@ -48,5 +49,7 @@ public enum SeleniumByMethods {
             return By.xpath(locator);
         }
     };
+
     abstract By getBy(String locator);
+
 }

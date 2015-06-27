@@ -74,42 +74,34 @@ public enum AdministrationPageLocators implements ILocator {
             "Filter select",
             SeleniumByMethods.BY_XPATH,
             ".//fieldset/form/select[1]"),
-
     CONDITION_SELECT(
             "Condition select",
             SeleniumByMethods.BY_XPATH,
             ".//fieldset/form/select[2]"),
-
     SEARCH_FIELD(
             "Search field",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='searchField']"),
-
     SEARCH_BUTTON(
             "Search button",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='searchForm']/input[2]"),
-
     TABLE_COLUMN(
             "",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
-
     DELETE_LINK(
             "",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='table']/tbody/tr[%s]/td[7]/a"),
-
     LOGIN_CELL(
             "",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='table']/tbody/tr[%s]/td[3]"),
-
     SELECTED_FILTER(
             "Selected filter",
             SeleniumByMethods.BY_XPATH,
             ".//*[@id='field']//*[@selected='selected']"),
-
     SELECTED_CONDITION(
             "Selected condition",
             SeleniumByMethods.BY_XPATH,

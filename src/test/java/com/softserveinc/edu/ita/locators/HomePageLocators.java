@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
  * the second type locators can be used after advance modification.
  */
 public enum HomePageLocators implements ILocator {
+
     LOGIN_USER_INPUT(
             "Login input field",
             SeleniumByMethods.BY_XPATH,
