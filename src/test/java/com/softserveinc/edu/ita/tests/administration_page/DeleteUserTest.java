@@ -28,7 +28,7 @@ public class DeleteUserTest extends TestRunner {
         administrationPage.acceptAlert();
 
         final User user = DBUtility.getByLogin(lastUserLogin);
-        loggingAssert.assertEquals(user.getStatus(), "0", "User status is changed in database");
+        loggingAssert.assertEquals(user.getStatus(), 0, "User status is changed in database");
 
         administrationPage.clickLogOutButton();
         // TODO create DAO method for restore user status in database

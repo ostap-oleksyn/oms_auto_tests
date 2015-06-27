@@ -1,6 +1,7 @@
 package com.softserveinc.edu.ita.tests.home_page;
 
 
+import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.HomePageLocators;
@@ -30,7 +31,7 @@ public class LoginTest extends TestRunner {
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleReference()), "User roles match");
+                .equals(Roles.getRoleName(user.getRoleReference())), "User roles match");
 
         userInfoPage.clickLogOutButton();
     }
@@ -50,7 +51,7 @@ public class LoginTest extends TestRunner {
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .equals(user.getRoleReference()), "User roles match");
+                .equals(Roles.getRoleName(user.getRoleReference())), "User roles match");
         userInfoPage.clickLogOutButton();
         loggingAssert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_USER_INPUT), "User logged out");
     }
