@@ -49,18 +49,20 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public static IdStep newBuilder(){
+    public static IdStep newBuilder() {
         return new Builder();
     }
 
     public interface IdStep {
         StatusStep withId(int id);
+
         StatusStep withoutId();
 
     }
 
     public interface StatusStep {
         ProductNameStep withStatus(int status);
+
         ProductNameStep withoutStatus();
     }
 

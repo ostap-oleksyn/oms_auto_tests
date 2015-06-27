@@ -13,8 +13,8 @@ import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import static com.softserveinc.edu.ita.utils.DBUtility.deleteLastAddedProduct;
 import static com.softserveinc.edu.ita.utils.DBUtility.getLastAddedProduct;
+import static com.softserveinc.edu.ita.utils.DBUtility.removeProductFromDatabase;
 
 public class AddNewProductTest extends TestRunner {
 
@@ -100,9 +100,7 @@ public class AddNewProductTest extends TestRunner {
                         newProduct.getProductPrice(),
                         itemManagementPage.getElementText(ItemManagementPageLocators.LAST_PRODUCT_PRICE)));
 
-        deleteLastAddedProduct(getLastAddedProduct());
-
-        loggingSoftAssert.assertAll();
+        removeProductFromDatabase(getLastAddedProduct());
     }
 
 

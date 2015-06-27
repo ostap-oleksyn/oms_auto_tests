@@ -7,6 +7,7 @@ import org.testng.Reporter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,13 +24,60 @@ public class ProductDAO extends AbstractDAO {
                 "WHERE Id = ?";
     }
 
+    @Override
+    protected String getSelectAllQuery() {
+        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice, \n" +
+                "FROM Products";
+    }
+
+    @Override
+    protected String getUpdateQuery() {
+        return "UPDATE Products SET IsProductActive = ?, ProductName = ?, ProductDescription = ?, ProductPrice = ?";
+    }
+
+    @Override
+    protected String getInsertQuery() {
+        return "INSERT INTO Products (IsProductActive, ProductName, ProductDescription, ProductPrice " +
+                "VALUES (?, ?, ?, ?)";
+    }
+
     protected String getLastAddedQuery() {
         return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products WHERE IsProductActive = 1 ORDER BY ID DESC LIMIT 1;";
     }
 
+    @Override
     protected String getDeleteQuery() {
         return "DELETE FROM Products WHERE Id = ?;";
+    }
+
+    @Override
+    protected void setUpdateParameters(PreparedStatement statement, Object object) {
+        Product product = (Product) object;
+        try {
+            int i = 1;
+            statement.setInt(i++, product.getStatus());
+            statement.setString(i++, product.getProductName());
+            statement.setString(i++, product.getProductDescription());
+            statement.setDouble(i++, product.getProductPrice());
+            statement.setInt(i++, product.getId());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void setInsertParameters(PreparedStatement statement, Object object) {
+        Product product = (Product) object;
+        try {
+            int i = 1;
+            statement.setInt(i++, product.getStatus());
+            statement.setString(i++, product.getProductName());
+            statement.setString(i++, product.getProductDescription());
+            statement.setDouble(i++, product.getProductPrice());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -52,8 +100,8 @@ public class ProductDAO extends AbstractDAO {
         return resultList;
     }
 
-    @Override
-    public Product getLast() throws DAOException {
+
+    public Product getLastAddedProduct() throws DAOException {
         List<Product> productList;
         try (PreparedStatement statement = connection.prepareStatement(getLastAddedQuery())) {
             ResultSet resultSet = statement.executeQuery();

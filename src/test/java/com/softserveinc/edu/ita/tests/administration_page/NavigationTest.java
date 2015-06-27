@@ -1,6 +1,7 @@
 package com.softserveinc.edu.ita.tests.administration_page;
 
 
+import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
