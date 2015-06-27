@@ -7,118 +7,118 @@ public enum AdministrationPageLocators implements ILocator {
 
     CREATE_NEW_USER_LINK(
             "Create new user link",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='list']/a[contains(text(), 'Create New User')]"),
     QUANTITY_OF_TABLE_PAGES(
             "Quantity of table pages",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='pageCount']"),
     TABLE_ROWS(
             "Table rows",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='table']//tr"),
     ROW_CELLS(
             "Row cells",
-            "tagName",
+            SeleniumByMethods.BY_TAG_NAME,
             "td"),
     FIRST_BUTTON(
             "First button",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='first']"),
     NEXT_BUTTON(
             "Next button",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//input[@id='next']"),
     LAST_BUTTON(
             "Last Button",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='last']"),
     USERS_TABLE(
             "Users table",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='table']"),
     USERS_TABLE_ROWS(
             "Users table rows",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//tbody/tr"),
     ADMINISTRATOR_APPOINTED_LABEL(
             "Admin appointed Info label",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='list']/h2"),
     FILTER_LABEL(
             "Filter label",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='searchForm']/label"),
     FOUND_USERS_NUMBER(
             "Number of found users",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='usersFound']"),
     USERS_LIST_RESIZE_LINK(
             "Users list resize link",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//a[@href='resizeUsersList.htm']"),
     CURRENT_PAGE_NUMBER(
             "Current page number",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='pageNumber']"),
     BACKWARD_BUTTON(
             "Backward button",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='previous']"),
     FILTER_SELECT(
             "Filter select",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//fieldset/form/select[1]"),
 
     CONDITION_SELECT(
             "Condition select",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//fieldset/form/select[2]"),
 
     SEARCH_FIELD(
             "Search field",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='searchField']"),
 
     SEARCH_BUTTON(
             "Search button",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='searchForm']/input[2]"),
 
     TABLE_COLUMN(
             "",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
 
     DELETE_LINK(
             "",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='table']/tbody/tr[%s]/td[7]/a"),
 
     LOGIN_CELL(
             "",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='table']/tbody/tr[%s]/td[3]"),
 
     SELECTED_FILTER(
             "Selected filter",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='field']//*[@selected='selected']"),
 
     SELECTED_CONDITION(
             "Selected condition",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='condition']//*[@selected='selected']");
 
     private String name;
-    private String locatorsType;
+    private SeleniumByMethods seleniumByMethod;
     private String rowLocator;
     private String modifiedLocator;
     private By byLocator;
 
-    AdministrationPageLocators(String name, String locatorsType, String rowLocator) {
+    AdministrationPageLocators(String name, SeleniumByMethods seleniumByMethod, String rowLocator) {
         this.name = name;
-        this.locatorsType = locatorsType;
+        this.seleniumByMethod = seleniumByMethod;
         this.rowLocator = rowLocator;
     }
 
@@ -140,34 +140,10 @@ public enum AdministrationPageLocators implements ILocator {
 
     @Override
     public By getBy() {
-        String locator;
         if (this.modifiedLocator == null) {
-            locator = this.rowLocator;
+            this.byLocator = this.seleniumByMethod.getBy(this.rowLocator);
         } else {
-            locator = this.modifiedLocator;
-        }
-        switch (this.locatorsType) {
-            case ("className"):
-                this.byLocator = By.className(locator);
-                break;
-            case ("cssSelector"):
-                this.byLocator = By.cssSelector(locator);
-                break;
-            case ("id"):
-                this.byLocator = By.id(locator);
-                break;
-            case ("name"):
-                this.byLocator = By.name(locator);
-                break;
-            case ("tagName"):
-                this.byLocator = By.tagName(locator);
-                break;
-            case ("xpath"):
-                this.byLocator = By.xpath(locator);
-                break;
-            default:
-                System.out.println("Locator's type is incorrect.");
-                break;
+            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
         }
         return this.byLocator;
     }
