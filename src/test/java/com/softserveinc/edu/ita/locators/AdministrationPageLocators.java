@@ -3,6 +3,11 @@ package com.softserveinc.edu.ita.locators;
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
+/**
+ * This enum includes two type of locators:
+ * the first type locators are used without preliminary preparation;
+ * the second type locators can be used after advance modification.
+ */
 public enum AdministrationPageLocators implements ILocator {
 
     CREATE_NEW_USER_LINK(
@@ -112,14 +117,15 @@ public enum AdministrationPageLocators implements ILocator {
 
     private String name;
     private SeleniumByMethods seleniumByMethod;
-    private String rowLocator;
+    private String rawLocator;
     private String modifiedLocator;
     private By byLocator;
 
-    AdministrationPageLocators(String name, SeleniumByMethods seleniumByMethod, String rowLocator) {
+    //This constructor sets only 3 fields of object. The rest are prepared separately.
+    AdministrationPageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
         this.name = name;
         this.seleniumByMethod = seleniumByMethod;
-        this.rowLocator = rowLocator;
+        this.rawLocator = rawLocator;
     }
 
     @Override
@@ -132,16 +138,19 @@ public enum AdministrationPageLocators implements ILocator {
         return this.name;
     }
 
+    //This method prepares locator using additional parameter by means of so called "string-format" method.
     public AdministrationPageLocators modify(String parameter) {
         this.name = parameter;
-        this.modifiedLocator = String.format(this.rowLocator, parameter);
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }
 
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
-            this.byLocator = this.seleniumByMethod.getBy(this.rowLocator);
+            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
         } else {
             this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
         }

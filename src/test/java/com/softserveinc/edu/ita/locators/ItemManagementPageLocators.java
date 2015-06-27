@@ -4,39 +4,45 @@ package com.softserveinc.edu.ita.locators;
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
+/**
+ * This enum includes two type of locators:
+ * the first type locators are used without preliminary preparation;
+ * the second type locators can be used after advance modification.
+ */
 public enum ItemManagementPageLocators implements ILocator {
     //TODO refactor into not using text label inside the locator
     ADD_PRODUCT_LINK(
             "Add product link",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='list']/a[contains(text(), 'Add Product')]"),
     SUPERVISOR_APPOINTED_LABEL(
             "Supervisor appointed Info label",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='list']/h2"),
     SUPERVISOR_FILTER_LABEL(
             "Filter label",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='searchForm']/label"),
     SELECTED_FILTER(
             "Selected filter",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='field']//option[@selected='selected']"),
     SEARCH_FIELD(
             "Search field",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='searchField']");
 
     private String name;
-    private String locatorsType;
-    private String rowLocator;
+    private SeleniumByMethods seleniumByMethod;
+    private String rawLocator;
     private String modifiedLocator;
     private By byLocator;
 
-    ItemManagementPageLocators(String name, String locatorsType, String rowLocator) {
+    //This constructor sets only 3 fields of object. The rest are prepared separately.
+    ItemManagementPageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
         this.name = name;
-        this.locatorsType = locatorsType;
-        this.rowLocator = rowLocator;
+        this.seleniumByMethod = seleniumByMethod;
+        this.rawLocator = rawLocator;
     }
 
     @Override
@@ -49,42 +55,21 @@ public enum ItemManagementPageLocators implements ILocator {
         return this.name;
     }
 
+    //This method prepares locator using additional parameter by means of so called "string-format" method.
     public ItemManagementPageLocators modify(String parameter) {
         this.name = parameter;
-        this.modifiedLocator = String.format(this.rowLocator, parameter);
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }
 
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        String locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
-            locator = this.rowLocator;
+            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
         } else {
-            locator = this.modifiedLocator;
-        }
-        switch (this.locatorsType) {
-            case ("className"):
-                this.byLocator = By.className(locator);
-                break;
-            case ("cssSelector"):
-                this.byLocator = By.cssSelector(locator);
-                break;
-            case ("id"):
-                this.byLocator = By.id(locator);
-                break;
-            case ("name"):
-                this.byLocator = By.name(locator);
-                break;
-            case ("tagName"):
-                this.byLocator = By.tagName(locator);
-                break;
-            case ("xpath"):
-                this.byLocator = By.xpath(locator);
-                break;
-            default:
-                System.out.println("Locator's type is incorrect.");
-                break;
+            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
         }
         return this.byLocator;
     }

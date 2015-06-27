@@ -4,34 +4,40 @@ package com.softserveinc.edu.ita.locators;
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
+/**
+ * This enum includes two type of locators:
+ * the first type locators are used without preliminary preparation;
+ * the second type locators can be used after advance modification.
+ */
 public enum HomePageLocators implements ILocator {
     LOGIN_USER_INPUT(
             "Login input field",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='edit']//input[@name = 'j_username']"),
     LOGIN_PASSWORD_INPUT(
             "Password input field",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='edit']//input[@name = 'j_password']"),
     LOGIN_SUBMIT_BUTTON(
             "Login submit button",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='edit']//input[@name = 'submit']"),
     LOGIN_ERROR_MESSAGE(
             "Login error message",
-            "xpath",
+            SeleniumByMethods.BY_XPATH,
             ".//*[@id='edit']/fieldset/font");
 
     private String name;
-    private String locatorsType;
-    private String rowLocator;
+    private SeleniumByMethods seleniumByMethod;
+    private String rawLocator;
     private String modifiedLocator;
     private By byLocator;
 
-    HomePageLocators(String name, String locatorsType, String rowLocator) {
+    //This constructor sets only 3 fields of object. The rest are prepared separately.
+    HomePageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
         this.name = name;
-        this.locatorsType = locatorsType;
-        this.rowLocator = rowLocator;
+        this.seleniumByMethod = seleniumByMethod;
+        this.rawLocator = rawLocator;
     }
 
     @Override
@@ -44,42 +50,21 @@ public enum HomePageLocators implements ILocator {
         return this.name;
     }
 
+    //This method prepares locator using additional parameter by means of so called "string-format" method.
     public HomePageLocators modify(String parameter) {
         this.name = parameter;
-        this.modifiedLocator = String.format(this.rowLocator, parameter);
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }
 
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        String locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
-            locator = this.rowLocator;
+            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
         } else {
-            locator = this.modifiedLocator;
-        }
-        switch (this.locatorsType) {
-            case ("className"):
-                this.byLocator = By.className(locator);
-                break;
-            case ("cssSelector"):
-                this.byLocator = By.cssSelector(locator);
-                break;
-            case ("id"):
-                this.byLocator = By.id(locator);
-                break;
-            case ("name"):
-                this.byLocator = By.name(locator);
-                break;
-            case ("tagName"):
-                this.byLocator = By.tagName(locator);
-                break;
-            case ("xpath"):
-                this.byLocator = By.xpath(locator);
-                break;
-            default:
-                System.out.println("Locator's type is incorrect.");
-                break;
+            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
         }
         return this.byLocator;
     }
