@@ -39,8 +39,7 @@ public class CreateUserTest extends TestRunner {
         loggingAssert.assertEquals(newUser.getLogin(), lastUser.getLogin(), "New user adding.");
 
         administrationPage.clickLogOutButton();
-
-        // TODO create DAO method for delete just created user from database
+        DBUtility.deleteUser(lastUser);
     }
 
     /**
