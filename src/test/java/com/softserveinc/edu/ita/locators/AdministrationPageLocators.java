@@ -3,84 +3,122 @@ package com.softserveinc.edu.ita.locators;
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
+/**
+ * This enum includes two type of locators:
+ * the first type locators are used without preliminary preparation;
+ * the second type locators can be used after advance modification.
+ */
 public enum AdministrationPageLocators implements ILocator {
 
     CREATE_NEW_USER_LINK(
             "Create new user link",
-            By.xpath(".//*[@id='list']/a[contains(text(), 'Create New User')]")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='list']/a[contains(text(), 'Create New User')]"),
     QUANTITY_OF_TABLE_PAGES(
             "Quantity of table pages",
-            By.xpath(".//*[@id='pageCount']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='pageCount']"),
     TABLE_ROWS(
             "Table rows",
-            By.xpath(".//*[@id='table']//tr")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='table']//tr"),
     ROW_CELLS(
             "Row cells",
-            By.tagName("td")),
+            SeleniumByMethods.BY_TAG_NAME,
+            "td"),
     FIRST_BUTTON(
             "First button",
-            By.xpath(".//*[@id='first']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='first']"),
     NEXT_BUTTON(
             "Next button",
-            By.xpath(".//input[@id='next']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//input[@id='next']"),
     LAST_BUTTON(
             "Last Button",
-            By.xpath(".//*[@id='last']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='last']"),
     USERS_TABLE(
             "Users table",
-            By.xpath(".//*[@id='table']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='table']"),
     USERS_TABLE_ROWS(
             "Users table rows",
-            By.xpath(".//tbody/tr")),
+            SeleniumByMethods.BY_XPATH,
+            ".//tbody/tr"),
     ADMINISTRATOR_APPOINTED_LABEL(
             "Admin appointed Info label",
-            By.xpath(".//*[@id='list']/h2")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='list']/h2"),
     FILTER_LABEL(
             "Filter label",
-            By.xpath(".//*[@id='searchForm']/label")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='searchForm']/label"),
     FOUND_USERS_NUMBER(
             "Number of found users",
-            By.xpath(".//*[@id='usersFound']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='usersFound']"),
     USERS_LIST_RESIZE_LINK(
             "Users list resize link",
-            By.xpath(".//a[@href=\"resizeUsersList.htm\"]")),
+            SeleniumByMethods.BY_XPATH,
+            ".//a[@href='resizeUsersList.htm']"),
     CURRENT_PAGE_NUMBER(
             "Current page number",
-            By.xpath(".//*[@id='pageNumber']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='pageNumber']"),
     BACKWARD_BUTTON(
             "Backward button",
-            By.xpath(".//*[@id='previous']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='previous']"),
     FILTER_SELECT(
             "Filter select",
-            By.xpath(".//fieldset/form/select[1]")),
+            SeleniumByMethods.BY_XPATH,
+            ".//fieldset/form/select[1]"),
     CONDITION_SELECT(
             "Condition select",
-            By.xpath(".//fieldset/form/select[2]")),
+            SeleniumByMethods.BY_XPATH,
+            ".//fieldset/form/select[2]"),
     SEARCH_FIELD(
             "Search field",
-            By.xpath(".//*[@id='searchField']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='searchField']"),
     SEARCH_BUTTON(
             "Search button",
-            By.xpath(".//*[@id='searchForm']/input[2]")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='searchForm']/input[2]"),
+    TABLE_COLUMN(
+            "",
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
+    DELETE_LINK(
+            "",
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[7]/a"),
+    LOGIN_CELL(
+            "",
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[3]"),
     SELECTED_FILTER(
             "Selected filter",
-            By.xpath(".//*[@id='field']//*[@selected='selected']")),
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='field']//*[@selected='selected']"),
     SELECTED_CONDITION(
             "Selected condition",
-            By.xpath(".//*[@id='condition']//*[@selected='selected']"));
-
-    // TODO redo to enum
-    public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";
-    public static final String DELETE_LINK = ".//*[@id='table']/tbody/tr[%s]/td[7]/a";
-    public static final String LOGIN_CELL = ".//*[@id='table']/tbody/tr[%s]/td[3]";
-
-    AdministrationPageLocators(String name, By locator) {
-        this.name = name;
-        this.locator = locator;
-    }
+            SeleniumByMethods.BY_XPATH,
+            ".//*[@id='condition']//*[@selected='selected']");
 
     private String name;
-    private By locator;
+    private SeleniumByMethods seleniumByMethod;
+    private String rawLocator;
+    private String modifiedLocator;
+    private By byLocator;
+
+    //This constructor sets only 3 fields of object. The rest are prepared separately.
+    AdministrationPageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
+        this.name = name;
+        this.seleniumByMethod = seleniumByMethod;
+        this.rawLocator = rawLocator;
+    }
 
     @Override
     public String toString() {
@@ -92,8 +130,22 @@ public enum AdministrationPageLocators implements ILocator {
         return this.name;
     }
 
+    //This method prepares locator using additional parameter by means of so called "string-format" method.
+    public AdministrationPageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
+        return this;
+    }
+
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        return this.locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
+        if (this.modifiedLocator == null) {
+            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
+        } else {
+            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
+        }
+        return this.byLocator;
     }
 }
