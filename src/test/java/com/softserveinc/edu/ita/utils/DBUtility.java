@@ -171,8 +171,7 @@ public class DBUtility {
         try {
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
-            user.setStatus(status);
-            userDAO.update(user);
+            userDAO.setUserStatus(user, status);
         } catch (DAOException e) {
             e.printStackTrace();
         }

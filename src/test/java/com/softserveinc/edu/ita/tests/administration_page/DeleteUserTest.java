@@ -6,6 +6,7 @@ import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
+import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 /**

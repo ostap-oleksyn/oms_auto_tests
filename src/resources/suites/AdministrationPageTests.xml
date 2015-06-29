@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Administration Page Tests" verbose="1" parallel="tests" thread-count="7">
+<suite name="Administration Page Tests" verbose="1" parallel="tests" thread-count="8">
     <test name="Sorting test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.administration_page.SortingTest">
@@ -55,7 +55,16 @@
             </class>
         </classes>
     </test>
-    <test name="Creat report test">
+    <test name="Delete user test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.DeleteUserTest">
+                <methods>
+                    <include name="testUserDeleting"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Create report test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.administration_page.CreateReportTest">
                 <methods>

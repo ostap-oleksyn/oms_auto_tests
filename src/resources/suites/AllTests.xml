@@ -8,6 +8,13 @@
             <class name="com.softserveinc.edu.ita.tests.ordering_page.SortingTest"></class>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest"></class>
             <class name="com.softserveinc.edu.ita.tests.userinfo_page.UserInfoTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.LocalizationTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.DeleteUserTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.CreateUserTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.CreateReportTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.NavigationTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.SortingTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.AddNewProductTest"></class>
         </classes>
     </test>
 </suite>
