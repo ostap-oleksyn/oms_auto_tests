@@ -14,6 +14,10 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
+import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_ASSIGNEE_COLUMN;
+import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_NAME_COLUMN;
+import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_STATUS_COLUMN;
+
 
 public class SearchTest extends TestRunner {
     List<WebElement> ordersList;
@@ -30,7 +34,7 @@ public class SearchTest extends TestRunner {
                 .fillSearchField(searchTerm)
                 .clickApplyButton();
 
-            ordersList = orderingPage.getOrderFromView(condition);
+            ordersList = getOrderFromView(condition);
 
         if (ordersList.isEmpty()) {
             loggingSoftAssert.assertTrue(ordersList.isEmpty(),
@@ -44,4 +48,23 @@ public class SearchTest extends TestRunner {
         }
         orderingPage.clickLogOutButton();
     }
+    /**
+     *  sets orderNames or orderStatuses or orderAssignees in list depends on parameters
+     *
+     * @param condition
+     * @return
+     */
+    private List<WebElement> getOrderFromView (OrderSearchCondition condition){
+        switch (condition){
+            case ORDER_NAME:
+                return driver.findElements(ORDER_NAME_COLUMN.getBy());
+            case STATUS:
+                return driver.findElements(ORDER_STATUS_COLUMN.getBy());
+            case ASSIGNEE:
+                return driver.findElements(ORDER_ASSIGNEE_COLUMN.getBy());
+            default:
+                return null;
+        }
+    }
+
 }

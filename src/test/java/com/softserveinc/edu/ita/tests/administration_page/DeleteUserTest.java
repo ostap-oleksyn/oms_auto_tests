@@ -27,11 +27,11 @@ public class DeleteUserTest extends TestRunner {
         administrationPage.clickDeleteLastUserLink();
         administrationPage.acceptAlert();
 
-        final User user = DBUtility.getByLogin(lastUserLogin);
-        loggingAssert.assertEquals(user.getStatus(), 0, "User status is changed in database");
+        final User lastUser = DBUtility.getByLogin(lastUserLogin);
+        loggingAssert.assertEquals(lastUser.getStatus(), 0, "User status is changed in database");
 
         administrationPage.clickLogOutButton();
-        // TODO create DAO method for restore user status in database
+        DBUtility.setUserStatus(lastUser, 1);
     }
 
 }

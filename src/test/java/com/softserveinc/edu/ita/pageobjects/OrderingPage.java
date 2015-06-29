@@ -86,7 +86,7 @@ public class OrderingPage extends LogOutBase {
      *
      * @param condition
      * @return
-     */
+     *//*
     public List<WebElement> getOrderFromView(OrderSearchCondition condition){
         switch (condition){
             case ORDER_NAME:
@@ -100,12 +100,12 @@ public class OrderingPage extends LogOutBase {
         }
     }
 
-    /**
+    *//**
      * sets orderStatuses or userRoles depends on parameters
      *
      * @param filter
      * @return
-     */
+     *//*
     public List<WebElement> getOrderFromView(OrderFilter filter){
         switch (filter){
             case STATUS:
@@ -115,7 +115,7 @@ public class OrderingPage extends LogOutBase {
             default:
                 return null;
         }
-    }
+    }*/
     /**
      * There is method to click "First" button below "Ordering" table of "Ordering" page.
      */
@@ -169,7 +169,7 @@ public class OrderingPage extends LogOutBase {
     }
 
     public OrderingPage clearSearchField() {
-        clear(SEARCH_FIELD);
+        driver.findElement(SEARCH_FIELD.getBy()).clear();
         return this;
     }
 

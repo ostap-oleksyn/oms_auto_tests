@@ -1,9 +1,7 @@
 package com.softserveinc.edu.ita.utils;
 
-import com.softserveinc.edu.ita.dao.AbstractDAO;
-import com.softserveinc.edu.ita.dao.DAOException;
-import com.softserveinc.edu.ita.dao.FactoryDAO;
-import com.softserveinc.edu.ita.dao.UserDAO;
+import com.softserveinc.edu.ita.dao.*;
+import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
@@ -37,7 +35,6 @@ public class DBUtility {
 
         return usersList;
     }
-
 
     /**
      * Returns filtered by conditions users
@@ -164,5 +161,84 @@ public class DBUtility {
         return activeUsersList.stream()
                 .filter(user -> user.getStatus() == 1)
                 .collect(Collectors.toList()).size();
+    }
+
+    /**
+     * Delete user from database
+     */
+    public static void deleteUser(User user) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+
+        try {
+            connection = factory.getConnection();
+            userDAO = (UserDAO) factory.getDAO(connection, User.class);
+            userDAO.delete(user.getId());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * set user status
+     */
+    public static void setUserStatus(User user, int status) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+
+        try {
+            connection = factory.getConnection();
+            userDAO = (UserDAO) factory.getDAO(connection, User.class);
+            user.setStatus(status);
+            userDAO.update(user);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Returns last added product to the database
+     */
+    public static Product getLastAddedProduct() {
+        FactoryDAO factory = new FactoryDAO();
+        Connection connection;
+        ProductDAO productDAO = null;
+        try {
+            connection = factory.getConnection();
+            productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        Product product = null;
+        try {
+            product = productDAO.getLastAddedProduct();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        return product;
+    }
+
+    /**
+     * Removes the product from database
+     */
+    public static void removeProductFromDatabase(Product product) {
+        FactoryDAO factory = new FactoryDAO();
+        Connection connection;
+        ProductDAO productDAO = null;
+        try {
+            connection = factory.getConnection();
+            productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            productDAO.deleteById(product);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
     }
 }
