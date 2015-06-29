@@ -187,8 +187,12 @@ public class AdministrationPage extends LogOutBase {
         driver.findElement(SEARCH_FIELD.getBy()).clear();
     }
 
+
+    public void clickCreateReportLink() {
+        click(AdministrationPageLocators.CREATE_REPORT_LINK);
+    }
+
     public String getSearchFieldText() {
         return getElementAttribute(AdministrationPageLocators.SEARCH_FIELD, "value");
     }
-
 }

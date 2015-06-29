@@ -9,12 +9,11 @@ import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.ItemManagementPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
-import static com.softserveinc.edu.ita.utils.DBUtility.getLastAddedProduct;
-import static com.softserveinc.edu.ita.utils.DBUtility.removeProductFromDatabase;
 
 public class AddNewProductTest extends TestRunner {
 
@@ -41,7 +40,7 @@ public class AddNewProductTest extends TestRunner {
         loggingSoftAssert.assertTrue(addProductPage.getProductPriceFieldText().isEmpty(),
                 "<b>Product price field</b> is empty");
 
-        final Product newProduct = addProductPage.createRandomProduct();
+        final Product newProduct = Product.createRandomProduct();
 
         itemManagementPage = addProductPage.fillProductName(newProduct.getProductName())
                 .fillProductDescription(newProduct.getProductDescription())
@@ -66,15 +65,15 @@ public class AddNewProductTest extends TestRunner {
 
         addProductPage = itemManagementPage.clickAddProductLink();
 
-        final Product newProduct = addProductPage.createRandomProduct();
+        final Product newProduct = Product.createRandomProduct();
 
         itemManagementPage = addProductPage.fillProductName(newProduct.getProductName())
                 .fillProductDescription(newProduct.getProductDescription())
                 .fillProductPrice(newProduct.getProductPrice())
                 .clickOkButton();
 
-        loggingAssert.assertEquals(newProduct.getProductName(), getLastAddedProduct().getProductName(),
-                String.format("Product <b>%s</b> added to database", getLastAddedProduct().getProductName()));
+        loggingAssert.assertEquals(newProduct.getProductName(), DBUtility.getLastAddedProduct().getProductName(),
+                String.format("Product <b>%s</b> added to database", DBUtility.getLastAddedProduct().getProductName()));
 
         loggingAssert.assertEquals(numberOfFoundProducts + 1, itemManagementPage.getFoundProductsNumber(),
                 String.format("Number of found products increased: expected - <b>%s</b>; actual - <b>%s</b>;",
@@ -100,7 +99,7 @@ public class AddNewProductTest extends TestRunner {
                         newProduct.getProductPrice(),
                         itemManagementPage.getElementText(ItemManagementPageLocators.LAST_PRODUCT_PRICE)));
 
-        removeProductFromDatabase(getLastAddedProduct());
+        DBUtility.removeProductFromDatabase(DBUtility.getLastAddedProduct());
     }
 
 

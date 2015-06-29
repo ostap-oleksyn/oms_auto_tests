@@ -1,11 +1,8 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 
-import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.locators.AddProductPageLocators;
 import org.openqa.selenium.WebDriver;
-
-import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 public class AddProductPage extends LogOutBase {
 
@@ -21,16 +18,6 @@ public class AddProductPage extends LogOutBase {
     public ItemManagementPage clickCancelButton() {
         click(AddProductPageLocators.CANCEL_BUTTON);
         return new ItemManagementPage(driver);
-    }
-
-    public Product createRandomProduct() {
-        return Product.newBuilder()
-                .withoutId()
-                .withoutStatus()
-                .withProductName(generateString("NameSymbols", 5, 13))
-                .withProductDescription(generateString("NameSymbols", 10, 25))
-                .withProductPrice(Double.parseDouble(generateString("Digits", 1, 3)))
-                .build();
     }
 
     public AddProductPage fillProductName(String productName) {

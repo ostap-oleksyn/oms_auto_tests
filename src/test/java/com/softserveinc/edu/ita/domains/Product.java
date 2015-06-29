@@ -1,6 +1,8 @@
 package com.softserveinc.edu.ita.domains;
 
 
+import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
+
 public class Product {
 
     private int id;
@@ -51,6 +53,16 @@ public class Product {
 
     public static IdStep newBuilder() {
         return new Builder();
+    }
+
+    public static Product createRandomProduct() {
+        return Product.newBuilder()
+                .withoutId()
+                .withoutStatus()
+                .withProductName(generateString("NameSymbols", 5, 13))
+                .withProductDescription(generateString("NameSymbols", 10, 25))
+                .withProductPrice(Double.parseDouble(generateString("Digits", 1, 3)))
+                .build();
     }
 
     public interface IdStep {

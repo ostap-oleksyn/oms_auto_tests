@@ -144,6 +144,41 @@ public class DBUtility {
     }
 
     /**
+     * Delete user from database
+     */
+    public static void deleteUser(User user) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+
+        try {
+            connection = factory.getConnection();
+            userDAO = (UserDAO) factory.getDAO(connection, User.class);
+            userDAO.delete(user.getId());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * set user status
+     */
+    public static void setUserStatus(User user, int status) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+
+        try {
+            connection = factory.getConnection();
+            userDAO = (UserDAO) factory.getDAO(connection, User.class);
+            user.setStatus(status);
+            userDAO.update(user);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Returns last added product to the database
      */
     public static Product getLastAddedProduct() {
