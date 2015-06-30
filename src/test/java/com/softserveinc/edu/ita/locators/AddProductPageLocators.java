@@ -8,35 +8,64 @@ public enum AddProductPageLocators implements ILocator {
 
     PRODUCT_NAME_FIELD(
             "Product name field",
-            By.xpath(".//*[@id='name']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='name']"),
     PRODUCT_DESCRIPTION_FIELD(
             "Product description field",
-            By.xpath(".//*[@id='description']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='description']"),
     PRODUCT_PRICE_FIELD(
             "Product price field",
-            By.xpath(".//*[@id='price']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='price']"),
     OK_BUTTON(
             "Ok button",
-            By.xpath(".//*[@id='productModel']/input[2]")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='productModel']/input[2]"),
     CANCEL_BUTTON(
             "Cancel button",
-            By.xpath(".//*[@id='productModel']/input[3]"));
-
-    AddProductPageLocators(String name, By locator) {
-        this.name = name;
-        this.locator = locator;
-    }
+            LocatorsType.BY_XPATH,
+            ".//*[@id='productModel']/input[3]");
 
     private String name;
-    private By locator;
+    private LocatorsType locatorsType;
+    private String rawLocator;
+    private String modifiedLocator;
+    private By byLocator;
+
+    //This constructor sets only 3 fields of object. The rest are prepared separately.
+    AddProductPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+        this.name = name;
+        this.locatorsType = locatorsType;
+        this.rawLocator = rawLocator;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 
     @Override
     public String getName() {
         return this.name;
     }
 
+    //This method prepares locator using additional parameter by means of so called "string-format" method.
+    public AddProductPageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
+        return this;
+    }
+
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        return this.locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
+        if (this.modifiedLocator == null) {
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
+        } else {
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
+        }
+        return this.byLocator;
     }
 }
