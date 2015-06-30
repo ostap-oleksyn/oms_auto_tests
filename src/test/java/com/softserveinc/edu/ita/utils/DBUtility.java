@@ -183,8 +183,8 @@ public class DBUtility {
      * Returns last added product to the database
      */
     public static Product getLastAddedProduct() {
-        FactoryDAO factory = new FactoryDAO();
-        Connection connection;
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
         ProductDAO productDAO = null;
         try {
             connection = factory.getConnection();
@@ -206,8 +206,8 @@ public class DBUtility {
      * Removes the product from the database
      */
     public static void removeProductFromDatabase(Product product) {
-        FactoryDAO factory = new FactoryDAO();
-        Connection connection;
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
         ProductDAO productDAO = null;
         try {
             connection = factory.getConnection();
@@ -225,8 +225,8 @@ public class DBUtility {
     }
 
     public static int getProductStatus(String name, String description) {
-        FactoryDAO factory = new FactoryDAO();
-        Connection connection;
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
         ProductDAO productDAO = null;
         int status = 0;
         try {

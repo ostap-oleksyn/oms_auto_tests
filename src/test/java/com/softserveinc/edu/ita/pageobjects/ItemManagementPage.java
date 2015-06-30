@@ -51,7 +51,7 @@ public class ItemManagementPage extends LogOutBase {
     }
 
     public int getNumberOfRows() {
-        return driver.findElements(ItemManagementPageLocators.PRODUCTS_TABLE_ROW.getBy()).size();
+        return driver.findElements(ItemManagementPageLocators.TABLE_ROW.getBy()).size();
     }
 
     public Product getRandomProduct(int modifier) {
@@ -60,14 +60,18 @@ public class ItemManagementPage extends LogOutBase {
         return Product.newBuilder()
                 .withoutId()
                 .withoutStatus()
-                .withProductName(getElementText(ItemManagementPageLocators.PRODUCTS_TABLE_NAME_CELL.modify(String.valueOf(modifier))))
-                .withProductDescription(getElementText(ItemManagementPageLocators.PRODUCTS_TABLE_DESCRIPTION_CELL.modify(String.valueOf(modifier))))
-                .withProductPrice(Double.parseDouble(getElementText(ItemManagementPageLocators.PRODUCTS_TABLE_PRICE_CELL.modify(String.valueOf(modifier)))))
+                .withProductName(getElementText(ItemManagementPageLocators.TABLE_NAME_CELL.modify(String.valueOf(modifier))))
+                .withProductDescription(getElementText(ItemManagementPageLocators.TABLE_DESCRIPTION_CELL.modify(String.valueOf(modifier))))
+                .withProductPrice(Double.parseDouble(getElementText(ItemManagementPageLocators.TABLE_PRICE_CELL.modify(String.valueOf(modifier)))))
                 .build();
     }
 
     public void deleteRandomProduct(int randomRow) {
-        click(ItemManagementPageLocators.PRODUCTS_TABLE_DELETE_LINK.modify(String.valueOf(randomRow)));
+        click(ItemManagementPageLocators.TABLE_DELETE_LINK.modify(String.valueOf(randomRow)));
     }
 
+    public EditProductPage editRandomProduct(int randomRow) {
+        click(ItemManagementPageLocators.TABLE_EDIT_LINK.modify(String.valueOf(randomRow)));
+        return new EditProductPage(driver);
+    }
 }
