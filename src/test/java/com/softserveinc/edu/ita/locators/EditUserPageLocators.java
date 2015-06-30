@@ -52,11 +52,11 @@ public enum EditUserPageLocators implements ILocator {
 
     @Override
     public String getName() {
-        return null;
+        return this.name;
     }
 
     @Override
     public By getBy() {
-        return null;
+        return this.locator;
     }
 }
