@@ -25,11 +25,7 @@ public class AdministrationsTableRow {
     private String region;
 
     public AdministrationsTableRow(String firstName) {
-        if (firstName != null) {
-            this.firstName = firstName;
-        } else {
-            this.firstName = "";
-        }
+        this.firstName = firstName.toLowerCase();
     }
 
     @Override
@@ -51,23 +47,23 @@ public class AdministrationsTableRow {
     }
 
     public interface FirstNameStep {
-        LastNameStep firstName(String firstName);
+        LastNameStep setFirstName(String firstName);
     }
 
     public interface LastNameStep {
-        LoginStep lastName(String lastName);
+        LoginStep setLastName(String lastName);
     }
 
     public interface LoginStep {
-        RoleStep login(String login);
+        RoleStep setLogin(String login);
     }
 
     public interface RoleStep {
-        RegionStep role(String role);
+        RegionStep setRole(String role);
     }
 
     public interface RegionStep {
-        BuildStep region(String region);
+        BuildStep setRegion(String region);
     }
 
     public interface BuildStep {
@@ -81,50 +77,50 @@ public class AdministrationsTableRow {
         private String role;
         private String region;
 
-        public LastNameStep firstName(String firstName) {
-            this.firstName = firstName;
+        public LastNameStep setFirstName(String firstName) {
+            this.firstName = firstName.toLowerCase();
             return this;
         }
 
-        public LoginStep lastName(String lastName) {
-            this.lastName = lastName;
+        public LoginStep setLastName(String lastName) {
+            this.lastName = lastName.toLowerCase();
             return this;
         }
 
-        public RoleStep login(String login) {
-            this.login = login;
+        public RoleStep setLogin(String login) {
+            this.login = login.toLowerCase();
             return this;
         }
 
-        public RegionStep role(String role) {
-            this.role = role;
+        public RegionStep setRole(String role) {
+            this.role = role.toLowerCase();
             return this;
         }
 
-        public BuildStep region(String region) {
-            this.region = region;
+        public BuildStep setRegion(String region) {
+            this.region = region.toLowerCase();
             return this;
         }
 
         public AdministrationsTableRow build() {
-            final AdministrationsTableRow administrationsTableRow = new AdministrationsTableRow(firstName.toLowerCase());
+            final AdministrationsTableRow administrationsTableRow = new AdministrationsTableRow(firstName);
             if (lastName != null) {
-                administrationsTableRow.setLastName(lastName.toLowerCase());
+                administrationsTableRow.setLastName(lastName);
             } else {
                 administrationsTableRow.setLastName("");
             }
             if (login != null) {
-                administrationsTableRow.setLogin(login.toLowerCase());
+                administrationsTableRow.setLogin(login);
             } else {
                 administrationsTableRow.setLogin("");
             }
             if (role != null) {
-                administrationsTableRow.setRole(role.toLowerCase());
+                administrationsTableRow.setRole(role);
             } else {
                 administrationsTableRow.setRole("");
             }
             if (region != null) {
-                administrationsTableRow.setRegion(region.toLowerCase());
+                administrationsTableRow.setRegion(region);
             } else {
                 administrationsTableRow.setRegion("");
             }

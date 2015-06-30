@@ -67,11 +67,11 @@ public class AdministrationPage extends LogOutBase {
                 for (int j = 1; j < rowsList.size(); j++) {
                     List<WebElement> cellsList = rowsList.get(j).findElements(AdministrationPageLocators.ROW_CELLS.getBy());
                     usersList.add(AdministrationsTableRow.newBuilder()
-                            .firstName(cellsList.get(0).getText())
-                            .lastName(cellsList.get(1).getText())
-                            .login(cellsList.get(2).getText())
-                            .role(cellsList.get(3).getText())
-                            .region(cellsList.get(4).getText())
+                            .setFirstName(cellsList.get(0).getText())
+                            .setLastName(cellsList.get(1).getText())
+                            .setLogin(cellsList.get(2).getText())
+                            .setRole(cellsList.get(3).getText())
+                            .setRegion(cellsList.get(4).getText())
                             .build());
                 }
             }
