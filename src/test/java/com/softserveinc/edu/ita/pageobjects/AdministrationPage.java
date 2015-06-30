@@ -1,9 +1,9 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.UserFromView;
-import com.softserveinc.edu.ita.enums.UsersTableColumns;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
+import com.softserveinc.edu.ita.enums.administration_page.UsersTableColumns;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -177,7 +177,6 @@ public class AdministrationPage extends LogOutBase {
     public void clearSearchField() {
         driver.findElement(AdministrationPageLocators.SEARCH_FIELD.getBy()).clear();
     }
-
 
     public void clickCreateReportLink() {
         click(AdministrationPageLocators.CREATE_REPORT_LINK);

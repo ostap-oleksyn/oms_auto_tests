@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Class to initiate user using "Step Builder" Pattern.
+ * Class makes possible to set row of the table from view.
  */
 public class UserFromView {
     @Getter
