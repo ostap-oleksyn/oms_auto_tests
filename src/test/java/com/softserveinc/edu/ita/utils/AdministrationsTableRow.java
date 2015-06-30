@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Class makes possible to set row of the table from view.
+ * Class makes possible to set fields of the row belonging to "Administration" table from application.
  */
 public class AdministrationsTableRow {
     @Getter
@@ -25,12 +25,12 @@ public class AdministrationsTableRow {
     private String region;
 
     public AdministrationsTableRow(String firstName) {
-        this.firstName = firstName.toLowerCase();
+        this.firstName = firstName;
     }
 
     @Override
     public String toString() {
-        return "UserFromView{" +
+        return "AdministrationsTableRow{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", login='" + login + '\'' +
@@ -39,7 +39,7 @@ public class AdministrationsTableRow {
                 '}';
     }
 
-    private AdministrationsTableRow(){
+    private AdministrationsTableRow() {
     }
 
     public static FirstNameStep newBuilder() {
@@ -103,22 +103,22 @@ public class AdministrationsTableRow {
         }
 
 
-        public AdministrationsTableRow build(){
-            final AdministrationsTableRow userFromView = new AdministrationsTableRow(firstName.toLowerCase());
+        public AdministrationsTableRow build() {
+            final AdministrationsTableRow administrationsTableRow = new AdministrationsTableRow(firstName.toLowerCase());
 
-            userFromView.setLastName(lastName.toLowerCase());
+            administrationsTableRow.setLastName(lastName.toLowerCase());
 
             if (login != null) {
-                userFromView.setLogin(login.toLowerCase());
+                administrationsTableRow.setLogin(login.toLowerCase());
             }
-            if (role != null){
-                userFromView.setRole(role.toLowerCase());
+            if (role != null) {
+                administrationsTableRow.setRole(role.toLowerCase());
             }
             if (region != null) {
-                userFromView.setRegion(region.toLowerCase());
+                administrationsTableRow.setRegion(region.toLowerCase());
             }
 
-            return userFromView;
+            return administrationsTableRow;
         }
     }
 }

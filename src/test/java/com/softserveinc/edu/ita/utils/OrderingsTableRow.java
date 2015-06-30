@@ -1,72 +1,53 @@
 package com.softserveinc.edu.ita.utils;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Class makes possible to set fields of the row belonging to "Ordering" table from application.
  */
-
 public class OrderingsTableRow {
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String orderName;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String totalPrice;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String maxDiscount;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String deliveryDate;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String status;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String assignee;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String role;
 
-    public String getOrderName() {
-        return orderName;
+    public OrderingsTableRow(String orderName) {
+        this.orderName = orderName;
     }
 
-    private OrderingsTableRow(String orderName) {
-        this.orderName = orderName.toLowerCase();
+    @Override
+    public String toString() {
+        return "OrderingsTableRow{" +
+                "orderName='" + getOrderName() + '\'' +
+                ", totalPrice='" + getTotalPrice() + '\'' +
+                ", maxDiscount='" + getMaxDiscount() + '\'' +
+                ", deliveryDate='" + getDeliveryDate() + '\'' +
+                ", status='" + getStatus() + '\'' +
+                ", assignee='" + getAssignee() + '\'' +
+                ", role='" + getRole() + '\'' +
+                '}';
     }
 
-    public String getTotalPrice() {
-        return totalPrice;
-    }
-
-    private void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice.toLowerCase();
-    }
-
-    public String getMaxDiscount() {
-        return maxDiscount;
-    }
-
-    private void setMaxDiscount(String maxDiscount) {
-        this.maxDiscount = maxDiscount.toLowerCase();
-    }
-
-    public String getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    private void setDeliveryDate(String deliveryDate) {
-        this.deliveryDate = deliveryDate.toLowerCase();
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    private void setStatus(String status) {
-        this.status = status.toLowerCase();
-    }
-
-    public String getAssignee() {
-        return assignee;
-    }
-
-    private void setAssignee(String assignee) {
-        this.assignee = assignee.toLowerCase();
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    private void setRole(String role) {
-        this.role = role.toLowerCase();
+    private OrderingsTableRow() {
     }
 
     public static OrderNameStep newBuilder() {
@@ -150,32 +131,18 @@ public class OrderingsTableRow {
         }
 
         public OrderingsTableRow build() {
-            final OrderingsTableRow order = new OrderingsTableRow(orderName);
-            order.setTotalPrice(totalPrice);
-            order.setMaxDiscount(maxDiscount);
+            final OrderingsTableRow orderingsTableRow = new OrderingsTableRow(orderName.toLowerCase());
+            orderingsTableRow.setTotalPrice(totalPrice.toLowerCase());
+            orderingsTableRow.setMaxDiscount(maxDiscount.toLowerCase());
             if (deliveryDate != null) {
-                order.setDeliveryDate(deliveryDate);
+                orderingsTableRow.setDeliveryDate(deliveryDate.toLowerCase());
             } else {
-                order.setDeliveryDate("");
+                orderingsTableRow.setDeliveryDate("");
             }
-            order.setStatus(status);
-            order.setAssignee(assignee);
-            order.setRole(role);
-            return order;
+            orderingsTableRow.setStatus(status.toLowerCase());
+            orderingsTableRow.setAssignee(assignee.toLowerCase());
+            orderingsTableRow.setRole(role.toLowerCase());
+            return orderingsTableRow;
         }
-    }
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "orderName='" + getOrderName() + '\'' +
-                ", totalPrice='" + getTotalPrice() + '\'' +
-                ", maxDiscount='" + getMaxDiscount() + '\'' +
-                ", deliveryDate='" + getDeliveryDate() + '\'' +
-                ", status='" + getStatus() + '\'' +
-                ", assignee='" + getAssignee() + '\'' +
-                ", role='" + getRole() + '\'' +
-                '}';
     }
 }
