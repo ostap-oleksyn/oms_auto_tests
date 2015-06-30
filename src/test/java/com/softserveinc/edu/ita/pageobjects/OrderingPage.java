@@ -80,42 +80,7 @@ public class OrderingPage extends LogOutBase {
         }
         return table;
     }
-
-    /**
-     *  sets orderNames or orderStatuses or orderAssignees in list depends on parameters
-     *
-     * @param condition
-     * @return
-     *//*
-    public List<WebElement> getOrderFromView(OrderSearchCondition condition){
-        switch (condition){
-            case ORDER_NAME:
-                return driver.findElements(ORDER_NAME_COLUMN.getBy());
-            case STATUS:
-                return driver.findElements(ORDER_STATUS_COLUMN.getBy());
-            case ASSIGNEE:
-                return driver.findElements(ORDER_ASSIGNEE_COLUMN.getBy());
-            default:
-                return null;
-        }
-    }
-
-    *//**
-     * sets orderStatuses or userRoles depends on parameters
-     *
-     * @param filter
-     * @return
-     *//*
-    public List<WebElement> getOrderFromView(OrderFilter filter){
-        switch (filter){
-            case STATUS:
-                return driver.findElements(ORDER_STATUS_COLUMN.getBy());
-            case ROLE:
-                return driver.findElements(ROLE_COLUMN.getBy());
-            default:
-                return null;
-        }
-    }*/
+    
     /**
      * There is method to click "First" button below "Ordering" table of "Ordering" page.
      */

@@ -110,7 +110,7 @@ public class FilterTest extends TestRunner {
                 .clickApplyButton();
         columnsAfterFilter = getColumnByName(ROLE);
         loggingAssert.assertEquals(columnsBeforeFilter.toString(), columnsAfterFilter.toString(), ROLE + " " + NONE);
-        
+
         orderingPage.clickLogOutButton();
     }
 
