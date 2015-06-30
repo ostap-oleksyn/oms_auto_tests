@@ -132,16 +132,36 @@ public class OrderingsTableRow {
 
         public OrderingsTableRow build() {
             final OrderingsTableRow orderingsTableRow = new OrderingsTableRow(orderName.toLowerCase());
-            orderingsTableRow.setTotalPrice(totalPrice.toLowerCase());
-            orderingsTableRow.setMaxDiscount(maxDiscount.toLowerCase());
+            if (totalPrice != null) {
+                orderingsTableRow.setTotalPrice(totalPrice.toLowerCase());
+            } else {
+                orderingsTableRow.setTotalPrice("");
+            }
+            if (maxDiscount != null) {
+                orderingsTableRow.setMaxDiscount(maxDiscount.toLowerCase());
+            } else {
+                orderingsTableRow.setMaxDiscount("");
+            }
             if (deliveryDate != null) {
                 orderingsTableRow.setDeliveryDate(deliveryDate.toLowerCase());
             } else {
                 orderingsTableRow.setDeliveryDate("");
             }
-            orderingsTableRow.setStatus(status.toLowerCase());
-            orderingsTableRow.setAssignee(assignee.toLowerCase());
-            orderingsTableRow.setRole(role.toLowerCase());
+            if (status != null) {
+                orderingsTableRow.setStatus(status.toLowerCase());
+            } else {
+                orderingsTableRow.setStatus("");
+            }
+            if (assignee != null) {
+                orderingsTableRow.setAssignee(assignee.toLowerCase());
+            } else {
+                orderingsTableRow.setAssignee("");
+            }
+            if (role != null) {
+                orderingsTableRow.setRole(role.toLowerCase());
+            } else {
+                orderingsTableRow.setRole("");
+            }
             return orderingsTableRow;
         }
     }

@@ -25,7 +25,11 @@ public class AdministrationsTableRow {
     private String region;
 
     public AdministrationsTableRow(String firstName) {
-        this.firstName = firstName;
+        if (firstName != null) {
+            this.firstName = firstName;
+        } else {
+            this.firstName = "";
+        }
     }
 
     @Override
@@ -102,22 +106,28 @@ public class AdministrationsTableRow {
             return this;
         }
 
-
         public AdministrationsTableRow build() {
             final AdministrationsTableRow administrationsTableRow = new AdministrationsTableRow(firstName.toLowerCase());
-
-            administrationsTableRow.setLastName(lastName.toLowerCase());
-
+            if (lastName != null) {
+                administrationsTableRow.setLastName(lastName.toLowerCase());
+            } else {
+                administrationsTableRow.setLastName("");
+            }
             if (login != null) {
                 administrationsTableRow.setLogin(login.toLowerCase());
+            } else {
+                administrationsTableRow.setLogin("");
             }
             if (role != null) {
                 administrationsTableRow.setRole(role.toLowerCase());
+            } else {
+                administrationsTableRow.setRole("");
             }
             if (region != null) {
                 administrationsTableRow.setRegion(region.toLowerCase());
+            } else {
+                administrationsTableRow.setRegion("");
             }
-
             return administrationsTableRow;
         }
     }
