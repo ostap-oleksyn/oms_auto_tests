@@ -121,6 +121,13 @@ public class OrderingPage extends LogOutBase {
         return this;
     }
 
+    public OrderingPage setNumberOfElements(int numberOfElements){
+        Select select = new Select(driver.findElement(SHOW_NUMBER_OF_ELEMENTS_LINK.getBy()));
+        select.selectByValue(String.valueOf(numberOfElements));
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", SHOW_NUMBER_OF_ELEMENTS_LINK.getName()));
+        return this;
+    }
+
     public OrderingPage clickApplyButton() {
         click(APPLY_BUTTON);
         return this;

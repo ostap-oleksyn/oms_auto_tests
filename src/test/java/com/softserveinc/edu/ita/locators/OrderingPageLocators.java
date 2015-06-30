@@ -98,7 +98,27 @@ public enum OrderingPageLocators implements ILocator {
     ROLE_COLUMN(
             "Role",
             LocatorsType.BY_XPATH,
-            "//div[2]/table/tbody/tr/td[7]");
+            "//div[2]/table/tbody/tr/td[7]"),
+    EDIT_LINK(
+            "Edit link",
+            LocatorsType.BY_XPATH,
+            "//tr[2]/td[8]/a"),
+    SHOW_NUMBER_OF_ELEMENTS_LINK(
+            "Show number of elements link",
+            LocatorsType.BY_XPATH,
+            "//div[1]/select"),
+    PRICE_COLUMN(
+            "Price column",
+            LocatorsType.BY_XPATH,
+            "//table/tbody/tr/td[5]"),
+    QUANTITY_COLUMN(
+            "Quantity column",
+            LocatorsType.BY_XPATH,
+            "//table/tbody/tr/td[6]"),
+    PRICE_PER_LINE(
+            "Price per line",
+            LocatorsType.BY_XPATH,
+            "//table/tbody/tr/td[7]");
 
     private String name;
     private LocatorsType locatorsType;
