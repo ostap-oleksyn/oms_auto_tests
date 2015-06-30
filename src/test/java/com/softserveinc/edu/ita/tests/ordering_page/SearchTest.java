@@ -18,9 +18,8 @@ import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_ASSIG
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_NAME_COLUMN;
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_STATUS_COLUMN;
 
-
 public class SearchTest extends TestRunner {
-   private List<WebElement> columns;
+    private List<WebElement> columns;
 
     @Test(dataProvider = "getOrderSearchTerms", dataProviderClass = DataProviders.class)
     public void testSearch(String searchTerm) throws DAOException {
@@ -30,32 +29,33 @@ public class SearchTest extends TestRunner {
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
         for (OrderSearchCondition condition : OrderSearchCondition.values()) {
-        orderingPage.setSearchCondition(condition)
-                .fillSearchField(searchTerm)
-                .clickApplyButton();
+            orderingPage.setSearchCondition(condition)
+                    .fillSearchField(searchTerm)
+                    .clickApplyButton();
 
             columns = getColumnByName(condition);
 
-        if (columns.isEmpty()) {
-            loggingSoftAssert.assertTrue(columns.isEmpty(),
-                    condition + " " + searchTerm + " not found");
-        } else {
-            loggingSoftAssert.assertEquals(columns.get(0).getText().toLowerCase(), searchTerm.toLowerCase(),
-                    condition + " " + searchTerm);
-        }
+            if (columns.isEmpty()) {
+                loggingSoftAssert.assertTrue(columns.isEmpty(),
+                        condition + " " + searchTerm + " not found");
+            } else {
+                loggingSoftAssert.assertEquals(columns.get(0).getText().toLowerCase(), searchTerm.toLowerCase(),
+                        condition + " " + searchTerm);
+            }
             loggingSoftAssert.assertAll();
-        orderingPage.clearSearchField();
+            orderingPage.clearSearchField();
         }
         orderingPage.clickLogOutButton();
     }
+
     /**
-     *  sets orderNames or orderStatuses or orderAssignees in list depends on parameters
+     * sets orderNames or orderStatuses or orderAssignees in list depends on parameters
      *
      * @param condition
      * @return
      */
-    private List<WebElement> getColumnByName(OrderSearchCondition condition){
-        switch (condition){
+    private List<WebElement> getColumnByName(OrderSearchCondition condition) {
+        switch (condition) {
             case ORDER_NAME:
                 return driver.findElements(ORDER_NAME_COLUMN.getBy());
             case STATUS:
