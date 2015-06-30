@@ -50,7 +50,35 @@ public enum ItemManagementPageLocators implements ILocator {
     LAST_PRODUCT_PRICE(
             "Last product price",
             LocatorsType.BY_XPATH,
-            ".//tbody//tr[last()]//td[3]");
+            ".//tbody//tr[last()]//td[3]"),
+    PRODUCTS_LIST_RESIZE_LINK(
+            "Products list resize link",
+            LocatorsType.BY_XPATH,
+            ".//a[@href='itemManagement/resizeItemList.htm']"),
+    PRODUCTS_TABLE_ROW(
+            "Products table row",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr"),
+    PRODUCTS_TABLE_NAME_CELL(
+            "Products table name cell",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[1]"),
+    PRODUCTS_TABLE_DESCRIPTION_CELL(
+            "Products table description cell",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[2]"),
+    PRODUCTS_TABLE_PRICE_CELL(
+            "Products table price cell",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[3]"),
+    PRODUCTS_TABLE_EDIT_LINK(
+            "Products table edit link",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[4]"),
+    PRODUCTS_TABLE_DELETE_LINK(
+            "Products table delete link",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[5]/a");
 
     private String name;
     private LocatorsType locatorsType;

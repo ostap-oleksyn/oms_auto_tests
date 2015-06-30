@@ -1,11 +1,14 @@
 package com.softserveinc.edu.ita.pageobjects;
 
+import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
-import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Reporter;
+
+import java.util.Random;
 
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.FILTER_SELECT;
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.SEARCH_BUTTON;
@@ -37,16 +40,41 @@ public class ItemManagementPage extends LogOutBase {
         return getElementAttribute(ItemManagementPageLocators.SEARCH_FIELD, "value");
     }
 
-    public AddProductPage clickAddProductLink(){
+    public AddProductPage clickAddProductLink() {
         click(ItemManagementPageLocators.ADD_PRODUCT_LINK);
         return new AddProductPage(driver);
     }
 
-    public void clickLastButton(){
+    public void clickLastButton() {
         click(ItemManagementPageLocators.LAST_BUTTON);
     }
 
     public int getFoundProductsNumber() {
         return Integer.parseInt(getElementText(ItemManagementPageLocators.FOUND_PRODUCTS_NUMBER));
     }
+
+    public void clickProductsListResizeLink() {
+        click(ItemManagementPageLocators.PRODUCTS_LIST_RESIZE_LINK);
+    }
+
+    public int getNumberOfRows() {
+        return driver.findElements(ItemManagementPageLocators.PRODUCTS_TABLE_ROW.getBy()).size();
+    }
+
+    public Product getRandomProduct(int modifier) {
+
+
+        return Product.newBuilder()
+                .withoutId()
+                .withoutStatus()
+                .withProductName(getElementText(ItemManagementPageLocators.PRODUCTS_TABLE_NAME_CELL.modify(String.valueOf(modifier))))
+                .withProductDescription(getElementText(ItemManagementPageLocators.PRODUCTS_TABLE_DESCRIPTION_CELL.modify(String.valueOf(modifier))))
+                .withProductPrice(Double.parseDouble(getElementText(ItemManagementPageLocators.PRODUCTS_TABLE_PRICE_CELL.modify(String.valueOf(modifier)))))
+                .build();
+    }
+
+    public void deleteRandomProduct(int randomRow) {
+        click(ItemManagementPageLocators.PRODUCTS_TABLE_DELETE_LINK.modify(String.valueOf(randomRow)));
+    }
+
 }

@@ -38,4 +38,8 @@ public class StringsGenerator {
         return generatedString.toString();
     }
 
+    public static int getRandomNumber(int min, int max){
+        final Random random = new Random();
+        return random.nextInt(max) + min;
+    }
 }

@@ -35,6 +35,17 @@ public class Product {
                 .build();
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", status=" + status +
+                ", productName='" + productName + '\'' +
+                ", productDescription='" + productDescription + '\'' +
+                ", productPrice=" + productPrice +
+                '}';
+    }
+
     public static IdStep newBuilder() {
         return new Builder();
     }
