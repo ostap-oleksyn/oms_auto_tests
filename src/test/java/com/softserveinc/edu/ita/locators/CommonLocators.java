@@ -13,47 +13,47 @@ public enum CommonLocators implements ILocator {
 
     USER_INFO_TAB(
             "User info tab",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='nav']//a[@href='/OMS/userInfo.htm']"),
     ITEM_MANAGEMENT_TAB(
             "Item management tab",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='nav']//a[@href='/OMS/itemManagement.htm']"),
     ADMINISTRATION_TAB(
             "Administration tab",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='nav']//a[@href='/OMS/users.htm']"),
     ORDERING_TAB(
             "Ordering tab",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='nav']//a[@href='/OMS/order.htm']"),
     LOG_OUT_BUTTON(
             "Logout button",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             "//img[@alt='logout']"),
     ACTIVE_TAB(
             "Active tab",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//a[parent::li[@class='cur']]"),
     EN_LINK(
             "English language link",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='content']/div/a[1]"),
     UA_LINK(
             "Ukrainian language link",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='content']/div/a[2]");
 
     private String name;
-    private SeleniumByMethods seleniumByMethod;
+    private LocatorsType locatorsType;
     private String rawLocator;
     private String modifiedLocator;
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    CommonLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
+    CommonLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
-        this.seleniumByMethod = seleniumByMethod;
+        this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
     }
 
@@ -79,9 +79,9 @@ public enum CommonLocators implements ILocator {
     public By getBy() {
         //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
-            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
         } else {
-            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
         }
         return this.byLocator;
     }

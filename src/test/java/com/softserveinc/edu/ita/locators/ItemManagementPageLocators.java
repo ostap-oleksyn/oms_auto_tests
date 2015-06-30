@@ -13,35 +13,35 @@ public enum ItemManagementPageLocators implements ILocator {
     //TODO refactor into not using text label inside the locator
     ADD_PRODUCT_LINK(
             "Add product link",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='list']/a[contains(text(), 'Add Product')]"),
     SUPERVISOR_APPOINTED_LABEL(
             "Supervisor appointed Info label",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='list']/h2"),
     SUPERVISOR_FILTER_LABEL(
             "Filter label",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='searchForm']/label"),
     SELECTED_FILTER(
             "Selected filter",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='field']//option[@selected='selected']"),
     SEARCH_FIELD(
             "Search field",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='searchField']");
 
     private String name;
-    private SeleniumByMethods seleniumByMethod;
+    private LocatorsType locatorsType;
     private String rawLocator;
     private String modifiedLocator;
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    ItemManagementPageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
+    ItemManagementPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
-        this.seleniumByMethod = seleniumByMethod;
+        this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
     }
 
@@ -67,9 +67,9 @@ public enum ItemManagementPageLocators implements ILocator {
     public By getBy() {
         //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
-            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
         } else {
-            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
         }
         return this.byLocator;
     }

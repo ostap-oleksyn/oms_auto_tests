@@ -13,87 +13,87 @@ public enum OrderingPageLocators implements ILocator {
 
     CREATE_NEW_ORDER_LINK(
             "Create new order link",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='content']/a[contains(text(), 'Create new order')]"),
     QUANTITY_OF_ROWS(
             "Quantity of rows",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='allFoundAndFiltered']"),
     QUANTITY_OF_ROWS_PER_PAGE(
             "Quantity of rows per page",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='list']/table/tbody/tr/td[1]"),
     CLICK_NEXT_BUTTON(
             "Next button",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@name='nextPage']"),
     CLICK_FIRST_BUTTON(
             "First button",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@name='firstPage']"),
     SEARCH_FILTER_LABEL(
             "Search filter title label",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             "//tr[2]/td[1]"),
     EDIT_TABLE_LABEL(
             "Edit table label",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             "//tr[1]/th[8]"),
     FILTER_SELECT(
             "Filter select",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='filterBy']"),
     FILTER_VALUE_SELECT(
             "Filter value select",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='filterValue']"),
     SEARCH_CONDITION_SELECT(
             "Search condition select",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='search']"),
     SEARCH_FIELD(
             "Search field",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='searchValue']"),
     SELECTED_FILTER(
             "Selected filter",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='filterBy']//*[@selected='selected']"),
     SELECTED_FILTER_VALUE(
             "Selected filter value",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='filterValue']//*[@selected='selected']"),
     SELECTED_SEARCH_CONDITION(
             "Selected search condition",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='search']//*[@selected='selected']"),
     APPLY_BUTTON(
             "Apply button",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//input[@name='Apply']"),
     TABLE_ROW_CELL(
-            "",
-            SeleniumByMethods.BY_XPATH,
+            "Table row cell",
+            LocatorsType.BY_XPATH,
             ".//div[@id='list']/table/tbody/tr[%s]/td[1]"),
     TABLE_ROW(
-            "",
-            SeleniumByMethods.BY_XPATH,
+            "Table row",
+            LocatorsType.BY_XPATH,
             ".//div[@id='list']/table/tbody/tr[%s]/td"),
     TABLE_COLUMN(
-            "",
-            SeleniumByMethods.BY_XPATH,
+            "Table column",
+            LocatorsType.BY_XPATH,
             ".//*[@id='list']/table/tbody/tr[1]/th/a[contains(text(), '%s')]");
 
     private String name;
-    private SeleniumByMethods seleniumByMethod;
+    private LocatorsType locatorsType;
     private String rawLocator;
     private String modifiedLocator;
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    OrderingPageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
+    OrderingPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
-        this.seleniumByMethod = seleniumByMethod;
+        this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
     }
 
@@ -119,9 +119,9 @@ public enum OrderingPageLocators implements ILocator {
     public By getBy() {
         //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
-            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
         } else {
-            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
         }
         return this.byLocator;
     }

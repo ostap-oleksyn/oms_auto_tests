@@ -13,39 +13,39 @@ public enum UserInfoPageLocators implements ILocator {
 
     USER_INFO_LABEL(
             "Title User Info Table",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             "//fieldset/legend"),
     FIRST_NAME_TITLE_LABEL(
             "Title first name label",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             "//fieldset//tr[1]/td[1]"),
     FIRST_NAME_LABEL(
             "User first name label",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             "//fieldset//tr[1]/td[2]"),
     LAST_NAME_LABEL(
             "User last name label",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             "//fieldset//tr[2]/td[2]"),
     CUSTOMER_TYPE_LABEL(
             "User customer type label",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             "//fieldset//tr[3]/td[2]"),
     USER_ROLE_LABEL(
             "User role label",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             "//fieldset//tr[4]/td[2]");
 
     private String name;
-    private SeleniumByMethods seleniumByMethod;
+    private LocatorsType locatorsType;
     private String rawLocator;
     private String modifiedLocator;
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    UserInfoPageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
+    UserInfoPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
-        this.seleniumByMethod = seleniumByMethod;
+        this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
     }
 
@@ -71,9 +71,9 @@ public enum UserInfoPageLocators implements ILocator {
     public By getBy() {
         //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
-            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
         } else {
-            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
         }
         return this.byLocator;
     }

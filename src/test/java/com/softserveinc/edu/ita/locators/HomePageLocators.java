@@ -13,29 +13,29 @@ public enum HomePageLocators implements ILocator {
 
     LOGIN_USER_INPUT(
             "Login input field",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='edit']//input[@name = 'j_username']"),
     LOGIN_PASSWORD_INPUT(
             "Password input field",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='edit']//input[@name = 'j_password']"),
     LOGIN_SUBMIT_BUTTON(
             "Login submit button",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='edit']//input[@name = 'submit']"),
     LOGIN_ERROR_MESSAGE(
             "Login error message",
-            SeleniumByMethods.BY_XPATH,
+            LocatorsType.BY_XPATH,
             ".//*[@id='edit']/fieldset/font");
 
     private String name;
-    private SeleniumByMethods seleniumByMethod;
+    private LocatorsType seleniumByMethod;
     private String rawLocator;
     private String modifiedLocator;
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    HomePageLocators(String name, SeleniumByMethods seleniumByMethod, String rawLocator) {
+    HomePageLocators(String name, LocatorsType seleniumByMethod, String rawLocator) {
         this.name = name;
         this.seleniumByMethod = seleniumByMethod;
         this.rawLocator = rawLocator;

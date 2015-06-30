@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 /**
  * This enum gives a possibility to choose "by" method depending on selector type.
  */
-public enum SeleniumByMethods {
+public enum LocatorsType {
 
     BY_CLASS_NAME {
         @Override
