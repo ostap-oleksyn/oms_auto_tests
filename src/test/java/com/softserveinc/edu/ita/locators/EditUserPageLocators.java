@@ -5,9 +5,9 @@ import org.openqa.selenium.By;
 
 public enum EditUserPageLocators implements ILocator {
 
-    LOGIN_INPUT(
+    LOGIN_LABEL(
             "Login input",
-            By.xpath(".//*[@id='login']")),
+            By.xpath(".//*[@id='userModel']/table/tbody/tr[1]/td[1]")),
 
     FIRST_NAME_INPUT(
             "First name input",

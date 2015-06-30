@@ -19,6 +19,7 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 import static com.softserveinc.edu.ita.utils.DBUtility.getByLogin;
+import static com.softserveinc.edu.ita.utils.EnumUtil.getRandomEnum;
 import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 
@@ -26,6 +27,7 @@ public class DataProviders {
 
     /**
      * returns searchterms from xls file
+     *
      * @return
      */
     @DataProvider(name = "getSearchTerms")
@@ -134,12 +136,9 @@ public class DataProviders {
     }
 
     private static Object[][] getUsersFromList(Roles role) throws DAOException, IOException {
-        final FactoryDAO factory = new FactoryDAO();
-        final Connection connection = factory.getConnection();
-        final AbstractDAO userDAO = (AbstractDAO) factory.getDAO(connection, User.class);
-
-        final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.toString());
+        final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.getRoleName());
         final List<User> users = new ArrayList<>();
+
         for (String usersLogin : usersLoginFromXls) {
             users.add(getByLogin(usersLogin));
         }
@@ -157,23 +156,27 @@ public class DataProviders {
     public static Object[][] generateValidUserData() {
 
         final int GENERATED_USERS_COUNT = 5;
+        Random randomGenerator = new Random();
 
         Object[][] usersList = new Object[GENERATED_USERS_COUNT][1];
 
         for (int i = 0; i < GENERATED_USERS_COUNT; i++) {
+            int roleReference = randomGenerator.nextInt(3) + 1;
+            int regionReference = randomGenerator.nextInt(3) + 1;
+
             User user = User.newBuilder()
                     .withoutId()
+                    .withStatus(1)
                     .withFirstName(generateString("NameSymbols", 1, 13).toLowerCase())
                     .withLastName(generateString("NameSymbols", 1, 13).toLowerCase())
                     .withLogin(generateString("NameSymbols", 1, 13).toLowerCase())
+                    .withPassword(generateString("PasswordSymbols", 4, 10))
                     .withEmail(generateString("EmailSymbols", 4, 8) + "@"
                             + generateString("DomainNamesSymbols", 4, 8) + "."
                             + generateString("DomainNamesSymbols", 3, 4))
-                    .withPassword(generateString("PasswordSymbols", 4, 10))
-                    .withRoleRef(String.valueOf(Roles.getRandomRole()))
-                    .withoutCustomerTypeRef()
-                    .withStatus("1")
-                    .withRegionRef(String.valueOf(Regions.getRandomRegion()))
+                    .withRoleReference(roleReference)
+                    .withoutCustomerTypeReference()
+                    .withRegionReference(regionReference)
                     .build();
 
             usersList[i][0] = user;
@@ -221,15 +224,15 @@ public class DataProviders {
 
             User user = User.newBuilder()
                     .withoutId()
+                    .withoutStatus()
                     .withFirstName(firstName)
                     .withLastName(lastName)
                     .withLogin(login)
-                    .withEmail(email)
                     .withPassword(password)
-                    .withoutRoleRef()
-                    .withoutCustomerTypeRef()
-                    .withoutStatus()
-                    .withoutRegionRef()
+                    .withEmail(email)
+                    .withoutRoleReference()
+                    .withoutCustomerTypeReference()
+                    .withoutRegionReference()
                     .build();
 
             usersList[i][0] = user;

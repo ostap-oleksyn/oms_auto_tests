@@ -27,11 +27,11 @@ public class EditUserTest extends TestRunner {
         EditUserPage editUserPage = administrationPage.clickRandomEditButton();
         String editUserLogin = editUserPage.getEditUserLogin();
 
-        editUserPage.changeFirstName("Hey");
-        editUserPage.changeLastName("Joe");
-        editUserPage.fillPasswordFields("qwerty");
-        editUserPage.selectRegion(Regions.NORTH);
-        editUserPage.changeRole(Roles.CUSTOMER);
+        editUserPage.fillFirstNameField("Hey")
+                .fillLastNameField("Joe")
+                .fillPasswordFields("qwerty")
+                .selectRegion(2)
+                .selectRole(Roles.CUSTOMER);
 
         administrationPage = editUserPage.clickCreateButton();
         homePage = administrationPage.clickLogOutButton();
@@ -40,23 +40,17 @@ public class EditUserTest extends TestRunner {
 
         loggingAssert.assertEquals(editUser.getFirstName(), "Hey", "User first name is changed in database");
         loggingAssert.assertEquals(editUser.getLastName(), "Joe", "User last name is changed in database");
-        loggingAssert.assertEquals(editUser.getRegionReference(), "North", "User region is changed in database");
-        loggingAssert.assertEquals(editUser.getRoleReference(), "Customer", "User role is changed in database");
+        loggingAssert.assertEquals(editUser.getRegionReference(), Regions.SOUTH, "User region is changed in database");
+        loggingAssert.assertEquals(editUser.getRoleReference(), Roles.CUSTOMER, "User role is changed in database");
 
         userInfoPage = homePage.logIn(editUser.getLogin(), editUser.getPassword());
 
-        loggingAssert.assertTrue(driver.findElement(UserInfoPageLocators.FIRST_NAME_LABEL.getBy())
-                .getText()
-                .toLowerCase()
-                .contains("Hey"));
-        loggingAssert.assertTrue(driver.findElement(UserInfoPageLocators.LAST_NAME_LABEL.getBy())
-                .getText()
-                .toLowerCase()
-                .contains("Joe"));
-        loggingAssert.assertTrue(driver.findElement(UserInfoPageLocators.USER_ROLE_LABEL.getBy())
-                .getText()
-                .toLowerCase()
-                .contains("Customer"));
+        loggingAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.FIRST_NAME_LABEL)
+                .contains("Hey"), "User first name is changed");
+        loggingAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.LAST_NAME_LABEL)
+                .contains("Joe"), "User last name is changed");
+        loggingAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
+                .contains("Customer"), "User role is changed");
 
         userInfoPage.clickLogOutButton();
     }

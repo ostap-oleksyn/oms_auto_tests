@@ -1,6 +1,8 @@
 
 package com.softserveinc.edu.ita.dao;
 
+import com.softserveinc.edu.ita.domains.Order;
+import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.dao.interfaces.IFactoryDAO;
 import com.softserveinc.edu.ita.dao.interfaces.IGenericDAO;
@@ -53,6 +55,7 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
     }
 
     public FactoryDAO() {
+
         try {
             DRIVER = getProperty("driver", PROPERTY_FILE);
             Class.forName(DRIVER);
@@ -62,20 +65,49 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
             e.printStackTrace();
         }
         creators = new HashMap<>();
-        creators.put(User.class, new ICreatorDAO<Connection>() {
 
+        creators.put(User.class, new ICreatorDAO<Connection>() {
             @Override
             public AbstractDAO create(Connection connection) {
                 return new UserDAO(connection);
             }
         });
-        creators.put(User.class, new ICreatorDAO<Connection>() {
 
+        creators.put(User.class, new ICreatorDAO<Connection>() {
             @Override
             public IGenericDAO create(Connection connection) {
                 return new UserDAO(connection);
             }
         });
+
+        creators.put(Order.class, new ICreatorDAO<Connection>() {
+            @Override
+            public AbstractDAO create(Connection connection) {
+                return new OrderDAO(connection);
+            }
+        });
+
+        creators.put(Order.class, new ICreatorDAO<Connection>() {
+            @Override
+            public IGenericDAO create(Connection connection) {
+                return new OrderDAO(connection);
+            }
+        });
+        creators.put(Product.class, new ICreatorDAO<Connection>() {
+
+            @Override
+            public AbstractDAO create(Connection connection) {
+                return new ProductDAO(connection);
+            }
+        });
+        creators.put(Product.class, new ICreatorDAO<Connection>() {
+
+            @Override
+            public IGenericDAO create(Connection connection) {
+                return new ProductDAO(connection);
+            }
+        });
+
 
     }
 }

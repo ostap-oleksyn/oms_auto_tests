@@ -53,24 +53,36 @@ public enum AdministrationPageLocators implements ILocator {
     FILTER_SELECT(
             "Filter select",
             By.xpath(".//fieldset/form/select[1]")),
-
     CONDITION_SELECT(
             "Condition select",
             By.xpath(".//fieldset/form/select[2]")),
-
+    EDIT_USER_LINK(
+            "Edit user link",
+            By.xpath(".//*[@id='table']/tbody/tr[3]/td[6]/a")),
     SEARCH_FIELD(
             "Search field",
             By.xpath(".//*[@id='searchField']")),
-
     SEARCH_BUTTON(
             "Search button",
-            By.xpath(".//*[@id='searchForm']/input[2]"));
+            By.xpath(".//*[@id='searchForm']/input[2]")),
+    CREATE_REPORT_LINK(
+            "Create report link",
+            By.xpath(".//a[@href='reportUsers.htm']")),
+    SAVE_REPORT_LINK(
+            "Save report link",
+            By.xpath(".//a[@href='getReport.htm']")),
+    SELECTED_FILTER(
+            "Selected filter",
+            By.xpath(".//*[@id='field']//*[@selected='selected']")),
+    SELECTED_CONDITION(
+            "Selected condition",
+            By.xpath(".//*[@id='condition']//*[@selected='selected']"));
+
 
     // TODO redo to enum
     public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";
     public static final String DELETE_LINK = ".//*[@id='table']/tbody/tr[%s]/td[7]/a";
     public static final String LOGIN_CELL = ".//*[@id='table']/tbody/tr[%s]/td[3]";
-    public static final String EDIT_USER_LINK = ".//*[@id='table']/tbody/tr[%s]/td[6]/a";
 
     AdministrationPageLocators(String name, By locator) {
         this.name = name;

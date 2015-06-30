@@ -13,6 +13,10 @@ public enum SearchConditions {
         this.condition = name;
     }
 
+    public String getCondition() {
+        return condition;
+    }
+
     @Override
     public String toString() {
         return condition;

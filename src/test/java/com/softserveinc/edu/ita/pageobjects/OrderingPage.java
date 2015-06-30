@@ -1,11 +1,17 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.Order;
+import com.softserveinc.edu.ita.enums.OrderStatuses;
 import com.softserveinc.edu.ita.enums.OrdersTableColumns;
+import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
+import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
+import com.softserveinc.edu.ita.utils.DBUtility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Reporter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -46,14 +52,19 @@ public class OrderingPage extends LogOutBase {
                     //Recording displayed row.
                     List<WebElement> ordersFields = driver.findElements(By.xpath(String.format(TABLE_ROW, j)));
                     //There is used StepBuilderPattern.
+                    // TODO redo stepBuilder
                     table.add(Order.newBuilder()
-                            .setOrderName(ordersFields.get(0).getText())
-                            .setTotalPrice(ordersFields.get(1).getText())
-                            .setMaxDiscount(ordersFields.get(2).getText())
-                            .setDeliveryDate(ordersFields.get(3).getText())
-                            .setStatus(ordersFields.get(4).getText())
-                            .setAssignee(ordersFields.get(5).getText())
-                            .setRole(ordersFields.get(6).getText())
+                            .withoutId()
+                            .withOrderName(ordersFields.get(0).getText())
+                            .withoutOrderNumber()
+                            .withTotalPrice(Double.valueOf(ordersFields.get(1).getText()))
+                            .withAssignee(DBUtility.getByLogin(ordersFields.get(5).getText()).getId())
+                            .withoutCustomer()
+                            .withOrderStatusReference(OrderStatuses.getStatusReference(ordersFields.get(4).getText()))
+                            .withMaxDiscount(Double.valueOf(ordersFields.get(2).getText()))
+                            .withDeliveryDate(ordersFields.get(3).getText())
+                            .withoutPreferableDeliveryDate()
+                            // .setRole(ordersFields.get(6).getText())
                             .build());
                 }
 
@@ -91,5 +102,39 @@ public class OrderingPage extends LogOutBase {
         driver.findElement(By.xpath(String.format(OrderingPageLocators.TABLE_COLUMN, tableColumn.toString()))).click();
     }
 
+    public OrderingPage setFilter(OrderFilter filter) {
+        Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_SELECT.getBy()));
+        fieldSelect.selectByVisibleText(filter.getFilterName());
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
+        return this;
+    }
+
+    public OrderingPage setFilterValue(Enum filterValue) {
+        Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_VALUE_SELECT.getBy()));
+        fieldSelect.selectByVisibleText(filterValue.toString());
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter value - <b>'%s'</b>", filterValue.toString()));
+        return this;
+    }
+
+    public OrderingPage setSearchCondition(OrderSearchCondition searchCondition) {
+        Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.SEARCH_CONDITION_SELECT.getBy()));
+        fieldSelect.selectByVisibleText(searchCondition.getSearchCondition());
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected search condition - <b>'%s'</b>", searchCondition.getSearchCondition()));
+        return this;
+    }
+
+    public OrderingPage clickApplyButton() {
+        click(OrderingPageLocators.APPLY_BUTTON);
+        return this;
+    }
+
+    public OrderingPage fillSearchField(String searchTerm) {
+        sendKeys(OrderingPageLocators.SEARCH_FIELD, searchTerm);
+        return this;
+    }
+
+    public String getSearchFieldText() {
+        return getElementAttribute(OrderingPageLocators.SEARCH_FIELD, "value");
+    }
 }
 

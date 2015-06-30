@@ -26,7 +26,31 @@ public enum OrderingPageLocators implements ILocator {
             By.xpath("//tr[2]/td[1]")),
     EDIT_TABLE_LABEL(
             "Edit table label",
-            By.xpath("//tr[1]/th[8]"));
+            By.xpath("//tr[1]/th[8]")),
+    FILTER_SELECT(
+            "Filter select",
+            By.xpath(".//*[@id='filterBy']")),
+    FILTER_VALUE_SELECT(
+            "Filter value select",
+            By.xpath(".//*[@id='filterValue']")),
+    SEARCH_CONDITION_SELECT(
+            "Search condition select",
+            By.xpath(".//*[@id='search']")),
+    SEARCH_FIELD(
+            "Search field",
+            By.xpath(".//*[@id='searchValue']")),
+    SELECTED_FILTER(
+            "Selected filter",
+            By.xpath(".//*[@id='filterBy']//*[@selected='selected']")),
+    SELECTED_FILTER_VALUE(
+            "Selected filter value",
+            By.xpath(".//*[@id='filterValue']//*[@selected='selected']")),
+    SELECTED_SEARCH_CONDITION(
+            "Selected search condition",
+            By.xpath(".//*[@id='search']//*[@selected='selected']")),
+    APPLY_BUTTON(
+            "Apply button",
+            By.xpath(".//input[@name='Apply']"));
 
     // TODO redo to enum
     public static final String TABLE_ROW_CELL = ".//div[@id='list']/table/tbody/tr[%s]/td[1]";

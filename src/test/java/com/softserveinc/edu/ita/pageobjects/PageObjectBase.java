@@ -50,6 +50,7 @@ public abstract class PageObjectBase {
      * @param text    - input text
      */
     public void sendKeys(ILocator locator, String text) {
+        driver.findElement(locator.getBy()).clear();
         driver.findElement(locator.getBy()).sendKeys(text);
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Typed '%s' in <b>%s</b>", text, locator.getName()));
     }
@@ -61,8 +62,12 @@ public abstract class PageObjectBase {
         Reporter.log(String.format("INFO   - Accepted alert: %s", alertText));
     }
 
-    public boolean isElementEnabled(ILocator locator){
+    public boolean isElementEnabled(ILocator locator) {
         return driver.findElement(locator.getBy()).isEnabled();
+    }
+
+    public String getElementAttribute(ILocator locator, String attribute) {
+        return driver.findElement(locator.getBy()).getAttribute(attribute);
     }
 
 }

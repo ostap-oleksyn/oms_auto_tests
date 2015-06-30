@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-import com.softserveinc.edu.ita.enums.Regions;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.locators.EditUserPageLocators;
 import org.openqa.selenium.WebDriver;
@@ -9,40 +8,39 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.io.IOException;
 
+
 public class EditUserPage extends LogOutBase {
     public EditUserPage(WebDriver driver) {
         super(driver);
     }
 
     public String getEditUserLogin() {
-        WebElement editUserLogin = driver.findElement(EditUserPageLocators.LOGIN_INPUT.getBy());
-
-        return editUserLogin.getText();
+        return getElementAttribute(EditUserPageLocators.LOGIN_LABEL, "value");
     }
 
-    public void changeFirstName (String newFirstName) throws IOException {
-        WebElement firstNameField = driver.findElement(EditUserPageLocators.FIRST_NAME_INPUT.getBy());
-        firstNameField.clear();
-        firstNameField.sendKeys(newFirstName);
+    public EditUserPage fillFirstNameField(String newFirstName) throws IOException {
+        sendKeys(EditUserPageLocators.FIRST_NAME_INPUT, newFirstName);
+        return this;
     }
 
-    public void changeLastName (String newLastName) throws IOException {
-        WebElement firstNameField = driver.findElement(EditUserPageLocators.LAST_NAME_INPUT.getBy());
-        firstNameField.clear();
-        firstNameField.sendKeys(newLastName);
+    public EditUserPage fillLastNameField(String newLastName) {
+        sendKeys(EditUserPageLocators.LAST_NAME_INPUT, newLastName);
+        return this;
     }
 
-    public void fillPasswordFields (String password) throws IOException {
+    public EditUserPage fillPasswordFields(String password) {
         sendKeys(EditUserPageLocators.PASSWORD_INPUT, password);
         sendKeys(EditUserPageLocators.CONFIRM_PASSWORD_INPUT, password);
+        return this;
     }
 
-    public void selectRegion(Regions regionName) {
-        Select regionSelect = new Select(driver.findElement(EditUserPageLocators.REGION_SELECT.getBy()));
-        regionSelect.selectByVisibleText(regionName.toString());
+        public EditUserPage selectRegion(int regionId) {
+            Select regionSelect = new Select(driver.findElement(EditUserPageLocators.REGION_SELECT.getBy()));
+            regionSelect.selectByIndex(regionId);
+        return this;
     }
 
-    public void changeRole(Roles customer) {
+    public void selectRole(Roles customer) {
         WebElement customerRoleButton = driver.findElement(EditUserPageLocators.ROLE_CUSTOMER_SELECT.getBy());
         customerRoleButton.click();
     }

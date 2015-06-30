@@ -1,30 +1,48 @@
 package com.softserveinc.edu.ita.enums;
 
-import java.util.Random;
-
 /**
  * Enum with roles names. Can generate random values
  */
 public enum Roles {
-    ADMINISTRATOR("Administrator"),
-    CUSTOMER("Customer"),
-    MERCHANDISER("Merchandiser"),
-    SUPERVISOR("Supervisor"),
-    ALL("All");
+    ADMINISTRATOR(1, "Administrator"),
+    MERCHANDISER(2, "Merchandiser"),
+    SUPERVISOR(3, "Supervisor"),
+    CUSTOMER(4, "Customer"),
+    ALL(5, "All");
 
-    private String name;
+    private int roleReference;
+    private String roleName;
 
-    Roles(String name) {
-        this.name = name;
+    Roles(int roleReference, String roleName) {
+        this.roleReference = roleReference;
+        this.roleName = roleName;
     }
 
     @Override
     public String toString() {
-        return this.name;
+        return "Roles{" +
+                "roleReference=" + roleReference +
+                ", name='" + roleName + '\'' +
+                '}';
     }
 
-    public static Roles getRandomRole() {
-        Random randomGenerator = new Random();
-        return values()[randomGenerator.nextInt(values().length - 1)];
+    public String getRoleName() {
+        return roleName;
+    }
+
+
+    public int getRoleReference() {
+        return roleReference;
+    }
+
+    public static String getRoleName(int roleReference) {
+
+        for (Roles role: Roles.values()) {
+            if (role.roleReference == roleReference) {
+                return role.getRoleName();
+            }
+        }
+
+        return null;
     }
 }
