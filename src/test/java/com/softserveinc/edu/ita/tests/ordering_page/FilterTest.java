@@ -25,7 +25,6 @@ public class FilterTest extends TestRunner {
     private List<WebElement> columnsBeforeFilter;
     private List<WebElement> columnsAfterFilter;
 
-
     @Test
     public void testFilterStatus() {
         HomePage homePage = new HomePage(driver);
@@ -111,8 +110,7 @@ public class FilterTest extends TestRunner {
                 .clickApplyButton();
         columnsAfterFilter = getColumnByName(ROLE);
         loggingAssert.assertEquals(columnsBeforeFilter.toString(), columnsAfterFilter.toString(), ROLE + " " + NONE);
-
-
+        
         orderingPage.clickLogOutButton();
     }
 
