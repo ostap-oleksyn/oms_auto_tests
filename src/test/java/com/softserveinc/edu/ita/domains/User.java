@@ -2,104 +2,47 @@ package com.softserveinc.edu.ita.domains;
 
 import com.softserveinc.edu.ita.enums.CustomerTypes;
 import com.softserveinc.edu.ita.enums.Roles;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * This class represents the User model
  */
 public class User {
 
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int id;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int status;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String firstName;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String lastName;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String login;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String password;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String email;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int roleReference;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int customerTypeReference;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int regionReference;
 
     private User() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public int getRoleReference() {
-        return roleReference;
-    }
-
-    public void setRoleReference(int roleReference) {
-        this.roleReference = roleReference;
-    }
-
-    public int getCustomerTypeReference() {
-        return customerTypeReference;
-    }
-
-    public void setCustomerTypeReference(int customerTypeReference) {
-        this.customerTypeReference = customerTypeReference;
-    }
-
-    public int getRegionReference() {
-        return regionReference;
-    }
-
-    public void setRegionReference(int regionReference) {
-        this.regionReference = regionReference;
     }
 
     @Override

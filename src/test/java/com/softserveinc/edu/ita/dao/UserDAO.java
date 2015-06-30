@@ -75,6 +75,12 @@ public class UserDAO<T> extends AbstractDAO<T> {
                 "limit 1";
     }
 
+    private String setUserStatus() {
+        return "UPDATE USERS SET IsUserActive = ? \n" +
+                "WHERE Id = ?";
+
+    }
+
     @Override
     protected void setUpdateParameters(PreparedStatement statement, T object) {
         User user = (User) object;
@@ -223,6 +229,19 @@ public class UserDAO<T> extends AbstractDAO<T> {
             throw new DAOException(e);
         }
         return usersList;
+    }
+
+    public void setUserStatus(User user, int status) throws DAOException {
+        String sqlQuery = setUserStatus();
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setInt(1, status);
+            statement.setInt(2, user.getId());
+
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
     }
 
 }
