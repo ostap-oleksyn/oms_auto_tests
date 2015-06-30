@@ -29,12 +29,8 @@ public class DeleteProductTest extends TestRunner {
         itemManagementPage = userInfoPage.clickItemManagementTab();
 
         final int numberOfFoundProducts = itemManagementPage.getFoundProductsNumber();
-
-        itemManagementPage.clickProductsListResizeLink();
-
         final int numberOfRows = itemManagementPage.getNumberOfRows();
         final int randomRow = StringsGenerator.getRandomNumber(1, numberOfRows);
-
 
         itemManagementPage.deleteRandomProduct(randomRow);
 
@@ -52,17 +48,13 @@ public class DeleteProductTest extends TestRunner {
         loggingSoftAssert.assertAll();
     }
 
-
-    @Test
-    public void deleteProductTest() {
+    @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
+    public void deleteProductTest(User user) {
         homePage = new HomePage(driver);
-        userInfoPage = homePage.logIn("login2", "qwerty");
+        userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         itemManagementPage = userInfoPage.clickItemManagementTab();
 
         final int numberOfFoundProducts = itemManagementPage.getFoundProductsNumber();
-
-        itemManagementPage.clickProductsListResizeLink();
-
         final int numberOfRows = itemManagementPage.getNumberOfRows();
         final int randomRow = StringsGenerator.getRandomNumber(1, numberOfRows);
 
@@ -77,9 +69,8 @@ public class DeleteProductTest extends TestRunner {
         confirmDelete.accept();
 
         loggingAssert.assertEquals(numberOfFoundProducts - 1, itemManagementPage.getFoundProductsNumber(),
-                String.format("Found products number changed: expected - <b>%s</b>; actual - <b>%s</b>;",
+                String.format("Product deleted. Found products number changed: expected - <b>%s</b>; actual - <b>%s</b>;",
                         numberOfFoundProducts - 1, itemManagementPage.getFoundProductsNumber()));
-
 
         loggingSoftAssert.assertTrue(
                 DBUtility.getProductStatus(product.getProductName(), product.getProductDescription()) ==
@@ -94,7 +85,6 @@ public class DeleteProductTest extends TestRunner {
                 String.format("Product <b>%s</b> status changed to 1", product.getProductName()));
         loggingSoftAssert.assertAll();
     }
-
 
     @AfterMethod
     public void logOut() {

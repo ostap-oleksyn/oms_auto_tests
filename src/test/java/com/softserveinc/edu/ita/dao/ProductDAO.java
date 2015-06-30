@@ -19,14 +19,14 @@ public class ProductDAO extends AbstractDAO {
 
     @Override
     protected String getSelectQuery() {
-        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice, \n" +
+        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products \n" +
                 "WHERE Id = ?";
     }
 
     @Override
     protected String getSelectAllQuery() {
-        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice, \n" +
+        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products";
     }
 
@@ -57,7 +57,7 @@ public class ProductDAO extends AbstractDAO {
                 "WHERE ProductName = ? AND ProductDescription = ?";
     }
 
-    private String setProductStatus() {
+    private String setProductStatusQuery() {
         return "UPDATE PRODUCTS SET IsProductActive = ? \n" +
                 "WHERE ProductName = ? AND ProductDescription = ?";
     }
@@ -143,29 +143,14 @@ public class ProductDAO extends AbstractDAO {
     }
 
     public void setProductStatus(String name, String description, ProductStatus status) throws DAOException {
-        String sqlQuery = setProductStatus();
+        String sqlQuery = setProductStatusQuery();
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, status.getStatus());
             statement.setString(2, name);
-            statement.setString(2, description);
+            statement.setString(3, description);
             statement.executeUpdate();
         } catch (Exception e) {
             throw new DAOException(e);
         }
-    }
-
-    public Product getProduct(String name, String description) throws DAOException {
-        List<Product> list;
-        String sqlQuery = getProductQuery();
-
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            statement.setString(1, name);
-            statement.setString(2, description);
-            ResultSet resultSet = statement.executeQuery();
-            list = (List<Product>) parseResultSet(resultSet);
-        } catch (Exception e) {
-            throw new DAOException(e);
-        }
-        return list.get(0);
     }
 }

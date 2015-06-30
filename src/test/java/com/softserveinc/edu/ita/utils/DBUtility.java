@@ -256,19 +256,4 @@ public class DBUtility {
             e.printStackTrace();
         }
     }
-
-    public static Product getProduct(String productName, String productDescription) {
-        final FactoryDAO factory = new FactoryDAO();
-        final Connection connection;
-        final ProductDAO productDAO;
-        Product product = null;
-        try {
-            connection = factory.getConnection();
-            productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
-            product = productDAO.getProduct(productName, productDescription);
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-        return product;
-    }
 }

@@ -3,12 +3,9 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
 import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Reporter;
-
-import java.util.Random;
 
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.FILTER_SELECT;
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.SEARCH_BUTTON;
@@ -51,10 +48,6 @@ public class ItemManagementPage extends LogOutBase {
 
     public int getFoundProductsNumber() {
         return Integer.parseInt(getElementText(ItemManagementPageLocators.FOUND_PRODUCTS_NUMBER));
-    }
-
-    public void clickProductsListResizeLink() {
-        click(ItemManagementPageLocators.PRODUCTS_LIST_RESIZE_LINK);
     }
 
     public int getNumberOfRows() {
