@@ -118,7 +118,24 @@ public enum OrderingPageLocators implements ILocator {
     PRICE_PER_LINE(
             "Price per line",
             LocatorsType.BY_XPATH,
-            "//table/tbody/tr/td[7]");
+            "//table/tbody/tr/td[7]"),
+    ITEM_FIRST_PAGE_BUTTON(
+            "Item first page button",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageable']//form[1]/input"),
+    ITEM_PREVIOUS_PAGE_BUTTON(
+            "Item previous page button",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageable']//form[2]/input"),
+    ITEM_NEXT_PAGE_BUTTON(
+            "Item next page button",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageable']//form[3]/input"),
+    ITEM_LAST_PAGE_BUTTON(
+            "Item next page button",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageable']//form[4]/input");
+
 
     private String name;
     private LocatorsType locatorsType;
