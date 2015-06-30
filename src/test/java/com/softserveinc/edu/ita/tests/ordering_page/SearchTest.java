@@ -20,7 +20,7 @@ import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_STATU
 
 
 public class SearchTest extends TestRunner {
-    List<WebElement> ordersList;
+   private List<WebElement> columns;
 
     @Test(dataProvider = "getOrderSearchTerms", dataProviderClass = DataProviders.class)
     public void testSearch(String searchTerm) throws DAOException {
@@ -34,13 +34,13 @@ public class SearchTest extends TestRunner {
                 .fillSearchField(searchTerm)
                 .clickApplyButton();
 
-            ordersList = getOrderFromView(condition);
+            columns = getColumnByName(condition);
 
-        if (ordersList.isEmpty()) {
-            loggingSoftAssert.assertTrue(ordersList.isEmpty(),
+        if (columns.isEmpty()) {
+            loggingSoftAssert.assertTrue(columns.isEmpty(),
                     condition + " " + searchTerm + " not found");
         } else {
-            loggingSoftAssert.assertEquals(ordersList.get(0).getText().toLowerCase(), searchTerm.toLowerCase(),
+            loggingSoftAssert.assertEquals(columns.get(0).getText().toLowerCase(), searchTerm.toLowerCase(),
                     condition + " " + searchTerm);
         }
             loggingSoftAssert.assertAll();
@@ -54,17 +54,14 @@ public class SearchTest extends TestRunner {
      * @param condition
      * @return
      */
-    private List<WebElement> getOrderFromView (OrderSearchCondition condition){
+    private List<WebElement> getColumnByName(OrderSearchCondition condition){
         switch (condition){
             case ORDER_NAME:
                 return driver.findElements(ORDER_NAME_COLUMN.getBy());
             case STATUS:
                 return driver.findElements(ORDER_STATUS_COLUMN.getBy());
-            case ASSIGNEE:
-                return driver.findElements(ORDER_ASSIGNEE_COLUMN.getBy());
             default:
-                return null;
+                return driver.findElements(ORDER_ASSIGNEE_COLUMN.getBy());
         }
     }
-
 }

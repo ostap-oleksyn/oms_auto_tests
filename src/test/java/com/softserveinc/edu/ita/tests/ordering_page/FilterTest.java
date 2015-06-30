@@ -21,9 +21,9 @@ import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_STATU
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ROLE_COLUMN;
 
 public class FilterTest extends TestRunner {
-   private List<WebElement> ordersList;
-   private List<WebElement> ordersListBeforeFilter;
-   private List<WebElement> ordersListAfterFilter;
+   private List<WebElement> columns;
+   private List<WebElement> columnsBeforeFilter;
+   private List<WebElement> columnsAfterFilter;
 
 
     @Test
@@ -42,12 +42,12 @@ public class FilterTest extends TestRunner {
           skips filter value NONE because we have the separate method testNoneFilter()
          */
             if (value != NONE) {
-                ordersList = getOrderFromView(STATUS);
+                columns = getColumnByName(STATUS);
 
-                if (ordersList.isEmpty()) {
-                    loggingSoftAssert.assertTrue(ordersList.isEmpty(), STATUS + " " + value + " not found");
+                if (columns.isEmpty()) {
+                    loggingSoftAssert.assertTrue(columns.isEmpty(), STATUS + " " + value + " not found");
                 } else {
-                    loggingSoftAssert.assertEquals(ordersList.get(0).getText().toLowerCase(), value.name().toLowerCase(),
+                    loggingSoftAssert.assertEquals(columns.get(0).getText().toLowerCase(), value.name().toLowerCase(),
                             STATUS + " " + value);
                 }
                 loggingSoftAssert.assertAll();
@@ -74,12 +74,12 @@ public class FilterTest extends TestRunner {
           skips filter value NONE because we have the separate method testNoneFilter()
         */
             if (value != RoleFilterValue.NONE) {
-                ordersList = getOrderFromView(OrderFilter.ROLE);
+                columns = getColumnByName(OrderFilter.ROLE);
 
-                if (ordersList.isEmpty()) {
-                    loggingSoftAssert.assertTrue(ordersList.isEmpty(), ROLE + " " + value + " not found");
+                if (columns.isEmpty()) {
+                    loggingSoftAssert.assertTrue(columns.isEmpty(), ROLE + " " + value + " not found");
                 } else {
-                    loggingSoftAssert.assertEquals(ordersList.get(0).getText().toLowerCase(), value.name().toLowerCase(),
+                    loggingSoftAssert.assertEquals(columns.get(0).getText().toLowerCase(), value.name().toLowerCase(),
                             ROLE + " " + value);
                 }
                 loggingSoftAssert.assertAll();
@@ -97,20 +97,20 @@ public class FilterTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        ordersListBeforeFilter = getOrderFromView(STATUS);
+        columnsBeforeFilter = getColumnByName(STATUS);
         orderingPage.setFilter(STATUS)
                 .setFilterValue(StatusFilterValue.NONE)
                 .clickApplyButton();
-        ordersListAfterFilter = getOrderFromView(STATUS);
-        loggingAssert.assertEquals(ordersListBeforeFilter.toString(), ordersListAfterFilter.toString(), STATUS + " " + NONE);
+        columnsAfterFilter = getColumnByName(STATUS);
+        loggingAssert.assertEquals(columnsBeforeFilter.toString(), columnsAfterFilter.toString(), STATUS + " " + NONE);
 
-        ordersListBeforeFilter = getOrderFromView(ROLE);
+        columnsBeforeFilter = getColumnByName(ROLE);
         orderingPage.setFilter(ROLE)
                 .clickApplyButton()
                 .setFilterValue(RoleFilterValue.NONE)
                 .clickApplyButton();
-        ordersListAfterFilter = getOrderFromView(ROLE);
-        loggingAssert.assertEquals(ordersListBeforeFilter.toString(), ordersListAfterFilter.toString(), ROLE + " " + NONE);
+        columnsAfterFilter = getColumnByName(ROLE);
+        loggingAssert.assertEquals(columnsBeforeFilter.toString(), columnsAfterFilter.toString(), ROLE + " " + NONE);
 
 
         orderingPage.clickLogOutButton();
@@ -122,14 +122,12 @@ public class FilterTest extends TestRunner {
      * @param filter
      * @return
      */
-    private List<WebElement> getOrderFromView(OrderFilter filter) {
+    private List<WebElement> getColumnByName(OrderFilter filter) {
         switch (filter) {
             case STATUS:
                 return driver.findElements(ORDER_STATUS_COLUMN.getBy());
-            case ROLE:
-                return driver.findElements(ROLE_COLUMN.getBy());
             default:
-                return null;
+                return driver.findElements(ROLE_COLUMN.getBy());
         }
     }
 }
