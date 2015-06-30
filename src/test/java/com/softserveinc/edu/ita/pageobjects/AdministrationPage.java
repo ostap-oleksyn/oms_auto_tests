@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-import com.softserveinc.edu.ita.domains.UserFromView;
+import com.softserveinc.edu.ita.utils.AdministrationsTableRow;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
 import com.softserveinc.edu.ita.enums.administration_page.UsersTableColumns;
@@ -54,8 +54,8 @@ public class AdministrationPage extends LogOutBase {
     /**
      * A method to get "Administration" table from "Administration" page of web-application.
      */
-    public List<UserFromView> getTableFromView() {
-        List<UserFromView> usersList = new LinkedList<>();
+    public List<AdministrationsTableRow> getTableFromView() {
+        List<AdministrationsTableRow> usersList = new LinkedList<>();
         int pagination = 0;
         if (getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK).contains("10"))
             click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);
@@ -66,7 +66,7 @@ public class AdministrationPage extends LogOutBase {
                 List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy());
                 for (int j = 1; j < rowsList.size(); j++) {
                     List<WebElement> cellsList = rowsList.get(j).findElements(AdministrationPageLocators.ROW_CELLS.getBy());
-                    usersList.add(UserFromView.newBuilder()
+                    usersList.add(AdministrationsTableRow.newBuilder()
                             .firstName(cellsList.get(0).getText())
                             .lastName(cellsList.get(1).getText())
                             .login(cellsList.get(2).getText())

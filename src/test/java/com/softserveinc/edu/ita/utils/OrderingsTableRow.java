@@ -1,10 +1,10 @@
-package com.softserveinc.edu.ita.domains;
+package com.softserveinc.edu.ita.utils;
 
 /**
  * Class makes possible to set fields of the row belonging to "Ordering" table from application.
  */
 
-public class OrderFromView {
+public class OrderingsTableRow {
     private String orderName;
     private String totalPrice;
     private String maxDiscount;
@@ -17,7 +17,7 @@ public class OrderFromView {
         return orderName;
     }
 
-    private OrderFromView(String orderName) {
+    private OrderingsTableRow(String orderName) {
         this.orderName = orderName.toLowerCase();
     }
 
@@ -102,7 +102,7 @@ public class OrderFromView {
     }
 
     public interface BuildStep {
-        OrderFromView build();
+        OrderingsTableRow build();
     }
 
     private static class Steps implements OrderNameStep, TotalPriceStep, MaxDiscountStep, DeliveryDateStep, StatusStep, AssigneeStep, RoleStep, BuildStep {
@@ -149,8 +149,8 @@ public class OrderFromView {
             return this;
         }
 
-        public OrderFromView build() {
-            final OrderFromView order = new OrderFromView(orderName);
+        public OrderingsTableRow build() {
+            final OrderingsTableRow order = new OrderingsTableRow(orderName);
             order.setTotalPrice(totalPrice);
             order.setMaxDiscount(maxDiscount);
             if (deliveryDate != null) {

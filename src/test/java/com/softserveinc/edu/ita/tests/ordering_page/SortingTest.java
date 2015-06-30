@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.tests.ordering_page;
 
-import com.softserveinc.edu.ita.domains.OrderFromView;
+import com.softserveinc.edu.ita.utils.OrderingsTableRow;
 import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;
@@ -22,13 +22,13 @@ public class SortingTest extends TestRunner {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn("login1", "qwerty");
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
-        final List<OrderFromView> baseTableFromView = orderingPage.getTableFromView();
+        final List<OrderingsTableRow> baseTableFromView = orderingPage.getTableFromView();
 
         orderingPage.clickOrdersTableColumn(column);
-        final List<OrderFromView> tableFromViewSortedAsc = orderingPage.getTableFromView();
+        final List<OrderingsTableRow> tableFromViewSortedAsc = orderingPage.getTableFromView();
 
         orderingPage.clickOrdersTableColumn(column);
-        final List<OrderFromView> tableFromViewSortedDesc = orderingPage.getTableFromView();
+        final List<OrderingsTableRow> tableFromViewSortedDesc = orderingPage.getTableFromView();
 
         loggingSoftAssert.assertTrue(isTableIntact(baseTableFromView, tableFromViewSortedAsc),
                 String.format("Table isn't broken after ascendant sorting by '%s'.", column));
@@ -51,27 +51,27 @@ public class SortingTest extends TestRunner {
      * Interface with method used in method "isTablesEqualsByColumn".
      */
     private interface ComparisonCondition {
-        String callMethod(OrderFromView method);
+        String callMethod(OrderingsTableRow method);
     }
 
     /**
      * A method to verify equality of tables by given column.
      */
-    public boolean isTablesEqualsByColumn(List<OrderFromView> sortedBaseTableFromView, List<OrderFromView> sortedTableByView, OrdersTableColumns column) {
+    public boolean isTablesEqualsByColumn(List<OrderingsTableRow> sortedBaseTableFromView, List<OrderingsTableRow> sortedTableByView, OrdersTableColumns column) {
         Map<OrdersTableColumns, ComparisonCondition> sortConditionsMap = new HashMap<>();
-        sortConditionsMap.put(OrdersTableColumns.ORDER_NAME, OrderFromView::getOrderName);
-        sortConditionsMap.put(OrdersTableColumns.TOTAL_PRICE, OrderFromView::getTotalPrice);
-        sortConditionsMap.put(OrdersTableColumns.MAX_DISCOUNT, OrderFromView::getMaxDiscount);
-        sortConditionsMap.put(OrdersTableColumns.DELIVERY_DATE, OrderFromView::getDeliveryDate);
-        sortConditionsMap.put(OrdersTableColumns.STATUS, OrderFromView::getStatus);
-        sortConditionsMap.put(OrdersTableColumns.ASSIGNEE, OrderFromView::getAssignee);
-        sortConditionsMap.put(OrdersTableColumns.ROLE, OrderFromView::getRole);
+        sortConditionsMap.put(OrdersTableColumns.ORDER_NAME, OrderingsTableRow::getOrderName);
+        sortConditionsMap.put(OrdersTableColumns.TOTAL_PRICE, OrderingsTableRow::getTotalPrice);
+        sortConditionsMap.put(OrdersTableColumns.MAX_DISCOUNT, OrderingsTableRow::getMaxDiscount);
+        sortConditionsMap.put(OrdersTableColumns.DELIVERY_DATE, OrderingsTableRow::getDeliveryDate);
+        sortConditionsMap.put(OrdersTableColumns.STATUS, OrderingsTableRow::getStatus);
+        sortConditionsMap.put(OrdersTableColumns.ASSIGNEE, OrderingsTableRow::getAssignee);
+        sortConditionsMap.put(OrdersTableColumns.ROLE, OrderingsTableRow::getRole);
 
         Iterator baseTableIterator = sortedBaseTableFromView.iterator();
         Iterator tableIterator = sortedTableByView.iterator();
         int equalsCells = 0;
-        while (baseTableIterator.hasNext() && sortConditionsMap.get(column).callMethod((OrderFromView) baseTableIterator.next())
-                .equals(sortConditionsMap.get(column).callMethod((OrderFromView) tableIterator.next()))) {
+        while (baseTableIterator.hasNext() && sortConditionsMap.get(column).callMethod((OrderingsTableRow) baseTableIterator.next())
+                .equals(sortConditionsMap.get(column).callMethod((OrderingsTableRow) tableIterator.next()))) {
             equalsCells++;
         }
         return (equalsCells == sortedBaseTableFromView.size());
@@ -80,22 +80,22 @@ public class SortingTest extends TestRunner {
     /**
      * A method to sort base table by given column through comparator.
      */
-    public void sortBaseTableBy(List<OrderFromView> baseTableFromView, OrdersTableColumns column) {
-        Map<OrdersTableColumns, Function<OrderFromView, String>> sortConditionsMap = new HashMap<>();
-        sortConditionsMap.put(OrdersTableColumns.ORDER_NAME, OrderFromView::getOrderName);
-        sortConditionsMap.put(OrdersTableColumns.TOTAL_PRICE, OrderFromView::getTotalPrice);
-        sortConditionsMap.put(OrdersTableColumns.MAX_DISCOUNT, OrderFromView::getMaxDiscount);
-        sortConditionsMap.put(OrdersTableColumns.DELIVERY_DATE, OrderFromView::getDeliveryDate);
-        sortConditionsMap.put(OrdersTableColumns.STATUS, OrderFromView::getStatus);
-        sortConditionsMap.put(OrdersTableColumns.ASSIGNEE, OrderFromView::getAssignee);
-        sortConditionsMap.put(OrdersTableColumns.ROLE, OrderFromView::getRole);
+    public void sortBaseTableBy(List<OrderingsTableRow> baseTableFromView, OrdersTableColumns column) {
+        Map<OrdersTableColumns, Function<OrderingsTableRow, String>> sortConditionsMap = new HashMap<>();
+        sortConditionsMap.put(OrdersTableColumns.ORDER_NAME, OrderingsTableRow::getOrderName);
+        sortConditionsMap.put(OrdersTableColumns.TOTAL_PRICE, OrderingsTableRow::getTotalPrice);
+        sortConditionsMap.put(OrdersTableColumns.MAX_DISCOUNT, OrderingsTableRow::getMaxDiscount);
+        sortConditionsMap.put(OrdersTableColumns.DELIVERY_DATE, OrderingsTableRow::getDeliveryDate);
+        sortConditionsMap.put(OrdersTableColumns.STATUS, OrderingsTableRow::getStatus);
+        sortConditionsMap.put(OrdersTableColumns.ASSIGNEE, OrderingsTableRow::getAssignee);
+        sortConditionsMap.put(OrdersTableColumns.ROLE, OrderingsTableRow::getRole);
         baseTableFromView.sort(Comparator.comparing(sortConditionsMap.get(column)));
     }
 
     /**
      * A method to verify integrity of table after sorting. The method says "All of the rows are(true)/aren't(false) intact after sorting".
      */
-    public boolean isTableIntact(List<OrderFromView> baseTable, List<OrderFromView> tableAfterSorting) {
+    public boolean isTableIntact(List<OrderingsTableRow> baseTable, List<OrderingsTableRow> tableAfterSorting) {
         int intactRows = 0;
         Iterator tableIterator = tableAfterSorting.iterator();
         while (tableIterator.hasNext() && baseTable.toString().contains(tableIterator.next().toString())) {

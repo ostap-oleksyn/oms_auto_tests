@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.domains;
+package com.softserveinc.edu.ita.utils;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -7,7 +7,7 @@ import lombok.Setter;
 /**
  * Class makes possible to set row of the table from view.
  */
-public class UserFromView {
+public class AdministrationsTableRow {
     @Getter
     @Setter(AccessLevel.PRIVATE)
     private String firstName;
@@ -24,7 +24,7 @@ public class UserFromView {
     @Setter(AccessLevel.PRIVATE)
     private String region;
 
-    public UserFromView(String firstName) {
+    public AdministrationsTableRow(String firstName) {
         this.firstName = firstName.toLowerCase();
     }
 
@@ -39,7 +39,7 @@ public class UserFromView {
                 '}';
     }
 
-    private UserFromView(){
+    private AdministrationsTableRow(){
     }
 
     public static FirstNameStep newBuilder() {
@@ -67,7 +67,7 @@ public class UserFromView {
     }
 
     public interface BuildStep {
-        UserFromView build();
+        AdministrationsTableRow build();
     }
 
     private static class Steps implements FirstNameStep, LastNameStep, LoginStep, RoleStep, RegionStep, BuildStep {
@@ -103,8 +103,8 @@ public class UserFromView {
         }
 
 
-        public UserFromView build(){
-            final UserFromView userFromView = new UserFromView(firstName.toLowerCase());
+        public AdministrationsTableRow build(){
+            final AdministrationsTableRow userFromView = new AdministrationsTableRow(firstName.toLowerCase());
 
             userFromView.setLastName(lastName.toLowerCase());
 

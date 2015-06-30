@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-import com.softserveinc.edu.ita.domains.OrderFromView;
+import com.softserveinc.edu.ita.utils.OrderingsTableRow;
 import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
@@ -27,8 +27,8 @@ public class OrderingPage extends LogOutBase {
     /**
      * There is method to get "Ordering" table from "Ordering" page of web-application.
      */
-    public List<OrderFromView> getTableFromView() {
-        List<OrderFromView> table = new LinkedList<>();
+    public List<OrderingsTableRow> getTableFromView() {
+        List<OrderingsTableRow> table = new LinkedList<>();
         //This line is needed to find out quantity of orders per table.
         int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS.getBy()).getAttribute("value"));
         //This line is needed to find out quantity of orders per page.
@@ -47,7 +47,7 @@ public class OrderingPage extends LogOutBase {
                     //Recording displayed row.
                     List<WebElement> ordersFields = driver.findElements(OrderingPageLocators.TABLE_ROW.modify(String.valueOf(j)).getBy());
                     //There is used StepBuilderPattern.
-                    table.add(OrderFromView.newBuilder()
+                    table.add(OrderingsTableRow.newBuilder()
                             .setOrderName(ordersFields.get(0).getText())
                             .setTotalPrice(ordersFields.get(1).getText())
                             .setMaxDiscount(ordersFields.get(2).getText())
