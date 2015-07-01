@@ -1,12 +1,10 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-import com.softserveinc.edu.ita.domains.Order;
-import com.softserveinc.edu.ita.enums.OrderStatuses;
-import com.softserveinc.edu.ita.enums.OrdersTableColumns;
+import com.softserveinc.edu.ita.utils.OrderingsTableRow;
+import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
-import com.softserveinc.edu.ita.utils.DBUtility;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -29,8 +27,8 @@ public class OrderingPage extends LogOutBase {
     /**
      * There is method to get "Ordering" table from "Ordering" page of web-application.
      */
-    public List<Order> getTableFromView() {
-        List<Order> table = new LinkedList<>();
+    public List<OrderingsTableRow> getTableFromView() {
+        List<OrderingsTableRow> table = new LinkedList<>();
         //This line is needed to find out quantity of orders per table.
         int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS.getBy()).getAttribute("value"));
         //This line is needed to find out quantity of orders per page.
@@ -49,22 +47,16 @@ public class OrderingPage extends LogOutBase {
                     //Recording displayed row.
                     List<WebElement> ordersFields = driver.findElements(OrderingPageLocators.TABLE_ROW.modify(String.valueOf(j)).getBy());
                     //There is used StepBuilderPattern.
-                    // TODO redo stepBuilder
-                    table.add(Order.newBuilder()
-                            .withoutId()
-                            .withOrderName(ordersFields.get(0).getText())
-                            .withoutOrderNumber()
-                            .withTotalPrice(Double.valueOf(ordersFields.get(1).getText()))
-                            .withAssignee(DBUtility.getByLogin(ordersFields.get(5).getText()).getId())
-                            .withoutCustomer()
-                            .withOrderStatusReference(OrderStatuses.getStatusReference(ordersFields.get(4).getText()))
-                            .withMaxDiscount(Double.valueOf(ordersFields.get(2).getText()))
-                            .withDeliveryDate(ordersFields.get(3).getText())
-                            .withoutPreferableDeliveryDate()
-                                    // .setRole(ordersFields.get(6).getText())
+                    table.add(OrderingsTableRow.newBuilder()
+                            .setOrderName(ordersFields.get(0).getText())
+                            .setTotalPrice(ordersFields.get(1).getText())
+                            .setMaxDiscount(ordersFields.get(2).getText())
+                            .setDeliveryDate(ordersFields.get(3).getText())
+                            .setStatus(ordersFields.get(4).getText())
+                            .setAssignee(ordersFields.get(5).getText())
+                            .setRole(ordersFields.get(6).getText())
                             .build());
                 }
-
             }
             //If true, we can continue iteration through the table then.
             if (i != iteration) {

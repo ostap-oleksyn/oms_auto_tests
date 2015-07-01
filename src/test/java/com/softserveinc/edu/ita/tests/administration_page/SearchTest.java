@@ -1,9 +1,8 @@
 package com.softserveinc.edu.ita.tests.administration_page;
 
 import com.softserveinc.edu.ita.dao.DAOException;
-import com.softserveinc.edu.ita.dao.UserDAO;
 import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.domains.UserFromView;
+import com.softserveinc.edu.ita.utils.AdministrationsTableRow;
 import com.softserveinc.edu.ita.enums.Regions;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 import static com.softserveinc.edu.ita.enums.administration_page.SearchFilters.*;
 
 public class SearchTest extends TestRunner {
-    private List<UserFromView> usersListFromView;
+    private List<AdministrationsTableRow> usersListFromView;
     private List<User> usersListFromDB;
     private List<User> filteredListFromDB;
 
@@ -52,7 +51,7 @@ public class SearchTest extends TestRunner {
                     filteredListFromDB = getFilteredList(usersListFromDB, filter, condition, searchTerm);
 
                     filteredListFromDB.sort(Comparator.comparing(User::getLogin));
-                    usersListFromView.sort(Comparator.comparing(UserFromView::getLogin));
+                    usersListFromView.sort(Comparator.comparing(AdministrationsTableRow::getLogin));
 
                     loggingSoftAssert.assertTrue(areListsEqual(usersListFromView, filteredListFromDB), filter + " " + condition + " " + searchTerm);
                     loggingSoftAssert.assertAll();
@@ -83,7 +82,7 @@ public class SearchTest extends TestRunner {
             usersListFromDB = DBUtility.getFilteredUsers(condition, searchTerm);
 
             Comparator<User> userComparator = Comparator.comparing(User::getLogin);
-            Comparator<UserFromView> userFromViewComparator = Comparator.comparing(UserFromView::getLogin);
+            Comparator<AdministrationsTableRow> userFromViewComparator = Comparator.comparing(AdministrationsTableRow::getLogin);
 
             usersListFromDB.sort(userComparator);
             usersListFromView.sort(userFromViewComparator);
@@ -102,11 +101,11 @@ public class SearchTest extends TestRunner {
      * @param userList2
      * @return
      */
-    private boolean areListsEqual(List<UserFromView> userlist1, List<User> userList2) {
+    private boolean areListsEqual(List<AdministrationsTableRow> userlist1, List<User> userList2) {
         if (userlist1.isEmpty() && userList2.isEmpty()) {
             return true;
         }
-        for (UserFromView user1 : userlist1) {
+        for (AdministrationsTableRow user1 : userlist1) {
             for (User user2 : userList2) {
                 if (user1.getFirstName().equalsIgnoreCase(user2.getFirstName()) &&
                         user1.getLastName().equalsIgnoreCase(user2.getLastName()) &&
