@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
  * the first type locators are used without preliminary preparation;
  * the second type locators can be used after advance modification.
  */
-public enum OrderingPageLocators implements ILocator {
+public enum OrderingPageLocators implements ILocator{
 
     CREATE_NEW_ORDER_LINK(
             "Create new order link",
@@ -134,7 +134,44 @@ public enum OrderingPageLocators implements ILocator {
     ITEM_LAST_PAGE_BUTTON(
             "Item next page button",
             LocatorsType.BY_XPATH,
-            ".//*[@id='pageable']//form[4]/input");
+            ".//*[@id='pageable']//form[4]/input"),
+    ITEMS_TABLE(
+            "Items table",
+            LocatorsType.BY_XPATH,
+            "//div[2]/table"),
+    ITEM_ORDER_STATUS(
+            "Item order status",
+            LocatorsType.BY_XPATH,
+            "//tbody/tr[1]/td[2]/select"),
+    ITEM_SAVE_BUTTON(
+            "Item save button",
+            LocatorsType.BY_XPATH,
+            "//div[2]/div/form[1]/input"),
+    ITEM_CANCEL_BUTTON(
+            "Item cancel button",
+            LocatorsType.BY_XPATH,
+            "//div[2]/div/form[2]/input"),
+    ORDER_TABLE(
+            "Order table",
+            LocatorsType.BY_XPATH,
+            "//div[2]/table"),
+    ITEM_ERROR_MESSAGE(
+            "Item error message",
+            LocatorsType.BY_XPATH,
+            "//div[3]//p"),
+    ITEM_ERROR_SHOW_BUTTON(
+            "Item error show button",
+            LocatorsType.BY_XPATH,
+            "//div[1]/input"),
+    ITEM_GO_TO_HOME_BUTTON(
+            "Item go to home button",
+            LocatorsType.BY_XPATH,
+            "//table[2]//input"),
+    ITEM_DETAILS_ABOUT_ERROR(
+            "Item details about error",
+            LocatorsType.BY_XPATH,
+            "//div[2]/div");
+
 
 
     private String name;

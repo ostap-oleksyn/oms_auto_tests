@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.domains.Order;
 import com.softserveinc.edu.ita.enums.OrderStatuses;
 import com.softserveinc.edu.ita.enums.OrdersTableColumns;
+import com.softserveinc.edu.ita.enums.ordering_page.ItemsOrderStatus;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
 import com.softserveinc.edu.ita.utils.DBUtility;
@@ -125,6 +126,13 @@ public class OrderingPage extends LogOutBase {
         Select select = new Select(driver.findElement(SHOW_NUMBER_OF_ELEMENTS_LINK.getBy()));
         select.selectByValue(String.valueOf(numberOfElements));
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", SHOW_NUMBER_OF_ELEMENTS_LINK.getName()));
+        return this;
+    }
+
+    public OrderingPage setItemOrderStatus(ItemsOrderStatus status){
+        Select select = new Select(driver.findElement(ITEM_ORDER_STATUS.getBy()));
+        select.selectByValue(String.valueOf(status));
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", status.getStatusName()));
         return this;
     }
 
