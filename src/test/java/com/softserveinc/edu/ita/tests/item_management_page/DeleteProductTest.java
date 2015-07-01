@@ -72,17 +72,17 @@ public class DeleteProductTest extends TestRunner {
                 String.format("Product deleted. Found products number changed: expected - <b>%s</b>; actual - <b>%s</b>;",
                         numberOfFoundProducts - 1, itemManagementPage.getFoundProductsNumber()));
 
-        loggingSoftAssert.assertTrue(
+        loggingAssert.assertTrue(
                 DBUtility.getProductStatus(product.getProductName(), product.getProductDescription()) ==
                         ProductStatus.INACTIVE.getStatus(),
                 String.format("Product <b>%s</b> status changed to 0", product.getProductName()));
 
         DBUtility.setProductStatus(product.getProductName(), product.getProductDescription(), ProductStatus.ACTIVE);
 
-        loggingSoftAssert.assertTrue(
-                DBUtility.getProductStatus(product.getProductName(), product.getProductDescription()) ==
-                        ProductStatus.ACTIVE.getStatus(),
+        loggingAssert.assertTrue(
+                DBUtility.getProductStatus(product.getProductName(), product.getProductDescription()) == ProductStatus.ACTIVE.getStatus(),
                 String.format("Product <b>%s</b> status changed to 1", product.getProductName()));
+
         loggingSoftAssert.assertAll();
     }
 
