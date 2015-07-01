@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 /**
  * Static methods for work with database
  */
-public class DBUtility {
+public final class DBUtility {
 
     /**
      * Returns all users
@@ -255,5 +255,25 @@ public class DBUtility {
         } catch (DAOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Product getProduct(String name, String description) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        ProductDAO productDAO = null;
+        Product product = null;
+        try {
+            connection = factory.getConnection();
+            productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            product = productDAO.getProduct(name, description);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        return product;
     }
 }

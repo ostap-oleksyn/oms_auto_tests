@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
+import static com.softserveinc.edu.ita.utils.RandomUtil.generateString;
 
 public class Product {
 

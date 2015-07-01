@@ -9,7 +9,7 @@ import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
-import com.softserveinc.edu.ita.utils.StringsGenerator;
+import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.openqa.selenium.Alert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -30,11 +30,11 @@ public class DeleteProductTest extends TestRunner {
 
         final int numberOfFoundProducts = itemManagementPage.getFoundProductsNumber();
         final int numberOfRows = itemManagementPage.getNumberOfRows();
-        final int randomRow = StringsGenerator.getRandomNumber(1, numberOfRows);
+        final int randomRow = RandomUtil.getRandomInteger(1, numberOfRows);
 
         itemManagementPage.deleteRandomProduct(randomRow);
 
-        Alert confirmDelete = driver.switchTo().alert();
+        final Alert confirmDelete = driver.switchTo().alert();
 
         loggingSoftAssert.assertTrue(confirmDelete.getText().equals(ALERT_MESSAGE),
                 "Confirmation alert message appeared");
@@ -56,12 +56,12 @@ public class DeleteProductTest extends TestRunner {
 
         final int numberOfFoundProducts = itemManagementPage.getFoundProductsNumber();
         final int numberOfRows = itemManagementPage.getNumberOfRows();
-        final int randomRow = StringsGenerator.getRandomNumber(1, numberOfRows);
+        final int randomRow = RandomUtil.getRandomInteger(1, numberOfRows);
 
-        Product product = itemManagementPage.getRandomProduct(randomRow);
+        final Product product = itemManagementPage.getRandomProduct(randomRow);
         itemManagementPage.deleteRandomProduct(randomRow);
 
-        Alert confirmDelete = driver.switchTo().alert();
+        final Alert confirmDelete = driver.switchTo().alert();
 
         loggingSoftAssert.assertTrue(confirmDelete.getText().equals(ALERT_MESSAGE),
                 "Confirmation alert message appeared");

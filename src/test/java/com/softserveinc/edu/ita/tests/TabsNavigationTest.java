@@ -12,12 +12,11 @@ import com.softserveinc.edu.ita.enums.ordering_page.RoleFilterValue;
 import com.softserveinc.edu.ita.enums.ordering_page.StatusFilterValue;
 import com.softserveinc.edu.ita.locators.*;
 import com.softserveinc.edu.ita.pageobjects.*;
-import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.edu.ita.utils.EnumUtil.getRandomEnum;
-import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
+import static com.softserveinc.edu.ita.utils.RandomUtil.generateString;
 
 public class TabsNavigationTest extends TestRunner {
 

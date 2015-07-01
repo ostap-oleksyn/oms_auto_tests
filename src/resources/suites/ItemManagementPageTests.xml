@@ -1,20 +1,20 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Item Management Page Tests" verbose="1" parallel="tests" thread-count="4">
-    <test name="Cancel product adding test">
-        <classes>
-            <class name="com.softserveinc.edu.ita.tests.item_management_page.AddNewProductTest">
-                <methods>
-                    <include name="cancelProductAddingTest"/>
-                </methods>
-            </class>
-        </classes>
-    </test>
+<suite name="Item Management Page Tests" verbose="1" parallel="tests" thread-count="5">
     <test name="Add new product test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.item_management_page.AddNewProductTest">
                 <methods>
                     <include name="addNewProductTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Cancel product adding test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.AddNewProductTest">
+                <methods>
+                    <include name="cancelProductAddingTest"/>
                 </methods>
             </class>
         </classes>
@@ -33,6 +33,15 @@
             <class name="com.softserveinc.edu.ita.tests.item_management_page.DeleteProductTest">
                 <methods>
                     <include name="cancelProductDeleteingTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Edit product test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.EditProductTest">
+                <methods>
+                    <include name="editProductTest"/>
                 </methods>
             </class>
         </classes>

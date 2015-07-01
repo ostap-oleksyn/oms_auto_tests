@@ -3,7 +3,7 @@ package com.softserveinc.edu.ita.utils;
 import java.io.IOException;
 import java.util.Random;
 
-public class StringsGenerator {
+public final class RandomUtil {
 
     /**
      * Random String generator
@@ -38,7 +38,12 @@ public class StringsGenerator {
         return generatedString.toString();
     }
 
-    public static int getRandomNumber(int min, int max){
+    /**
+     * Returns random integer in a specified range
+     * @param min - range minimum value
+     * @param max - range maximum value
+     */
+    public static int getRandomInteger(int min, int max){
         final Random random = new Random();
         return random.nextInt(max) + min;
     }

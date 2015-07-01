@@ -153,4 +153,19 @@ public class ProductDAO extends AbstractDAO {
             throw new DAOException(e);
         }
     }
+
+    public Product getProduct(String name, String description) throws DAOException {
+        List<Product> list;
+        String sqlQuery = getProductQuery();
+
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setString(1, name);
+            statement.setString(2, description);
+            ResultSet resultSet = statement.executeQuery();
+            list = (List<Product>) parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return list.get(0);
+    }
 }
