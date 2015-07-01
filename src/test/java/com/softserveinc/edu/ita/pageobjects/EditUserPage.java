@@ -1,12 +1,9 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-import com.softserveinc.edu.ita.enums.Roles;
+import com.softserveinc.edu.ita.enums.Regions;
 import com.softserveinc.edu.ita.locators.EditUserPageLocators;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-
-import java.io.IOException;
 
 
 public class EditUserPage extends LogOutBase {
@@ -15,10 +12,10 @@ public class EditUserPage extends LogOutBase {
     }
 
     public String getEditUserLogin() {
-        return getElementAttribute(EditUserPageLocators.LOGIN_LABEL, "value");
+        return getElementAttribute(EditUserPageLocators.LOGIN_INPUT, "value");
     }
 
-    public EditUserPage fillFirstNameField(String newFirstName) throws IOException {
+    public EditUserPage fillFirstNameField(String newFirstName) {
         sendKeys(EditUserPageLocators.FIRST_NAME_INPUT, newFirstName);
         return this;
     }
@@ -28,21 +25,26 @@ public class EditUserPage extends LogOutBase {
         return this;
     }
 
+
+    public EditUserPage fillEmailField(String email) {
+        sendKeys(EditUserPageLocators.EMAIL_NAME_INPUT, email);
+        return this;
+    }
+
     public EditUserPage fillPasswordFields(String password) {
         sendKeys(EditUserPageLocators.PASSWORD_INPUT, password);
         sendKeys(EditUserPageLocators.CONFIRM_PASSWORD_INPUT, password);
         return this;
     }
 
-        public EditUserPage selectRegion(int regionId) {
+        public EditUserPage selectRegion(Regions region) {
             Select regionSelect = new Select(driver.findElement(EditUserPageLocators.REGION_SELECT.getBy()));
-            regionSelect.selectByIndex(regionId);
+            regionSelect.selectByVisibleText(region.getRegionName());
         return this;
     }
 
-    public void selectRole(Roles customer) {
-        WebElement customerRoleButton = driver.findElement(EditUserPageLocators.ROLE_CUSTOMER_SELECT.getBy());
-        customerRoleButton.click();
+    public void clickMerchandiserButton(){
+        click(EditUserPageLocators.ROLE_MERCHANDISER_SELECT);
     }
 
     public AdministrationPage clickCreateButton() {

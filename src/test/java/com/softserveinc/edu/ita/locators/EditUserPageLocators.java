@@ -5,9 +5,9 @@ import org.openqa.selenium.By;
 
 public enum EditUserPageLocators implements ILocator {
 
-    LOGIN_LABEL(
+    LOGIN_INPUT(
             "Login input",
-            By.xpath(".//*[@id='userModel']/table/tbody/tr[1]/td[1]")),
+            By.xpath(".//*[@id='login']")),
 
     FIRST_NAME_INPUT(
             "First name input",
@@ -16,6 +16,10 @@ public enum EditUserPageLocators implements ILocator {
     LAST_NAME_INPUT(
             "Last name input",
             By.xpath(".//*[@id='lastName']")),
+
+    EMAIL_NAME_INPUT(
+            "Email name input",
+            By.xpath(".//*[@id='email']")),
 
     PASSWORD_INPUT(
             "Password input",
@@ -29,7 +33,7 @@ public enum EditUserPageLocators implements ILocator {
             "Region select",
             By.xpath(".//*[@id='regionID']")),
 
-    ROLE_CUSTOMER_SELECT(
+    ROLE_MERCHANDISER_SELECT(
             "Role customer select",
             By.xpath(".//*[@id='roleID2']")),
 

@@ -10,47 +10,51 @@ import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
+import com.softserveinc.edu.ita.utils.DataProviders;
+import com.softserveinc.edu.ita.utils.EnumUtil;
 import org.testng.annotations.Test;
-
-import java.io.IOException;
 
 public class EditUserTest extends TestRunner {
 
-    @Test
-    public void testUserEditing() throws IOException {
+    @Test(dataProvider = "getUserEditData", dataProviderClass = DataProviders.class)
+    public void testUserEditing(String firstName, String lastName, String password, String email) {
 
         HomePage homePage = new HomePage(driver);
         User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
         AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
+        Regions region = EnumUtil.getRandomEnum(Regions.class, 1);
+
         EditUserPage editUserPage = administrationPage.clickRandomEditButton();
         String editUserLogin = editUserPage.getEditUserLogin();
 
-        editUserPage.fillFirstNameField("Hey")
-                .fillLastNameField("Joe")
-                .fillPasswordFields("qwerty")
-                .selectRegion(2)
-                .selectRole(Roles.CUSTOMER);
+        editUserPage.fillEmailField(email)
+                .fillFirstNameField(firstName)
+                .fillLastNameField(lastName)
+                .fillPasswordFields(password)
+                .selectRegion(region)
+                .clickMerchandiserButton();
 
         administrationPage = editUserPage.clickCreateButton();
         homePage = administrationPage.clickLogOutButton();
 
         User editUser = DBUtility.getByLogin(editUserLogin);
 
-        loggingAssert.assertEquals(editUser.getFirstName(), "Hey", "User first name is changed in database");
-        loggingAssert.assertEquals(editUser.getLastName(), "Joe", "User last name is changed in database");
-        loggingAssert.assertEquals(editUser.getRegionReference(), Regions.SOUTH, "User region is changed in database");
-        loggingAssert.assertEquals(editUser.getRoleReference(), Roles.CUSTOMER, "User role is changed in database");
+        loggingAssert.assertEquals(editUser.getEmail(), email, "User email is changed in database");
+        loggingAssert.assertEquals(editUser.getFirstName(), firstName, "User first name is changed in database");
+        loggingAssert.assertEquals(editUser.getLastName(), lastName, "User last name is changed in database");
+        loggingAssert.assertEquals(editUser.getRegionReference(), region.getRegionReference(), "User region is changed in database");
+        loggingAssert.assertEquals(editUser.getRoleReference(), Roles.MERCHANDISER.getRoleReference(), "User role is changed in database");
 
         userInfoPage = homePage.logIn(editUser.getLogin(), editUser.getPassword());
 
         loggingAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.FIRST_NAME_LABEL)
-                .contains("Hey"), "User first name is changed");
+                .contains(firstName), "User first name is changed");
         loggingAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.LAST_NAME_LABEL)
-                .contains("Joe"), "User last name is changed");
-        loggingAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL)
-                .contains("Customer"), "User role is changed");
+                .contains(lastName), "User last name is changed");
+        loggingAssert.assertEquals(homePage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL),
+                Roles.MERCHANDISER.getRoleName(), "User role is changed");
 
         userInfoPage.clickLogOutButton();
     }
