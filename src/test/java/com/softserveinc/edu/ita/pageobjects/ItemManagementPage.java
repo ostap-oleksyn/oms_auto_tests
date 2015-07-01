@@ -37,16 +37,20 @@ public class ItemManagementPage extends LogOutBase {
         return getElementAttribute(ItemManagementPageLocators.SEARCH_FIELD, "value");
     }
 
-    public AddProductPage clickAddProductLink(){
+    public AddProductPage clickAddProductLink() {
         click(ItemManagementPageLocators.ADD_PRODUCT_LINK);
         return new AddProductPage(driver);
     }
 
-    public void clickLastButton(){
+    public void clickLastButton() {
         click(ItemManagementPageLocators.LAST_BUTTON);
     }
 
     public int getFoundProductsNumber() {
         return Integer.parseInt(getElementText(ItemManagementPageLocators.FOUND_PRODUCTS_NUMBER));
+    }
+
+    public void clickCreateReportLink() {
+        click(ItemManagementPageLocators.CREATE_REPORT_LINK);
     }
 }

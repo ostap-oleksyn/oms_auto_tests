@@ -50,7 +50,15 @@ public enum ItemManagementPageLocators implements ILocator {
     LAST_PRODUCT_PRICE(
             "Last product price",
             LocatorsType.BY_XPATH,
-            ".//tbody//tr[last()]//td[3]");
+            ".//tbody//tr[last()]//td[3]"),
+    CREATE_REPORT_LINK(
+            "Create report link",
+            LocatorsType.BY_XPATH,
+            ".//*[@href='reportItems.htm']"),
+    SAVE_REPORT_LINK(
+            "Save report link",
+            LocatorsType.BY_XPATH,
+            ".//*[@href='getItemReport.htm']");
 
     private String name;
     private LocatorsType locatorsType;
