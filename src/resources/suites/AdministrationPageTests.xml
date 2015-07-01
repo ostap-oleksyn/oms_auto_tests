@@ -73,4 +73,22 @@
             </class>
         </classes>
     </test>
+    <test name="Search test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.SearchTest">
+                <methods>
+                    <include name="testSearch"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Search all column test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.SearchTest">
+                <methods>
+                    <include name="testAllColumns"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>

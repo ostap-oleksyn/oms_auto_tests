@@ -73,6 +73,8 @@ public class EditOrderTest extends TestRunner {
 
         loggingSoftAssert.assertTrue(orderingPage.isElementEnabled(ITEM_FIRST_PAGE_BUTTON), "'<b>First Page</b>' button is enabled");
         loggingSoftAssert.assertTrue(orderingPage.isElementEnabled(ITEM_PREVIOUS_PAGE_BUTTON), "'<b>Previous Page</b>' button is enabled");
+
+        orderingPage.clickLogOutButton();
     }
 
     @Test

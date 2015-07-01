@@ -64,4 +64,35 @@
             </class>
         </classes>
     </test>
+    <test name="Search test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.SearchOrderTest">
+                <methods>
+                    <include name="testSearch"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Filter test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterOrderTest">
+                <methods>
+                    <include name="testFilterStatus"/>
+                    <include name="testFilterRole"/>
+                    <include name="testNoneFilter"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Edit order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.EditOrderTest">
+                <methods>
+                    <include name="testNavigation"/>
+                    <include name="testOrderEdit"/>
+                    <include name="testErrorOrderEdit"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>

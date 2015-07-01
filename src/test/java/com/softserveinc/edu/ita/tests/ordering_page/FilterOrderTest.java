@@ -20,7 +20,7 @@ import static com.softserveinc.edu.ita.enums.ordering_page.StatusFilterValue.NON
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_STATUS_COLUMN;
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ROLE_COLUMN;
 
-public class FilterTest extends TestRunner {
+public class FilterOrderTest extends TestRunner {
     private List<WebElement> columns;
     private List<WebElement> columnsBeforeFilter;
     private List<WebElement> columnsAfterFilter;

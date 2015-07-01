@@ -18,7 +18,7 @@ import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_ASSIG
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_NAME_COLUMN;
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_STATUS_COLUMN;
 
-public class SearchTest extends TestRunner {
+public class SearchOrderTest extends TestRunner {
     private List<WebElement> columns;
 
     @Test(dataProvider = "getOrderSearchTerms", dataProviderClass = DataProviders.class)
