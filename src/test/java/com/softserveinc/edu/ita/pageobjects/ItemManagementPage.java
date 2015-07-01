@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
-import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
+import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
 import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -55,5 +55,12 @@ public class ItemManagementPage extends LogOutBase {
      */
     public void clickCreateReportLink() {
         click(ItemManagementPageLocators.CREATE_REPORT_LINK);
+    }
+
+    /**
+     * There is method to click one of "Ordering" table headers to make sorting actions in the table.
+     */
+    public void clickProductsTableColumn(ProductsTableColumns tableColumn) {
+        click(ItemManagementPageLocators.TABLE_COLUMN.modify(tableColumn.toString()));
     }
 }

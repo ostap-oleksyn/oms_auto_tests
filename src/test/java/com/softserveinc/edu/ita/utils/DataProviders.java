@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.utils;
 
 import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
 import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.UsersTableColumns;
@@ -48,12 +49,22 @@ public class DataProviders {
     }
 
     /**
-     * Returns names of 'Users' table columns.
+     * Returns names of 'Orders' table columns.
      */
     @DataProvider(name = "getOrdersTableColumns")
     public static Iterator<Object[]> getOrdersDataIterator() {
         List<Object[]> testDataList = new ArrayList<>();
         Stream.of(OrdersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
+        return testDataList.iterator();
+    }
+
+    /**
+     * Returns names of 'Products' table columns.
+     */
+    @DataProvider(name = "getProductsTableColumns")
+    public static Iterator<Object[]> getProductsDataIterator() {
+        List<Object[]> testDataList = new ArrayList<>();
+        Stream.of(ProductsTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
         return testDataList.iterator();
     }
 

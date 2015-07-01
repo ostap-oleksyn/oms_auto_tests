@@ -58,7 +58,11 @@ public enum ItemManagementPageLocators implements ILocator {
     SAVE_REPORT_LINK(
             "Save report link",
             LocatorsType.BY_XPATH,
-            ".//*[@href='getItemReport.htm']");
+            ".//*[@href='getItemReport.htm']"),
+    TABLE_COLUMN(
+            "Table column",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]");
 
     private String name;
     private LocatorsType locatorsType;
