@@ -50,6 +50,9 @@ public class ItemManagementPage extends LogOutBase {
         return Integer.parseInt(getElementText(ItemManagementPageLocators.FOUND_PRODUCTS_NUMBER));
     }
 
+    /**
+     * Method to click on the "create report" link.
+     */
     public void clickCreateReportLink() {
         click(ItemManagementPageLocators.CREATE_REPORT_LINK);
     }
