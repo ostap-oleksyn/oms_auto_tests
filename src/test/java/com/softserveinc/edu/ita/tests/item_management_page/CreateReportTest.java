@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.tests.supervisor_page;
+package com.softserveinc.edu.ita.tests.item_management_page;
 
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
