@@ -16,7 +16,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.edu.ita.utils.EnumUtil.getRandomEnum;
-import static com.softserveinc.edu.ita.utils.RandomUtil.generateString;
+import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
 
 public class TabsNavigationTest extends TestRunner {
 
@@ -167,7 +167,7 @@ public class TabsNavigationTest extends TestRunner {
 
         final SearchConditions condition = getRandomEnum(SearchConditions.class);
         final SearchFilters filter = getRandomEnum(SearchFilters.class);
-        searchTerm = generateString("NameSymbols", 5, 10);
+        searchTerm = getRandomString("NameSymbols", 5, 10);
 
         administrationPage.setFilters(filter)
                 .setCondition(condition)
@@ -199,7 +199,7 @@ public class TabsNavigationTest extends TestRunner {
         itemManagementPage = userInfoPage.clickItemManagementTab();
 
         final ItemFilter filter = getRandomEnum(ItemFilter.class);
-        searchTerm = generateString("NameSymbols", 5, 10);
+        searchTerm = getRandomString("NameSymbols", 5, 10);
 
         itemManagementPage.setFilters(filter)
                 .fillSearchField(searchTerm)
@@ -228,7 +228,7 @@ public class TabsNavigationTest extends TestRunner {
         final OrderFilter filter = getRandomEnum(OrderFilter.class);
         final Enum filterValue;
         final OrderSearchCondition searchCondition = getRandomEnum(OrderSearchCondition.class);
-        searchTerm = generateString("NameSymbols", 5, 10);
+        searchTerm = getRandomString("NameSymbols", 5, 10);
 
         if (filter.equals(OrderFilter.ROLE)) {
             filterValue = getRandomEnum(RoleFilterValue.class);
@@ -274,7 +274,7 @@ public class TabsNavigationTest extends TestRunner {
         final OrderFilter filter = getRandomEnum(OrderFilter.class);
         final Enum filterValue;
         final OrderSearchCondition searchCondition = getRandomEnum(OrderSearchCondition.class);
-        searchTerm = generateString("NameSymbols", 5, 10);
+        searchTerm = getRandomString("NameSymbols", 5, 10);
 
         if (filter.equals(OrderFilter.ROLE)) {
             filterValue = getRandomEnum(RoleFilterValue.class, 0);

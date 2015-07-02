@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.stream.Stream;
 
 import static com.softserveinc.edu.ita.utils.DBUtility.getByLogin;
-import static com.softserveinc.edu.ita.utils.RandomUtil.generateString;
+import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
 
 
 public final class DataProviders {
@@ -162,13 +162,13 @@ public final class DataProviders {
             User user = User.newBuilder()
                     .withoutId()
                     .withStatus(1)
-                    .withFirstName(generateString("NameSymbols", 1, 13).toLowerCase())
-                    .withLastName(generateString("NameSymbols", 1, 13).toLowerCase())
-                    .withLogin(generateString("NameSymbols", 1, 13).toLowerCase())
-                    .withPassword(generateString("PasswordSymbols", 4, 10))
-                    .withEmail(generateString("EmailSymbols", 4, 8) + "@"
-                            + generateString("DomainNamesSymbols", 4, 8) + "."
-                            + generateString("DomainNamesSymbols", 3, 4))
+                    .withFirstName(getRandomString("NameSymbols", 1, 13).toLowerCase())
+                    .withLastName(getRandomString("NameSymbols", 1, 13).toLowerCase())
+                    .withLogin(getRandomString("NameSymbols", 1, 13).toLowerCase())
+                    .withPassword(getRandomString("PasswordSymbols", 4, 10))
+                    .withEmail(getRandomString("EmailSymbols", 4, 8) + "@"
+                            + getRandomString("DomainNamesSymbols", 4, 8) + "."
+                            + getRandomString("DomainNamesSymbols", 3, 4))
                     .withRoleReference(roleReference)
                     .withoutCustomerTypeReference()
                     .withRegionReference(regionReference)
@@ -197,25 +197,25 @@ public final class DataProviders {
 
             // generate string with digits
             if (randomGenerator.nextBoolean()) {
-                login = generateString("Digits", 1, 13);
-                firstName = generateString("Digits", 1, 13);
-                lastName = generateString("Digits", 1, 13);
+                login = getRandomString("Digits", 1, 13);
+                firstName = getRandomString("Digits", 1, 13);
+                lastName = getRandomString("Digits", 1, 13);
                 // or with length > 13 symbols
             } else {
-                login = generateString("NameSymbols", 14, 20);
-                firstName = generateString("NameSymbols", 14, 20);
-                lastName = generateString("NameSymbols", 14, 20);
+                login = getRandomString("NameSymbols", 14, 20);
+                firstName = getRandomString("NameSymbols", 14, 20);
+                lastName = getRandomString("NameSymbols", 14, 20);
             }
 
             // generate string with length < 4
             if (randomGenerator.nextBoolean()) {
-                password = generateString("PasswordSymbols", 1, 3);
+                password = getRandomString("PasswordSymbols", 1, 3);
                 // or > 14
             } else {
-                password = generateString("PasswordSymbols", 14, 20);
+                password = getRandomString("PasswordSymbols", 14, 20);
             }
 
-            email = generateString("Digits", 2, 20);
+            email = getRandomString("Digits", 2, 20);
 
             User user = User.newBuilder()
                     .withoutId()

@@ -12,7 +12,7 @@ public final class RandomUtil {
      * @param minimalLength minimal length of returned string
      * @param maximalLength maximal length of returned string
      */
-    public static String generateString(String symbolsSet, int minimalLength, int maximalLength) {
+    public static String getRandomString(String symbolsSet, int minimalLength, int maximalLength) {
 
         final String WORKSHEET_NAME = "SymbolSets";
 
