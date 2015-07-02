@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-import com.softserveinc.edu.ita.utils.AdministrationsTableRow;
+import com.softserveinc.edu.ita.domains.AdministrationsTableRow;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
 import com.softserveinc.edu.ita.enums.administration_page.UsersTableColumns;

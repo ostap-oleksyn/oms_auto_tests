@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.utils;
+package com.softserveinc.edu.ita.domains;
 
 import lombok.AccessLevel;
 import lombok.Getter;
