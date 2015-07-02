@@ -262,4 +262,15 @@ public final class DataProviders {
 
         return usersList;
     }
+
+    @DataProvider(name = "getUserEditData")
+    public static Object[][] getUserEditData() {
+        Object[][] userEditData = null;
+        try {
+            userEditData = XlsFileReader.getAllRowsFromXlsSheet("userEditData");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return userEditData;
+    }
 }

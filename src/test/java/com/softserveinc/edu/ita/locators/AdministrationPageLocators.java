@@ -26,6 +26,10 @@ public enum AdministrationPageLocators implements ILocator {
             "Row cells",
             LocatorsType.BY_TAG_NAME,
             "td"),
+    EDIT_USER_LINK(
+            "Edit user link",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[6]/a"),
     FIRST_BUTTON(
             "First button",
             LocatorsType.BY_XPATH,
