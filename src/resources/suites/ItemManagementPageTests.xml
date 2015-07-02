@@ -19,4 +19,13 @@
             </class>
         </classes>
     </test>
+    <test name="Create report test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.CreateReportTest">
+                <methods>
+                    <include name="createReportTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
