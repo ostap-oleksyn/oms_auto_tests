@@ -62,7 +62,11 @@ public enum ItemManagementPageLocators implements ILocator {
     TABLE_COLUMN(
             "Table column",
             LocatorsType.BY_XPATH,
-            ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]");
+            ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
+    PRODUCTS_LIST_RESIZE_LINK(
+            "Products list resize link",
+            LocatorsType.BY_XPATH,
+            ".//*[@href='itemManagement/resizeItemList.htm']");
 
     private String name;
     private LocatorsType locatorsType;

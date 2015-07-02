@@ -24,9 +24,13 @@ public class SortingTest extends TestRunner {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn("login2", "qwerty");
         final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
+        itemManagementPage.clickResizeLink();
+
         System.out.println(column.toString());
         itemManagementPage.clickProductsTableColumn(column);
         System.out.println(column.toString());
+
+
         List<WebElement> columnsData = driver.findElements(By
                 .xpath(String.format(".//*[@id='table']/tbody/tr/td[%s]", String.valueOf(column.ordinal() + 1))));
         final List<String> columnsCellText = new LinkedList<>();
@@ -35,15 +39,19 @@ public class SortingTest extends TestRunner {
             columnsCellText.add(columnsData.get(i).getText());
         }
 
-        final List<String> base = columnsCellText;
+        final List<String> base = new LinkedList<>();
+        for (int i = 0; i < columnsData.size(); i++) {
+            base.add(columnsData.get(i).getText());
+        }
+
         Collections.sort(base);
         for (int i = 0; i < columnsData.size(); i++) {
             System.out.println(columnsCellText.get(i));
             System.out.println(base.get(i));
         }
-        loggingSoftAssert.assertTrue(isColumnsEquals(base, columnsCellText), "");
         itemManagementPage.clickLogOutButton();
-        loggingSoftAssert.assertAll();
+        loggingAssert.assertTrue(isColumnsEquals(base, columnsCellText),
+                String.format("Table isn't broken after ascendant sorting by '%s'.", column));
     }
 
     public boolean isColumnsEquals(List<String> baseColumn, List<String> column) {
@@ -54,9 +62,11 @@ public class SortingTest extends TestRunner {
                 break;
             }
         }
-        if (i == baseColumn.size()) {
+        if (i == (baseColumn.size())) {
+            System.out.println("true" + i);
             return true;
         } else {
+            System.out.println("false" + i);
             return false;
         }
     }

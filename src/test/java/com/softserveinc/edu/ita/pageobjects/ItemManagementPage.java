@@ -63,4 +63,11 @@ public class ItemManagementPage extends LogOutBase {
     public void clickProductsTableColumn(ProductsTableColumns tableColumn) {
         click(ItemManagementPageLocators.TABLE_COLUMN.modify(tableColumn.toString()));
     }
+
+    /**
+     * To click resize link.
+     */
+    public void clickResizeLink() {
+        click(ItemManagementPageLocators.PRODUCTS_LIST_RESIZE_LINK);
+    }
 }
