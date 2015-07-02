@@ -21,33 +21,39 @@ import java.util.*;
 public class SortingTest<T> extends TestRunner {
 
     @Test(dataProviderClass = DataProviders.class, dataProvider = "getProductsTableColumns")
-    public void testSorting(ProductsTableColumns column) {
+    public void testSortingAsc(ProductsTableColumns column) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn("login2", "qwerty");
         final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
         itemManagementPage.clickResizeLink();
 
         itemManagementPage.clickProductsTableColumn(column);
-
         final Object[] baseColumnsortedAsc = getColumn(column);
         Arrays.sort(baseColumnsortedAsc);
         final Object[] columnSortedAsc = getColumn(column);
 
-        itemManagementPage.clickProductsTableColumn(column);
+        itemManagementPage.clickLogOutButton();
+        loggingAssert.assertTrue(isColumnsEquals(baseColumnsortedAsc, columnSortedAsc),
+                String.format("Ascendant sorting by '%s' is working.", column));
+    }
 
+    @Test(dataProviderClass = DataProviders.class, dataProvider = "getProductsTableColumns")
+    public void testSortingDesc(ProductsTableColumns column) {
+        final HomePage homePage = new HomePage(driver);
+        final UserInfoPage userInfoPage = homePage.logIn("login2", "qwerty");
+        final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
+        itemManagementPage.clickResizeLink();
+
+        itemManagementPage.clickProductsTableColumn(column);
+        itemManagementPage.clickProductsTableColumn(column);
         final Object[] baseColumnsortedDesc = getColumn(column);
         Arrays.sort(baseColumnsortedDesc);
         Collections.reverse(Arrays.asList(baseColumnsortedDesc));
         final Object[] columnSortedDesc = getColumn(column);
 
-        for (int i = 0; i < baseColumnsortedDesc.length; i++) {
-            System.out.println(baseColumnsortedDesc[i]);
-            System.out.println(columnSortedDesc[i]);
-        }
-
         itemManagementPage.clickLogOutButton();
-        loggingAssert.assertTrue(isColumnsEquals(baseColumnsortedAsc, columnSortedDesc),
-                String.format("Ascendant sorting by '%s' is working.", column));
+        loggingAssert.assertTrue(isColumnsEquals(baseColumnsortedDesc, columnSortedDesc),
+                String.format("Descendant sorting by '%s' is working.", column));
     }
 
     public boolean isColumnsEquals(Object[] baseColumn, Object[] column) {
