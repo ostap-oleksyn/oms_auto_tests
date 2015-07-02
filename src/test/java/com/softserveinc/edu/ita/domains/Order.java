@@ -2,103 +2,45 @@ package com.softserveinc.edu.ita.domains;
 
 
 import com.softserveinc.edu.ita.enums.OrderStatuses;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Order {
 
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int id;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String orderName;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private Double maxDiscount;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int orderNumber;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private Double totalPrice;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int assignee;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int customer;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int orderStatusReference;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String deliveryDate;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String preferableDeliveryDate;
+
     @Deprecated
     private String Role;
-
-    private Order() {}
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getOrderName() {
-        return orderName;
-    }
-
-    public void setOrderName(String orderName) {
-        this.orderName = orderName;
-    }
-
-    public int getOrderNumber() {
-        return orderNumber;
-    }
-
-    public void setOrderNumber(int orderNumber) {
-        this.orderNumber = orderNumber;
-    }
-
-    public Double getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public int getAssignee() {
-        return assignee;
-    }
-
-    public void setAssignee(int assignee) {
-        this.assignee = assignee;
-    }
-
-    public int getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(int customer) {
-        this.customer = customer;
-    }
-
-    public int getOrderStatusReference() {
-        return orderStatusReference;
-    }
-
-    public void setOrderStatusReference(int orderStatusReference) {
-        this.orderStatusReference = orderStatusReference;
-    }
-
-    public Double getMaxDiscount() {
-        return maxDiscount;
-    }
-
-    public void setMaxDiscount(Double maxDiscount) {
-        this.maxDiscount = maxDiscount;
-    }
-
-    public String getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public void setDeliveryDate(String deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-    public String getPreferableDeliveryDate() {
-        return preferableDeliveryDate;
-    }
-
-    public void setPreferableDeliveryDate(String preferableDeliveryDate) {
-        this.preferableDeliveryDate = preferableDeliveryDate;
-    }
 
     public String getStatusName() {
         return OrderStatuses.getStatusName(orderStatusReference);
@@ -132,57 +74,67 @@ public class Order {
         return new Builder();
     }
 
-    public static interface IdStep {
+    public interface IdStep {
         OrderNameStep withId(int id);
+
         OrderNameStep withoutId();
     }
 
-    public static interface OrderNameStep {
+    public interface OrderNameStep {
         OrderNumberStep withOrderName(String orderName);
+
         OrderNumberStep withoutOrderName();
     }
 
-    public static interface OrderNumberStep {
+    public interface OrderNumberStep {
         TotalPriceStep withOrderNumber(int orderNumber);
+
         TotalPriceStep withoutOrderNumber();
     }
 
-    public static interface TotalPriceStep {
+    public interface TotalPriceStep {
         AssigneeStep withTotalPrice(Double totalPrice);
+
         AssigneeStep withoutTotalPrice();
     }
 
-    public static interface AssigneeStep {
+    public interface AssigneeStep {
         CustomerStep withAssignee(int assignee);
+
         CustomerStep withoutAssignee();
     }
 
-    public static interface CustomerStep {
+    public interface CustomerStep {
         OrderStatusReferenceStep withCustomer(int customer);
+
         OrderStatusReferenceStep withoutCustomer();
     }
 
-    public static interface OrderStatusReferenceStep {
+    public interface OrderStatusReferenceStep {
         MaxDiscountStep withOrderStatusReference(int orderStatusReference);
+
         MaxDiscountStep withoutOrderStatusReference();
     }
 
-    public static interface MaxDiscountStep {
+    public interface MaxDiscountStep {
         DeliveryDateStep withMaxDiscount(Double maxDiscount);
+
         DeliveryDateStep withoutMaxDiscount();
     }
 
-    public static interface DeliveryDateStep {
+    public interface DeliveryDateStep {
         PreferableDeliveryDateStep withDeliveryDate(String deliveryDate);
+
         PreferableDeliveryDateStep withoutDeliveryDate();
     }
 
-    public static interface PreferableDeliveryDateStep {
+    public interface PreferableDeliveryDateStep {
         BuildStep withPreferableDeliveryDate(String preferableDeliveryDate);
+
         BuildStep withoutPreferableDeliveryDate();
     }
 
-    public static interface BuildStep {
+    public interface BuildStep {
         Order build();
     }
 

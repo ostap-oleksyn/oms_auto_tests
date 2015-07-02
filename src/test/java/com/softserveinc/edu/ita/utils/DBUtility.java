@@ -5,7 +5,9 @@ import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
+import org.testng.annotations.DataProvider;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -171,8 +173,7 @@ public class DBUtility {
         try {
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
-            user.setStatus(status);
-            userDAO.update(user);
+            userDAO.setUserStatus(user, status);
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -220,5 +221,16 @@ public class DBUtility {
         } catch (DAOException e) {
             e.printStackTrace();
         }
+    }
+
+    @DataProvider(name = "getUserEditData")
+    public static Object[][] getUserEditData() {
+        Object[][] userEditData = null;
+        try {
+            userEditData = XlsFileReader.getAllRowsFromXlsSheet("userEditData");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return userEditData;
     }
 }

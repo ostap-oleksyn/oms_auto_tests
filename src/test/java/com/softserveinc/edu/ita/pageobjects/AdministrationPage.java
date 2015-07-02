@@ -6,7 +6,6 @@ import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import com.softserveinc.edu.ita.utils.NumbersGenerator;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -14,8 +13,7 @@ import org.testng.Reporter;
 
 import java.util.LinkedList;
 import java.util.List;
-
-import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.*;
+import java.util.Random;
 
 /**
  * This class describes "Administration" page according to "Page Object" pattern.
@@ -32,17 +30,14 @@ public class AdministrationPage extends LogOutBase {
     }
 
     public String getRandomLoginFromView() {
-
-        WebElement loginCell = driver.findElement(By.xpath(
-                String.format(AdministrationPageLocators.LOGIN_CELL, NumbersGenerator.getRandomNumber(4))));
-
-        return loginCell.getText();
+        Random randomGenerator = new Random();
+        int randomLoginRow = randomGenerator.nextInt(4) + 1;
+        return getElementText(AdministrationPageLocators.LOGIN_CELL.modify(String.valueOf(randomLoginRow)));
     }
 
-    public EditUserPage clickRandomEditButton() {
-
-      //  click(AdministrationPageLocators.EDIT_USER_LINK).modify(NumbersGenerator.getRandomNumber(4));
-        click(AdministrationPageLocators.EDIT_USER_LINK);
+    public EditUserPage clickEditButton(int randomNumber) {
+        click(AdministrationPageLocators.EDIT_USER_LINK
+                .modify(String.valueOf(randomNumber)));
         return new EditUserPage(driver);
     }
 
@@ -53,16 +48,14 @@ public class AdministrationPage extends LogOutBase {
     public String getLastLogin() {
         WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
         int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
-        String login = driver.findElement(By.xpath(String
-                .format(AdministrationPageLocators.LOGIN_CELL, tableSize))).getText();
-        return login;
+        return getElementText(AdministrationPageLocators.LOGIN_CELL.modify(String.valueOf(tableSize)));
+
     }
 
     public void clickDeleteLastUserLink() {
         WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
         int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
-        driver.findElement(By.xpath(String
-                .format(AdministrationPageLocators.DELETE_LINK, tableSize))).click();
+        click(AdministrationPageLocators.DELETE_LINK.modify(String.valueOf(tableSize)));
     }
 
     /**
@@ -71,7 +64,8 @@ public class AdministrationPage extends LogOutBase {
     public List<UserFromView> getTableFromView() {
         List<UserFromView> usersList = new LinkedList<>();
         int pagination = 0;
-        click(USERS_LIST_RESIZE_LINK);
+        if (getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK).contains("10"))
+            click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);
         do {
             if (driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy()).size() <= 1) {
                 return usersList;
@@ -113,8 +107,7 @@ public class AdministrationPage extends LogOutBase {
      * A method to click one of "Administration" table headers to make sorting actions in the table.
      */
     public void clickAdministrationTableColumn(UsersTableColumns tableColumn) {
-        driver.findElement(By.xpath(String.format(AdministrationPageLocators.TABLE_COLUMN, tableColumn))).click();
-        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Clicked <b>%s</b>", tableColumn));
+        click(AdministrationPageLocators.TABLE_COLUMN.modify(tableColumn.toString()));
     }
 
     /**
@@ -151,7 +144,7 @@ public class AdministrationPage extends LogOutBase {
      * @return
      */
     public AdministrationPage setFilters(SearchFilters filter) {
-        Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
+        Select fieldSelect = new Select(driver.findElement(AdministrationPageLocators.FILTER_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filter.toString());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
         return this;
@@ -164,7 +157,7 @@ public class AdministrationPage extends LogOutBase {
      * @return
      */
     public AdministrationPage setCondition(SearchConditions condition) {
-        Select conditionSelect = new Select(driver.findElement(CONDITION_SELECT.getBy()));
+        Select conditionSelect = new Select(driver.findElement(AdministrationPageLocators.CONDITION_SELECT.getBy()));
         conditionSelect.selectByVisibleText(condition.toString());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected condition - <b>'%s'</b>", condition.getCondition()));
         return this;
@@ -177,7 +170,7 @@ public class AdministrationPage extends LogOutBase {
      * @return
      */
     public AdministrationPage fillSearchField(String searchTerm) {
-        sendKeys(SEARCH_FIELD, searchTerm);
+        sendKeys(AdministrationPageLocators.SEARCH_FIELD, searchTerm);
         return this;
     }
 
@@ -185,11 +178,11 @@ public class AdministrationPage extends LogOutBase {
      * click on the search button
      */
     public void clickSearchButton() {
-        click(SEARCH_BUTTON);
+        click(AdministrationPageLocators.SEARCH_BUTTON);
     }
 
     public void clearSearchField() {
-        driver.findElement(SEARCH_FIELD.getBy()).clear();
+        driver.findElement(AdministrationPageLocators.SEARCH_FIELD.getBy()).clear();
     }
 
 

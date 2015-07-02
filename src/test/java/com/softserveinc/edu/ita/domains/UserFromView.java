@@ -1,53 +1,31 @@
 package com.softserveinc.edu.ita.domains;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Class to initiate user using "Step Builder" Pattern.
  */
 public class UserFromView {
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String firstName;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String lastName;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String login;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String role;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String region;
 
     public UserFromView(String firstName) {
         this.firstName = firstName.toLowerCase();
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName.toLowerCase();
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login.toLowerCase();
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role.toLowerCase();
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region.toLowerCase();
-    }
-
-    public String getFirstName() {
-        return firstName;
     }
 
     @Override
@@ -62,7 +40,6 @@ public class UserFromView {
     }
 
     private UserFromView(){
-
     }
 
     public static FirstNameStep newBuilder() {
@@ -127,18 +104,18 @@ public class UserFromView {
 
 
         public UserFromView build(){
-            final UserFromView userFromView = new UserFromView(firstName);
+            final UserFromView userFromView = new UserFromView(firstName.toLowerCase());
 
-            userFromView.setLastName(lastName);
+            userFromView.setLastName(lastName.toLowerCase());
 
             if (login != null) {
-                userFromView.setLogin(login);
+                userFromView.setLogin(login.toLowerCase());
             }
             if (role != null){
-                userFromView.setRole(role);
+                userFromView.setRole(role.toLowerCase());
             }
             if (region != null) {
-                userFromView.setRegion(region);
+                userFromView.setRegion(region.toLowerCase());
             }
 
             return userFromView;

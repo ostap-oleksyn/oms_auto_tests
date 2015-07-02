@@ -1,59 +1,29 @@
 package com.softserveinc.edu.ita.domains;
 
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+
 import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
 
 public class Product {
 
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int id;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private int status;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String productName;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private String productDescription;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
     private Double productPrice;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
-    public Double getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(double productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public static IdStep newBuilder() {
-        return new Builder();
-    }
 
     public static Product createRandomProduct() {
         return Product.newBuilder()
@@ -63,6 +33,10 @@ public class Product {
                 .withProductDescription(generateString("NameSymbols", 10, 25))
                 .withProductPrice(Double.parseDouble(generateString("Digits", 1, 3)))
                 .build();
+    }
+
+    public static IdStep newBuilder() {
+        return new Builder();
     }
 
     public interface IdStep {

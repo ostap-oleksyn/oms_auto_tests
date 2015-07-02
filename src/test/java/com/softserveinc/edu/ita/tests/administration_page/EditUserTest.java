@@ -12,6 +12,7 @@ import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.utils.EnumUtil;
+import com.softserveinc.edu.ita.utils.NumbersGenerator;
 import org.testng.annotations.Test;
 
 public class EditUserTest extends TestRunner {
@@ -26,8 +27,8 @@ public class EditUserTest extends TestRunner {
 
         Regions region = EnumUtil.getRandomEnum(Regions.class, 1);
 
-        EditUserPage editUserPage = administrationPage.clickRandomEditButton();
-        String editUserLogin = editUserPage.getEditUserLogin();
+        EditUserPage editUserPage = administrationPage.clickEditButton(NumbersGenerator.getRandomNumber(4));
+        String editUserLogin = editUserPage.getUserLogin();
 
         editUserPage.fillEmailField(email)
                 .fillFirstNameField(firstName)
@@ -36,25 +37,27 @@ public class EditUserTest extends TestRunner {
                 .selectRegion(region)
                 .clickMerchandiserButton();
 
-        administrationPage = editUserPage.clickCreateButton();
-        homePage = administrationPage.clickLogOutButton();
+        homePage = editUserPage.clickCreateButton().
+                clickLogOutButton();
 
         User editUser = DBUtility.getByLogin(editUserLogin);
 
-        loggingAssert.assertEquals(editUser.getEmail(), email, "User email is changed in database");
-        loggingAssert.assertEquals(editUser.getFirstName(), firstName, "User first name is changed in database");
-        loggingAssert.assertEquals(editUser.getLastName(), lastName, "User last name is changed in database");
-        loggingAssert.assertEquals(editUser.getRegionReference(), region.getRegionReference(), "User region is changed in database");
-        loggingAssert.assertEquals(editUser.getRoleReference(), Roles.MERCHANDISER.getRoleReference(), "User role is changed in database");
+        loggingSoftAssert.assertEquals(editUser.getEmail(), email, "User email is changed in database");
+        loggingSoftAssert.assertEquals(editUser.getFirstName(), firstName, "User first name is changed in database");
+        loggingSoftAssert.assertEquals(editUser.getLastName(), lastName, "User last name is changed in database");
+        loggingSoftAssert.assertEquals(editUser.getRegionReference(), region.getRegionReference(), "User region is changed in database");
+        loggingSoftAssert.assertEquals(editUser.getRoleReference(), Roles.MERCHANDISER.getRoleReference(), "User role is changed in database");
 
         userInfoPage = homePage.logIn(editUser.getLogin(), editUser.getPassword());
 
-        loggingAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.FIRST_NAME_LABEL)
+        loggingSoftAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.FIRST_NAME_LABEL)
                 .contains(firstName), "User first name is changed");
-        loggingAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.LAST_NAME_LABEL)
+        loggingSoftAssert.assertTrue(homePage.getElementText(UserInfoPageLocators.LAST_NAME_LABEL)
                 .contains(lastName), "User last name is changed");
-        loggingAssert.assertEquals(homePage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL),
+        loggingSoftAssert.assertEquals(homePage.getElementText(UserInfoPageLocators.USER_ROLE_LABEL),
                 Roles.MERCHANDISER.getRoleName(), "User role is changed");
+
+        loggingSoftAssert.assertAll();
 
         userInfoPage.clickLogOutButton();
     }

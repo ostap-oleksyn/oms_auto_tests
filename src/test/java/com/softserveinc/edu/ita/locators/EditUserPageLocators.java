@@ -7,47 +7,53 @@ public enum EditUserPageLocators implements ILocator {
 
     LOGIN_INPUT(
             "Login input",
-            By.xpath(".//*[@id='login']")),
-
+            LocatorsType.BY_XPATH,
+            ".//*[@id='login']"),
     FIRST_NAME_INPUT(
             "First name input",
-            By.xpath(".//*[@id='firstName']")),
-
+            LocatorsType.BY_XPATH,
+            ".//*[@id='firstName']"),
     LAST_NAME_INPUT(
             "Last name input",
-            By.xpath(".//*[@id='lastName']")),
-
+            LocatorsType.BY_XPATH,
+            ".//*[@id='lastName']"),
     EMAIL_NAME_INPUT(
             "Email name input",
-            By.xpath(".//*[@id='email']")),
-
+            LocatorsType.BY_XPATH,
+            ".//*[@id='email']"),
     PASSWORD_INPUT(
             "Password input",
-            By.xpath(".//*[@id='password']")),
-
+            LocatorsType.BY_XPATH,
+            ".//*[@id='password']"),
     CONFIRM_PASSWORD_INPUT(
             "Confirm password input",
-            By.xpath(".//*[@id='confirmPassword']")),
-
+            LocatorsType.BY_XPATH,
+            ".//*[@id='confirmPassword']"),
     REGION_SELECT(
             "Region select",
-            By.xpath(".//*[@id='regionID']")),
-
+            LocatorsType.BY_XPATH,
+            ".//*[@id='regionID']"),
     ROLE_MERCHANDISER_SELECT(
             "Role customer select",
-            By.xpath(".//*[@id='roleID2']")),
-
+            LocatorsType.BY_XPATH,
+            ".//*[@id='roleID2']"),
     CREATE_BUTTON(
             "Create button",
-            By.xpath(".//input[@type='submit'][@value='Create']"));
-
-    EditUserPageLocators(String name, By locator) {
-        this.name = name;
-        this.locator = locator;
-    }
+            LocatorsType.BY_XPATH,
+            ".//input[@type='submit'][@value='Create']");
 
     private String name;
-    private By locator;
+    private LocatorsType locatorsType;
+    private String rawLocator;
+    private String modifiedLocator;
+    private By byLocator;
+
+    //This constructor sets only 3 fields of object. The rest are prepared separately.
+    EditUserPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+        this.name = name;
+        this.locatorsType = locatorsType;
+        this.rawLocator = rawLocator;
+    }
 
     @Override
     public String toString() {
@@ -59,8 +65,22 @@ public enum EditUserPageLocators implements ILocator {
         return this.name;
     }
 
+    //This method prepares locator using additional parameter by means of so called "string-format" method.
+    public EditUserPageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
+        return this;
+    }
+
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        return this.locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
+        if (this.modifiedLocator == null) {
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
+        } else {
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
+        }
+        return this.byLocator;
     }
 }

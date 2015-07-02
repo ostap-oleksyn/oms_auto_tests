@@ -3,94 +3,134 @@ package com.softserveinc.edu.ita.locators;
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
+/**
+ * This enum includes two type of locators:
+ * the first type locators are used without preliminary preparation;
+ * the second type locators can be used after advance modification.
+ */
 public enum AdministrationPageLocators implements ILocator {
 
     CREATE_NEW_USER_LINK(
             "Create new user link",
-            By.xpath(".//*[@id='list']/a[contains(text(), 'Create New User')]")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='list']/a[contains(text(), 'Create New User')]"),
     QUANTITY_OF_TABLE_PAGES(
             "Quantity of table pages",
-            By.xpath(".//*[@id='pageCount']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageCount']"),
     TABLE_ROWS(
             "Table rows",
-            By.xpath(".//*[@id='table']//tr")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']//tr"),
     ROW_CELLS(
             "Row cells",
-            By.tagName("td")),
+            LocatorsType.BY_TAG_NAME,
+            "td"),
     FIRST_BUTTON(
             "First button",
-            By.xpath(".//*[@id='first']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='first']"),
     NEXT_BUTTON(
             "Next button",
-            By.xpath(".//input[@id='next']")),
+            LocatorsType.BY_XPATH,
+            ".//input[@id='next']"),
     LAST_BUTTON(
             "Last Button",
-            By.xpath(".//*[@id='last']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='last']"),
     USERS_TABLE(
             "Users table",
-            By.xpath(".//*[@id='table']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']"),
     USERS_TABLE_ROWS(
             "Users table rows",
-            By.xpath(".//tbody/tr")),
+            LocatorsType.BY_XPATH,
+            ".//tbody/tr"),
     ADMINISTRATOR_APPOINTED_LABEL(
             "Admin appointed Info label",
-            By.xpath(".//*[@id='list']/h2")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='list']/h2"),
     FILTER_LABEL(
             "Filter label",
-            By.xpath(".//*[@id='searchForm']/label")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='searchForm']/label"),
     FOUND_USERS_NUMBER(
             "Number of found users",
-            By.xpath(".//*[@id='usersFound']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='usersFound']"),
     USERS_LIST_RESIZE_LINK(
             "Users list resize link",
-            By.xpath(".//a[@href=\"resizeUsersList.htm\"]")),
+            LocatorsType.BY_XPATH,
+            ".//a[@href='resizeUsersList.htm']"),
     CURRENT_PAGE_NUMBER(
             "Current page number",
-            By.xpath(".//*[@id='pageNumber']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageNumber']"),
     BACKWARD_BUTTON(
             "Backward button",
-            By.xpath(".//*[@id='previous']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='previous']"),
     FILTER_SELECT(
             "Filter select",
-            By.xpath(".//fieldset/form/select[1]")),
+            LocatorsType.BY_XPATH,
+            ".//fieldset/form/select[1]"),
     CONDITION_SELECT(
             "Condition select",
-            By.xpath(".//fieldset/form/select[2]")),
-    EDIT_USER_LINK(
-            "Edit user link",
-            By.xpath(".//*[@id='table']/tbody/tr[3]/td[6]/a")),
+            LocatorsType.BY_XPATH,
+            ".//fieldset/form/select[2]"),
     SEARCH_FIELD(
             "Search field",
-            By.xpath(".//*[@id='searchField']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='searchField']"),
     SEARCH_BUTTON(
             "Search button",
-            By.xpath(".//*[@id='searchForm']/input[2]")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='searchForm']/input[2]"),
     CREATE_REPORT_LINK(
             "Create report link",
-            By.xpath(".//a[@href='reportUsers.htm']")),
+            LocatorsType.BY_XPATH,
+            ".//a[@href='reportUsers.htm']"),
     SAVE_REPORT_LINK(
             "Save report link",
-            By.xpath(".//a[@href='getReport.htm']")),
+            LocatorsType.BY_XPATH,
+            ".//a[@href='getReport.htm']"),
+    TABLE_COLUMN(
+            "Table column",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
+    EDIT_USER_LINK(
+            "TEdit user link",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[6]/a"),
+    DELETE_LINK(
+            "Delete link",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[7]/a"),
+    LOGIN_CELL(
+            "Login cell",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[3]"),
     SELECTED_FILTER(
             "Selected filter",
-            By.xpath(".//*[@id='field']//*[@selected='selected']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='field']//*[@selected='selected']"),
     SELECTED_CONDITION(
             "Selected condition",
-            By.xpath(".//*[@id='condition']//*[@selected='selected']"));
-
-
-    // TODO redo to enum
-    public static final String TABLE_COLUMN = ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]";
-    public static final String DELETE_LINK = ".//*[@id='table']/tbody/tr[%s]/td[7]/a";
-    public static final String LOGIN_CELL = ".//*[@id='table']/tbody/tr[%s]/td[3]";
-
-    AdministrationPageLocators(String name, By locator) {
-        this.name = name;
-        this.locator = locator;
-    }
+            LocatorsType.BY_XPATH,
+            ".//*[@id='condition']//*[@selected='selected']");
 
     private String name;
-    private By locator;
+    private LocatorsType locatorsType;
+    private String rawLocator;
+    private String modifiedLocator;
+    private By byLocator;
+
+    //This constructor sets only 3 fields of object. The rest are prepared separately.
+    AdministrationPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+        this.name = name;
+        this.locatorsType = locatorsType;
+        this.rawLocator = rawLocator;
+    }
 
     @Override
     public String toString() {
@@ -102,8 +142,22 @@ public enum AdministrationPageLocators implements ILocator {
         return this.name;
     }
 
+    //This method prepares locator using additional parameter by means of so called "string-format" method.
+    public AdministrationPageLocators modify(String parameter) {
+        this.name = parameter;
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
+        return this;
+    }
+
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        return this.locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
+        if (this.modifiedLocator == null) {
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
+        } else {
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
+        }
+        return this.byLocator;
     }
 }

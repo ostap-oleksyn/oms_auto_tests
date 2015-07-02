@@ -11,7 +11,7 @@ public class EditUserPage extends LogOutBase {
         super(driver);
     }
 
-    public String getEditUserLogin() {
+    public String getUserLogin() {
         return getElementAttribute(EditUserPageLocators.LOGIN_INPUT, "value");
     }
 

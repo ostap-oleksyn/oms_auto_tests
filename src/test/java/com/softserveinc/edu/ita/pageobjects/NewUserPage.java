@@ -3,7 +3,6 @@ package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.NewUserPageLocators;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -46,7 +45,7 @@ public class NewUserPage extends LogOutBase {
     }
 
     public void clickRoleRadioButton(int roleRef) {
-        driver.findElement(By.xpath(String.format(NewUserPageLocators.ROLE_SELECT, roleRef))).click();
+        click(NewUserPageLocators.ROLE_SELECT.modify(String.valueOf(roleRef)));
     }
 
     public void selectRegion(int regionRef) {
