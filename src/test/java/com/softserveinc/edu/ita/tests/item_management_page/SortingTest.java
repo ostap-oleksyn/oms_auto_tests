@@ -54,7 +54,7 @@ public class SortingTest extends TestRunner {
                 break;
             }
         }
-        if (iteration == (baseColumn.length)) {
+        if (iteration == baseColumn.length) {
             return true;
         } else {
             return false;
