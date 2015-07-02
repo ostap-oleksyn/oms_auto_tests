@@ -4,37 +4,27 @@ package com.softserveinc.edu.ita.locators;
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
-/**
- * This enum includes two type of locators:
- * the first type locators are used without preliminary preparation;
- * the second type locators can be used after advance modification.
- */
-public enum UserInfoPageLocators implements ILocator {
-
-    USER_INFO_LABEL(
-            "Title User Info Table",
+public enum EditProductPageLocators implements ILocator {
+    PRODUCT_NAME_FIELD(
+            "Product name field",
             LocatorsType.BY_XPATH,
-            "//fieldset/legend"),
-    FIRST_NAME_TITLE_LABEL(
-            "Title first name label",
+            ".//*[@id='name']"),
+    PRODUCT_DESCRIPTION_FIELD(
+            "Product description field",
             LocatorsType.BY_XPATH,
-            "//fieldset//tr[1]/td[1]"),
-    FIRST_NAME_LABEL(
-            "User first name label",
+            ".//*[@id='description']"),
+    PRODUCT_PRICE_FIELD(
+            "Product price field",
             LocatorsType.BY_XPATH,
-            "//fieldset//tr[1]/td[2]"),
-    LAST_NAME_LABEL(
-            "User last name label",
+            ".//*[@id='price']"),
+    OK_BUTTON(
+            "Ok button",
             LocatorsType.BY_XPATH,
-            "//fieldset//tr[2]/td[2]"),
-    CUSTOMER_TYPE_LABEL(
-            "User customer type label",
+            ".//*[@id='productModel']/input[2]"),
+    CANCEL_BUTTON(
+            "Cancel button",
             LocatorsType.BY_XPATH,
-            "//fieldset//tr[3]/td[2]"),
-    USER_ROLE_LABEL(
-            "User role label",
-            LocatorsType.BY_XPATH,
-            "//fieldset//tr[4]/td[2]");
+            ".//*[@id='productModel']/input[3]");
 
     private String name;
     private LocatorsType locatorsType;
@@ -43,7 +33,7 @@ public enum UserInfoPageLocators implements ILocator {
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    UserInfoPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+    EditProductPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -60,13 +50,13 @@ public enum UserInfoPageLocators implements ILocator {
     }
 
     //This method prepares locator using additional parameter by means of so called "string-format" method.
-    public UserInfoPageLocators modify(String parameter) {
+    public EditProductPageLocators modify(String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }
 
     @Override
-    //This method converts locator into "By" format.
+//This method converts locator into "By" format.
     public By getBy() {
         //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {

@@ -3,7 +3,7 @@ package com.softserveinc.edu.ita.utils;
 import java.io.IOException;
 import java.util.Random;
 
-public class StringsGenerator {
+public final class RandomUtil {
 
     /**
      * Random String generator
@@ -12,7 +12,7 @@ public class StringsGenerator {
      * @param minimalLength minimal length of returned string
      * @param maximalLength maximal length of returned string
      */
-    public static String generateString(String symbolsSet, int minimalLength, int maximalLength) {
+    public static String getRandomString(String symbolsSet, int minimalLength, int maximalLength) {
 
         final String WORKSHEET_NAME = "SymbolSets";
 
@@ -38,4 +38,13 @@ public class StringsGenerator {
         return generatedString.toString();
     }
 
+    /**
+     * Returns random integer in a specified range
+     * @param min - range minimum value
+     * @param max - range maximum value
+     */
+    public static int getRandomInteger(int min, int max){
+        final Random random = new Random();
+        return random.nextInt(max) + min;
+    }
 }
