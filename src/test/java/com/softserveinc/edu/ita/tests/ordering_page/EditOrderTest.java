@@ -2,7 +2,7 @@ package com.softserveinc.edu.ita.tests.ordering_page;
 
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.ordering_page.ItemsOrderStatus;
-import com.softserveinc.edu.ita.enums.ordering_page.NUMBER_SHOWN_ELEMENTS;
+import com.softserveinc.edu.ita.enums.ordering_page.ShownElementsNumber;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;
@@ -44,8 +44,8 @@ public class EditOrderTest extends TestRunner {
 
         orderingPage.clickEditLink();
 
-        for (NUMBER_SHOWN_ELEMENTS numberShownElements : NUMBER_SHOWN_ELEMENTS.values()) {
-            orderingPage.setNumberOfElements(numberShownElements);
+        for (ShownElementsNumber shownElementsNumber : ShownElementsNumber.values()) {
+            orderingPage.setNumberOfElements(shownElementsNumber);
             wait.until(ExpectedConditions.presenceOfElementLocated(PRICE_COLUMN.getBy()));
 
             pricesList = driver.findElements(PRICE_COLUMN.getBy());
@@ -58,12 +58,12 @@ public class EditOrderTest extends TestRunner {
             quantity = Double.valueOf(quantiiesList.get(item).getText());
             pricePerLine = Double.valueOf(pricesPerLineList.get(item).getText());
 
-            loggingSoftAssert.assertTrue(numberShownElements.getNumber() >= pricesList.size(), "Elements in tables are shown correctly");
+            loggingSoftAssert.assertTrue(shownElementsNumber.getNumber() >= pricesList.size(), "Elements in tables are shown correctly");
         }
 
         loggingSoftAssert.assertTrue(price * quantity == pricePerLine, "'Price Per Line' is correctly calculated");
 
-        orderingPage.setNumberOfElements(NUMBER_SHOWN_ELEMENTS.ELEMENTS_1);
+        orderingPage.setNumberOfElements(ShownElementsNumber.ELEMENTS_1);
 
         loggingSoftAssert.assertTrue(orderingPage.isElementEnabled(ITEM_NEXT_PAGE_BUTTON), "'<b>Next Page</b>' button is enabled ");
         loggingSoftAssert.assertTrue(orderingPage.isElementEnabled(ITEM_LAST_PAGE_BUTTON), "'<b>Last Page</b>' button is enabled ");

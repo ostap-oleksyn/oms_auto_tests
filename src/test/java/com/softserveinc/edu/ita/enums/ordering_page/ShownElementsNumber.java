@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.enums.ordering_page;
 
-public enum NUMBER_SHOWN_ELEMENTS {
+public enum ShownElementsNumber {
     ELEMENTS_1("Show 1 elements", 1),
     ELEMENTS_2("Show 2 elements", 2),
     ELEMENTS_5("Show 5 elements", 5),
@@ -11,7 +11,7 @@ public enum NUMBER_SHOWN_ELEMENTS {
     private String name;
     private int number;
 
-    NUMBER_SHOWN_ELEMENTS(String name, int number) {
+    ShownElementsNumber(String name, int number) {
         this.name = name;
         this.number = number;
     }

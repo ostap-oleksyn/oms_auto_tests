@@ -112,7 +112,7 @@ public class OrderingPage extends LogOutBase {
         return this;
     }
 
-    public OrderingPage setNumberOfElements(NUMBER_SHOWN_ELEMENTS number){
+    public OrderingPage setNumberOfElements(ShownElementsNumber number){
         Select select = new Select(driver.findElement(SHOW_NUMBER_OF_ELEMENTS_LINK.getBy()));
         select.selectByVisibleText(number.getName());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", SHOW_NUMBER_OF_ELEMENTS_LINK.getName()));
