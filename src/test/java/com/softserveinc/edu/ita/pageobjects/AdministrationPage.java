@@ -34,6 +34,7 @@ public class AdministrationPage extends LogOutBase {
         return getElementText(AdministrationPageLocators.LOGIN_CELL.modify(String.valueOf(randomLoginRow)));
     }
 
+
     public EditUserPage clickEditButton(int randomNumber) {
         click(AdministrationPageLocators.EDIT_USER_LINK
                 .modify(String.valueOf(randomNumber)));
