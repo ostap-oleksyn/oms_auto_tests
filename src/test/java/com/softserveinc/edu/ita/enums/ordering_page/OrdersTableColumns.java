@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.enums;
+package com.softserveinc.edu.ita.enums.ordering_page;
 
 /**
  * This enum serves to limit possible columns of 'Ordering' table in 'Ordering' page.
