@@ -2,21 +2,19 @@ package com.softserveinc.edu.ita.enums.item_management_page;
 
 import org.openqa.selenium.WebElement;
 
-import java.util.Objects;
-
 
 /**
  * Created by true on 01.07.2015.
  */
 public enum ProductsTableColumns {
-    NAME("Name", ValueType.STRING),
-    DESCRIPTION("Description", ValueType.STRING),
-    PRICE("Price", ValueType.DOUBLE);
+    NAME("Name", ValuesType.STRING),
+    DESCRIPTION("Description", ValuesType.STRING),
+    PRICE("Price", ValuesType.DOUBLE);
 
     private String name;
-    private ValueType type;
+    private ValuesType type;
 
-    ProductsTableColumns(String name, ValueType type) {
+    ProductsTableColumns(String name, ValuesType type) {
         this.name = name;
         this.type = type;
     }
@@ -30,7 +28,7 @@ public enum ProductsTableColumns {
         return this.name;
     }
 
-    public ValueType getType() {
+    public ValuesType getType() {
         return this.type;
     }
 

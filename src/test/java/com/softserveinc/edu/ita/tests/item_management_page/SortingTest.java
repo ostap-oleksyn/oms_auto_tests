@@ -9,7 +9,8 @@ import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * This class to test sorting actions in supervisor's table of products.
@@ -35,29 +36,9 @@ public class SortingTest extends TestRunner {
         final Object[] columnSortedDesc = itemManagementPage.getColumn(column);
 
         itemManagementPage.clickLogOutButton();
-        loggingAssert.assertTrue(isColumnsEquals(baseColumnSortedAsc, columnSortedAsc),
+        loggingAssert.assertEquals(baseColumnSortedAsc, columnSortedAsc,
                 String.format("Ascendant sorting by '%s' is working.", column));
-        loggingAssert.assertTrue(isColumnsEquals(baseColumnSortedDesc, columnSortedDesc),
+        loggingAssert.assertEquals(baseColumnSortedDesc, columnSortedDesc,
                 String.format("Descendant sorting by '%s' is working.", column));
-    }
-
-    /**
-     * This method helps to define equality of columns.
-     */
-    public boolean isColumnsEquals(Object[] baseColumn, Object[] column) {
-        int iteration;
-        for (iteration = 0; iteration < baseColumn.length; iteration++) {
-            if (baseColumn[iteration].equals(column[iteration])) {
-                //if true, we continue iteration
-            } else {
-                //there we stop iteration
-                break;
-            }
-        }
-        if (iteration == baseColumn.length) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }

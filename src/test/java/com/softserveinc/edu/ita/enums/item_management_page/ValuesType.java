@@ -1,15 +1,12 @@
 package com.softserveinc.edu.ita.enums.item_management_page;
 
-import org.apache.poi.ss.formula.functions.T;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import java.util.Objects;
-
 /**
- * Created by student on 7/2/2015.
+ * Enum makes possible to choose getValue method by type of returned value.
+ * Different types have diverse way for sorting.
  */
-public enum ValueType {
+public enum ValuesType {
     DOUBLE {
         @Override
         public Object getValue(WebElement element) {
