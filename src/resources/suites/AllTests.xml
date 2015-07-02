@@ -13,8 +13,9 @@
             <class name="com.softserveinc.edu.ita.tests.administration_page.CreateUserTest"></class>
             <class name="com.softserveinc.edu.ita.tests.administration_page.CreateReportTest"></class>
             <class name="com.softserveinc.edu.ita.tests.administration_page.NavigationTest"></class>
-            <class name="com.softserveinc.edu.ita.tests.administration_page.SortingTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.SearchTest"></class>
             <class name="com.softserveinc.edu.ita.tests.item_management_page.AddNewProductTest"></class>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.CreateReportTest"></class>
         </classes>
     </test>
 </suite>

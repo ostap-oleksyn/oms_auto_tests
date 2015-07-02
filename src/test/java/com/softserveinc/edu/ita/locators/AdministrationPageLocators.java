@@ -82,6 +82,10 @@ public enum AdministrationPageLocators implements ILocator {
             "Search field",
             LocatorsType.BY_XPATH,
             ".//*[@id='searchField']"),
+    EDIT_USER_LINK(
+            "TEdit user link",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[6]/a"),
     SEARCH_BUTTON(
             "Search button",
             LocatorsType.BY_XPATH,
@@ -98,10 +102,6 @@ public enum AdministrationPageLocators implements ILocator {
             "Table column",
             LocatorsType.BY_XPATH,
             ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
-    EDIT_USER_LINK(
-            "TEdit user link",
-            LocatorsType.BY_XPATH,
-            ".//*[@id='table']/tbody/tr[%s]/td[6]/a"),
     DELETE_LINK(
             "Delete link",
             LocatorsType.BY_XPATH,

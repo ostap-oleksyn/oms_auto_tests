@@ -1,11 +1,10 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-import com.softserveinc.edu.ita.domains.UserFromView;
-import com.softserveinc.edu.ita.enums.UsersTableColumns;
+import com.softserveinc.edu.ita.domains.AdministrationsTableRow;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
+import com.softserveinc.edu.ita.enums.administration_page.UsersTableColumns;
 import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
-import com.softserveinc.edu.ita.utils.NumbersGenerator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -61,8 +60,8 @@ public class AdministrationPage extends LogOutBase {
     /**
      * A method to get "Administration" table from "Administration" page of web-application.
      */
-    public List<UserFromView> getTableFromView() {
-        List<UserFromView> usersList = new LinkedList<>();
+    public List<AdministrationsTableRow> getTableFromView() {
+        List<AdministrationsTableRow> usersList = new LinkedList<>();
         int pagination = 0;
         if (getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK).contains("10"))
             click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);
@@ -73,12 +72,12 @@ public class AdministrationPage extends LogOutBase {
                 List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy());
                 for (int j = 1; j < rowsList.size(); j++) {
                     List<WebElement> cellsList = rowsList.get(j).findElements(AdministrationPageLocators.ROW_CELLS.getBy());
-                    usersList.add(UserFromView.newBuilder()
-                            .firstName(cellsList.get(0).getText())
-                            .lastName(cellsList.get(1).getText())
-                            .login(cellsList.get(2).getText())
-                            .role(cellsList.get(3).getText())
-                            .region(cellsList.get(4).getText())
+                    usersList.add(AdministrationsTableRow.newBuilder()
+                            .setFirstName(cellsList.get(0).getText())
+                            .setLastName(cellsList.get(1).getText())
+                            .setLogin(cellsList.get(2).getText())
+                            .setRole(cellsList.get(3).getText())
+                            .setRegion(cellsList.get(4).getText())
                             .build());
                 }
             }
@@ -184,7 +183,6 @@ public class AdministrationPage extends LogOutBase {
     public void clearSearchField() {
         driver.findElement(AdministrationPageLocators.SEARCH_FIELD.getBy()).clear();
     }
-
 
     public void clickCreateReportLink() {
         click(AdministrationPageLocators.CREATE_REPORT_LINK);

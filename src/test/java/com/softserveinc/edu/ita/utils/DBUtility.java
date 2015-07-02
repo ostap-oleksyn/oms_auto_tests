@@ -5,9 +5,7 @@ import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
-import org.testng.annotations.DataProvider;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +55,26 @@ public class DBUtility {
 
         return usersList;
     }
+    /**
+     * Returns first merchandiser from database
+     */
+    public static User getMerchandiser() {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+
+        User admin = null;
+        try {
+            connection = factory.getConnection();
+            userDAO = (UserDAO) factory.getDAO(connection, User.class);
+            admin = userDAO.getByRole(Roles.MERCHANDISER);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        return admin;
+    }
+
 
     /**
      * Returns first administrator from database
@@ -221,16 +239,5 @@ public class DBUtility {
         } catch (DAOException e) {
             e.printStackTrace();
         }
-    }
-
-    @DataProvider(name = "getUserEditData")
-    public static Object[][] getUserEditData() {
-        Object[][] userEditData = null;
-        try {
-            userEditData = XlsFileReader.getAllRowsFromXlsSheet("userEditData");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return userEditData;
     }
 }
