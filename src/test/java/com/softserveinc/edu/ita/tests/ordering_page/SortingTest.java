@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.tests.ordering_page;
 
-import com.softserveinc.edu.ita.utils.OrderingsTableRow;
+import com.softserveinc.edu.ita.domains.OrderingsTableRow;
 import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;

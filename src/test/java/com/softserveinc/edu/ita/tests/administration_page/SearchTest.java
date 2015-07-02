@@ -2,7 +2,7 @@ package com.softserveinc.edu.ita.tests.administration_page;
 
 import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.utils.AdministrationsTableRow;
+import com.softserveinc.edu.ita.domains.AdministrationsTableRow;
 import com.softserveinc.edu.ita.enums.Regions;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;

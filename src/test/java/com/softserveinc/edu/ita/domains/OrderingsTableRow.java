@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.utils;
+package com.softserveinc.edu.ita.domains;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import lombok.Setter;
 /**
  * Class makes possible to set fields of the row belonging to "Ordering" table from application.
  */
+//TODO move out to another package
 public class OrderingsTableRow {
     @Getter
     @Setter(AccessLevel.PRIVATE)
