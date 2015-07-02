@@ -12,7 +12,7 @@ import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.utils.EnumUtil;
-import com.softserveinc.edu.ita.utils.NumbersGenerator;
+import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.testng.annotations.Test;
 
 public class EditUserTest extends TestRunner {
@@ -27,7 +27,7 @@ public class EditUserTest extends TestRunner {
 
         Regions region = EnumUtil.getRandomEnum(Regions.class, 1);
 
-        EditUserPage editUserPage = administrationPage.clickEditButton(NumbersGenerator.getRandomNumber(4));
+        EditUserPage editUserPage = administrationPage.clickEditButton(RandomUtil.getRandomInteger(1, 4));
         String editUserLogin = editUserPage.getUserLogin();
 
         editUserPage.fillEmailField(email)
@@ -35,7 +35,7 @@ public class EditUserTest extends TestRunner {
                 .fillLastNameField(lastName)
                 .fillPasswordFields(password)
                 .selectRegion(region)
-                .clickMerchandiserButton();
+                .selectMerchandiserRole();
 
         homePage = editUserPage.clickCreateButton().
                 clickLogOutButton();

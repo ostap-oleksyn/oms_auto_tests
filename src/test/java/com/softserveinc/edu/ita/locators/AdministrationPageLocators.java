@@ -27,7 +27,7 @@ public enum AdministrationPageLocators implements ILocator {
             LocatorsType.BY_TAG_NAME,
             "td"),
     EDIT_USER_LINK(
-            "TEdit user link",
+            "Edit user link",
             LocatorsType.BY_XPATH,
             ".//*[@id='table']/tbody/tr[%s]/td[6]/a"),
     FIRST_BUTTON(

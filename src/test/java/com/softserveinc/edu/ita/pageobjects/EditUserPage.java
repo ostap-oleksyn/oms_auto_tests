@@ -43,7 +43,7 @@ public class EditUserPage extends LogOutBase {
         return this;
     }
 
-    public void clickMerchandiserButton(){
+    public void selectMerchandiserRole(){
         click(EditUserPageLocators.ROLE_MERCHANDISER_SELECT);
     }
 
