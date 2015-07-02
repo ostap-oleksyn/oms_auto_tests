@@ -74,4 +74,11 @@ public class ItemManagementPage extends LogOutBase {
         click(ItemManagementPageLocators.TABLE_EDIT_LINK.modify(String.valueOf(randomRow)));
         return new EditProductPage(driver);
     }
+
+    /**
+     * Method to click on the "create report" link.
+     */
+    public void clickCreateReportLink() {
+        click(ItemManagementPageLocators.CREATE_REPORT_LINK);
+    }
 }

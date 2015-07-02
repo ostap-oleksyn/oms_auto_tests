@@ -82,7 +82,23 @@ public enum OrderingPageLocators implements ILocator {
     TABLE_COLUMN(
             "Table column",
             LocatorsType.BY_XPATH,
-            ".//*[@id='list']/table/tbody/tr[1]/th/a[contains(text(), '%s')]");
+            ".//*[@id='list']/table/tbody/tr[1]/th/a[contains(text(), '%s')]"),
+    ORDER_NAME_COLUMN(
+            "Order name",
+            LocatorsType.BY_XPATH,
+            "//div[2]/table/tbody/tr/td[1]"),
+    ORDER_STATUS_COLUMN(
+            "Order status",
+            LocatorsType.BY_XPATH,
+            "//div[2]/table/tbody/tr/td[5]"),
+    ORDER_ASSIGNEE_COLUMN(
+            "Order assignee",
+            LocatorsType.BY_XPATH,
+            "//div[2]/table/tbody/tr/td[6]"),
+    ROLE_COLUMN(
+            "Role",
+            LocatorsType.BY_XPATH,
+            "//div[2]/table/tbody/tr/td[7]");
 
     private String name;
     private LocatorsType locatorsType;

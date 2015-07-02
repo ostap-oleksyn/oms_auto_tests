@@ -74,7 +74,16 @@ public enum ItemManagementPageLocators implements ILocator {
     TABLE_DELETE_LINK(
             "Products table delete link",
             LocatorsType.BY_XPATH,
-            ".//*[@id='table']/tbody/tr[%s]/td[5]/a");
+            ".//*[@id='table']/tbody/tr[%s]/td[5]/a"),
+    CREATE_REPORT_LINK(
+            "Create report link",
+            LocatorsType.BY_XPATH,
+            ".//*[@href='reportItems.htm']"),
+    SAVE_REPORT_LINK(
+            "Save report link",
+            LocatorsType.BY_XPATH,
+            ".//*[@href='getItemReport.htm']");
+
 
     private String name;
     private LocatorsType locatorsType;

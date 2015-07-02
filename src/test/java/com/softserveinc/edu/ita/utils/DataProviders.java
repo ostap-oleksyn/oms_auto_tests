@@ -4,7 +4,8 @@ package com.softserveinc.edu.ita.utils;
 import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
-import com.softserveinc.edu.ita.enums.UsersTableColumns;
+import com.softserveinc.edu.ita.enums.administration_page.UsersTableColumns;
+import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import org.testng.annotations.DataProvider;
 
 import java.io.IOException;
@@ -37,12 +38,38 @@ public final class DataProviders {
     }
 
     /**
+     * returns searchterms from xls file
+     *
+     * @return
+     */
+    @DataProvider(name = "getOrderSearchTerms")
+    public static Object[][] getOrderSearchTerms() {
+        Object[][] searchTerms = null;
+        try {
+            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("OrderSearchTerms");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return searchTerms;
+    }
+
+    /**
      * Returns names of 'Users' table columns.
      */
     @DataProvider(name = "getUsersTableColumns")
-    public static Iterator<Object[]> getTestDataIterator() {
+    public static Iterator<Object[]> getUsersDataIterator() {
         List<Object[]> testDataList = new ArrayList<>();
         Stream.of(UsersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
+        return testDataList.iterator();
+    }
+
+    /**
+     * Returns names of 'Users' table columns.
+     */
+    @DataProvider(name = "getOrdersTableColumns")
+    public static Iterator<Object[]> getOrdersDataIterator() {
+        List<Object[]> testDataList = new ArrayList<>();
+        Stream.of(OrdersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
         return testDataList.iterator();
     }
 

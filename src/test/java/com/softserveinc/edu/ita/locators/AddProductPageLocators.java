@@ -1,9 +1,13 @@
 package com.softserveinc.edu.ita.locators;
 
-
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
+/**
+ * This enum includes two type of locators:
+ * the first type locators are used without preliminary preparation;
+ * the second type locators can be used after advance modification.
+ */
 public enum AddProductPageLocators implements ILocator {
 
     PRODUCT_NAME_FIELD(

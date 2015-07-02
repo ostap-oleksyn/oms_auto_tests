@@ -29,15 +29,15 @@ public enum HomePageLocators implements ILocator {
             ".//*[@id='edit']/fieldset/font");
 
     private String name;
-    private LocatorsType seleniumByMethod;
+    private LocatorsType locatorsType;
     private String rawLocator;
     private String modifiedLocator;
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    HomePageLocators(String name, LocatorsType seleniumByMethod, String rawLocator) {
+    HomePageLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
-        this.seleniumByMethod = seleniumByMethod;
+        this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
     }
 
@@ -62,9 +62,9 @@ public enum HomePageLocators implements ILocator {
     public By getBy() {
         //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
-            this.byLocator = this.seleniumByMethod.getBy(this.rawLocator);
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
         } else {
-            this.byLocator = this.seleniumByMethod.getBy(this.modifiedLocator);
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
         }
         return this.byLocator;
     }

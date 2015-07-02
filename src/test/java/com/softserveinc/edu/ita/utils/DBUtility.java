@@ -57,6 +57,26 @@ public final class DBUtility {
 
         return usersList;
     }
+    /**
+     * Returns first merchandiser from database
+     */
+    public static User getMerchandiser() {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+
+        User admin = null;
+        try {
+            connection = factory.getConnection();
+            userDAO = (UserDAO) factory.getDAO(connection, User.class);
+            admin = userDAO.getByRole(Roles.MERCHANDISER);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        return admin;
+    }
+
 
     /**
      * Returns first administrator from database
