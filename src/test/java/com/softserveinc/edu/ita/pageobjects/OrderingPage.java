@@ -1,12 +1,8 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.OrderingsTableRow;
-import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
-import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
-import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
-
+import com.softserveinc.edu.ita.enums.ordering_page.*;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -16,6 +12,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
+
+import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
 
 /**
  * This class describes "Ordering" page according to "Page Object" pattern.
@@ -114,6 +112,20 @@ public class OrderingPage extends LogOutBase {
         return this;
     }
 
+    public OrderingPage setNumberOfElements(NUMBER_SHOWN_ELEMENTS number){
+        Select select = new Select(driver.findElement(SHOW_NUMBER_OF_ELEMENTS_LINK.getBy()));
+        select.selectByVisibleText(number.getName());
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", SHOW_NUMBER_OF_ELEMENTS_LINK.getName()));
+        return this;
+    }
+
+    public OrderingPage setItemOrderStatus(ItemsOrderStatus status){
+        Select select = new Select(driver.findElement(ITEM_ORDER_STATUS.getBy()));
+        select.selectByValue(String.valueOf(status));
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", status.getStatusName()));
+        return this;
+    }
+
     public OrderingPage clickApplyButton() {
         click(OrderingPageLocators.APPLY_BUTTON);
         return this;
@@ -131,6 +143,36 @@ public class OrderingPage extends LogOutBase {
 
     public String getSearchFieldText() {
         return getElementAttribute(OrderingPageLocators.SEARCH_FIELD, "value");
+    }
+
+    public OrderingPage clickEditLink (){
+        click(EDIT_LINK);
+        return this;
+    }
+
+    public OrderingPage clickItemNextPageButton(){
+        click(ITEM_NEXT_PAGE_BUTTON);
+        return this;
+    }
+
+    public OrderingPage clickItemCancelButton(){
+        click(ITEM_CANCEL_BUTTON);
+        return this;
+    }
+
+    public OrderingPage clickItemSaveButton(){
+        click(ITEM_SAVE_BUTTON);
+        return this;
+    }
+
+    public OrderingPage clickItemErrorShowButton(){
+        click(ITEM_ERROR_SHOW_BUTTON);
+        return this;
+    }
+
+    public OrderingPage clickItemGoToHomeButton(){
+        click(ITEM_GO_TO_HOME_BUTTON);
+        return this;
     }
 }
 
