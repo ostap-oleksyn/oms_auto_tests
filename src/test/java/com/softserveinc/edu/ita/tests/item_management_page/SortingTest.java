@@ -21,7 +21,7 @@ import java.util.*;
 public class SortingTest<T> extends TestRunner {
 
     @Test(dataProviderClass = DataProviders.class, dataProvider = "getProductsTableColumns")
-    public void testSortingAsc(ProductsTableColumns column) {
+    public void testSorting(ProductsTableColumns column) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn("login2", "qwerty");
         final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
@@ -32,19 +32,6 @@ public class SortingTest<T> extends TestRunner {
         Arrays.sort(baseColumnsortedAsc);
         final Object[] columnSortedAsc = getColumn(column);
 
-        itemManagementPage.clickLogOutButton();
-        loggingAssert.assertTrue(isColumnsEquals(baseColumnsortedAsc, columnSortedAsc),
-                String.format("Ascendant sorting by '%s' is working.", column));
-    }
-
-    @Test(dataProviderClass = DataProviders.class, dataProvider = "getProductsTableColumns")
-    public void testSortingDesc(ProductsTableColumns column) {
-        final HomePage homePage = new HomePage(driver);
-        final UserInfoPage userInfoPage = homePage.logIn("login2", "qwerty");
-        final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
-        itemManagementPage.clickResizeLink();
-
-        itemManagementPage.clickProductsTableColumn(column);
         itemManagementPage.clickProductsTableColumn(column);
         final Object[] baseColumnsortedDesc = getColumn(column);
         Arrays.sort(baseColumnsortedDesc);
@@ -52,8 +39,11 @@ public class SortingTest<T> extends TestRunner {
         final Object[] columnSortedDesc = getColumn(column);
 
         itemManagementPage.clickLogOutButton();
-        loggingAssert.assertTrue(isColumnsEquals(baseColumnsortedDesc, columnSortedDesc),
+        loggingSoftAssert.assertTrue(isColumnsEquals(baseColumnsortedAsc, columnSortedAsc),
+                String.format("Ascendant sorting by '%s' is working.", column));
+        loggingSoftAssert.assertTrue(isColumnsEquals(baseColumnsortedDesc, columnSortedDesc),
                 String.format("Descendant sorting by '%s' is working.", column));
+        loggingSoftAssert.assertAll();
     }
 
     public boolean isColumnsEquals(Object[] baseColumn, Object[] column) {
