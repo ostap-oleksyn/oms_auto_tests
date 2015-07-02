@@ -3,9 +3,13 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
 import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
 import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Reporter;
+
+import java.util.List;
 
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.FILTER_SELECT;
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.SEARCH_BUTTON;
@@ -58,7 +62,7 @@ public class ItemManagementPage extends LogOutBase {
     }
 
     /**
-     * There is method to click one of "Ordering" table headers to make sorting actions in the table.
+     * There is method to click one of "Products" table headers to make sorting actions in the table.
      */
     public void clickProductsTableColumn(ProductsTableColumns tableColumn) {
         click(ItemManagementPageLocators.TABLE_COLUMN.modify(tableColumn.toString()));
@@ -69,5 +73,18 @@ public class ItemManagementPage extends LogOutBase {
      */
     public void clickResizeLink() {
         click(ItemManagementPageLocators.PRODUCTS_LIST_RESIZE_LINK);
+    }
+
+    /**
+     * To get column by name from table of products.
+     */
+    public Object[] getColumn(ProductsTableColumns column) {
+        List<WebElement> columnsElement = driver.findElements(ItemManagementPageLocators.COLUMNS_ELEMENTS
+                .modify(String.valueOf(column.ordinal() + 1)).getBy());
+        Object[] columnsData = new Object[columnsElement.size()];
+        for (int i = 0; i < columnsElement.size(); i++) {
+            columnsData[i] = column.getValue(columnsElement.get(i));
+        }
+        return columnsData;
     }
 }

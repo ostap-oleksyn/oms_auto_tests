@@ -5,71 +5,59 @@ import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.ItemManagementPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-import javax.lang.model.type.TypeVariable;
-import java.lang.reflect.Type;
-import java.sql.Types;
 import java.util.*;
 
 /**
- * Created by true on 01.07.2015.
+ * This class to test sorting actions in supervisor's table of products.
  */
-public class SortingTest<T> extends TestRunner {
+public class SortingTest extends TestRunner {
 
     @Test(dataProviderClass = DataProviders.class, dataProvider = "getProductsTableColumns")
     public void testSorting(ProductsTableColumns column) {
         final HomePage homePage = new HomePage(driver);
-        final UserInfoPage userInfoPage = homePage.logIn("login2", "qwerty");
+        final UserInfoPage userInfoPage = homePage.logIn("login2", DBUtility.getByLogin("login2").getPassword());
         final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
         itemManagementPage.clickResizeLink();
 
         itemManagementPage.clickProductsTableColumn(column);
-        final Object[] baseColumnsortedAsc = getColumn(column);
-        Arrays.sort(baseColumnsortedAsc);
-        final Object[] columnSortedAsc = getColumn(column);
+        final Object[] baseColumnSortedAsc = itemManagementPage.getColumn(column);
+        Arrays.sort(baseColumnSortedAsc);
+        final Object[] columnSortedAsc = itemManagementPage.getColumn(column);
 
         itemManagementPage.clickProductsTableColumn(column);
-        final Object[] baseColumnsortedDesc = getColumn(column);
-        Arrays.sort(baseColumnsortedDesc);
-        Collections.reverse(Arrays.asList(baseColumnsortedDesc));
-        final Object[] columnSortedDesc = getColumn(column);
+        final Object[] baseColumnSortedDesc = itemManagementPage.getColumn(column);
+        Arrays.sort(baseColumnSortedDesc);
+        Collections.reverse(Arrays.asList(baseColumnSortedDesc));
+        final Object[] columnSortedDesc = itemManagementPage.getColumn(column);
 
         itemManagementPage.clickLogOutButton();
-        loggingSoftAssert.assertTrue(isColumnsEquals(baseColumnsortedAsc, columnSortedAsc),
+        loggingAssert.assertTrue(isColumnsEquals(baseColumnSortedAsc, columnSortedAsc),
                 String.format("Ascendant sorting by '%s' is working.", column));
-        loggingSoftAssert.assertTrue(isColumnsEquals(baseColumnsortedDesc, columnSortedDesc),
+        loggingAssert.assertTrue(isColumnsEquals(baseColumnSortedDesc, columnSortedDesc),
                 String.format("Descendant sorting by '%s' is working.", column));
-        loggingSoftAssert.assertAll();
     }
 
+    /**
+     * This method helps to define equality of columns.
+     */
     public boolean isColumnsEquals(Object[] baseColumn, Object[] column) {
-        int i;
-        for (i = 0; i < baseColumn.length; i++) {
-            if (baseColumn[i].equals(column[i])) {
+        int iteration;
+        for (iteration = 0; iteration < baseColumn.length; iteration++) {
+            if (baseColumn[iteration].equals(column[iteration])) {
+                //if true, we continue iteration
             } else {
+                //there we stop iteration
                 break;
             }
         }
-        if (i == (baseColumn.length)) {
-            System.out.println("true" + i);
+        if (iteration == (baseColumn.length)) {
             return true;
         } else {
-            System.out.println("false" + i);
             return false;
         }
-    }
-
-    public Object[] getColumn(ProductsTableColumns column) {
-        List<WebElement> columnsElement = driver.findElements(By
-                .xpath(String.format(".//*[@id='table']/tbody/tr/td[%s]", String.valueOf(column.ordinal() + 1))));
-        Object[] columnsData = new Object[columnsElement.size()];
-        for (int i = 0; i < columnsElement.size(); i++) {
-            columnsData[i] = column.getValue(columnsElement.get(i));
-        }
-        return columnsData;
     }
 }
