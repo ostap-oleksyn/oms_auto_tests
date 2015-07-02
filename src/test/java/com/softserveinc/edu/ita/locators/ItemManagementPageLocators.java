@@ -101,7 +101,6 @@ public enum ItemManagementPageLocators implements ILocator {
 
     //This method prepares locator using additional parameter by means of so called "string-format" method.
     public ItemManagementPageLocators modify(String parameter) {
-        this.name = parameter;
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

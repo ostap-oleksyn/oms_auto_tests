@@ -61,7 +61,6 @@ public enum UserInfoPageLocators implements ILocator {
 
     //This method prepares locator using additional parameter by means of so called "string-format" method.
     public UserInfoPageLocators modify(String parameter) {
-        this.name = parameter;
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }
