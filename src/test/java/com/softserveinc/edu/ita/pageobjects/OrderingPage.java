@@ -4,6 +4,7 @@ import com.softserveinc.edu.ita.domains.Order;
 import com.softserveinc.edu.ita.enums.OrderStatuses;
 import com.softserveinc.edu.ita.enums.OrdersTableColumns;
 import com.softserveinc.edu.ita.enums.ordering_page.ItemsOrderStatus;
+import com.softserveinc.edu.ita.enums.ordering_page.NUMBER_SHOWN_ELEMENTS;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
 import com.softserveinc.edu.ita.utils.DBUtility;
@@ -122,9 +123,9 @@ public class OrderingPage extends LogOutBase {
         return this;
     }
 
-    public OrderingPage setNumberOfElements(int numberOfElements){
+    public OrderingPage setNumberOfElements(NUMBER_SHOWN_ELEMENTS number){
         Select select = new Select(driver.findElement(SHOW_NUMBER_OF_ELEMENTS_LINK.getBy()));
-        select.selectByValue(String.valueOf(numberOfElements));
+        select.selectByVisibleText(number.getName());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", SHOW_NUMBER_OF_ELEMENTS_LINK.getName()));
         return this;
     }
@@ -153,6 +154,36 @@ public class OrderingPage extends LogOutBase {
 
     public String getSearchFieldText() {
         return getElementAttribute(SEARCH_FIELD, "value");
+    }
+
+    public OrderingPage clickEditLink (){
+        click(EDIT_LINK);
+        return this;
+    }
+
+    public OrderingPage clickItemNextPageButton(){
+        click(ITEM_NEXT_PAGE_BUTTON);
+        return this;
+    }
+
+    public OrderingPage clickItemCancelButton(){
+        click(ITEM_CANCEL_BUTTON);
+        return this;
+    }
+
+    public OrderingPage clickItemSaveButton(){
+        click(ITEM_SAVE_BUTTON);
+        return this;
+    }
+
+    public OrderingPage clickItemErrorShowButton(){
+        click(ITEM_ERROR_SHOW_BUTTON);
+        return this;
+    }
+
+    public OrderingPage clickItemGoToHomeButton(){
+        click(ITEM_GO_TO_HOME_BUTTON);
+        return this;
     }
 }
 

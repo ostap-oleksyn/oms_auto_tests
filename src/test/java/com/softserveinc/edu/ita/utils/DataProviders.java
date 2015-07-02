@@ -35,6 +35,7 @@ public class DataProviders {
         }
         return searchTerms;
     }
+
     /**
      * returns searchterms from xls file
      * @return

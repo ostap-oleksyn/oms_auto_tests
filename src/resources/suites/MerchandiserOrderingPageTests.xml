@@ -78,7 +78,23 @@
             <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterOrderTest">
                 <methods>
                     <include name="testFilterStatus"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Filter test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterOrderTest">
+                <methods>
                     <include name="testFilterRole"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Filter test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterOrderTest">
+                <methods>
                     <include name="testNoneFilter"/>
                 </methods>
             </class>
@@ -89,7 +105,23 @@
             <class name="com.softserveinc.edu.ita.tests.ordering_page.EditOrderTest">
                 <methods>
                     <include name="testNavigation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Edit order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.EditOrderTest">
+                <methods>
                     <include name="testOrderEdit"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Edit order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.EditOrderTest">
+                <methods>
                     <include name="testErrorOrderEdit"/>
                 </methods>
             </class>

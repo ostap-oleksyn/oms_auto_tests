@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.enums.ordering_page;
 
-
 public enum OrderFilter {
     STATUS("Status"),
     ROLE("Role");
