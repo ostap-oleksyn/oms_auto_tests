@@ -1,6 +1,12 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.OrderingsTableRow;
+import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
+import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
+import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
+
+import com.softserveinc.edu.ita.locators.OrderingPageLocators;
+
 import com.softserveinc.edu.ita.enums.ordering_page.*;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
 import org.openqa.selenium.WebDriver;

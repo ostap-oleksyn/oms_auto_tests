@@ -73,4 +73,13 @@
             </class>
         </classes>
     </test>
+    <test name="Edit user test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.administration_page.EditUserTest">
+                <methods>
+                    <include name="testUserEditing"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
