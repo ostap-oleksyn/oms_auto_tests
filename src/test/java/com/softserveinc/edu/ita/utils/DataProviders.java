@@ -44,7 +44,7 @@ public class DataProviders {
     public static Object[][] getOrderSearchTerms() {
         Object[][] searchTerms = null;
         try {
-            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("OrderSearchTerms");
+            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("orderSearchTerms");
         } catch (IOException e) {
             e.printStackTrace();
         }
