@@ -53,7 +53,6 @@ public enum HomePageLocators implements ILocator {
 
     //This method prepares locator using additional parameter by means of so called "string-format" method.
     public HomePageLocators modify(String parameter) {
-        this.name = parameter;
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

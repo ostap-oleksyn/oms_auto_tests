@@ -2,7 +2,7 @@ package com.softserveinc.edu.ita.dao;
 
 
 import com.softserveinc.edu.ita.domains.Product;
-import org.testng.Reporter;
+import com.softserveinc.edu.ita.enums.ProductStatus;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,14 +19,14 @@ public class ProductDAO extends AbstractDAO {
 
     @Override
     protected String getSelectQuery() {
-        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice, \n" +
+        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products \n" +
                 "WHERE Id = ?";
     }
 
     @Override
     protected String getSelectAllQuery() {
-        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice, \n" +
+        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products";
     }
 
@@ -49,6 +49,17 @@ public class ProductDAO extends AbstractDAO {
     @Override
     protected String getDeleteQuery() {
         return "DELETE FROM Products WHERE Id = ?;";
+    }
+
+    private String getProductQuery() {
+        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
+                "FROM Products \n" +
+                "WHERE ProductName = ? AND ProductDescription = ?";
+    }
+
+    private String setProductStatusQuery() {
+        return "UPDATE PRODUCTS SET IsProductActive = ? \n" +
+                "WHERE ProductName = ? AND ProductDescription = ?";
     }
 
     @Override
@@ -116,13 +127,45 @@ public class ProductDAO extends AbstractDAO {
         return productList.get(0);
     }
 
-    public void deleteById(Product product) throws DAOException {
-        try (PreparedStatement statement = connection.prepareStatement(getDeleteQuery())) {
-            statement.setInt(1, product.getId());
-            statement.executeUpdate();
-            Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Product <b>%s</b> deleted from database", product.getProductName()));
+    public int getProductStatus(String name, String description) throws DAOException {
+        List<Product> list;
+        String sqlQuery = getProductQuery();
+
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setString(1, name);
+            statement.setString(2, description);
+            ResultSet resultSet = statement.executeQuery();
+            list = (List<Product>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
         }
+        return list.get(0).getStatus();
+    }
+
+    public void setProductStatus(String name, String description, ProductStatus status) throws DAOException {
+        String sqlQuery = setProductStatusQuery();
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setInt(1, status.getStatus());
+            statement.setString(2, name);
+            statement.setString(3, description);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+    }
+
+    public Product getProduct(String name, String description) throws DAOException {
+        List<Product> list;
+        String sqlQuery = getProductQuery();
+
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setString(1, name);
+            statement.setString(2, description);
+            ResultSet resultSet = statement.executeQuery();
+            list = (List<Product>) parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+        return list.get(0);
     }
 }

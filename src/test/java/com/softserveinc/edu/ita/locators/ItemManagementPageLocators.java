@@ -51,6 +51,30 @@ public enum ItemManagementPageLocators implements ILocator {
             "Last product price",
             LocatorsType.BY_XPATH,
             ".//tbody//tr[last()]//td[3]"),
+    TABLE_ROW(
+            "Products table row",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr"),
+    TABLE_NAME_CELL(
+            "Products table name cell",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[1]"),
+    TABLE_DESCRIPTION_CELL(
+            "Products table description cell",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[2]"),
+    TABLE_PRICE_CELL(
+            "Products table price cell",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[3]"),
+    TABLE_EDIT_LINK(
+            "Products table edit link",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[4]/a"),
+    TABLE_DELETE_LINK(
+            "Products table delete link",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr[%s]/td[5]/a"),
     CREATE_REPORT_LINK(
             "Create report link",
             LocatorsType.BY_XPATH,
@@ -59,6 +83,7 @@ public enum ItemManagementPageLocators implements ILocator {
             "Save report link",
             LocatorsType.BY_XPATH,
             ".//*[@href='getItemReport.htm']");
+
 
     private String name;
     private LocatorsType locatorsType;
@@ -85,7 +110,6 @@ public enum ItemManagementPageLocators implements ILocator {
 
     //This method prepares locator using additional parameter by means of so called "string-format" method.
     public ItemManagementPageLocators modify(String parameter) {
-        this.name = parameter;
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

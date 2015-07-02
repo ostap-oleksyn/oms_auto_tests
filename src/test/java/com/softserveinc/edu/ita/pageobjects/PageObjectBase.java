@@ -50,7 +50,6 @@ public abstract class PageObjectBase {
      * @param text    - input text
      */
     public void sendKeys(ILocator locator, String text) {
-        driver.findElement(locator.getBy()).clear();
         driver.findElement(locator.getBy()).sendKeys(text);
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Typed '%s' in <b>%s</b>", text, locator.getName()));
     }

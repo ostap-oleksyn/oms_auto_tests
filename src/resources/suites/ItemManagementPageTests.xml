@@ -1,6 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Item Management Page Tests" verbose="1" parallel="tests" thread-count="2">
+<suite name="Item Management Page Tests" verbose="1" parallel="tests" thread-count="6">
+    <test name="Add new product test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.AddNewProductTest">
+                <methods>
+                    <include name="addNewProductTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
     <test name="Cancel product adding test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.item_management_page.AddNewProductTest">
@@ -10,11 +19,29 @@
             </class>
         </classes>
     </test>
-    <test name="Add new product test">
+    <test name="Delete product test">
         <classes>
-            <class name="com.softserveinc.edu.ita.tests.item_management_page.AddNewProductTest">
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.DeleteProductTest">
                 <methods>
-                    <include name="addNewProductTest"/>
+                    <include name="deleteProductTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Cancel product deleting test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.DeleteProductTest">
+                <methods>
+                    <include name="cancelProductDeleteingTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Edit product test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.EditProductTest">
+                <methods>
+                    <include name="editProductTest"/>
                 </methods>
             </class>
         </classes>

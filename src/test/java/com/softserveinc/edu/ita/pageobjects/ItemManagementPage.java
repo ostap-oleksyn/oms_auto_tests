@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.pageobjects;
 
+import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
-import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -48,6 +48,31 @@ public class ItemManagementPage extends LogOutBase {
 
     public int getFoundProductsNumber() {
         return Integer.parseInt(getElementText(ItemManagementPageLocators.FOUND_PRODUCTS_NUMBER));
+    }
+
+    public int getNumberOfRows() {
+        return driver.findElements(ItemManagementPageLocators.TABLE_ROW.getBy()).size();
+    }
+
+    public Product getRandomProduct(int modifier) {
+
+
+        return Product.newBuilder()
+                .withoutId()
+                .withoutStatus()
+                .withProductName(getElementText(ItemManagementPageLocators.TABLE_NAME_CELL.modify(String.valueOf(modifier))))
+                .withProductDescription(getElementText(ItemManagementPageLocators.TABLE_DESCRIPTION_CELL.modify(String.valueOf(modifier))))
+                .withProductPrice(Double.parseDouble(getElementText(ItemManagementPageLocators.TABLE_PRICE_CELL.modify(String.valueOf(modifier)))))
+                .build();
+    }
+
+    public void deleteRandomProduct(int randomRow) {
+        click(ItemManagementPageLocators.TABLE_DELETE_LINK.modify(String.valueOf(randomRow)));
+    }
+
+    public EditProductPage editRandomProduct(int randomRow) {
+        click(ItemManagementPageLocators.TABLE_EDIT_LINK.modify(String.valueOf(randomRow)));
+        return new EditProductPage(driver);
     }
 
     /**

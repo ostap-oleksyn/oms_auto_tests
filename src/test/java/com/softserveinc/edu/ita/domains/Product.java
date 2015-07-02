@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
-import static com.softserveinc.edu.ita.utils.StringsGenerator.generateString;
+import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
 
 public class Product {
 
@@ -29,10 +29,21 @@ public class Product {
         return Product.newBuilder()
                 .withoutId()
                 .withoutStatus()
-                .withProductName(generateString("NameSymbols", 5, 13))
-                .withProductDescription(generateString("NameSymbols", 10, 25))
-                .withProductPrice(Double.parseDouble(generateString("Digits", 1, 3)))
+                .withProductName(getRandomString("NameSymbols", 5, 13))
+                .withProductDescription(getRandomString("NameSymbols", 10, 25))
+                .withProductPrice(Double.parseDouble(getRandomString("Digits", 1, 3)))
                 .build();
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", status=" + status +
+                ", productName='" + productName + '\'' +
+                ", productDescription='" + productDescription + '\'' +
+                ", productPrice=" + productPrice +
+                '}';
     }
 
     public static IdStep newBuilder() {

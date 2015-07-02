@@ -1,46 +1,30 @@
 package com.softserveinc.edu.ita.locators;
 
+
 import com.softserveinc.edu.ita.interfaces.ILocator;
 import org.openqa.selenium.By;
 
-public enum EditUserPageLocators implements ILocator {
-
-    LOGIN_INPUT(
-            "Login input",
+public enum EditProductPageLocators implements ILocator {
+    PRODUCT_NAME_FIELD(
+            "Product name field",
             LocatorsType.BY_XPATH,
-            ".//*[@id='login']"),
-    FIRST_NAME_INPUT(
-            "First name input",
+            ".//*[@id='name']"),
+    PRODUCT_DESCRIPTION_FIELD(
+            "Product description field",
             LocatorsType.BY_XPATH,
-            ".//*[@id='firstName']"),
-    LAST_NAME_INPUT(
-            "Last name input",
+            ".//*[@id='description']"),
+    PRODUCT_PRICE_FIELD(
+            "Product price field",
             LocatorsType.BY_XPATH,
-            ".//*[@id='lastName']"),
-    EMAIL_NAME_INPUT(
-            "Email name input",
+            ".//*[@id='price']"),
+    OK_BUTTON(
+            "Ok button",
             LocatorsType.BY_XPATH,
-            ".//*[@id='email']"),
-    PASSWORD_INPUT(
-            "Password input",
+            ".//*[@id='productModel']/input[2]"),
+    CANCEL_BUTTON(
+            "Cancel button",
             LocatorsType.BY_XPATH,
-            ".//*[@id='password']"),
-    CONFIRM_PASSWORD_INPUT(
-            "Confirm password input",
-            LocatorsType.BY_XPATH,
-            ".//*[@id='confirmPassword']"),
-    REGION_SELECT(
-            "Region select",
-            LocatorsType.BY_XPATH,
-            ".//*[@id='regionID']"),
-    ROLE_MERCHANDISER_SELECT(
-            "Role customer select",
-            LocatorsType.BY_XPATH,
-            ".//*[@id='roleID2']"),
-    CREATE_BUTTON(
-            "Create button",
-            LocatorsType.BY_XPATH,
-            ".//input[@type='submit'][@value='Create']");
+            ".//*[@id='productModel']/input[3]");
 
     private String name;
     private LocatorsType locatorsType;
@@ -49,7 +33,7 @@ public enum EditUserPageLocators implements ILocator {
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    EditUserPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+    EditProductPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -66,14 +50,13 @@ public enum EditUserPageLocators implements ILocator {
     }
 
     //This method prepares locator using additional parameter by means of so called "string-format" method.
-    public EditUserPageLocators modify(String parameter) {
-        this.name = parameter;
+    public EditProductPageLocators modify(String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }
 
     @Override
-    //This method converts locator into "By" format.
+//This method converts locator into "By" format.
     public By getBy() {
         //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
