@@ -262,7 +262,6 @@ public final class DataProviders {
 
         return usersList;
     }
-<<<<<<< HEAD
 
     @DataProvider(name = "getUserEditData")
     public static Object[][] getUserEditData() {
@@ -274,6 +273,4 @@ public final class DataProviders {
         }
         return userEditData;
     }
-=======
->>>>>>> master
 }
