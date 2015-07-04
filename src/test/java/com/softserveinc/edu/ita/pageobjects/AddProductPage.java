@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class AddProductPage extends LogOutBase {
 
-    public AddProductPage(WebDriver driver) {
+    public AddProductPage(final WebDriver driver) {
         super(driver);
     }
 
@@ -20,19 +20,19 @@ public class AddProductPage extends LogOutBase {
         return new ItemManagementPage(driver);
     }
 
-    public AddProductPage fillProductName(String productName) {
+    public AddProductPage fillProductName(final String productName) {
         driver.findElement(AddProductPageLocators.PRODUCT_NAME_FIELD.getBy()).clear();
         sendKeys(AddProductPageLocators.PRODUCT_NAME_FIELD, productName);
         return this;
     }
 
-    public AddProductPage fillProductDescription(String productDescription) {
+    public AddProductPage fillProductDescription(final String productDescription) {
         driver.findElement(AddProductPageLocators.PRODUCT_DESCRIPTION_FIELD.getBy()).clear();
         sendKeys(AddProductPageLocators.PRODUCT_DESCRIPTION_FIELD, productDescription);
         return this;
     }
 
-    public AddProductPage fillProductPrice(Double productPrice) {
+    public AddProductPage fillProductPrice(final Double productPrice) {
         driver.findElement(AddProductPageLocators.PRODUCT_PRICE_FIELD.getBy()).clear();
         sendKeys(AddProductPageLocators.PRODUCT_PRICE_FIELD, productPrice.toString());
         return this;

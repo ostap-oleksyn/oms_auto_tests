@@ -12,7 +12,7 @@ public enum CustomerTypes {
     private int customerTypeReference;
     private String customerTypeName;
 
-    CustomerTypes(int customerTypeReference, String customerTypeName) {
+    CustomerTypes(final int customerTypeReference, final String customerTypeName) {
         this.customerTypeReference = customerTypeReference;
         this.customerTypeName = customerTypeName;
     }
@@ -33,9 +33,9 @@ public enum CustomerTypes {
         return customerTypeName;
     }
 
-    public static String getCustomerTypeName(int customerTypeReference) {
+    public static String getCustomerTypeName(final int customerTypeReference) {
 
-        for (CustomerTypes customerType: CustomerTypes.values()) {
+        for (final CustomerTypes customerType: CustomerTypes.values()) {
             if (customerType.customerTypeReference == customerTypeReference) {
                 return customerType.getCustomerTypeName();
             }

@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Class makes possible to set fields of the row belonging to "Ordering" table from application.
+ * Class makes possible to set fields of the row
+ * belonging to "Ordering" table from application.
  */
 //TODO move out to another package
 public class OrderingsTableRow {
@@ -31,7 +32,7 @@ public class OrderingsTableRow {
     @Setter(AccessLevel.PRIVATE)
     private String role;
 
-    public OrderingsTableRow(String orderName) {
+    public OrderingsTableRow(final String orderName) {
         this.orderName = orderName.toLowerCase();
     }
 
@@ -96,37 +97,37 @@ public class OrderingsTableRow {
         private String assignee;
         private String role;
 
-        public TotalPriceStep setOrderName(String orderName) {
+        public TotalPriceStep setOrderName(final String orderName) {
             this.orderName = orderName.toLowerCase();
             return this;
         }
 
-        public MaxDiscountStep setTotalPrice(String totalPrice) {
+        public MaxDiscountStep setTotalPrice(final String totalPrice) {
             this.totalPrice = totalPrice.toLowerCase();
             return this;
         }
 
-        public DeliveryDateStep setMaxDiscount(String maxDiscount) {
+        public DeliveryDateStep setMaxDiscount(final String maxDiscount) {
             this.maxDiscount = maxDiscount.toLowerCase();
             return this;
         }
 
-        public StatusStep setDeliveryDate(String deliveryDate) {
+        public StatusStep setDeliveryDate(final String deliveryDate) {
             this.deliveryDate = deliveryDate.toLowerCase();
             return this;
         }
 
-        public AssigneeStep setStatus(String status) {
+        public AssigneeStep setStatus(final String status) {
             this.status = status.toLowerCase();
             return this;
         }
 
-        public RoleStep setAssignee(String assignee) {
+        public RoleStep setAssignee(final String assignee) {
             this.assignee = assignee.toLowerCase();
             return this;
         }
 
-        public BuildStep setRole(String role) {
+        public BuildStep setRole(final String role) {
             this.role = role.toLowerCase();
             return this;
         }

@@ -7,11 +7,11 @@ import org.openqa.selenium.WebDriver;
 
 public class HomePage extends PageObjectBase {
 
-    public HomePage(WebDriver driver) {
+    public HomePage(final WebDriver driver) {
         super(driver);
     }
 
-    public UserInfoPage logIn(String login, String password) {
+    public UserInfoPage logIn(final String login, final String password) {
         sendKeys(HomePageLocators.LOGIN_USER_INPUT, login);
         sendKeys(HomePageLocators.LOGIN_PASSWORD_INPUT, password);
         click(HomePageLocators.LOGIN_SUBMIT_BUTTON);

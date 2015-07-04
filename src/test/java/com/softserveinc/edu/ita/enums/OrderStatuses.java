@@ -12,7 +12,7 @@ public enum OrderStatuses {
     private int statusReference;
     private String statusName;
 
-    OrderStatuses(int statusReference, String statusName) {
+    OrderStatuses(final int statusReference, final String statusName) {
         this.statusReference = statusReference;
         this.statusName = statusName;
     }
@@ -33,9 +33,9 @@ public enum OrderStatuses {
                 '}';
     }
 
-    public static String getStatusName(int statusReference) {
+    public static String getStatusName(final int statusReference) {
 
-        for (OrderStatuses orderStatus: OrderStatuses.values()) {
+        for (final OrderStatuses orderStatus: OrderStatuses.values()) {
             if (orderStatus.getStatusReference() == statusReference) {
                 return orderStatus.getStatusName();
             }
@@ -44,9 +44,9 @@ public enum OrderStatuses {
         return null;
     }
 
-    public static int getStatusReference(String statusName) {
+    public static int getStatusReference(final String statusName) {
 
-        for (OrderStatuses orderStatus: OrderStatuses.values()) {
+        for (final OrderStatuses orderStatus: OrderStatuses.values()) {
             if (orderStatus.getStatusName() == statusName) {
                 return orderStatus.getStatusReference();
             }

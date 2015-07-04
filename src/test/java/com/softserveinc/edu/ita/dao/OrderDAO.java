@@ -14,7 +14,7 @@ import java.util.List;
 
 public class OrderDAO<T> extends AbstractDAO<T> {
 
-    protected OrderDAO(Connection connection) {
+    protected OrderDAO(final Connection connection) {
         super(connection);
     }
 
@@ -61,8 +61,8 @@ public class OrderDAO<T> extends AbstractDAO<T> {
     }
 
     @Override
-    protected void setUpdateParameters(PreparedStatement statement, T object) {
-        Order order = (Order) object;
+    protected void setUpdateParameters(final PreparedStatement statement, final T object) {
+        final Order order = (Order) object;
         try {
             int i = 1;
             statement.setString(i++, order.getOrderName());
@@ -81,8 +81,8 @@ public class OrderDAO<T> extends AbstractDAO<T> {
     }
 
     @Override
-    protected void setInsertParameters(PreparedStatement statement, T object) {
-        Order order = (Order) object;
+    protected void setInsertParameters(final PreparedStatement statement, final T object) {
+        final Order order = (Order) object;
         try {
             int i = 1;
             statement.setString(i++, order.getOrderName());
@@ -100,11 +100,11 @@ public class OrderDAO<T> extends AbstractDAO<T> {
     }
 
     @Override
-    protected List<T> parseResultSet(ResultSet resultSet) throws DAOException {
-        List<T> resultList = new LinkedList<>();
+    protected List<T> parseResultSet(final ResultSet resultSet) throws DAOException {
+        final List<T> resultList = new LinkedList<>();
         try {
             while (resultSet.next()) {
-                Order order = Order.newBuilder()
+                final Order order = Order.newBuilder()
                         .withId(resultSet.getInt("Id"))
                         .withOrderName(resultSet.getString("OrderName"))
                         .withOrderNumber(resultSet.getInt("OrderNumber"))
@@ -125,13 +125,13 @@ public class OrderDAO<T> extends AbstractDAO<T> {
         return resultList;
     }
 
-    public Order getByOrderNumber(int orderNumber) throws DAOException {
+    public Order getByOrderNumber(final int orderNumber) throws DAOException {
         List<Order> list;
-        String sqlQuery = getByOrderNumberQuery();
+        final String sqlQuery = getByOrderNumberQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, orderNumber);
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             list = (List<Order>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);

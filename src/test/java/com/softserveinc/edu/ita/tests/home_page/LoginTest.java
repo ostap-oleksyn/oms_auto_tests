@@ -25,7 +25,7 @@ public class LoginTest extends TestRunner {
     }
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
-    public void validLoginTest(User user) {
+    public void validLoginTest(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -37,7 +37,7 @@ public class LoginTest extends TestRunner {
     }
 
     @Test(dataProvider = "getInvalidUsers", dataProviderClass = DataProviders.class)
-    public void invalidLoginTest(String login, String password) {
+    public void invalidLoginTest(final String login, final String password) {
         homePage = new HomePage(driver);
         homePage.logIn(login, password);
 
@@ -45,7 +45,7 @@ public class LoginTest extends TestRunner {
     }
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
-    public void logOutTest(User user) {
+    public void logOutTest(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 

@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class CreateReportTest extends TestRunner {
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
-    public void createReportTest(User user) {
+    public void createReportTest(final User user) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();

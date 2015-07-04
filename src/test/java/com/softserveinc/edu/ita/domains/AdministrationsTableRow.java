@@ -5,7 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Class makes possible to set fields of the row belonging to "Administration" table from application.
+ * Class makes possible to set fields of the row
+ * belonging to "Administration" table from application.
  */
 //TODO move out to another package
 public class AdministrationsTableRow {
@@ -25,7 +26,7 @@ public class AdministrationsTableRow {
     @Setter(AccessLevel.PRIVATE)
     private String region;
 
-    public AdministrationsTableRow(String firstName) {
+    public AdministrationsTableRow(final String firstName) {
         this.firstName = firstName.toLowerCase();
     }
 
@@ -78,27 +79,27 @@ public class AdministrationsTableRow {
         private String role;
         private String region;
 
-        public LastNameStep setFirstName(String firstName) {
+        public LastNameStep setFirstName(final String firstName) {
             this.firstName = firstName.toLowerCase();
             return this;
         }
 
-        public LoginStep setLastName(String lastName) {
+        public LoginStep setLastName(final String lastName) {
             this.lastName = lastName.toLowerCase();
             return this;
         }
 
-        public RoleStep setLogin(String login) {
+        public RoleStep setLogin(final String login) {
             this.login = login.toLowerCase();
             return this;
         }
 
-        public RegionStep setRole(String role) {
+        public RegionStep setRole(final String role) {
             this.role = role.toLowerCase();
             return this;
         }
 
-        public BuildStep setRegion(String region) {
+        public BuildStep setRegion(final String region) {
             this.region = region.toLowerCase();
             return this;
         }

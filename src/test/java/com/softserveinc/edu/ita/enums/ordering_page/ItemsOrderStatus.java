@@ -7,7 +7,7 @@ public enum ItemsOrderStatus {
 
     private String statusName;
 
-    ItemsOrderStatus(String statusName) {
+    ItemsOrderStatus(final String statusName) {
         this.statusName = statusName;
     }
 

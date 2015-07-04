@@ -32,14 +32,14 @@ public class TestRunner {
     public void setUp() throws IOException {
         System.setProperty("org.uncommons.reportng.escape-output", "false");
         BrowserTypes browserType;
-        String configProperty = PropertyLoader.getProperty("browser");
+        final String configProperty = PropertyLoader.getProperty("browser");
 
         try {
             browserType = BrowserTypes.valueOf(configProperty.toUpperCase());
         } catch (IllegalArgumentException exception) {
             throw new IllegalArgumentException("Illegal browser type specified: " + configProperty);
         }
-        String driverPath = "src\\resources\\drivers\\";
+        final String driverPath = "src\\resources\\drivers\\";
 
         // TODO add factory
         switch (browserType) {

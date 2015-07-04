@@ -23,7 +23,7 @@ public class AddNewProductTest extends TestRunner {
     private AddProductPage addProductPage;
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void cancelProductAddingTest(User user) {
+    public void cancelProductAddingTest(final User user) {
 
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
@@ -55,7 +55,7 @@ public class AddNewProductTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void addNewProductTest(User user) {
+    public void addNewProductTest(final User user) {
 
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());

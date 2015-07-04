@@ -14,7 +14,7 @@ import java.util.List;
 
 public class UserDAO<T> extends AbstractDAO<T> {
 
-    protected UserDAO(Connection connection) {
+    protected UserDAO(final Connection connection) {
         super(connection);
     }
 
@@ -82,8 +82,8 @@ public class UserDAO<T> extends AbstractDAO<T> {
     }
 
     @Override
-    protected void setUpdateParameters(PreparedStatement statement, T object) {
-        User user = (User) object;
+    protected void setUpdateParameters(final PreparedStatement statement, final T object) {
+        final User user = (User) object;
         try {
             int i = 1;
             statement.setInt(i++, user.getStatus());
@@ -102,8 +102,8 @@ public class UserDAO<T> extends AbstractDAO<T> {
     }
 
     @Override
-    protected void setInsertParameters(PreparedStatement statement, T object) {
-        User user = (User) object;
+    protected void setInsertParameters(final PreparedStatement statement, final T object) {
+        final User user = (User) object;
         try {
             int i = 1;
             statement.setInt(i++, user.getStatus());
@@ -121,12 +121,12 @@ public class UserDAO<T> extends AbstractDAO<T> {
     }
 
     @Override
-    protected List<T> parseResultSet(ResultSet resultSet) throws DAOException {
-        List<T> resultList = new LinkedList<>();
+    protected List<T> parseResultSet(final ResultSet resultSet) throws DAOException {
+        final List<T> resultList = new LinkedList<>();
         try {
             while (resultSet.next()) {
 
-                User user = User.newBuilder()
+                final User user = User.newBuilder()
                         .withId(resultSet.getInt("Id"))
                         .withStatus(resultSet.getInt("Status"))
                         .withFirstName(resultSet.getString("FirstName"))
@@ -148,13 +148,13 @@ public class UserDAO<T> extends AbstractDAO<T> {
         return resultList;
     }
 
-    public User getByLogin(String login) throws DAOException {
+    public User getByLogin(final String login) throws DAOException {
         List<User> list;
-        String sqlQuery = getByLoginQuery();
+        final String sqlQuery = getByLoginQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, login);
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             list = (List<User>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
@@ -162,13 +162,13 @@ public class UserDAO<T> extends AbstractDAO<T> {
         return list.get(0);
     }
 
-    public User getByRole(Roles role) throws DAOException {
+    public User getByRole(final Roles role) throws DAOException {
         List<User> list;
-        String sqlQuery = getByRoleQuery();
+        final String sqlQuery = getByRoleQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, role.ordinal() + 1);
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             list = (List<User>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
@@ -178,10 +178,10 @@ public class UserDAO<T> extends AbstractDAO<T> {
 
     public User getLastFromDB() throws DAOException {
         List<User> list;
-        String sqlQuery = getLastFromDBQuery();
+        final String sqlQuery = getLastFromDBQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             list = (List<User>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
@@ -189,7 +189,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
         return list.get(0);
     }
 
-    public List<User> getFilteredUsers(SearchConditions condition, String searchTerm) throws DAOException {
+    public List<User> getFilteredUsers(final SearchConditions condition, final String searchTerm) throws DAOException {
         List<User> usersList;
         String getAllUsersQuery = null;
 
@@ -222,7 +222,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
             statement.setString(4, searchTerm);
             statement.setString(5, searchTerm);
 
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             usersList = (List<User>) parseResultSet(resultSet);
 
         } catch (Exception e) {
@@ -231,8 +231,8 @@ public class UserDAO<T> extends AbstractDAO<T> {
         return usersList;
     }
 
-    public void setUserStatus(User user, int status) throws DAOException {
-        String sqlQuery = setUserStatus();
+    public void setUserStatus(final User user, final int status) throws DAOException {
+        final String sqlQuery = setUserStatus();
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, status);
             statement.setInt(2, user.getId());

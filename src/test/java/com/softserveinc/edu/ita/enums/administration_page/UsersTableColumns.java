@@ -1,7 +1,9 @@
 package com.softserveinc.edu.ita.enums.administration_page;
 
 /**
- * This enum serves to limit choice of possible "Administration" table columns presented at "Administration" page. This is used in "clickAdministrationTableColumn" method.
+ * This enum serves to limit choice of possible "Administration" table
+ * columns presented at "Administration" page.
+ * This is used in "clickAdministrationTableColumn" method.
  */
 public enum UsersTableColumns {
     FIRST_NAME("First name"),
@@ -12,7 +14,7 @@ public enum UsersTableColumns {
 
     private String name;
 
-    UsersTableColumns(String name) {
+    UsersTableColumns(final String name) {
         this.name = name;
     }
 

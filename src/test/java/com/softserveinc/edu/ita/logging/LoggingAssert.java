@@ -17,7 +17,7 @@ public final class LoggingAssert extends Assertion {
      * This method logs successful hard asserts.
      */
     @Override
-    public void onAssertSuccess(IAssert assertCommand) {
+    public void onAssertSuccess(final IAssert assertCommand) {
         Reporter.log(String.format("<br><font color='green'>PASSED</font> - %s", assertCommand.getMessage()));
     }
 
@@ -25,7 +25,7 @@ public final class LoggingAssert extends Assertion {
      * This method logs failed hard asserts.
      */
     @Override
-    public void onAssertFailure(IAssert assertCommand, AssertionError ex) {
+    public void onAssertFailure(final IAssert assertCommand, final AssertionError ex) {
         Reporter.log(String.format("<br><font color='red'>FAILED - %s</font>", assertCommand.getMessage()));
     }
 }

@@ -12,19 +12,19 @@ public abstract class PageObjectBase {
 
     protected WebDriver driver;
 
-    public PageObjectBase(WebDriver driver) {
+    public PageObjectBase(final WebDriver driver) {
         this.driver = driver;
     }
 
-    public String getElementText(ILocator locator) {
+    public String getElementText(final ILocator locator) {
         return driver.findElement(locator.getBy()).getText();
     }
 
-    public boolean isElementDisplayed(ILocator locator) {
+    public boolean isElementDisplayed(final ILocator locator) {
         return driver.findElements(locator.getBy()).size() != 0;
     }
 
-    public boolean isElementDisplayed(By elementLocator) {
+    public boolean isElementDisplayed(final By elementLocator) {
         return driver.findElements(elementLocator).size() != 0;
     }
 
@@ -38,7 +38,7 @@ public abstract class PageObjectBase {
      *
      * @param locator - WebElement locator
      */
-    public void click(ILocator locator) {
+    public void click(final ILocator locator) {
         driver.findElement(locator.getBy()).click();
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Clicked <b>%s</b>", locator.getName()));
     }
@@ -49,24 +49,24 @@ public abstract class PageObjectBase {
      * @param locator - WebElement locator
      * @param text    - input text
      */
-    public void sendKeys(ILocator locator, String text) {
+    public void sendKeys(final ILocator locator, final String text) {
         driver.findElement(locator.getBy()).clear();
         driver.findElement(locator.getBy()).sendKeys(text);
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Typed '%s' in <b>%s</b>", text, locator.getName()));
     }
 
     public void acceptAlert() {
-        Alert alert = driver.switchTo().alert();
-        String alertText = alert.getText();
+        final Alert alert = driver.switchTo().alert();
+        final String alertText = alert.getText();
         alert.accept();
         Reporter.log(String.format("INFO   - Accepted alert: %s", alertText));
     }
 
-    public boolean isElementEnabled(ILocator locator) {
+    public boolean isElementEnabled(final ILocator locator) {
         return driver.findElement(locator.getBy()).isEnabled();
     }
 
-    public String getElementAttribute(ILocator locator, String attribute) {
+    public String getElementAttribute(final ILocator locator, final String attribute) {
         return driver.findElement(locator.getBy()).getAttribute(attribute);
     }
 

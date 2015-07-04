@@ -13,7 +13,7 @@ public enum AdministrationPageLocators implements ILocator {
     CREATE_NEW_USER_LINK(
             "Create new user link",
             LocatorsType.BY_XPATH,
-            ".//*[@id='list']/a[contains(text(), 'Create New User')]"),
+            ".//a[@href='addUser.htm']"),
     QUANTITY_OF_TABLE_PAGES(
             "Quantity of table pages",
             LocatorsType.BY_XPATH,
@@ -126,7 +126,7 @@ public enum AdministrationPageLocators implements ILocator {
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    AdministrationPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+    AdministrationPageLocators(final String name, final LocatorsType locatorsType, final String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -142,8 +142,11 @@ public enum AdministrationPageLocators implements ILocator {
         return this.name;
     }
 
-    //This method prepares locator using additional parameter by means of so called "string-format" method.
-    public AdministrationPageLocators modify(String parameter) {
+    /**
+     * This method prepares locator using additional parameter
+     * by means of so called "string-format" method.
+     */
+    public AdministrationPageLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

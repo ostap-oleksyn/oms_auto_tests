@@ -94,7 +94,7 @@ public class Product {
         }
 
         @Override
-        public StatusStep withId(int id) {
+        public StatusStep withId(final int id) {
             this.id = id;
             return this;
         }
@@ -105,7 +105,7 @@ public class Product {
         }
 
         @Override
-        public ProductNameStep withStatus(int status) {
+        public ProductNameStep withStatus(final int status) {
             this.status = status;
             return this;
         }
@@ -116,26 +116,26 @@ public class Product {
         }
 
         @Override
-        public ProductDescriptionStep withProductName(String productName) {
+        public ProductDescriptionStep withProductName(final String productName) {
             this.productName = productName;
             return this;
         }
 
         @Override
-        public ProductPriceStep withProductDescription(String productDescription) {
+        public ProductPriceStep withProductDescription(final String productDescription) {
             this.productDescription = productDescription;
             return this;
         }
 
         @Override
-        public BuildStep withProductPrice(Double productPrice) {
+        public BuildStep withProductPrice(final Double productPrice) {
             this.productPrice = productPrice;
             return this;
         }
 
         @Override
         public Product build() {
-            Product product = new Product();
+            final Product product = new Product();
             product.setId(this.id);
             product.setStatus(this.status);
             product.setProductName(this.productName);

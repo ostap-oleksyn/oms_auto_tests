@@ -22,13 +22,13 @@ public class SearchTest extends TestRunner {
     private List<WebElement> columns;
 
     @Test(dataProvider = "getOrderSearchTerms", dataProviderClass = DataProviders.class)
-    public void testSearch(String searchTerm) throws DAOException {
-        HomePage homePage = new HomePage(driver);
-        User merchandiser = DBUtility.getMerchandiser();
-        UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+    public void testSearch(final String searchTerm) throws DAOException {
+        final HomePage homePage = new HomePage(driver);
+        final User merchandiser = DBUtility.getMerchandiser();
+        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        for (OrderSearchCondition condition : OrderSearchCondition.values()) {
+        for (final OrderSearchCondition condition : OrderSearchCondition.values()) {
             orderingPage.setSearchCondition(condition)
                     .fillSearchField(searchTerm)
                     .clickApplyButton();
@@ -49,12 +49,13 @@ public class SearchTest extends TestRunner {
     }
 
     /**
-     * sets orderNames or orderStatuses or orderAssignees in list depends on parameters
+     * Sets orderNames or orderStatuses or orderAssignees
+     * in list depends on parameters
      *
      * @param condition
      * @return
      */
-    private List<WebElement> getColumnByName(OrderSearchCondition condition) {
+    private List<WebElement> getColumnByName(final OrderSearchCondition condition) {
         switch (condition) {
             case ORDER_NAME:
                 return driver.findElements(ORDER_NAME_COLUMN.getBy());

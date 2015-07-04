@@ -27,12 +27,12 @@ public class FilterTest extends TestRunner {
 
     @Test
     public void testFilterStatus() {
-        HomePage homePage = new HomePage(driver);
-        User merchandiser = DBUtility.getMerchandiser();
-        UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+        final HomePage homePage = new HomePage(driver);
+        final User merchandiser = DBUtility.getMerchandiser();
+        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        for (StatusFilterValue value : StatusFilterValue.values()) {
+        for (final StatusFilterValue value : StatusFilterValue.values()) {
             orderingPage.setFilter(STATUS)
                     .clickApplyButton()
                     .setFilterValue(value)
@@ -59,12 +59,12 @@ public class FilterTest extends TestRunner {
 
     @Test
     public void testFilterRole() {
-        HomePage homePage = new HomePage(driver);
-        User merchandiser = DBUtility.getMerchandiser();
-        UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+        final HomePage homePage = new HomePage(driver);
+        final User merchandiser = DBUtility.getMerchandiser();
+        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        for (RoleFilterValue value : RoleFilterValue.values()) {
+        for (final RoleFilterValue value : RoleFilterValue.values()) {
             orderingPage.setFilter(ROLE)
                     .clickApplyButton()
                     .setFilterValue(value)
@@ -91,10 +91,10 @@ public class FilterTest extends TestRunner {
 
     @Test
     public void testNoneFilter() {
-        HomePage homePage = new HomePage(driver);
-        User merchandiser = DBUtility.getMerchandiser();
-        UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+        final HomePage homePage = new HomePage(driver);
+        final User merchandiser = DBUtility.getMerchandiser();
+        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
         columnsBeforeFilter = getColumnByName(STATUS);
         orderingPage.setFilter(STATUS)
@@ -120,7 +120,7 @@ public class FilterTest extends TestRunner {
      * @param filter
      * @return
      */
-    private List<WebElement> getColumnByName(OrderFilter filter) {
+    private List<WebElement> getColumnByName(final OrderFilter filter) {
         switch (filter) {
             case STATUS:
                 return driver.findElements(ORDER_STATUS_COLUMN.getBy());

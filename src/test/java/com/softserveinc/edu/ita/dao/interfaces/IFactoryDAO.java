@@ -10,12 +10,12 @@ import com.softserveinc.edu.ita.dao.DAOException;
  */
 public interface IFactoryDAO<Connection> {
 
-    public interface ICreatorDAO<Connection> {
-        public IGenericDAO create(Connection connection);
+    interface ICreatorDAO<Connection> {
+        IGenericDAO create(Connection connection);
     }
 
-    public Connection getConnection() throws DAOException;
+    Connection getConnection() throws DAOException;
 
-    public IGenericDAO getDAO(Connection connection, Class className) throws DAOException;
+    IGenericDAO getDAO(Connection connection, Class className) throws DAOException;
 }
 

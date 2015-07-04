@@ -18,17 +18,17 @@ import org.testng.annotations.Test;
 public class EditUserTest extends TestRunner {
 
     @Test(dataProvider = "getUserEditData", dataProviderClass = DataProviders.class)
-    public void testUserEditing(String firstName, String lastName, String password, String email) {
+    public void testUserEditing(final String firstName, final String lastName, final String password, final String email) {
 
         HomePage homePage = new HomePage(driver);
-        User admin = DBUtility.getAdmin();
+        final User admin = DBUtility.getAdmin();
         UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
-        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
-        Regions region = EnumUtil.getRandomEnum(Regions.class, 1);
+        final Regions region = EnumUtil.getRandomEnum(Regions.class, 1);
 
-        EditUserPage editUserPage = administrationPage.clickEditButton(RandomUtil.getRandomInteger(1, 4));
-        String editUserLogin = editUserPage.getUserLogin();
+        final EditUserPage editUserPage = administrationPage.clickEditButton(RandomUtil.getRandomInteger(1, 4));
+        final String editUserLogin = editUserPage.getUserLogin();
 
         editUserPage.fillEmailField(email)
                 .fillFirstNameField(firstName)
@@ -40,7 +40,7 @@ public class EditUserTest extends TestRunner {
         homePage = editUserPage.clickCreateButton().
                 clickLogOutButton();
 
-        User editUser = DBUtility.getByLogin(editUserLogin);
+        final User editUser = DBUtility.getByLogin(editUserLogin);
 
         loggingSoftAssert.assertEquals(editUser.getEmail(), email, "User email is changed in database");
         loggingSoftAssert.assertEquals(editUser.getFirstName(), firstName, "User first name is changed in database");

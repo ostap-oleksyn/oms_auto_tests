@@ -6,7 +6,7 @@ public enum ItemFilter {
 
     private String filterName;
 
-    ItemFilter(String filterName) {
+    ItemFilter(final String filterName) {
         this.filterName = filterName;
     }
 

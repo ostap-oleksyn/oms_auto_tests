@@ -46,8 +46,8 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
     }
 
     @Override
-    public IGenericDAO getDAO(Connection connection, Class classDAO) throws DAOException {
-        ICreatorDAO creator = creators.get(classDAO);
+    public IGenericDAO getDAO(final Connection connection, final Class classDAO) throws DAOException {
+        final ICreatorDAO creator = creators.get(classDAO);
         if (creator == null) {
             throw new DAOException("DAO object for " + classDAO + " not found.");
         }
@@ -68,42 +68,42 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
 
         creators.put(User.class, new ICreatorDAO<Connection>() {
             @Override
-            public AbstractDAO create(Connection connection) {
+            public AbstractDAO create(final Connection connection) {
                 return new UserDAO(connection);
             }
         });
 
         creators.put(User.class, new ICreatorDAO<Connection>() {
             @Override
-            public IGenericDAO create(Connection connection) {
+            public IGenericDAO create(final Connection connection) {
                 return new UserDAO(connection);
             }
         });
 
         creators.put(Order.class, new ICreatorDAO<Connection>() {
             @Override
-            public AbstractDAO create(Connection connection) {
+            public AbstractDAO create(final Connection connection) {
                 return new OrderDAO(connection);
             }
         });
 
         creators.put(Order.class, new ICreatorDAO<Connection>() {
             @Override
-            public IGenericDAO create(Connection connection) {
+            public IGenericDAO create(final Connection connection) {
                 return new OrderDAO(connection);
             }
         });
         creators.put(Product.class, new ICreatorDAO<Connection>() {
 
             @Override
-            public AbstractDAO create(Connection connection) {
+            public AbstractDAO create(final Connection connection) {
                 return new ProductDAO(connection);
             }
         });
         creators.put(Product.class, new ICreatorDAO<Connection>() {
 
             @Override
-            public IGenericDAO create(Connection connection) {
+            public IGenericDAO create(final Connection connection) {
                 return new ProductDAO(connection);
             }
         });

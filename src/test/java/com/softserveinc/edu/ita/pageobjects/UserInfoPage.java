@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class UserInfoPage extends LogOutBase {
 
-    public UserInfoPage(WebDriver driver) {
+    public UserInfoPage(final WebDriver driver) {
         super(driver);
     }
 
@@ -28,7 +28,7 @@ public class UserInfoPage extends LogOutBase {
         return new OrderingPage(driver);
     }
 
-    public UserInfoPage clickLanguageLink(ILocator locator){
+    public UserInfoPage clickLanguageLink(final ILocator locator){
         click(locator);
 
         return this;

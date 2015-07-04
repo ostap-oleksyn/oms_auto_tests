@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
  */
 public class NewUserPage extends LogOutBase {
 
-    public NewUserPage(WebDriver driver) {
+    public NewUserPage(final WebDriver driver) {
         super(driver);
     }
 
@@ -20,40 +20,40 @@ public class NewUserPage extends LogOutBase {
         return new AdministrationPage(driver);
     }
 
-    public void fillLoginNameField(String loginName) {
+    public void fillLoginNameField(final String loginName) {
         sendKeys(NewUserPageLocators.LOGIN_NAME_INPUT, loginName);
     }
 
-    public void fillFirstNameField(String firstName) {
+    public void fillFirstNameField(final String firstName) {
         sendKeys(NewUserPageLocators.FIRST_NAME_INPUT, firstName);
     }
 
-    public void fillLastNameField(String lastName) {
+    public void fillLastNameField(final String lastName) {
         sendKeys(NewUserPageLocators.LAST_NAME_INPUT, lastName);
     }
 
-    public void fillPasswordField(String password) {
+    public void fillPasswordField(final String password) {
         sendKeys(NewUserPageLocators.PASSWORD_INPUT, password);
     }
 
-    public void fillConfirmPasswordField(String password) {
+    public void fillConfirmPasswordField(final String password) {
         sendKeys(NewUserPageLocators.CONFIRM_PASSWORD_INPUT, password);
     }
 
-    public void fillEmailField(String email) {
+    public void fillEmailField(final String email) {
         sendKeys(NewUserPageLocators.EMAIL_INPUT, email);
     }
 
-    public void clickRoleRadioButton(int roleRef) {
+    public void clickRoleRadioButton(final int roleRef) {
         click(NewUserPageLocators.ROLE_SELECT.modify(String.valueOf(roleRef)));
     }
 
-    public void selectRegion(int regionRef) {
-        Select regionSelect = new Select(driver.findElement(NewUserPageLocators.REGION_SELECT.getBy()));
+    public void selectRegion(final int regionRef) {
+        final Select regionSelect = new Select(driver.findElement(NewUserPageLocators.REGION_SELECT.getBy()));
         regionSelect.selectByIndex(regionRef);
     }
 
-    public void fillAllFields(User newUser) {
+    public void fillAllFields(final User newUser) {
 
         fillLoginNameField(newUser.getLogin());
         fillFirstNameField(newUser.getFirstName());

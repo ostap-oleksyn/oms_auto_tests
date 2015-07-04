@@ -20,7 +20,7 @@ public final class LoggingSoftAssert extends SoftAssert {
      * This method logs successful soft asserts.
      */
     @Override
-    public void onAssertSuccess(IAssert assertCommand) {
+    public void onAssertSuccess(final IAssert assertCommand) {
         if (!assertCommand.getMessage().equals(message)) {
             Reporter.log(String.format("<br><font color='green'>PASSED</font> - %s", assertCommand.getMessage()));
         }
@@ -30,7 +30,7 @@ public final class LoggingSoftAssert extends SoftAssert {
      * This method logs failed soft asserts.
      */
     @Override
-    public void onAssertFailure(IAssert assertCommand, AssertionError ex) {
+    public void onAssertFailure(final IAssert assertCommand, final AssertionError ex) {
         message = assertCommand.getMessage();
         Reporter.log(String.format("<br><font color='orange'>FAILED - %s</font>", assertCommand.getMessage()));
     }

@@ -10,7 +10,7 @@ public enum StatusFilterValue {
 
     private String filterValue;
 
-    StatusFilterValue(String filterValue) {
+    StatusFilterValue(final String filterValue) {
         this.filterValue = filterValue;
     }
 

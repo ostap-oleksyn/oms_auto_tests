@@ -20,17 +20,17 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
     protected abstract void setInsertParameters(PreparedStatement statement, T object);
     protected abstract List<T> parseResultSet(ResultSet resultSet) throws DAOException;
 
-    public AbstractDAO(Connection connection) {
+    public AbstractDAO(final Connection connection) {
         this.connection = connection;
     }
 
     @Override
     public List<T> getAll() throws DAOException {
         List<T> list;
-        String selectQuery = getSelectAllQuery();
+        final String selectQuery = getSelectAllQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             list = parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
@@ -39,13 +39,13 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
     }
 
     @Override
-    public T getObject(int id) throws DAOException {
+    public T getObject(final int id) throws DAOException {
         List<T> list;
-        String sqlQuery = getSelectQuery();
+        final String sqlQuery = getSelectQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, id);
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             list = parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
@@ -54,15 +54,15 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
     }
 
     @Override
-    public int insert(T object) throws DAOException {
-        String sqlQuery = getInsertQuery();
+    public int insert(final T object) throws DAOException {
+        final String sqlQuery = getInsertQuery();
 
         int newId = 0;
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery,
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             setInsertParameters(statement, object);
             statement.executeUpdate();
-            ResultSet resultSet = statement.getGeneratedKeys();
+            final ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
                 newId = resultSet.getInt(1);
             }
@@ -75,8 +75,8 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
     }
 
     @Override
-    public void update(T object) throws DAOException {
-        String sqlQuery = getUpdateQuery();
+    public void update(final T object) throws DAOException {
+        final String sqlQuery = getUpdateQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             setUpdateParameters(statement, object);
@@ -87,8 +87,8 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
     }
 
     @Override
-    public void delete(int id) throws DAOException {
-        String sqlQuery = getDeleteQuery();
+    public void delete(final int id) throws DAOException {
+        final String sqlQuery = getDeleteQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, id);

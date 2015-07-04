@@ -9,7 +9,7 @@ public enum SearchConditions {
 
     private String condition;
 
-    SearchConditions(String name) {
+    SearchConditions(final String name) {
         this.condition = name;
     }
 

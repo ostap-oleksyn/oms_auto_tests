@@ -1,12 +1,6 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.OrderingsTableRow;
-import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
-import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
-import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
-
-import com.softserveinc.edu.ita.locators.OrderingPageLocators;
-
 import com.softserveinc.edu.ita.enums.ordering_page.*;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
 import org.openqa.selenium.WebDriver;
@@ -26,24 +20,25 @@ import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
  */
 public class OrderingPage extends LogOutBase {
 
-    public OrderingPage(WebDriver driver) {
+    public OrderingPage(final WebDriver driver) {
         super(driver);
     }
 
     /**
-     * There is method to get "Ordering" table from "Ordering" page of web-application.
+     * There is method to get "Ordering" table
+     * from "Ordering" page of web-application.
      */
     public List<OrderingsTableRow> getTableFromView() {
-        List<OrderingsTableRow> table = new LinkedList<>();
+        final List<OrderingsTableRow> table = new LinkedList<>();
         //This line is needed to find out quantity of orders per table.
-        int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS.getBy()).getAttribute("value"));
+        final int quantityOfOrdersPerTable = Integer.parseInt(driver.findElement(OrderingPageLocators.QUANTITY_OF_ROWS.getBy()).getAttribute("value"));
         //This line is needed to find out quantity of orders per page.
-        int quantityOfOrdersPerPage = driver.findElements(OrderingPageLocators.QUANTITY_OF_ROWS_PER_PAGE.getBy()).size();
+        final int quantityOfOrdersPerPage = driver.findElements(OrderingPageLocators.QUANTITY_OF_ROWS_PER_PAGE.getBy()).size();
         if (quantityOfOrdersPerPage <= 1) {
             return table;
         }
         //There is calculating size of pagination.
-        double iteration = new BigDecimal(quantityOfOrdersPerTable / quantityOfOrdersPerPage).setScale(0, RoundingMode.UP).doubleValue();
+        final double iteration = new BigDecimal(quantityOfOrdersPerTable / quantityOfOrdersPerPage).setScale(0, RoundingMode.UP).doubleValue();
         //Iteration through table pages.
         for (int i = 1; i <= iteration; i++) {
             //Iteration through table rows (per page).
@@ -51,7 +46,7 @@ public class OrderingPage extends LogOutBase {
                 //There is checking of row displaying.
                 if (isElementDisplayed(OrderingPageLocators.TABLE_ROW_CELL.modify(String.valueOf(j)))) {
                     //Recording displayed row.
-                    List<WebElement> ordersFields = driver.findElements(OrderingPageLocators.TABLE_ROW.modify(String.valueOf(j)).getBy());
+                    final List<WebElement> ordersFields = driver.findElements(OrderingPageLocators.TABLE_ROW.modify(String.valueOf(j)).getBy());
                     //There is used StepBuilderPattern.
                     table.add(OrderingsTableRow.newBuilder()
                             .setOrderName(ordersFields.get(0).getText())
@@ -77,56 +72,59 @@ public class OrderingPage extends LogOutBase {
     }
 
     /**
-     * There is method to click "First" button below "Ordering" table of "Ordering" page.
+     * There is method to click "First" button
+     * below "Ordering" table of "Ordering" page.
      */
     public void clickFirstButton() {
         click(OrderingPageLocators.CLICK_FIRST_BUTTON);
     }
 
     /**
-     * There is method to click "Next" button below "Ordering" table of "Ordering" page.
+     * There is method to click "Next" button
+     * below "Ordering" table of "Ordering" page.
      */
     public void clickNextButton() {
         click(OrderingPageLocators.CLICK_NEXT_BUTTON);
     }
 
     /**
-     * There is method to click one of "Ordering" table headers to make sorting actions in the table.
+     * There is method to click one of "Ordering"
+     * table headers to make sorting actions in the table.
      */
-    public void clickOrdersTableColumn(OrdersTableColumns tableColumn) {
+    public void clickOrdersTableColumn(final OrdersTableColumns tableColumn) {
         click(OrderingPageLocators.TABLE_COLUMN.modify(tableColumn.toString()));
     }
 
-    public OrderingPage setFilter(OrderFilter filter) {
-        Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_SELECT.getBy()));
+    public OrderingPage setFilter(final OrderFilter filter) {
+        final Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filter.getFilterName());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
         return this;
     }
 
-    public OrderingPage setFilterValue(Enum filterValue) {
-        Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_VALUE_SELECT.getBy()));
+    public OrderingPage setFilterValue(final Enum filterValue) {
+        final Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.FILTER_VALUE_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filterValue.toString());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter value - <b>'%s'</b>", filterValue.toString()));
         return this;
     }
 
-    public OrderingPage setSearchCondition(OrderSearchCondition searchCondition) {
-        Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.SEARCH_CONDITION_SELECT.getBy()));
+    public OrderingPage setSearchCondition(final OrderSearchCondition searchCondition) {
+        final Select fieldSelect = new Select(driver.findElement(OrderingPageLocators.SEARCH_CONDITION_SELECT.getBy()));
         fieldSelect.selectByVisibleText(searchCondition.getSearchCondition());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected search condition - <b>'%s'</b>", searchCondition.getSearchCondition()));
         return this;
     }
 
-    public OrderingPage setNumberOfElements(ShownElementsNumber number){
-        Select select = new Select(driver.findElement(SHOW_NUMBER_OF_ELEMENTS_LINK.getBy()));
+    public OrderingPage setNumberOfElements(final ShownElementsNumber number){
+        final Select select = new Select(driver.findElement(SHOW_NUMBER_OF_ELEMENTS_LINK.getBy()));
         select.selectByVisibleText(number.getName());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", SHOW_NUMBER_OF_ELEMENTS_LINK.getName()));
         return this;
     }
 
-    public OrderingPage setItemOrderStatus(ItemsOrderStatus status){
-        Select select = new Select(driver.findElement(ITEM_ORDER_STATUS.getBy()));
+    public OrderingPage setItemOrderStatus(final ItemsOrderStatus status){
+        final Select select = new Select(driver.findElement(ITEM_ORDER_STATUS.getBy()));
         select.selectByValue(String.valueOf(status));
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", status.getStatusName()));
         return this;
@@ -137,7 +135,7 @@ public class OrderingPage extends LogOutBase {
         return this;
     }
 
-    public OrderingPage fillSearchField(String searchTerm) {
+    public OrderingPage fillSearchField(final String searchTerm) {
         sendKeys(OrderingPageLocators.SEARCH_FIELD, searchTerm);
         return this;
     }

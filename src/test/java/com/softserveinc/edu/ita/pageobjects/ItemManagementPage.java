@@ -12,18 +12,18 @@ import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.SEARC
 
 public class ItemManagementPage extends LogOutBase {
 
-    public ItemManagementPage(WebDriver driver) {
+    public ItemManagementPage(final WebDriver driver) {
         super(driver);
     }
 
-    public ItemManagementPage setFilters(ItemFilter filter) {
-        Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
+    public ItemManagementPage setFilters(final ItemFilter filter) {
+        final Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filter.getFilterName());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
         return this;
     }
 
-    public ItemManagementPage fillSearchField(String searchTerm) {
+    public ItemManagementPage fillSearchField(final String searchTerm) {
         sendKeys(ItemManagementPageLocators.SEARCH_FIELD, searchTerm);
         return this;
     }
@@ -54,7 +54,7 @@ public class ItemManagementPage extends LogOutBase {
         return driver.findElements(ItemManagementPageLocators.TABLE_ROW.getBy()).size();
     }
 
-    public Product getRandomProduct(int modifier) {
+    public Product getRandomProduct(final int modifier) {
 
 
         return Product.newBuilder()
@@ -66,11 +66,11 @@ public class ItemManagementPage extends LogOutBase {
                 .build();
     }
 
-    public void deleteRandomProduct(int randomRow) {
+    public void deleteRandomProduct(final int randomRow) {
         click(ItemManagementPageLocators.TABLE_DELETE_LINK.modify(String.valueOf(randomRow)));
     }
 
-    public EditProductPage editRandomProduct(int randomRow) {
+    public EditProductPage editRandomProduct(final int randomRow) {
         click(ItemManagementPageLocators.TABLE_EDIT_LINK.modify(String.valueOf(randomRow)));
         return new EditProductPage(driver);
     }

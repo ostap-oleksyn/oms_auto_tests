@@ -9,7 +9,7 @@ public enum SearchFilters {
 
     private String filterName;
 
-    SearchFilters(String filterName) {
+    SearchFilters(final String filterName) {
         this.filterName = filterName;
     }
 

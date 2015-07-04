@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Static methods for work with database
+ * Class with static methods for work with database.
  */
 public final class DBUtility {
 
@@ -41,7 +41,7 @@ public final class DBUtility {
     /**
      * Returns filtered by conditions users
      */
-    public static List<User> getFilteredUsers(SearchConditions condition, String searchTerm) {
+    public static List<User> getFilteredUsers(final SearchConditions condition, final String searchTerm) {
         final FactoryDAO factory = new FactoryDAO();
         final Connection connection;
         final UserDAO userDAO;
@@ -57,6 +57,7 @@ public final class DBUtility {
 
         return usersList;
     }
+
     /**
      * Returns first merchandiser from database
      */
@@ -76,7 +77,6 @@ public final class DBUtility {
 
         return admin;
     }
-
 
     /**
      * Returns first administrator from database
@@ -121,7 +121,7 @@ public final class DBUtility {
     /**
      * Returns User by login
      */
-    public static User getByLogin(String login) {
+    public static User getByLogin(final String login) {
         final FactoryDAO factory = new FactoryDAO();
         final Connection connection;
         final UserDAO userDAO;
@@ -142,7 +142,7 @@ public final class DBUtility {
      * Returns the number of active users in the database
      */
     public static int getActiveUsersNumber() {
-        FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory = new FactoryDAO();
         Connection connection;
         AbstractDAO userDAO = null;
 
@@ -168,7 +168,7 @@ public final class DBUtility {
     /**
      * Delete user from database
      */
-    public static void deleteUser(User user) {
+    public static void deleteUser(final User user) {
         final FactoryDAO factory = new FactoryDAO();
         final Connection connection;
         final UserDAO userDAO;
@@ -185,7 +185,7 @@ public final class DBUtility {
     /**
      * set user status
      */
-    public static void setUserStatus(User user, int status) {
+    public static void setUserStatus(final User user, final int status) {
         final FactoryDAO factory = new FactoryDAO();
         final Connection connection;
         final UserDAO userDAO;
@@ -225,7 +225,7 @@ public final class DBUtility {
     /**
      * Removes the product from the database
      */
-    public static void removeProductFromDatabase(Product product) {
+    public static void removeProductFromDatabase(final Product product) {
         final FactoryDAO factory = new FactoryDAO();
         final Connection connection;
         ProductDAO productDAO = null;
@@ -244,7 +244,13 @@ public final class DBUtility {
         }
     }
 
-    public static int getProductStatus(String name, String description) {
+    /**
+     * Returns status of a product from database
+     *
+     * @param name        - product name
+     * @param description - product description
+     */
+    public static int getProductStatus(final String name, final String description) {
         final FactoryDAO factory = new FactoryDAO();
         final Connection connection;
         ProductDAO productDAO = null;
@@ -264,7 +270,14 @@ public final class DBUtility {
         return status;
     }
 
-    public static void setProductStatus(String name, String description, ProductStatus status) {
+    /**
+     * Sets status to a product in database
+     *
+     * @param name        - product name
+     * @param description - product description
+     * @param status      - product status
+     */
+    public static void setProductStatus(final String name, final String description, final ProductStatus status) {
         final FactoryDAO factory = new FactoryDAO();
         final Connection connection;
         final ProductDAO productDAO;
@@ -277,7 +290,13 @@ public final class DBUtility {
         }
     }
 
-    public static Product getProduct(String name, String description) {
+    /**
+     * Returns product from database by name and description
+     *
+     * @param name        - product name
+     * @param description - product description
+     */
+    public static Product getProduct(final String name, final String description) {
         final FactoryDAO factory = new FactoryDAO();
         final Connection connection;
         ProductDAO productDAO = null;

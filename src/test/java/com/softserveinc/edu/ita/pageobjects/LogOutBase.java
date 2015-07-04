@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 
 public class LogOutBase extends PageObjectBase implements ILogOutAble {
 
-    public LogOutBase(WebDriver driver) {
+    public LogOutBase(final WebDriver driver) {
         super(driver);
     }
 

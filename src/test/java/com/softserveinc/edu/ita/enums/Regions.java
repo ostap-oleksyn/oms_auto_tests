@@ -13,7 +13,7 @@ public enum Regions {
     private int regionReference;
     private String regionName;
 
-    Regions(int regionReference, String regionName) {
+    Regions(final int regionReference, final String regionName) {
         this.regionReference = regionReference;
         this.regionName = regionName;
     }
@@ -34,9 +34,9 @@ public enum Regions {
                 '}';
     }
 
-    public static String getRegionName(int regionReference) {
+    public static String getRegionName(final int regionReference) {
 
-        for (Regions region: Regions.values()) {
+        for (final Regions region: Regions.values()) {
             if (region.getRegionReference() == regionReference) {
                 return region.getRegionName();
             }

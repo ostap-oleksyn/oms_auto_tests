@@ -13,7 +13,7 @@ public enum Roles {
     private int roleReference;
     private String roleName;
 
-    Roles(int roleReference, String roleName) {
+    Roles(final int roleReference, final String roleName) {
         this.roleReference = roleReference;
         this.roleName = roleName;
     }
@@ -35,9 +35,9 @@ public enum Roles {
         return roleReference;
     }
 
-    public static String getRoleName(int roleReference) {
+    public static String getRoleName(final int roleReference) {
 
-        for (Roles role: Roles.values()) {
+        for (final Roles role: Roles.values()) {
             if (role.roleReference == roleReference) {
                 return role.getRoleName();
             }

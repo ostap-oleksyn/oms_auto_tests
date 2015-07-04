@@ -19,6 +19,9 @@ import static com.softserveinc.edu.ita.utils.DBUtility.getByLogin;
 import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
 
 
+/**
+ * Class with data provider methods.
+ */
 public final class DataProviders {
 
     /**
@@ -58,7 +61,7 @@ public final class DataProviders {
      */
     @DataProvider(name = "getUsersTableColumns")
     public static Iterator<Object[]> getUsersDataIterator() {
-        List<Object[]> testDataList = new ArrayList<>();
+        final List<Object[]> testDataList = new ArrayList<>();
         Stream.of(UsersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
         return testDataList.iterator();
     }
@@ -68,7 +71,7 @@ public final class DataProviders {
      */
     @DataProvider(name = "getOrdersTableColumns")
     public static Iterator<Object[]> getOrdersDataIterator() {
-        List<Object[]> testDataList = new ArrayList<>();
+        final List<Object[]> testDataList = new ArrayList<>();
         Stream.of(OrdersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
         return testDataList.iterator();
     }
@@ -157,36 +160,22 @@ public final class DataProviders {
         return invalidUsers;
     }
 
-    private static Object[][] getUsersFromList(Roles role) throws DAOException, IOException {
-        final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.getRoleName());
-        final List<User> users = new ArrayList<>();
-
-        for (String usersLogin : usersLoginFromXls) {
-            users.add(getByLogin(usersLogin));
-        }
-
-        final Object[][] usersList = new Object[users.size()][1];
-
-        for (int i = 0; i < users.size(); i++) {
-            usersList[i][0] = users.get(i);
-        }
-
-        return usersList;
-    }
-
+    /**
+     * Returns list of users with randomly generated valid user data
+     */
     @DataProvider(name = "generatedValidUserData")
     public static Object[][] generateValidUserData() {
 
         final int GENERATED_USERS_COUNT = 5;
-        Random randomGenerator = new Random();
+        final Random randomGenerator = new Random();
 
         Object[][] usersList = new Object[GENERATED_USERS_COUNT][1];
 
         for (int i = 0; i < GENERATED_USERS_COUNT; i++) {
-            int roleReference = randomGenerator.nextInt(3) + 1;
-            int regionReference = randomGenerator.nextInt(3) + 1;
+            final int roleReference = randomGenerator.nextInt(3) + 1;
+            final int regionReference = randomGenerator.nextInt(3) + 1;
 
-            User user = User.newBuilder()
+            final User user = User.newBuilder()
                     .withoutId()
                     .withStatus(1)
                     .withFirstName(getRandomString("NameSymbols", 1, 13).toLowerCase())
@@ -207,6 +196,9 @@ public final class DataProviders {
         return usersList;
     }
 
+    /**
+     * Returns list of users with randomly generated invalid user data
+     */
     @DataProvider(name = "generatedNotValidUserData")
     public static Object[][] generateNotValidUserData() {
 
@@ -218,7 +210,7 @@ public final class DataProviders {
         String email;
 
         Object[][] usersList = new Object[GENERATED_USERS_COUNT][1];
-        Random randomGenerator = new Random();
+        final Random randomGenerator = new Random();
 
         for (int i = 0; i < GENERATED_USERS_COUNT; i++) {
 
@@ -244,7 +236,7 @@ public final class DataProviders {
 
             email = getRandomString("Digits", 2, 20);
 
-            User user = User.newBuilder()
+            final User user = User.newBuilder()
                     .withoutId()
                     .withoutStatus()
                     .withFirstName(firstName)
@@ -263,6 +255,9 @@ public final class DataProviders {
         return usersList;
     }
 
+    /**
+     * Returns randomly generated data for user editing
+     */
     @DataProvider(name = "getUserEditData")
     public static Object[][] getUserEditData() {
         Object[][] userEditData = null;
@@ -272,5 +267,25 @@ public final class DataProviders {
             e.printStackTrace();
         }
         return userEditData;
+    }
+
+    /**
+     * Returns list of users from database extracted by login from xls test data file
+     */
+    private static Object[][] getUsersFromList(final Roles role) throws DAOException, IOException {
+        final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.getRoleName());
+        final List<User> users = new ArrayList<>();
+
+        for (final String usersLogin : usersLoginFromXls) {
+            users.add(getByLogin(usersLogin));
+        }
+
+        final Object[][] usersList = new Object[users.size()][1];
+
+        for (int i = 0; i < users.size(); i++) {
+            usersList[i][0] = users.get(i);
+        }
+
+        return usersList;
     }
 }
