@@ -112,4 +112,18 @@ public class ItemManagementPage extends LogOutBase {
         }
         return columnsData;
     }
+
+    public ItemManagementPage clearSearchField() {
+        driver.findElement(ItemManagementPageLocators.SEARCH_FIELD.getBy()).clear();
+        Reporter.log("<br>INFO&nbsp;&nbsp; - Cleared <b>Search field</b>");
+        return this;
+    }
+
+    public ItemManagementPage setFilters(int iteration) {
+        Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
+        fieldSelect.selectByIndex(iteration);
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>",
+                fieldSelect.getFirstSelectedOption().getText()));
+        return this;
+    }
 }

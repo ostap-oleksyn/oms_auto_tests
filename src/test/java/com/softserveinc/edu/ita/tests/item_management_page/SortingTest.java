@@ -1,5 +1,6 @@
 package com.softserveinc.edu.ita.tests.item_management_page;
 
+import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.ItemManagementPage;

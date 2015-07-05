@@ -94,7 +94,19 @@ public enum ItemManagementPageLocators implements ILocator {
     COLUMNS_ELEMENTS(
             "Column's elements",
             LocatorsType.BY_XPATH,
-            ".//*[@id='table']/tbody/tr/td[%s]");
+            ".//*[@id='table']/tbody/tr/td[%s]"),
+    PRODUCTS_TABLE_CELL(
+            "Column's elements",
+            LocatorsType.BY_XPATH,
+            ".//td[%s][contains(text(), '%s')]"),
+    SEARCH_CONDITION(
+            "Column's elements",
+            LocatorsType.BY_XPATH,
+            ".//option[%s]"),
+    TABLES_GRID(
+            "Column's elements",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr/td");
 
     private String name;
     private LocatorsType locatorsType;
@@ -122,6 +134,12 @@ public enum ItemManagementPageLocators implements ILocator {
     //This method prepares locator using additional parameter by means of so called "string-format" method.
     public ItemManagementPageLocators modify(String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
+        return this;
+    }
+
+    //This method prepares locator using 2 additional parameters by means of so called "string-format" method.
+    public ItemManagementPageLocators modify(String parameter1, String parameter2) {
+        this.modifiedLocator = String.format(this.rawLocator, parameter1, parameter2);
         return this;
     }
 
