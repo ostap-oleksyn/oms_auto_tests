@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
 import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
+import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -125,5 +126,21 @@ public class ItemManagementPage extends LogOutBase {
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>",
                 fieldSelect.getFirstSelectedOption().getText()));
         return this;
+    }
+
+    public int getCurrentPageNumber() {
+        return Integer.parseInt(getElementText(ItemManagementPageLocators.CURRENT_PAGE_NUMBER));
+    }
+
+    public int getQuantityOfTablePages() {
+        return Integer.valueOf(getElementText(ItemManagementPageLocators.QUANTITY_OF_TABLE_PAGES));
+    }
+
+    public void clickPreviousButton() {
+        click(ItemManagementPageLocators.PREVIOUS_BUTTON);
+    }
+
+    public void clickNextButton() {
+        click(ItemManagementPageLocators.NEXT_BUTTON);
     }
 }

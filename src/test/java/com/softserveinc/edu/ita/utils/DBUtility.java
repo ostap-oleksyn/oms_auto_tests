@@ -57,6 +57,7 @@ public final class DBUtility {
 
         return usersList;
     }
+
     /**
      * Returns first merchandiser from database
      */
@@ -295,5 +296,15 @@ public final class DBUtility {
             e.printStackTrace();
         }
         return product;
+    }
+
+    public static int getActiveProductsNumber() throws DAOException {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection = factory.getConnection();
+        ProductDAO productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
+        List<Product> allProductsList = productDAO.getAll();
+        return allProductsList.stream()
+                .filter(product -> product.getStatus() == 1)
+                .collect(Collectors.toList()).size();
     }
 }

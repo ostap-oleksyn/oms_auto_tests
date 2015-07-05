@@ -96,17 +96,37 @@ public enum ItemManagementPageLocators implements ILocator {
             LocatorsType.BY_XPATH,
             ".//*[@id='table']/tbody/tr/td[%s]"),
     PRODUCTS_TABLE_CELL(
-            "Column's elements",
+            "Product's table cell",
             LocatorsType.BY_XPATH,
             ".//td[%s][contains(text(), '%s')]"),
     SEARCH_CONDITION(
-            "Column's elements",
+            "Search condition",
             LocatorsType.BY_XPATH,
             ".//option[%s]"),
     TABLES_GRID(
-            "Column's elements",
+            "Table's grid",
             LocatorsType.BY_XPATH,
-            ".//*[@id='table']/tbody/tr/td");
+            ".//*[@id='table']/tbody/tr/td"),
+    CURRENT_PAGE_NUMBER(
+            "Current page number",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageNumber']"),
+    PREVIOUS_BUTTON(
+            "Previous button",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='previous']"),
+    FIRST_BUTTON(
+            "First button",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='first']"),
+    QUANTITY_OF_TABLE_PAGES(
+            "Quantity of table pages",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageCount']"),
+    NEXT_BUTTON(
+            "Next button",
+            LocatorsType.BY_XPATH,
+            ".//input[@id='next']");
 
     private String name;
     private LocatorsType locatorsType;
