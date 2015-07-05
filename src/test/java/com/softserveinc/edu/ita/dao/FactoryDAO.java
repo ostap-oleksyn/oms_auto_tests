@@ -2,6 +2,7 @@
 package com.softserveinc.edu.ita.dao;
 
 import com.softserveinc.edu.ita.domains.Order;
+import com.softserveinc.edu.ita.domains.OrderItem;
 import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.dao.interfaces.IFactoryDAO;
@@ -107,6 +108,20 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
                 return new ProductDAO(connection);
             }
         });
+        creators.put(OrderItem.class, new ICreatorDAO<Connection>() {
+            @Override
+            public AbstractDAO create(Connection connection) {
+                return new OrderItemDAO(connection);
+            }
+        });
+
+        creators.put(OrderItem.class, new ICreatorDAO<Connection>() {
+            @Override
+            public IGenericDAO create(Connection connection) {
+                return new OrderItemDAO(connection);
+            }
+        });
+
 
 
     }
