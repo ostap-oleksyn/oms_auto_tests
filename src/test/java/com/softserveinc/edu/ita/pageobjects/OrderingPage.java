@@ -180,5 +180,10 @@ public class OrderingPage extends LogOutBase {
         click(ITEM_GO_TO_HOME_BUTTON);
         return this;
     }
+
+    public NewOrderPage clickCreateNewOrderLink() {
+        click(OrderingPageLocators.CREATE_NEW_ORDER_LINK);
+        return new NewOrderPage(driver);
+    }
 }
 

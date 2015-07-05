@@ -1,6 +1,8 @@
 package com.softserveinc.edu.ita.utils;
 
 import com.softserveinc.edu.ita.dao.*;
+import com.softserveinc.edu.ita.domains.Order;
+import com.softserveinc.edu.ita.domains.OrderItem;
 import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.ProductStatus;
@@ -296,4 +298,135 @@ public final class DBUtility {
         }
         return product;
     }
+
+    /**
+     * Returns first User by role
+     */
+    public static User getByRole(Roles role) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+
+        User user = null;
+        try {
+            connection = factory.getConnection();
+            userDAO = (UserDAO) factory.getDAO(connection, User.class);
+            user = userDAO.getByRole(role);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        return user;
+    }
+
+    /**
+     * Returns Order by orderNumber
+     */
+    public static Order getByOrderNumber(int orderNumber) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final OrderDAO orderDAO;
+
+        Order order = null;
+        try {
+            connection = factory.getConnection();
+            orderDAO = (OrderDAO) factory.getDAO(connection, Order.class);
+            order = orderDAO.getByOrderNumber(orderNumber);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        return order;
+    }
+
+    /**
+     * Return Order items (Products)
+     */
+    public static int getOrderItemsCount(Order order) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final OrderItemDAO orderItemDAO;
+
+        List<OrderItem> orderItemsList = new ArrayList<>();
+
+        try {
+            connection = factory.getConnection();
+            orderItemDAO = (OrderItemDAO) factory.getDAO(connection, OrderItem.class);
+            orderItemsList = orderItemDAO.getAll();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        return orderItemsList.stream().filter(orderItem -> orderItem.getOrderReference() == order.getId())
+                .collect(Collectors.toList()).size();
+    }
+
+    public static void deleteOrderItems(Order order) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final OrderItemDAO orderItemDAO;
+
+        try {
+            connection = factory.getConnection();
+            orderItemDAO = (OrderItemDAO) factory.getDAO(connection, OrderItem.class);
+            orderItemDAO.deleteByOrderReference(order.getId());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Delete Order from database
+     */
+    public static void deleteOrder(Order order) {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final OrderDAO orderDAO;
+
+        try {
+            connection = factory.getConnection();
+            orderDAO = (OrderDAO) factory.getDAO(connection, Order.class);
+            orderDAO.delete(order.getId());
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static int getActiveProductsCount() {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final ProductDAO productDAO;
+
+        List<Product> productsList = new ArrayList<>();
+
+        try {
+            connection = factory.getConnection();
+            productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
+            productsList = productDAO.getActiveProducts();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        return productsList.size();
+    }
+
+    public static List<Product> getActiveProducts() {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final ProductDAO productDAO;
+
+        List<Product> productsList = new ArrayList<>();
+
+        try {
+            connection = factory.getConnection();
+            productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
+            productsList = productDAO.getActiveProducts();
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        return productsList;
+    }
+
 }
