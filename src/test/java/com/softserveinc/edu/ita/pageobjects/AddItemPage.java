@@ -5,6 +5,7 @@ import com.softserveinc.edu.ita.enums.ordering_page.SearchMethods;
 import com.softserveinc.edu.ita.enums.ordering_page.SortFields;
 import com.softserveinc.edu.ita.enums.ordering_page.SortType;
 import com.softserveinc.edu.ita.locators.AddItemPageLocators;
+import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -19,8 +20,6 @@ import java.util.Random;
  */
 public class AddItemPage extends LogOutBase {
 
-    private Random randomGenerator = new Random();
-
     public AddItemPage(WebDriver driver) {
         super(driver);
     }
@@ -30,7 +29,7 @@ public class AddItemPage extends LogOutBase {
     }
 
     public AddItemPage clickRandomSelectItemLink() {
-        int rowNumber = randomGenerator.nextInt(getItemsCount() - 1) + 1;
+        final int rowNumber = RandomUtil.getRandomInteger(1, getItemsCount());
         click(AddItemPageLocators.SELECT_ITEM_LINK.modify(String.valueOf(rowNumber)));
         return this;
     }
@@ -41,7 +40,7 @@ public class AddItemPage extends LogOutBase {
     }
 
     public AddItemPage fillRandomQuantity(int maxQuantity) {
-        final int quantity = randomGenerator.nextInt(maxQuantity - 1) + 1;
+        final int quantity = RandomUtil.getRandomInteger(1, maxQuantity);
         final WebElement quantityInput = driver.findElement(AddItemPageLocators.QUANTITY_INPUT.getBy());
         quantityInput.clear();
         quantityInput.sendKeys(String.valueOf(quantity));
@@ -50,7 +49,7 @@ public class AddItemPage extends LogOutBase {
 
     public AddItemPage selectRandomDimension() {
         Select dimensionSelect = new Select(driver.findElement(AddItemPageLocators.DIMENSION_SELECT.getBy()));
-        dimensionSelect.selectByIndex(randomGenerator.nextInt(2) + 1);
+        dimensionSelect.selectByIndex(RandomUtil.getRandomInteger(1, 3));
         return this;
     }
 
@@ -122,6 +121,4 @@ public class AddItemPage extends LogOutBase {
                 break;
         }
     }
-
-
 }
