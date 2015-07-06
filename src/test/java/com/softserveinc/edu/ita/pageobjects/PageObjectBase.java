@@ -5,6 +5,7 @@ import com.softserveinc.edu.ita.interfaces.ILocator;
 import com.softserveinc.edu.ita.locators.CommonLocators;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 
@@ -53,6 +54,15 @@ public abstract class PageObjectBase {
         driver.findElement(locator.getBy()).clear();
         driver.findElement(locator.getBy()).sendKeys(text);
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Typed '%s' in <b>%s</b>", text, locator.getName()));
+    }
+
+    public boolean isAlertPresent() {
+        try {
+            driver.switchTo().alert();
+            return true;
+        } catch (NoAlertPresentException Exception) {
+            return false;
+        }
     }
 
     public void acceptAlert() {

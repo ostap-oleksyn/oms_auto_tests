@@ -170,7 +170,15 @@ public enum OrderingPageLocators implements ILocator {
     ITEM_DETAILS_ABOUT_ERROR(
             "Item details about error",
             LocatorsType.BY_XPATH,
-            "//div[2]/div");
+            "//div[2]/div"),
+    DELETE_ORDER_BUTTON(
+            "Delete order button",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='list']/table/tbody/tr[2]/td[9]/a"),
+    FIRST_ORDER(
+            "First order in the table",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='list']/table/tbody/tr[2]/td[1]");
 
     private String name;
     private LocatorsType locatorsType;
