@@ -1,10 +1,11 @@
-
 package com.softserveinc.edu.ita.utils;
 
 import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.UsersTableColumns;
+import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
+import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
 import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import org.testng.annotations.DataProvider;
 
@@ -18,7 +19,6 @@ import java.util.stream.Stream;
 import static com.softserveinc.edu.ita.utils.DBUtility.getByLogin;
 import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
 
-
 /**
  * Class with data provider methods.
  */
@@ -26,8 +26,6 @@ public final class DataProviders {
 
     /**
      * returns searchterms from xls file
-     *
-     * @return
      */
     @DataProvider(name = "getSearchTerms")
     public static Object[][] getSearchTerms() throws IOException {
@@ -36,8 +34,6 @@ public final class DataProviders {
 
     /**
      * returns searchterms from xls file
-     *
-     * @return
      */
     @DataProvider(name = "getOrderSearchTerms")
     public static Object[][] getOrderSearchTerms() throws IOException {
@@ -55,12 +51,32 @@ public final class DataProviders {
     }
 
     /**
-     * Returns names of 'Users' table columns.
+     * Returns names of 'Orders' table columns.
      */
     @DataProvider(name = "getOrdersTableColumns")
     public static Iterator<Object[]> getOrdersDataIterator() {
         final List<Object[]> testDataList = new ArrayList<>();
         Stream.of(OrdersTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
+        return testDataList.iterator();
+    }
+
+    /**
+     * Returns names of 'Products' table columns.
+     */
+    @DataProvider(name = "getProductsTableColumns")
+    public static Iterator<Object[]> getProductsDataIterator() {
+        final List<Object[]> testDataList = new ArrayList<>();
+        Stream.of(ProductsTableColumns.values()).forEach(column -> testDataList.add(new Object[]{column}));
+        return testDataList.iterator();
+    }
+
+    /**
+     * Returns 'Products' table filters.
+     */
+    @DataProvider(name = "getProductTablesFilters")
+    public static Iterator<Object[]> getProductsTableFilters() {
+        final List<Object[]> testDataList = new ArrayList<>();
+        Stream.of(ItemFilter.values()).forEach(filter -> testDataList.add(new Object[]{filter}));
         return testDataList.iterator();
     }
 

@@ -2,8 +2,8 @@ package com.softserveinc.edu.ita.tests.ordering_page;
 
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.ordering_page.ItemsOrderStatus;
-import com.softserveinc.edu.ita.enums.ordering_page.ShownElementsNumber;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
+import com.softserveinc.edu.ita.enums.ordering_page.ShownElementsNumber;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
@@ -44,8 +44,10 @@ public class EditOrderTest extends TestRunner {
 
         orderingPage.clickEditLink();
 
+
         for (final ShownElementsNumber shownElementsNumber : ShownElementsNumber.values()) {
-            orderingPage.setNumberOfElements(shownElementsNumber);
+            orderingPage.setShownElementsNumber(shownElementsNumber);
+
             wait.until(ExpectedConditions.presenceOfElementLocated(PRICE_COLUMN.getBy()));
 
             pricesList = driver.findElements(PRICE_COLUMN.getBy());
@@ -63,7 +65,7 @@ public class EditOrderTest extends TestRunner {
 
         loggingSoftAssert.assertTrue(price * quantity == pricePerLine, "'Price Per Line' is correctly calculated");
 
-        orderingPage.setNumberOfElements(ShownElementsNumber.ELEMENTS_1);
+        orderingPage.setShownElementsNumber(ShownElementsNumber.ELEMENTS_1);
 
         loggingSoftAssert.assertTrue(orderingPage.isElementEnabled(ITEM_NEXT_PAGE_BUTTON), "'<b>Next Page</b>' button is enabled ");
         loggingSoftAssert.assertTrue(orderingPage.isElementEnabled(ITEM_LAST_PAGE_BUTTON), "'<b>Last Page</b>' button is enabled ");

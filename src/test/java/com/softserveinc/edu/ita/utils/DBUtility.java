@@ -39,6 +39,22 @@ public final class DBUtility {
     }
 
     /**
+     * Returns random user by his role.
+     */
+    public static User getRandomUserByRole(final Roles role) throws DAOException {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+        connection = factory.getConnection();
+        userDAO = (UserDAO) factory.getDAO(connection, User.class);
+        final List<User> usersList = userDAO.getAll();
+        final List<User> separatedUserList = usersList.stream()
+                .filter(user -> user.getRoleName().equals(role.getRoleName()))
+                .collect(Collectors.toList());
+        return separatedUserList.get(RandomUtil.getRandomInteger(0, separatedUserList.size()-1));
+    }
+
+    /**
      * Returns filtered by conditions users
      */
     public static List<User> getFilteredUsers(final SearchConditions condition, final String searchTerm) {
@@ -314,5 +330,15 @@ public final class DBUtility {
             e.printStackTrace();
         }
         return product;
+    }
+
+    public static int getActiveProductsNumber() throws DAOException {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection = factory.getConnection();
+        final ProductDAO productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
+        final List<Product> allProductsList = productDAO.getAll();
+        return allProductsList.stream()
+                .filter(product -> product.getStatus() == 1)
+                .collect(Collectors.toList()).size();
     }
 }
