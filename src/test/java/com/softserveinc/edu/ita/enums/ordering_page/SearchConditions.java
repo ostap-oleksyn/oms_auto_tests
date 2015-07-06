@@ -1,9 +1,6 @@
 package com.softserveinc.edu.ita.enums.ordering_page;
 
-/**
- * Created by i07016 on 06.07.2015.
- */
-public enum SearchMethods {
+public enum SearchConditions {
     SEARCH_BY_NAME,
     SEARCH_BY_DESCRIPTION
 }

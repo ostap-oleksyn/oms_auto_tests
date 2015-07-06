@@ -1,5 +1,6 @@
 package com.softserveinc.edu.ita.pageobjects;
 
+import com.softserveinc.edu.ita.enums.ordering_page.RowsPerPage;
 import com.softserveinc.edu.ita.locators.AddItemPageLocators;
 import com.softserveinc.edu.ita.locators.NewOrderPageLocators;
 import com.softserveinc.edu.ita.utils.RandomUtil;
@@ -15,8 +16,6 @@ import java.util.*;
  * PageObject Class presents page for new Order creating
  */
 public class NewOrderPage extends LogOutBase {
-
-    //private Random randomGenerator = new Random();
 
     public NewOrderPage(WebDriver driver) {
         super(driver);
@@ -45,7 +44,9 @@ public class NewOrderPage extends LogOutBase {
         return this;
     }
 
-    // fills Preferable Delivery Date field with date later of current for 0-30 days
+    /**
+     * fills Preferable Delivery Date field with date later of current for 0-30 days
+      */
     public NewOrderPage fillRandomPreferableDeliveryDate() {
         final int MAX_DAY_OFFSET = 30;
         Calendar calendar = new GregorianCalendar();
@@ -94,18 +95,16 @@ public class NewOrderPage extends LogOutBase {
         click(NewOrderPageLocators.NAVIGATION_FORWARD_BUTTON);
     }
 
-    public void selectShowLinesCount(int option) {
+    public void selectShowLinesCount(RowsPerPage rowsCount) {
         Select showLinesCountSelect = new Select(driver
                 .findElement(NewOrderPageLocators.SHOW_LINES_COUNT_SELECT.getBy()));
-        switch (option) {
-            case 10:
+        switch (rowsCount) {
+            case ROWS_10:
                 showLinesCountSelect.selectByIndex(0);
                 break;
-            case 25:
+            case ROWS_25:
                 showLinesCountSelect.selectByIndex(1);
                 break;
-            default:
-                throw new IllegalArgumentException();
         }
     }
 

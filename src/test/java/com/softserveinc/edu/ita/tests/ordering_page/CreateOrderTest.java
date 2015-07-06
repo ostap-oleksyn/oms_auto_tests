@@ -18,11 +18,13 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
-import static com.softserveinc.edu.ita.enums.ordering_page.SearchMethods.SEARCH_BY_DESCRIPTION;
+import static com.softserveinc.edu.ita.enums.ordering_page.SearchConditions.SEARCH_BY_DESCRIPTION;
 import static com.softserveinc.edu.ita.enums.ordering_page.SortFields.SORT_BY_DESCRIPTION;
 import static com.softserveinc.edu.ita.enums.ordering_page.SortFields.SORT_BY_NAME;
 import static com.softserveinc.edu.ita.enums.ordering_page.SortType.ASC;
 import static com.softserveinc.edu.ita.enums.ordering_page.SortType.DESC;
+import static com.softserveinc.edu.ita.enums.ordering_page.RowsPerPage.ROWS_10;
+import static com.softserveinc.edu.ita.enums.ordering_page.RowsPerPage.ROWS_25;
 
 /**
  * Test creating of new Order (Ticket IFAA-20)
@@ -107,7 +109,7 @@ public class CreateOrderTest extends TestRunner {
         }
 
         searchedItemsList = addItemPage
-                .selectSearchMethod(SEARCH_BY_DESCRIPTION)
+                .selectSearchCondition(SEARCH_BY_DESCRIPTION)
                 .fillSearchInput(productDescription)
                 .clickSearchButton()
                 .getItemsTable();
@@ -141,7 +143,6 @@ public class CreateOrderTest extends TestRunner {
     public void testOrderNavigation() {
         final int ITEMS_COUNT = 10;
         final int MAX_RANDOM_ITEM_QUANTITY = 20;
-        int ITEMS_PER_PAGE = 25;
 
         final HomePage homePage = new HomePage(driver);
         final User customer = DBUtility.getByRole(Roles.CUSTOMER);
@@ -197,14 +198,13 @@ public class CreateOrderTest extends TestRunner {
         loggingSoftAssert.assertAll();
 
         // show 25 items per page
-        newOrderPage.selectShowLinesCount(ITEMS_PER_PAGE);
-        loggingAssert.assertEquals(ITEMS_PER_PAGE, newOrderPage.getItemsTable().size(),
+        newOrderPage.selectShowLinesCount(ROWS_25);
+        loggingAssert.assertEquals(ROWS_25.getRowsCount(), newOrderPage.getItemsTable().size(),
                 "Displayed correct items count");
 
         // show 10 items per page
-        ITEMS_PER_PAGE = 10;
-        newOrderPage.selectShowLinesCount(ITEMS_PER_PAGE);
-        loggingAssert.assertEquals(ITEMS_PER_PAGE, newOrderPage.getItemsTable().size(),
+        newOrderPage.selectShowLinesCount(ROWS_10);
+        loggingAssert.assertEquals(ROWS_10.getRowsCount(), newOrderPage.getItemsTable().size(),
                 "Displayed correct items count");
 
         newOrderPage.clickLogOutButton();
@@ -304,28 +304,28 @@ public class CreateOrderTest extends TestRunner {
         // test sorting by name ascending
         itemsList = addItemPage.getItemsTable();
         sortProductList(productsList, SORT_BY_NAME, ASC);
-        loggingSoftAssert.assertTrue(addItemPage.isItemsListSorted(itemsList, productsList),
+        loggingSoftAssert.assertTrue(isItemsListSorted(itemsList, productsList),
                 "Items are sorted by name in ascending order");
 
         // test sorting by name descending
         addItemPage.clickSortLink(SORT_BY_NAME);
         itemsList = addItemPage.getItemsTable();
         sortProductList(productsList, SORT_BY_NAME, DESC);
-        loggingSoftAssert.assertTrue(addItemPage.isItemsListSorted(itemsList, productsList),
+        loggingSoftAssert.assertTrue(isItemsListSorted(itemsList, productsList),
                 "Items are sorted by name in descending order");
 
         // test sorting by description ascending
         addItemPage.clickSortLink(SORT_BY_DESCRIPTION);
         itemsList = addItemPage.getItemsTable();
         sortProductList(productsList, SORT_BY_DESCRIPTION, ASC);
-        loggingSoftAssert.assertTrue(addItemPage.isItemsListSorted(itemsList, productsList),
+        loggingSoftAssert.assertTrue(isItemsListSorted(itemsList, productsList),
                 "Items are sorted by description in ascending order");
 
         // test sorting by description descending
         addItemPage.clickSortLink(SORT_BY_DESCRIPTION);
         itemsList = addItemPage.getItemsTable();
         sortProductList(productsList, SORT_BY_DESCRIPTION, DESC);
-        loggingSoftAssert.assertTrue(addItemPage.isItemsListSorted(itemsList, productsList),
+        loggingSoftAssert.assertTrue(isItemsListSorted(itemsList, productsList),
                 "Items are sorted by description in descending order");
 
         loggingSoftAssert.assertAll();
@@ -350,5 +350,17 @@ public class CreateOrderTest extends TestRunner {
         }
 
         return productsList;
+    }
+
+    private boolean isItemsListSorted(List<String[]> itemsList, List<Product> productList) {
+        for (int i = 0; i < itemsList.size(); i++) {
+            // used trim() and replace() cause oms trims spaces in text
+            if (!itemsList.get(i)[0].equals(productList.get(i).getProductName().trim().replace("  ", " "))
+                    || !itemsList.get(i)[1].equals(productList.get(i).getProductDescription()
+                    .trim().replace("  ", " "))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

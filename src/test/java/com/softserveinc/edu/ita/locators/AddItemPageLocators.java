@@ -18,7 +18,7 @@ public enum AddItemPageLocators implements ILocator {
             "Quantity input",
             LocatorsType.BY_XPATH,
             ".//*[@id='doneForm']//input[@id='quantity']"),
-    SEARCH_METHOD_SELECT(
+    SEARCH_CONDITION_SELECT(
             "Search by select",
             LocatorsType.BY_XPATH,
             ".//select[@id='searchProperty']"),

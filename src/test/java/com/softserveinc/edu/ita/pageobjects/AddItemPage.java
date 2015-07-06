@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.Product;
-import com.softserveinc.edu.ita.enums.ordering_page.SearchMethods;
+import com.softserveinc.edu.ita.enums.ordering_page.SearchConditions;
 import com.softserveinc.edu.ita.enums.ordering_page.SortFields;
 import com.softserveinc.edu.ita.locators.AddItemPageLocators;
 import com.softserveinc.edu.ita.utils.RandomUtil;
@@ -77,31 +77,19 @@ public class AddItemPage extends LogOutBase {
         return itemsList;
     }
 
-    public AddItemPage selectSearchMethod(SearchMethods searchMethod) {
-        Select searchMethodSelect = new Select(driver.findElement(AddItemPageLocators.SEARCH_METHOD_SELECT.getBy()));
+    public AddItemPage selectSearchCondition(SearchConditions searchCondition) {
+        Select searchConditionSelect = new Select(driver.findElement(AddItemPageLocators.SEARCH_CONDITION_SELECT.getBy()));
 
-        switch (searchMethod) {
+        switch (searchCondition) {
             case SEARCH_BY_NAME:
-                searchMethodSelect.selectByIndex(0);
+                searchConditionSelect.selectByIndex(0);
                 break;
             case SEARCH_BY_DESCRIPTION:
-                searchMethodSelect.selectByIndex(1);
+                searchConditionSelect.selectByIndex(1);
                 break;
         }
 
         return this;
-    }
-
-    public boolean isItemsListSorted(List<String[]> itemsList, List<Product> productList) {
-        for (int i = 0; i < itemsList.size(); i++) {
-            // used trim() and replace() cause oms trims spaces in text
-            if (!itemsList.get(i)[0].equals(productList.get(i).getProductName().trim().replace("  ", " "))
-                    || !itemsList.get(i)[1].equals(productList.get(i).getProductDescription()
-                    .trim().replace("  ", " "))) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public void clickSortLink(SortFields sortField) {
