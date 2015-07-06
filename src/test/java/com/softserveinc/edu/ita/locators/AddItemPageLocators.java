@@ -8,44 +8,60 @@ public enum AddItemPageLocators implements ILocator {
 
     ITEMS_TABLE_ROWS(
             "Items table rows",
-            By.xpath(".//*[@id='list']/table/tbody/tr")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='list']/table/tbody/tr"),
     ITEMS_ROW_CELL(
             "Items row cell",
-            By.xpath("td")),
+            LocatorsType.BY_XPATH,
+            "td"),
     QUANTITY_INPUT(
             "Quantity input",
-            By.xpath(".//*[@id='doneForm']//input[@id='quantity']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='doneForm']//input[@id='quantity']"),
     SEARCH_METHOD_SELECT(
             "Search by select",
-            By.xpath(".//select[@id='searchProperty']")),
+            LocatorsType.BY_XPATH,
+            ".//select[@id='searchProperty']"),
     DIMENSION_SELECT(
             "Dimension select",
-            By.xpath(".//*[@id='doneForm']//select[@id='dimension']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='doneForm']//select[@id='dimension']"),
     DONE_BUTTON(
             "Done button",
-            By.xpath(".//*[@id='content']//input[@type='submit'][@value='Done']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='content']//input[@type='submit'][@value='Done']"),
     SEARCH_INPUT(
             "Search input",
-            By.xpath(".//input[@id='searchValue']")),
+            LocatorsType.BY_XPATH,
+            ".//input[@id='searchValue']"),
     SEARCH_BUTTON(
             "Search button",
-            By.xpath(".//input[@value='Search']")),
+            LocatorsType.BY_XPATH,
+            ".//input[@value='Search']"),
     SORT_BY_NAME_HEADER_LINK(
             "Sort by name header link",
-            By.xpath(".//*[@id='sortName']/a")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='sortName']/a"),
     SORT_BY_DESCRIPTION_HEADER_LINK(
             "Sort by description header link",
-            By.xpath(".//*[@id='sortDescription']/a"));
+            LocatorsType.BY_XPATH,
+            ".//*[@id='sortDescription']/a"),
+    SELECT_ITEM_LINK(
+            "Select item link",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='list']//tbody/tr[%s]/td[3]//a");
 
-    AddItemPageLocators(String name, By locator) {
+    AddItemPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
-        this.locator = locator;
+        this.locatorsType = locatorsType;
+        this.rawLocator = rawLocator;
     }
 
-    final public static String SELECT_ITEM_LINK = ".//*[@id='list']//tbody/tr[%s]/td[3]//a";
-
     private String name;
-    private By locator;
+    private LocatorsType locatorsType;
+    private String rawLocator;
+    private String modifiedLocator;
+    private By byLocator;
 
     @Override
     public String toString() {
@@ -57,9 +73,21 @@ public enum AddItemPageLocators implements ILocator {
         return this.name;
     }
 
+    public AddItemPageLocators modify(String parameter) {
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
+        return this;
+    }
+
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        return this.locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
+        if (this.modifiedLocator == null) {
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
+        } else {
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
+        }
+        return this.byLocator;
     }
 
 }

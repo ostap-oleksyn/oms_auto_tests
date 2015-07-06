@@ -5,6 +5,8 @@ import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.DimensionMultipliers;
 import com.softserveinc.edu.ita.enums.Roles;
+import com.softserveinc.edu.ita.enums.ordering_page.SortFields;
+import com.softserveinc.edu.ita.enums.ordering_page.SortType;
 import com.softserveinc.edu.ita.pageobjects.*;
 import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
@@ -13,14 +15,14 @@ import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.testng.annotations.Test;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 
-import static com.softserveinc.edu.ita.pageobjects.AddItemPage.SearchMethods.SEARCH_BY_DESCRIPTION;
-import static com.softserveinc.edu.ita.pageobjects.AddItemPage.SortFields.SORT_BY_DESCRIPTION;
-import static com.softserveinc.edu.ita.pageobjects.AddItemPage.SortFields.SORT_BY_NAME;
-import static com.softserveinc.edu.ita.pageobjects.AddItemPage.SortType.ASC;
-import static com.softserveinc.edu.ita.pageobjects.AddItemPage.SortType.DESC;
-
+import static com.softserveinc.edu.ita.enums.ordering_page.SearchMethods.SEARCH_BY_DESCRIPTION;
+import static com.softserveinc.edu.ita.enums.ordering_page.SortFields.SORT_BY_DESCRIPTION;
+import static com.softserveinc.edu.ita.enums.ordering_page.SortFields.SORT_BY_NAME;
+import static com.softserveinc.edu.ita.enums.ordering_page.SortType.ASC;
+import static com.softserveinc.edu.ita.enums.ordering_page.SortType.DESC;
 
 /**
  * Test creating of new Order (Ticket IFAA-20)
@@ -299,32 +301,52 @@ public class CreateOrderTest extends TestRunner {
 
         // test sorting by name ascending
         itemsList = addItemPage.getItemsTable();
-        addItemPage.sortProductList(productsList, SORT_BY_NAME, ASC);
+        sortProductList(productsList, SORT_BY_NAME, ASC);
         loggingSoftAssert.assertTrue(addItemPage.isItemsListSorted(itemsList, productsList),
                 "Items are sorted by name in ascending order");
 
         // test sorting by name descending
         addItemPage.clickSortLink(SORT_BY_NAME);
         itemsList = addItemPage.getItemsTable();
-        addItemPage.sortProductList(productsList, SORT_BY_NAME, DESC);
+        sortProductList(productsList, SORT_BY_NAME, DESC);
         loggingSoftAssert.assertTrue(addItemPage.isItemsListSorted(itemsList, productsList),
                 "Items are sorted by name in descending order");
 
         // test sorting by description ascending
         addItemPage.clickSortLink(SORT_BY_DESCRIPTION);
         itemsList = addItemPage.getItemsTable();
-        addItemPage.sortProductList(productsList, SORT_BY_DESCRIPTION, ASC);
+        sortProductList(productsList, SORT_BY_DESCRIPTION, ASC);
         loggingSoftAssert.assertTrue(addItemPage.isItemsListSorted(itemsList, productsList),
                 "Items are sorted by description in ascending order");
 
         // test sorting by description descending
         addItemPage.clickSortLink(SORT_BY_DESCRIPTION);
         itemsList = addItemPage.getItemsTable();
-        addItemPage.sortProductList(productsList, SORT_BY_DESCRIPTION, DESC);
+        sortProductList(productsList, SORT_BY_DESCRIPTION, DESC);
         loggingSoftAssert.assertTrue(addItemPage.isItemsListSorted(itemsList, productsList),
                 "Items are sorted by description in descending order");
 
         loggingSoftAssert.assertAll();
         addItemPage.clickLogOutButton();
+    }
+
+    public List<Product> sortProductList(List<Product> productsList, SortFields sortFields, SortType sortType) {
+
+        switch (sortFields) {
+            case SORT_BY_NAME:
+                Collections.sort(productsList, (p1, p2) -> p1.getProductName()
+                        .compareTo(p2.getProductName()));
+                break;
+            case SORT_BY_DESCRIPTION:
+                Collections.sort(productsList, (p1, p2) -> p1.getProductDescription()
+                        .compareTo(p2.getProductDescription()));
+                break;
+        }
+
+        if (SortType.DESC.equals(sortType)) {
+            Collections.reverse(productsList);
+        }
+
+        return productsList;
     }
 }

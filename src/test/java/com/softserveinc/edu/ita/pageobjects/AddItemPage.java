@@ -1,8 +1,10 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.Product;
+import com.softserveinc.edu.ita.enums.ordering_page.SearchMethods;
+import com.softserveinc.edu.ita.enums.ordering_page.SortFields;
+import com.softserveinc.edu.ita.enums.ordering_page.SortType;
 import com.softserveinc.edu.ita.locators.AddItemPageLocators;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -29,12 +31,12 @@ public class AddItemPage extends LogOutBase {
 
     public AddItemPage clickRandomSelectItemLink() {
         int rowNumber = randomGenerator.nextInt(getItemsCount() - 1) + 1;
-        driver.findElement(By.xpath(String.format(AddItemPageLocators.SELECT_ITEM_LINK, rowNumber))).click();
+        click(AddItemPageLocators.SELECT_ITEM_LINK.modify(String.valueOf(rowNumber)));
         return this;
     }
 
     public AddItemPage clickSelectItemLink(int rowNumber) {
-        driver.findElement(By.xpath(String.format(AddItemPageLocators.SELECT_ITEM_LINK, rowNumber))).click();
+        click(AddItemPageLocators.SELECT_ITEM_LINK.modify(String.valueOf(rowNumber)));
         return this;
     }
 
@@ -110,26 +112,6 @@ public class AddItemPage extends LogOutBase {
         return true;
     }
 
-    public List<Product> sortProductList(List<Product> productsList, SortFields sortFields, SortType sortType) {
-
-        switch (sortFields) {
-            case SORT_BY_NAME:
-                Collections.sort(productsList, (p1, p2) -> p1.getProductName()
-                        .compareTo(p2.getProductName()));
-                break;
-            case SORT_BY_DESCRIPTION:
-                Collections.sort(productsList, (p1, p2) -> p1.getProductDescription()
-                        .compareTo(p2.getProductDescription()));
-                break;
-        }
-
-        if (SortType.DESC.equals(sortType)) {
-            Collections.reverse(productsList);
-        }
-
-        return productsList;
-    }
-
     public void clickSortLink(SortFields sortField) {
         switch (sortField) {
             case SORT_BY_NAME:
@@ -141,19 +123,5 @@ public class AddItemPage extends LogOutBase {
         }
     }
 
-    public enum SearchMethods {
-        SEARCH_BY_NAME,
-        SEARCH_BY_DESCRIPTION
-    }
-
-    public enum SortFields {
-        SORT_BY_NAME,
-        SORT_BY_DESCRIPTION
-    }
-
-    public enum SortType {
-        ASC,
-        DESC
-    }
 
 }
