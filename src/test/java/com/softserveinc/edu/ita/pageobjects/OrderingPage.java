@@ -186,7 +186,7 @@ public class OrderingPage extends LogOutBase {
         return this;
     }
 
-    public String getFirstOrder() {
+    public String getFirstOrderName() {
         return getElementText(OrderingPageLocators.FIRST_ORDER);
     }
 }

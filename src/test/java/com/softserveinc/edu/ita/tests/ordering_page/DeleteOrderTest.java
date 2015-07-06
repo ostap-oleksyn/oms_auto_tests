@@ -18,11 +18,11 @@ public class DeleteOrderTest extends TestRunner {
         UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
         OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        String deleteOrderName = orderingPage.getFirstOrder();
+        String deleteOrderName = orderingPage.getFirstOrderName();
         orderingPage.clickDeleteOrderButton();
         orderingPage.acceptAlert();
 
-        loggingAssert.assertNotEquals(orderingPage.getFirstOrder(), deleteOrderName, "Order is deleted");
+        loggingAssert.assertNotEquals(orderingPage.getFirstOrderName(), deleteOrderName, "Order is deleted");
 
         orderingPage.clickLogOutButton();
     }
