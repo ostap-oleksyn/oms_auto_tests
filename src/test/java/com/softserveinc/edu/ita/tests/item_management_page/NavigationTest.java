@@ -43,7 +43,7 @@ public class NavigationTest extends TestRunner {
                 .equals("Show 5 items"), "<b>Show 5 items</b> link is displayed");
 
         itemManagementPage.clickLastButton();
-        loggingSoftAssert.assertEquals(itemManagementPage.getCurrentPageNumber(), itemManagementPage.getQuantityOfTablePages(),
+        loggingSoftAssert.assertEquals(itemManagementPage.getCurrentPageNumber(), itemManagementPage.getTablePagesQuantity(),
                 "Navigated to the last page");
 
         loggingSoftAssert.assertFalse(itemManagementPage.isElementEnabled(ItemManagementPageLocators.LAST_BUTTON),
@@ -53,11 +53,11 @@ public class NavigationTest extends TestRunner {
 
         itemManagementPage.clickPreviousButton();
         loggingSoftAssert.assertEquals(itemManagementPage.getCurrentPageNumber(),
-                itemManagementPage.getQuantityOfTablePages() - 1, "Navigated to the previous page");
+                itemManagementPage.getTablePagesQuantity() - 1, "Navigated to the previous page");
 
         itemManagementPage.clickNextButton();
         loggingSoftAssert.assertEquals(itemManagementPage.getCurrentPageNumber(),
-                itemManagementPage.getQuantityOfTablePages(), "Navigated to the next page");
+                itemManagementPage.getTablePagesQuantity(), "Navigated to the next page");
 
         itemManagementPage.clickLogOutButton();
         loggingSoftAssert.assertAll();

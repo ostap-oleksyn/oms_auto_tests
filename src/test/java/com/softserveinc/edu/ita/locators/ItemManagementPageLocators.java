@@ -126,7 +126,11 @@ public enum ItemManagementPageLocators implements ILocator {
     NEXT_BUTTON(
             "Next button",
             LocatorsType.BY_XPATH,
-            ".//input[@id='next']");
+            ".//input[@id='next']"),
+    TABLE_CELLS_WITH_TEXT(
+            "Table cells with text",
+            LocatorsType.BY_XPATH,
+            ".//table/tbody/tr/td[contains(text(), '%s')]");
 
     private String name;
     private LocatorsType locatorsType;
@@ -154,12 +158,6 @@ public enum ItemManagementPageLocators implements ILocator {
     //This method prepares locator using additional parameter by means of so called "string-format" method.
     public ItemManagementPageLocators modify(String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
-        return this;
-    }
-
-    //This method prepares locator using 2 additional parameters by means of so called "string-format" method.
-    public ItemManagementPageLocators modify(String parameter1, String parameter2) {
-        this.modifiedLocator = String.format(this.rawLocator, parameter1, parameter2);
         return this;
     }
 

@@ -39,6 +39,22 @@ public final class DBUtility {
     }
 
     /**
+     * Returns random user by his role.
+     */
+    public static User getRandomUserByRole(Roles role) throws DAOException {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+        connection = factory.getConnection();
+        userDAO = (UserDAO) factory.getDAO(connection, User.class);
+        List<User> usersList = userDAO.getAll();
+        List<User> separatedUserList = usersList.stream()
+                .filter(user -> user.getRoleName().equals(role.getRoleName()))
+                .collect(Collectors.toList());
+        return separatedUserList.get(RandomUtil.getRandomInteger(0, separatedUserList.size()-1));
+    }
+
+    /**
      * Returns filtered by conditions users
      */
     public static List<User> getFilteredUsers(SearchConditions condition, String searchTerm) {

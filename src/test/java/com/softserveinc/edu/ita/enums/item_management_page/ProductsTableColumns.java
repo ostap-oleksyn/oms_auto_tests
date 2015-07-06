@@ -4,7 +4,7 @@ import org.openqa.selenium.WebElement;
 
 
 /**
- * Created by true on 01.07.2015.
+ * Enum to limit possible columns of product's table.
  */
 public enum ProductsTableColumns {
     NAME("Name", ValuesType.STRING),

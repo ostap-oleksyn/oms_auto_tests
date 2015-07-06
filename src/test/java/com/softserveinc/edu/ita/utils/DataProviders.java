@@ -4,6 +4,7 @@ import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.UsersTableColumns;
+import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
 import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
 import org.testng.annotations.DataProvider;
@@ -63,11 +64,7 @@ public final class DataProviders {
     }
 
     /**
-     * <<<<<<< HEAD
-     * Returns names of 'Users' table columns.
-     * =======
      * Returns names of 'Orders' table columns.
-     * >>>>>>> IFAA-28-2
      */
     @DataProvider(name = "getOrdersTableColumns")
     public static Iterator<Object[]> getOrdersDataIterator() {
@@ -77,8 +74,6 @@ public final class DataProviders {
     }
 
     /**
-     * <<<<<<< HEAD
-     * =======
      * Returns names of 'Products' table columns.
      */
     @DataProvider(name = "getProductsTableColumns")
@@ -89,7 +84,16 @@ public final class DataProviders {
     }
 
     /**
-     * >>>>>>> IFAA-28-2
+     * Returns 'Products' table filters.
+     */
+    @DataProvider(name = "getProductTablesFilters")
+    public static Iterator<Object[]> getProductsTableFilters() {
+        List<Object[]> testDataList = new ArrayList<>();
+        Stream.of(ItemFilter.values()).forEach(filter -> testDataList.add(new Object[]{filter}));
+        return testDataList.iterator();
+    }
+
+    /**
      * Returns all users with Administrator role from database;
      */
     @DataProvider(name = "getAdministrators")

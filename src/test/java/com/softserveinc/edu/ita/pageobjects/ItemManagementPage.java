@@ -60,8 +60,6 @@ public class ItemManagementPage extends LogOutBase {
     }
 
     public Product getRandomProduct(int modifier) {
-
-
         return Product.newBuilder()
                 .withoutId()
                 .withoutStatus()
@@ -120,19 +118,11 @@ public class ItemManagementPage extends LogOutBase {
         return this;
     }
 
-    public ItemManagementPage setFilters(int iteration) {
-        Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
-        fieldSelect.selectByIndex(iteration);
-        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>",
-                fieldSelect.getFirstSelectedOption().getText()));
-        return this;
-    }
-
     public int getCurrentPageNumber() {
         return Integer.parseInt(getElementText(ItemManagementPageLocators.CURRENT_PAGE_NUMBER));
     }
 
-    public int getQuantityOfTablePages() {
+    public int getTablePagesQuantity() {
         return Integer.valueOf(getElementText(ItemManagementPageLocators.QUANTITY_OF_TABLE_PAGES));
     }
 

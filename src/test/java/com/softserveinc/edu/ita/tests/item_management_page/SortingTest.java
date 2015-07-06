@@ -1,6 +1,8 @@
 package com.softserveinc.edu.ita.tests.item_management_page;
 
+import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.ItemManagementPage;
@@ -19,9 +21,10 @@ import java.util.Collections;
 public class SortingTest extends TestRunner {
 
     @Test(dataProviderClass = DataProviders.class, dataProvider = "getProductsTableColumns")
-    public void testSorting(ProductsTableColumns column) {
+    public void testSorting(ProductsTableColumns column) throws DAOException {
         final HomePage homePage = new HomePage(driver);
-        final UserInfoPage userInfoPage = homePage.logIn("login2", DBUtility.getByLogin("login2").getPassword());
+        final User randomSupervisor = DBUtility.getRandomUserByRole(Roles.SUPERVISOR);
+        final UserInfoPage userInfoPage = homePage.logIn(randomSupervisor.getLogin(), randomSupervisor.getPassword());
         final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
         itemManagementPage.clickResizeLink();
 
