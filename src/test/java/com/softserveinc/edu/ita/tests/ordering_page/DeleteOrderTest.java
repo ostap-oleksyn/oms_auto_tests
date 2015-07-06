@@ -20,8 +20,6 @@ public class DeleteOrderTest extends TestRunner {
 
         String deleteOrderName = orderingPage.getFirstOrder();
         orderingPage.clickDeleteOrderButton();
-
-        loggingAssert.assertTrue(orderingPage.isAlertPresent(), "Alert is present");
         orderingPage.acceptAlert();
 
         loggingAssert.assertNotEquals(orderingPage.getFirstOrder(), deleteOrderName, "Order is deleted");
