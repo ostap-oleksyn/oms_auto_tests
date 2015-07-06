@@ -246,7 +246,7 @@ public class CreateOrderTest extends TestRunner {
             totalPrice = totalPrice.add(itemSum);
         }
 
-        loggingAssert.assertEquals(totalPrice.doubleValue(), newOrderPage.getTotalPrice(),
+        loggingAssert.assertTrue(totalPrice.equals(newOrderPage.getTotalPrice()),
                 "Calculated and displayed total prices are equal");
 
         userInfoPage.clickLogOutButton();

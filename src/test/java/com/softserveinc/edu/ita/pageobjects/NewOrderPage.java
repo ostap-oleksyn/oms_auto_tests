@@ -7,6 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -28,7 +29,7 @@ public class NewOrderPage extends LogOutBase {
 
     public NewOrderPage selectRandomAssignee() {
         final Select assigneeSelect = new Select(driver.findElement(NewOrderPageLocators.ASSIGNEE_SELECT.getBy()));
-        final int randomAssigneeIndex = RandomUtil.getRandomInteger(1, assigneeSelect.getOptions().size());
+        final int randomAssigneeIndex = RandomUtil.getRandomInteger(0, assigneeSelect.getOptions().size() - 1);
         assigneeSelect.selectByIndex(randomAssigneeIndex);
         return this;
     }
@@ -125,8 +126,8 @@ public class NewOrderPage extends LogOutBase {
         return itemsList;
     }
 
-    public double getTotalPrice() {
-        return Double.valueOf(getElementText(NewOrderPageLocators.TOTAL_PRICE_CELL));
+    public BigDecimal getTotalPrice() {
+        return new BigDecimal(getElementText(NewOrderPageLocators.TOTAL_PRICE_CELL));
     }
 
     public AddItemPage clickEditLink() {
