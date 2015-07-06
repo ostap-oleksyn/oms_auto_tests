@@ -15,7 +15,7 @@ import java.util.*;
  */
 public class NewOrderPage extends LogOutBase {
 
-    private Random randomGenerator = new Random();
+    //private Random randomGenerator = new Random();
 
     public NewOrderPage(WebDriver driver) {
         super(driver);
@@ -28,7 +28,7 @@ public class NewOrderPage extends LogOutBase {
 
     public NewOrderPage selectRandomAssignee() {
         final Select assigneeSelect = new Select(driver.findElement(NewOrderPageLocators.ASSIGNEE_SELECT.getBy()));
-        final int randomAssigneeIndex = randomGenerator.nextInt(assigneeSelect.getOptions().size() - 1) + 1;
+        final int randomAssigneeIndex = RandomUtil.getRandomInteger(1, assigneeSelect.getOptions().size());
         assigneeSelect.selectByIndex(randomAssigneeIndex);
         return this;
     }
@@ -48,13 +48,10 @@ public class NewOrderPage extends LogOutBase {
     public NewOrderPage fillRandomPreferableDeliveryDate() {
         final int MAX_DAY_OFFSET = 30;
         Calendar calendar = new GregorianCalendar();
-        calendar.add(Calendar.DAY_OF_YEAR, randomGenerator.nextInt(MAX_DAY_OFFSET));
+        calendar.add(Calendar.DAY_OF_YEAR, RandomUtil.getRandomInteger(0, MAX_DAY_OFFSET));
         final Date deliveryDate = calendar.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        WebElement preferableDeliveryDateInput = driver
-                .findElement(NewOrderPageLocators.PREFERABLE_DELIVERY_DATE_INPUT.getBy());
-        preferableDeliveryDateInput.clear();
-        preferableDeliveryDateInput.sendKeys(dateFormat.format(deliveryDate));
+        sendKeys(NewOrderPageLocators.PREFERABLE_DELIVERY_DATE_INPUT, dateFormat.format(deliveryDate));
         return this;
     }
 
@@ -99,7 +96,16 @@ public class NewOrderPage extends LogOutBase {
     public void selectShowLinesCount(int option) {
         Select showLinesCountSelect = new Select(driver
                 .findElement(NewOrderPageLocators.SHOW_LINES_COUNT_SELECT.getBy()));
-        showLinesCountSelect.selectByIndex(option);
+        switch (option) {
+            case 10:
+                showLinesCountSelect.selectByIndex(0);
+                break;
+            case 25:
+                showLinesCountSelect.selectByIndex(1);
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
 
     public List<String[]> getItemsTable() {

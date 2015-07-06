@@ -3,7 +3,6 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.enums.ordering_page.SearchMethods;
 import com.softserveinc.edu.ita.enums.ordering_page.SortFields;
-import com.softserveinc.edu.ita.enums.ordering_page.SortType;
 import com.softserveinc.edu.ita.locators.AddItemPageLocators;
 import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.openqa.selenium.WebDriver;
@@ -11,9 +10,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * PageObject Class presents page for adding Item (Product) to Order
@@ -41,9 +38,7 @@ public class AddItemPage extends LogOutBase {
 
     public AddItemPage fillRandomQuantity(int maxQuantity) {
         final int quantity = RandomUtil.getRandomInteger(1, maxQuantity);
-        final WebElement quantityInput = driver.findElement(AddItemPageLocators.QUANTITY_INPUT.getBy());
-        quantityInput.clear();
-        quantityInput.sendKeys(String.valueOf(quantity));
+        sendKeys(AddItemPageLocators.QUANTITY_INPUT, String.valueOf(quantity));
         return this;
     }
 
@@ -59,9 +54,7 @@ public class AddItemPage extends LogOutBase {
     }
 
     public AddItemPage fillSearchInput(String searchTerm) {
-        WebElement searchInput = driver.findElement(AddItemPageLocators.SEARCH_INPUT.getBy());
-        searchInput.clear();
-        searchInput.sendKeys(searchTerm);
+        sendKeys(AddItemPageLocators.SEARCH_INPUT, searchTerm);
         return this;
     }
 

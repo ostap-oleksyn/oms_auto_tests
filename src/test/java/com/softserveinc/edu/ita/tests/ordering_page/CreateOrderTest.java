@@ -197,13 +197,13 @@ public class CreateOrderTest extends TestRunner {
         loggingSoftAssert.assertAll();
 
         // show 25 items per page
-        newOrderPage.selectShowLinesCount(1);
+        newOrderPage.selectShowLinesCount(ITEMS_PER_PAGE);
         loggingAssert.assertEquals(ITEMS_PER_PAGE, newOrderPage.getItemsTable().size(),
                 "Displayed correct items count");
 
         // show 10 items per page
         ITEMS_PER_PAGE = 10;
-        newOrderPage.selectShowLinesCount(0);
+        newOrderPage.selectShowLinesCount(ITEMS_PER_PAGE);
         loggingAssert.assertEquals(ITEMS_PER_PAGE, newOrderPage.getItemsTable().size(),
                 "Displayed correct items count");
 
@@ -256,6 +256,9 @@ public class CreateOrderTest extends TestRunner {
     public void testItemsEditing() {
 
         final int MAX_RANDOM_ITEM_QUANTITY = 20;
+        final int FIRST_ADDED_ITEM_INDEX = 1;
+        final int EDITED_WITH_ITEM_INDEX = 2;
+
 
         final HomePage homePage = new HomePage(driver);
         final User customer = DBUtility.getByRole(Roles.CUSTOMER);
@@ -266,7 +269,7 @@ public class CreateOrderTest extends TestRunner {
 
         // add first item to order
         AddItemPage addItemPage = newOrderPage.clickAddItemButton();
-        newOrderPage = addItemPage.clickSelectItemLink(1)
+        newOrderPage = addItemPage.clickSelectItemLink(FIRST_ADDED_ITEM_INDEX)
                 .fillRandomQuantity(MAX_RANDOM_ITEM_QUANTITY)
                 .selectRandomDimension()
                 .clickDoneButton();
@@ -274,7 +277,7 @@ public class CreateOrderTest extends TestRunner {
         String[] firstItem = newOrderPage.getItemsTable().get(0);
 
         addItemPage = newOrderPage.clickEditLink();
-        newOrderPage = addItemPage.clickSelectItemLink(2)
+        newOrderPage = addItemPage.clickSelectItemLink(EDITED_WITH_ITEM_INDEX)
                 .fillRandomQuantity(MAX_RANDOM_ITEM_QUANTITY)
                 .selectRandomDimension()
                 .clickDoneButton();
