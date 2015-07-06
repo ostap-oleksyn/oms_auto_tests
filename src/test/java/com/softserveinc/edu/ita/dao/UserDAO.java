@@ -11,7 +11,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * DAO class for user domain.
+ */
 public class UserDAO<T> extends AbstractDAO<T> {
 
     protected UserDAO(final Connection connection) {

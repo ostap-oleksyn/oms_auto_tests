@@ -17,7 +17,7 @@ import java.util.Map;
 import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
 
 /**
- * represents factory of DAO model
+ * Class that represents factory of DAO model.
  */
 public class FactoryDAO implements IFactoryDAO<Connection> {
 
@@ -30,6 +30,11 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
 
     private Map<Class, ICreatorDAO> creators;
 
+
+    /**
+     * This method returns a connection to the database.
+     * @throws DAOException
+     */
     public Connection getConnection() throws DAOException {
         Connection connection = null;
         try {
@@ -45,6 +50,14 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
         return connection;
     }
 
+
+    /**
+     * This method returns an instance of specified DAO domain.
+     *
+     * @param connection
+     * @param classDAO
+     * @throws DAOException
+     */
     @Override
     public IGenericDAO getDAO(final Connection connection, final Class classDAO) throws DAOException {
         final ICreatorDAO creator = creators.get(classDAO);
@@ -59,9 +72,7 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
         try {
             DRIVER = getProperty("driver", PROPERTY_FILE);
             Class.forName(DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
         creators = new HashMap<>();

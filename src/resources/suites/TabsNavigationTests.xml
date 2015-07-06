@@ -5,7 +5,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
-                    <include name="administratorTabsTest"/>
+                    <include name="testAdministratorTabs"/>
                 </methods>
             </class>
         </classes>
@@ -14,7 +14,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
-                    <include name="merchandiserTabsTest"/>
+                    <include name="testMerchandiserTabs"/>
                 </methods>
             </class>
         </classes>
@@ -23,7 +23,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
-                    <include name="customerTabsTest"/>
+                    <include name="testCustomerTabs"/>
                 </methods>
             </class>
         </classes>
@@ -32,7 +32,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
-                    <include name="supervisorTabsTest"/>
+                    <include name="testSupervisorTabs"/>
                 </methods>
             </class>
         </classes>
@@ -41,7 +41,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
-                    <include name="administrationTabStateTest"/>
+                    <include name="testAdministrationTabState"/>
                 </methods>
             </class>
         </classes>
@@ -50,7 +50,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
-                    <include name="customerOrderingTabStateTest"/>
+                    <include name="testCustomerOrderingTabState"/>
                 </methods>
             </class>
         </classes>
@@ -59,7 +59,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
-                    <include name="itemManagementTabStateTest"/>
+                    <include name="testItemManagementTabState"/>
                 </methods>
             </class>
         </classes>
@@ -68,7 +68,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
-                    <include name="merchandiserOrderingTabStateTest"/>
+                    <include name="testMerchandiserOrderingTabState"/>
                 </methods>
             </class>
         </classes>

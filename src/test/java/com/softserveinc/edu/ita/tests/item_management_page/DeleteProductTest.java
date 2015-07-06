@@ -23,7 +23,7 @@ public class DeleteProductTest extends TestRunner {
 
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void cancelProductDeleteingTest(final User user) {
+    public void testCancelProductDeleting(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         itemManagementPage = userInfoPage.clickItemManagementTab();
@@ -49,7 +49,7 @@ public class DeleteProductTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void deleteProductTest(final User user) {
+    public void testProductDeleting(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         itemManagementPage = userInfoPage.clickItemManagementTab();

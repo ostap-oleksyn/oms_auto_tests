@@ -27,7 +27,6 @@ public final class XlsFileReader {
     private static HSSFSheet sheet;
     private static HSSFWorkbook workbook;
     private static File excelFile;
-    private static FileInputStream fileInputStream;
 
     private XlsFileReader() {
     }
@@ -41,8 +40,7 @@ public final class XlsFileReader {
     public static Object[][] getAllRowsFromXlsSheet(final String sheetName) throws IOException {
         excelFile = new File(getProperty(EXCEL_FILE_NAME_PROPERTY));
 
-        try {
-            fileInputStream = new FileInputStream(excelFile);
+        try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
             workbook = new HSSFWorkbook(fileInputStream);
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,12 +80,11 @@ public final class XlsFileReader {
      * @param columnName - name of the column
      */
     public static List<String> getColumnFromXlsSheet(final String sheetName, final String columnName) throws IOException {
+
         excelFile = new File(getProperty(EXCEL_FILE_NAME_PROPERTY));
 
-        try {
-            fileInputStream = new FileInputStream(excelFile);
+        try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
             workbook = new HSSFWorkbook(fileInputStream);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

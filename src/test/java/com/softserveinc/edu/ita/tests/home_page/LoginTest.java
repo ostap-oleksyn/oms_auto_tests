@@ -1,14 +1,14 @@
 package com.softserveinc.edu.ita.tests.home_page;
 
 
-import com.softserveinc.edu.ita.enums.Roles;
-import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
+import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.locators.HomePageLocators;
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
 public class LoginTest extends TestRunner {
@@ -17,7 +17,7 @@ public class LoginTest extends TestRunner {
     private UserInfoPage userInfoPage;
 
     @Test
-    public void emptyLoginTest() {
+    public void testEmptyLogin() {
         homePage = new HomePage(driver);
         homePage.clickSubmitButton();
         loggingAssert.assertTrue(homePage.isElementDisplayed(HomePageLocators.LOGIN_ERROR_MESSAGE), "Error message displayed");
@@ -25,7 +25,7 @@ public class LoginTest extends TestRunner {
     }
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
-    public void validLoginTest(final User user) {
+    public void testValidLogin(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -37,7 +37,7 @@ public class LoginTest extends TestRunner {
     }
 
     @Test(dataProvider = "getInvalidUsers", dataProviderClass = DataProviders.class)
-    public void invalidLoginTest(final String login, final String password) {
+    public void testInvalidLogin(final String login, final String password) {
         homePage = new HomePage(driver);
         homePage.logIn(login, password);
 
@@ -45,7 +45,7 @@ public class LoginTest extends TestRunner {
     }
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
-    public void logOutTest(final User user) {
+    public void testLogOut(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 

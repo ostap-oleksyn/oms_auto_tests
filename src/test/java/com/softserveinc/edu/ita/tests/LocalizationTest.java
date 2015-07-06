@@ -16,7 +16,7 @@ public class LocalizationTest extends TestRunner {
     ItemManagementPage itemManagementPage;
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
-    public void administratorTabsTest(final User user) {
+    public void testAdministratorTabsLocalization(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -61,7 +61,7 @@ public class LocalizationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void merchandiserTabsTest(final User user) {
+    public void testMerchandiserTabsLocalization(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -96,7 +96,7 @@ public class LocalizationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
-    public void customerTabsTest(final User user) {
+    public void testCustomerTabsLocalization(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -132,7 +132,7 @@ public class LocalizationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void supervisorTabsTest(final User user) {
+    public void testSupervisorTabsLocalization(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 

@@ -28,7 +28,7 @@ public class TabsNavigationTest extends TestRunner {
     private String searchTerm;
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
-    public void administratorTabsTest(final User user) {
+    public void testAdministratorTabs(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -61,7 +61,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void merchandiserTabsTest(final User user) {
+    public void testMerchandiserTabs(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -94,7 +94,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
-    public void customerTabsTest(final User user) {
+    public void testCustomerTabs(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -127,7 +127,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void supervisorTabsTest(final User user) {
+    public void testSupervisorTabs(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -160,7 +160,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
-    public void administrationTabStateTest(final User user) {
+    public void testAdministrationTabState(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         administrationPage = userInfoPage.clickAdministrationTab();
@@ -193,7 +193,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void itemManagementTabStateTest(final User user) {
+    public void testItemManagementTabState(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         itemManagementPage = userInfoPage.clickItemManagementTab();
@@ -220,7 +220,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void merchandiserOrderingTabStateTest(final User user) {
+    public void testMerchandiserOrderingTabState(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         orderingPage = userInfoPage.clickOrderingTab();
@@ -266,7 +266,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
-    public void customerOrderingTabStateTest(final User user) {
+    public void testCustomerOrderingTabState(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         orderingPage = userInfoPage.clickOrderingTab();
@@ -312,7 +312,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @AfterMethod
-    public void afterMethod() {
+    public void logOut() {
         userInfoPage.clickLogOutButton();
     }
 }

@@ -5,7 +5,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.home_page.LoginTest">
                 <methods>
-                    <include name="emptyLoginTest"/>
+                    <include name="testEemptyLogin"/>
                 </methods>
             </class>
         </classes>
@@ -14,7 +14,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.home_page.LoginTest">
                 <methods>
-                    <include name="invalidLoginTest"/>
+                    <include name="testInvalidLogin"/>
                 </methods>
             </class>
         </classes>
@@ -23,7 +23,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.home_page.LoginTest">
                 <methods>
-                    <include name="validLoginTest"/>
+                    <include name="testValidLogin"/>
                 </methods>
             </class>
         </classes>
@@ -32,7 +32,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.home_page.LoginTest">
                 <methods>
-                    <include name="logOutTest"/>
+                    <include name="testLogOut"/>
                 </methods>
             </class>
         </classes>

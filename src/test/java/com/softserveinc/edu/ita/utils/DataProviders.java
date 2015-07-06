@@ -30,14 +30,8 @@ public final class DataProviders {
      * @return
      */
     @DataProvider(name = "getSearchTerms")
-    public static Object[][] getSearchTerms() {
-        Object[][] searchTerms = null;
-        try {
-            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("searchTerms");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return searchTerms;
+    public static Object[][] getSearchTerms() throws IOException {
+        return XlsFileReader.getAllRowsFromXlsSheet("searchTerms");
     }
 
     /**
@@ -46,14 +40,8 @@ public final class DataProviders {
      * @return
      */
     @DataProvider(name = "getOrderSearchTerms")
-    public static Object[][] getOrderSearchTerms() {
-        Object[][] searchTerms = null;
-        try {
-            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("OrderSearchTerms");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return searchTerms;
+    public static Object[][] getOrderSearchTerms() throws IOException {
+        return XlsFileReader.getAllRowsFromXlsSheet("OrderSearchTerms");
     }
 
     /**
@@ -80,84 +68,48 @@ public final class DataProviders {
      * Returns all users with Administrator role from database;
      */
     @DataProvider(name = "getAdministrators")
-    public static Object[][] getAdministratorCredentials() {
-        Object[][] credentials = null;
-        try {
-            credentials = getUsersFromList(Roles.ADMINISTRATOR);
-        } catch (IOException | DAOException e) {
-            e.printStackTrace();
-        }
-        return credentials;
+    public static Object[][] getAdministratorCredentials() throws IOException, DAOException {
+        return getUsersFromList(Roles.ADMINISTRATOR);
     }
 
     /**
      * Returns all users with Customer role from database;
      */
     @DataProvider(name = "getCustomers")
-    public static Object[][] getCustomerCredentials() {
-        Object[][] credentials = null;
-        try {
-            credentials = getUsersFromList(Roles.CUSTOMER);
-        } catch (IOException | DAOException e) {
-            e.printStackTrace();
-        }
-        return credentials;
+    public static Object[][] getCustomerCredentials() throws IOException, DAOException {
+        return getUsersFromList(Roles.CUSTOMER);
     }
 
     /**
      * Returns all users with Supervisor role from database;
      */
     @DataProvider(name = "getSupervisors")
-    public static Object[][] getSupervisorCredentials() {
-        Object[][] credentials = null;
-        try {
-            credentials = getUsersFromList(Roles.SUPERVISOR);
-        } catch (IOException | DAOException e) {
-            e.printStackTrace();
-        }
-        return credentials;
+    public static Object[][] getSupervisorCredentials() throws IOException, DAOException {
+        return getUsersFromList(Roles.SUPERVISOR);
     }
 
     /**
      * Returns all users with Merchandiser role from database;
      */
     @DataProvider(name = "getMerchandisers")
-    public static Object[][] getMerchandiserCredentials() {
-        Object[][] credentials = null;
-        try {
-            credentials = getUsersFromList(Roles.MERCHANDISER);
-        } catch (IOException | DAOException e) {
-            e.printStackTrace();
-        }
-        return credentials;
+    public static Object[][] getMerchandiserCredentials() throws IOException, DAOException {
+        return getUsersFromList(Roles.MERCHANDISER);
     }
 
     /**
      * Returns all roles users;
      */
     @DataProvider(name = "getAllRoles")
-    public static Object[][] getAllRolesUsersFromXLS() {
-        Object[][] allRolesUsers = null;
-        try {
-            allRolesUsers = getUsersFromList(Roles.ALL);
-        } catch (DAOException | IOException e) {
-            e.printStackTrace();
-        }
-        return allRolesUsers;
+    public static Object[][] getAllRolesUsersFromXLS() throws IOException, DAOException {
+        return getUsersFromList(Roles.ALL);
     }
 
     /**
      * Returns invalid users credentials;
      */
     @DataProvider(name = "getInvalidUsers")
-    public static Object[][] getInvalidCredentials() {
-        Object[][] invalidUsers = null;
-        try {
-            invalidUsers = XlsFileReader.getAllRowsFromXlsSheet("InvalidCredentials");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return invalidUsers;
+    public static Object[][] getInvalidCredentials() throws IOException {
+        return XlsFileReader.getAllRowsFromXlsSheet("InvalidCredentials");
     }
 
     /**
@@ -259,14 +211,8 @@ public final class DataProviders {
      * Returns randomly generated data for user editing
      */
     @DataProvider(name = "getUserEditData")
-    public static Object[][] getUserEditData() {
-        Object[][] userEditData = null;
-        try {
-            userEditData = XlsFileReader.getAllRowsFromXlsSheet("userEditData");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return userEditData;
+    public static Object[][] getUserEditData() throws IOException {
+        return XlsFileReader.getAllRowsFromXlsSheet("userEditData");
     }
 
     /**

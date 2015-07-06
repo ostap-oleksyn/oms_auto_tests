@@ -22,7 +22,7 @@ public class EditProductTest extends TestRunner {
 
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void editProductTest(final User user) {
+    public void testProductEditing(final User user) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();

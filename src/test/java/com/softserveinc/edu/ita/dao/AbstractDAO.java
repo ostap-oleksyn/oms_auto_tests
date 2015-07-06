@@ -7,17 +7,40 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
+/**
+ * Abstract class that provides basic CRUD operations.
+ */
 public abstract class AbstractDAO<T> implements IGenericDAO<T> {
 
     protected Connection connection;
 
     protected abstract String getSelectQuery();
+
     protected abstract String getSelectAllQuery();
+
     protected abstract String getUpdateQuery();
+
     protected abstract String getInsertQuery();
+
     protected abstract String getDeleteQuery();
+
+    /**
+     * Method for updating data in the database.
+     * @param statement - statement with update query
+     * @param object - object of domain class which fields will be updated
+     */
     protected abstract void setUpdateParameters(PreparedStatement statement, T object);
+
+    /**
+     * Method for inserting data into to the database.
+     * @param statement - statement with insert query
+     * @param object - object of domain class to be inserted
+     */
     protected abstract void setInsertParameters(PreparedStatement statement, T object);
+
+    /**
+     * Parses ResultSet and returns a list of object corresponding to the content of ResultSet.
+     */
     protected abstract List<T> parseResultSet(ResultSet resultSet) throws DAOException;
 
     public AbstractDAO(final Connection connection) {

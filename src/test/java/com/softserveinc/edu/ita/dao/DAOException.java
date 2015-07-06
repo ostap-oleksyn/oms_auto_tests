@@ -2,7 +2,7 @@
 package com.softserveinc.edu.ita.dao;
 
 /**
- * represents exceptions which DAO model throws
+ * Class that represents exceptions which DAO model throws.
  */
 public class DAOException extends Exception {
 

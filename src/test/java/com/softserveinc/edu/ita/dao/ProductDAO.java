@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * DAO class for product domain.
+ */
 public class ProductDAO extends AbstractDAO {
 
     public ProductDAO(final Connection connection) {

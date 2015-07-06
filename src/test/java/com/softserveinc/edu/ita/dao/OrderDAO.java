@@ -12,6 +12,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+/**
+ * DAO class for order domain.
+ */
 public class OrderDAO<T> extends AbstractDAO<T> {
 
     protected OrderDAO(final Connection connection) {
