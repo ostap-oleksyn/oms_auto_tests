@@ -10,4 +10,13 @@
             </class>
         </classes>
     </test>
+    <test name="Delete order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.DeleteOrderTest">
+                <methods>
+                    <include name="testOrderDeleting"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
