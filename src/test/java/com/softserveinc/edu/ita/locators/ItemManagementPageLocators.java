@@ -82,8 +82,55 @@ public enum ItemManagementPageLocators implements ILocator {
     SAVE_REPORT_LINK(
             "Save report link",
             LocatorsType.BY_XPATH,
-            ".//*[@href='getItemReport.htm']");
-
+            ".//*[@href='getItemReport.htm']"),
+    TABLE_COLUMN(
+            "Table column",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/thead/tr/th/a[contains(text(), '%s')]"),
+    PRODUCTS_LIST_RESIZE_LINK(
+            "Products list resize link",
+            LocatorsType.BY_XPATH,
+            ".//*[@href='itemManagement/resizeItemList.htm']"),
+    COLUMNS_ELEMENTS(
+            "Column's elements",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr/td[%s]"),
+    PRODUCTS_TABLE_CELL(
+            "Product's table cell",
+            LocatorsType.BY_XPATH,
+            ".//td[%s][contains(text(), '%s')]"),
+    SEARCH_CONDITION(
+            "Search condition",
+            LocatorsType.BY_XPATH,
+            ".//option[%s]"),
+    TABLES_GRID(
+            "Table's grid",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='table']/tbody/tr/td"),
+    CURRENT_PAGE_NUMBER(
+            "Current page number",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageNumber']"),
+    PREVIOUS_BUTTON(
+            "Previous button",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='previous']"),
+    FIRST_BUTTON(
+            "First button",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='first']"),
+    QUANTITY_OF_TABLE_PAGES(
+            "Quantity of table pages",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='pageCount']"),
+    NEXT_BUTTON(
+            "Next button",
+            LocatorsType.BY_XPATH,
+            ".//input[@id='next']"),
+    TABLE_CELLS_WITH_TEXT(
+            "Table cells with text",
+            LocatorsType.BY_XPATH,
+            ".//table/tbody/tr/td[contains(text(), '%s')]");
 
     private String name;
     private LocatorsType locatorsType;
