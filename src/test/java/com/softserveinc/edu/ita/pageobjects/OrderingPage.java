@@ -180,5 +180,14 @@ public class OrderingPage extends LogOutBase {
         click(ITEM_GO_TO_HOME_BUTTON);
         return this;
     }
+
+    public OrderingPage clickDeleteOrderButton() {
+        click(OrderingPageLocators.DELETE_ORDER_BUTTON);
+        return this;
+    }
+
+    public String getFirstOrderName() {
+        return getElementText(OrderingPageLocators.FIRST_ORDER);
+    }
 }
 
