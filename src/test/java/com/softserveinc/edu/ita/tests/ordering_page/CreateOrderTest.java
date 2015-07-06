@@ -259,7 +259,6 @@ public class CreateOrderTest extends TestRunner {
         final int FIRST_ADDED_ITEM_INDEX = 1;
         final int EDITED_WITH_ITEM_INDEX = 2;
 
-
         final HomePage homePage = new HomePage(driver);
         final User customer = DBUtility.getByRole(Roles.CUSTOMER);
         final UserInfoPage userInfoPage = homePage.logIn(customer.getLogin(), customer.getPassword());
@@ -333,7 +332,7 @@ public class CreateOrderTest extends TestRunner {
         addItemPage.clickLogOutButton();
     }
 
-    public List<Product> sortProductList(List<Product> productsList, SortFields sortFields, SortType sortType) {
+    private List<Product> sortProductList(List<Product> productsList, SortFields sortFields, SortType sortType) {
 
         switch (sortFields) {
             case SORT_BY_NAME:

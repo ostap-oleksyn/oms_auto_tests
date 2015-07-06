@@ -44,7 +44,7 @@ public class AddItemPage extends LogOutBase {
 
     public AddItemPage selectRandomDimension() {
         Select dimensionSelect = new Select(driver.findElement(AddItemPageLocators.DIMENSION_SELECT.getBy()));
-        dimensionSelect.selectByIndex(RandomUtil.getRandomInteger(1, 3));
+        dimensionSelect.selectByIndex(RandomUtil.getRandomInteger(0, 2));
         return this;
     }
 
