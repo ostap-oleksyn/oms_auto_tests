@@ -316,7 +316,6 @@ public final class DBUtility {
         return product;
     }
 
-<<<<<<< HEAD
     /**
      * Returns first User by role
      */
@@ -447,7 +446,6 @@ public final class DBUtility {
         return productsList;
     }
 
-=======
     public static int getActiveProductsNumber() throws DAOException {
         final FactoryDAO factory = new FactoryDAO();
         final Connection connection = factory.getConnection();
@@ -457,5 +455,5 @@ public final class DBUtility {
                 .filter(product -> product.getStatus() == 1)
                 .collect(Collectors.toList()).size();
     }
->>>>>>> d8a4e4dc942d50deea4d03588ec71f50df731e2a
+
 }
