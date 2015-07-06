@@ -15,10 +15,10 @@ public class DeleteOrderTest extends TestRunner {
 
         final HomePage homePage = new HomePage(driver);
         final User merchandiser = DBUtility.getMerchandiser();
-        UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        String deleteOrderName = orderingPage.getFirstOrderName();
+        final String deleteOrderName = orderingPage.getFirstOrderName();
         orderingPage.clickDeleteOrderButton();
         orderingPage.acceptAlert();
 
