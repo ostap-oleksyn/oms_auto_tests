@@ -8,65 +8,84 @@ public enum NewOrderPageLocators implements ILocator {
 
     ADD_ITEM_BUTTON(
             "Add item button",
-            By.xpath(".//fieldset//input[@value='Add Item']")),
+            LocatorsType.BY_XPATH,
+            ".//fieldset//input[@value='Add Item']"),
     NAVIGATION_FIRST_BUTTON(
             "First button",
-            By.xpath(".//fieldset//input[@value='First']")),
+            LocatorsType.BY_XPATH,
+            ".//fieldset//input[@value='First']"),
     NAVIGATION_BACKWARD_BUTTON(
             "Backward button",
-            By.xpath(".//fieldset//input[@value='Backward']")),
+            LocatorsType.BY_XPATH,
+            ".//fieldset//input[@value='Backward']"),
     NAVIGATION_FORWARD_BUTTON(
             "Forward button",
-            By.xpath(".//fieldset//input[@value='Forward']")),
+            LocatorsType.BY_XPATH,
+            ".//fieldset//input[@value='Forward']"),
     NAVIGATION_LAST_BUTTON(
             "LAst button",
-            By.xpath(".//fieldset//input[@value='Last']")),
+            LocatorsType.BY_XPATH,
+            ".//fieldset//input[@value='Last']"),
     SHOW_LINES_COUNT_SELECT(
             "Show lines count select",
-            By.xpath(".//fieldset//select[@id='rowsNumber']")),
+            LocatorsType.BY_XPATH,
+            ".//fieldset//select[@id='rowsNumber']"),
     ITEMS_LIST(
             "Items list",
-            By.xpath(".//fieldset//div[@id='list']")),
+            LocatorsType.BY_XPATH,
+            ".//fieldset//div[@id='list']"),
     ASSIGNEE_SELECT(
             "Assignee select",
-            By.xpath(".//*[@id='assignee']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='assignee']"),
     CREDIT_CARD_NUMBER_INPUT(
             "Credit card number input",
-            By.xpath(".//*[@id='cardNum']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='cardNum']"),
     CVV2_INPUT(
             "CVV2 input",
-            By.xpath(".//*[@id='cvv2']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='cvv2']"),
     PREFERABLE_DELIVERY_DATE_INPUT(
             "Preferable delivery date input",
-            By.xpath(".//*[@id='dateDays']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='dateDays']"),
     SAVE_BUTTON(
             "Save Button",
-            By.xpath(".//*[@id='save']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='save']"),
     ORDER_NUMBER_INPUT(
             "Order number input",
-            By.xpath(".//*[@id='orderNum']")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='orderNum']"),
     ITEMS_TABLE_ROWS(
             "Items table rows",
-            By.xpath(".//*[@id='list']/table/tbody/tr")),
+            LocatorsType.BY_XPATH,
+            ".//*[@id='list']/table/tbody/tr"),
     ITEMS_ROW_CELL(
             "Items row cell",
-            By.xpath("td")),
+            LocatorsType.BY_XPATH,
+            "td"),
     TOTAL_PRICE_CELL(
             "Total price cell",
-            By.xpath(".//*[@id='saveButton']/table/tbody/tr[3]/td[2]")),
-    // TODO redo versatile after update to new locators type
+            LocatorsType.BY_XPATH,
+            ".//*[@id='saveButton']/table/tbody/tr[3]/td[2]"),
     EDIT_ITEM_LINK(
             "Total price cell",
-            By.xpath(".//*[@id='edit0']/a"));
+            LocatorsType.BY_XPATH,
+            ".//*[@id='edit0']/a");
 
-    NewOrderPageLocators(String name, By locator) {
+    NewOrderPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
-        this.locator = locator;
+        this.locatorsType = locatorsType;
+        this.rawLocator = rawLocator;
     }
 
-
     private String name;
-    private By locator;
+    private LocatorsType locatorsType;
+    private String rawLocator;
+    private String modifiedLocator;
+    private By byLocator;
 
     @Override
     public String toString() {
@@ -78,8 +97,20 @@ public enum NewOrderPageLocators implements ILocator {
         return this.name;
     }
 
+    public NewOrderPageLocators modify(String parameter) {
+        this.modifiedLocator = String.format(this.rawLocator, parameter);
+        return this;
+    }
+
     @Override
+    //This method converts locator into "By" format.
     public By getBy() {
-        return this.locator;
+        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
+        if (this.modifiedLocator == null) {
+            this.byLocator = this.locatorsType.getBy(this.rawLocator);
+        } else {
+            this.byLocator = this.locatorsType.getBy(this.modifiedLocator);
+        }
+        return this.byLocator;
     }
 }

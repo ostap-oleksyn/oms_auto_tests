@@ -1,23 +1,21 @@
 package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.Product;
+import com.softserveinc.edu.ita.enums.ordering_page.SearchMethods;
+import com.softserveinc.edu.ita.enums.ordering_page.SortFields;
 import com.softserveinc.edu.ita.locators.AddItemPageLocators;
-import org.openqa.selenium.By;
+import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 /**
  * PageObject Class presents page for adding Item (Product) to Order
  */
 public class AddItemPage extends LogOutBase {
-
-    private Random randomGenerator = new Random();
 
     public AddItemPage(WebDriver driver) {
         super(driver);
@@ -28,27 +26,25 @@ public class AddItemPage extends LogOutBase {
     }
 
     public AddItemPage clickRandomSelectItemLink() {
-        int rowNumber = randomGenerator.nextInt(getItemsCount() - 1) + 1;
-        driver.findElement(By.xpath(String.format(AddItemPageLocators.SELECT_ITEM_LINK, rowNumber))).click();
+        final int rowNumber = RandomUtil.getRandomInteger(1, getItemsCount());
+        click(AddItemPageLocators.SELECT_ITEM_LINK.modify(String.valueOf(rowNumber)));
         return this;
     }
 
     public AddItemPage clickSelectItemLink(int rowNumber) {
-        driver.findElement(By.xpath(String.format(AddItemPageLocators.SELECT_ITEM_LINK, rowNumber))).click();
+        click(AddItemPageLocators.SELECT_ITEM_LINK.modify(String.valueOf(rowNumber)));
         return this;
     }
 
     public AddItemPage fillRandomQuantity(int maxQuantity) {
-        final int quantity = randomGenerator.nextInt(maxQuantity - 1) + 1;
-        final WebElement quantityInput = driver.findElement(AddItemPageLocators.QUANTITY_INPUT.getBy());
-        quantityInput.clear();
-        quantityInput.sendKeys(String.valueOf(quantity));
+        final int quantity = RandomUtil.getRandomInteger(1, maxQuantity);
+        sendKeys(AddItemPageLocators.QUANTITY_INPUT, String.valueOf(quantity));
         return this;
     }
 
     public AddItemPage selectRandomDimension() {
         Select dimensionSelect = new Select(driver.findElement(AddItemPageLocators.DIMENSION_SELECT.getBy()));
-        dimensionSelect.selectByIndex(randomGenerator.nextInt(2) + 1);
+        dimensionSelect.selectByIndex(RandomUtil.getRandomInteger(0, 2));
         return this;
     }
 
@@ -58,9 +54,7 @@ public class AddItemPage extends LogOutBase {
     }
 
     public AddItemPage fillSearchInput(String searchTerm) {
-        WebElement searchInput = driver.findElement(AddItemPageLocators.SEARCH_INPUT.getBy());
-        searchInput.clear();
-        searchInput.sendKeys(searchTerm);
+        sendKeys(AddItemPageLocators.SEARCH_INPUT, searchTerm);
         return this;
     }
 
@@ -110,26 +104,6 @@ public class AddItemPage extends LogOutBase {
         return true;
     }
 
-    public List<Product> sortProductList(List<Product> productsList, SortFields sortFields, SortType sortType) {
-
-        switch (sortFields) {
-            case SORT_BY_NAME:
-                Collections.sort(productsList, (p1, p2) -> p1.getProductName()
-                        .compareTo(p2.getProductName()));
-                break;
-            case SORT_BY_DESCRIPTION:
-                Collections.sort(productsList, (p1, p2) -> p1.getProductDescription()
-                        .compareTo(p2.getProductDescription()));
-                break;
-        }
-
-        if (SortType.DESC.equals(sortType)) {
-            Collections.reverse(productsList);
-        }
-
-        return productsList;
-    }
-
     public void clickSortLink(SortFields sortField) {
         switch (sortField) {
             case SORT_BY_NAME:
@@ -140,20 +114,4 @@ public class AddItemPage extends LogOutBase {
                 break;
         }
     }
-
-    public enum SearchMethods {
-        SEARCH_BY_NAME,
-        SEARCH_BY_DESCRIPTION
-    }
-
-    public enum SortFields {
-        SORT_BY_NAME,
-        SORT_BY_DESCRIPTION
-    }
-
-    public enum SortType {
-        ASC,
-        DESC
-    }
-
 }

@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 
 import static com.softserveinc.edu.ita.utils.DBUtility.getByLogin;
 import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
+import static com.softserveinc.edu.ita.utils.XlsFileReader.getAllRowsFromXlsSheet;
 
 public final class DataProviders {
 
@@ -30,7 +31,7 @@ public final class DataProviders {
     public static Object[][] getSearchTerms() {
         Object[][] searchTerms = null;
         try {
-            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("searchTerms");
+            searchTerms = getAllRowsFromXlsSheet("searchTerms");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,7 +47,7 @@ public final class DataProviders {
     public static Object[][] getOrderSearchTerms() {
         Object[][] searchTerms = null;
         try {
-            searchTerms = XlsFileReader.getAllRowsFromXlsSheet("OrderSearchTerms");
+            searchTerms = getAllRowsFromXlsSheet("OrderSearchTerms");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -170,7 +171,7 @@ public final class DataProviders {
     public static Object[][] getInvalidCredentials() {
         Object[][] invalidUsers = null;
         try {
-            invalidUsers = XlsFileReader.getAllRowsFromXlsSheet("InvalidCredentials");
+            invalidUsers = getAllRowsFromXlsSheet("InvalidCredentials");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -287,10 +288,15 @@ public final class DataProviders {
     public static Object[][] getUserEditData() {
         Object[][] userEditData = null;
         try {
-            userEditData = XlsFileReader.getAllRowsFromXlsSheet("userEditData");
+            userEditData = getAllRowsFromXlsSheet("userEditData");
         } catch (IOException e) {
             e.printStackTrace();
         }
         return userEditData;
+    }
+
+    @DataProvider(name = "products")
+    public static Object[][] getProducts() throws IOException {
+        return getAllRowsFromXlsSheet("Products");
     }
 }
