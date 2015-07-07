@@ -73,6 +73,11 @@ public enum AddItemPageLocators implements ILocator {
         return this.name;
     }
 
+    /**
+     * Modifies the locator by inserting the given string.
+     *
+     * @param parameter - modifier that will be inserted into the locator.
+     */
     public AddItemPageLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;

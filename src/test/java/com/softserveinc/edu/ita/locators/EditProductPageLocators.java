@@ -50,8 +50,9 @@ public enum EditProductPageLocators implements ILocator {
     }
 
     /**
-     * This method prepares locator using additional parameter
-     * by means of so called "string-format" method.
+     * Modifies the locator by inserting the given string.
+     *
+     * @param parameter - modifier that will be inserted into the locator.
      */
     public EditProductPageLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);

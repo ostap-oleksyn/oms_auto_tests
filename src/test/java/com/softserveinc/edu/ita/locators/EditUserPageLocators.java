@@ -66,8 +66,9 @@ public enum EditUserPageLocators implements ILocator {
     }
 
     /**
-     * This method prepares locator using additional parameter
-     * by means of so called "string-format" method.
+     * Modifies the locator by inserting the given string.
+     *
+     * @param parameter - modifier that will be inserted into the locator.
      */
     public EditUserPageLocators modify(final String parameter) {
         this.name = parameter;

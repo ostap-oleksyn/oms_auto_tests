@@ -1,7 +1,9 @@
 package com.softserveinc.edu.ita.enums;
 
+
 /**
- * Enum with roles names. */
+ *  Enum with dimension multilpliers.
+ */
 public enum DimensionMultipliers {
     ITEM(1, "Item"),
     MERCHANDISER(5, "Box"),
