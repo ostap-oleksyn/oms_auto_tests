@@ -7,7 +7,7 @@ public enum ProductStatus {
 
     private int status;
 
-    ProductStatus(int status) {
+    ProductStatus(final int status) {
         this.status = status;
     }
 

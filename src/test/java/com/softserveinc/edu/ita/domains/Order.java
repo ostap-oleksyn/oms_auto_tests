@@ -50,7 +50,7 @@ public class Order {
         return Role;
     }
 
-    public void setRole(String role) {
+    public void setRole(final String role) {
         Role = role;
     }
 
@@ -159,7 +159,7 @@ public class Order {
         }
 
         @Override
-        public OrderNameStep withId(int id) {
+        public OrderNameStep withId(final int id) {
             this.id = id;
             return this;
         }
@@ -170,7 +170,7 @@ public class Order {
         }
 
         @Override
-        public OrderNumberStep withOrderName(String orderName) {
+        public OrderNumberStep withOrderName(final String orderName) {
             this.orderName = orderName;
             return this;
         }
@@ -181,7 +181,7 @@ public class Order {
         }
 
         @Override
-        public TotalPriceStep withOrderNumber(int orderNumber) {
+        public TotalPriceStep withOrderNumber(final int orderNumber) {
             this.orderNumber = orderNumber;
             return this;
         }
@@ -192,7 +192,7 @@ public class Order {
         }
 
         @Override
-        public AssigneeStep withTotalPrice(Double totalPrice) {
+        public AssigneeStep withTotalPrice(final Double totalPrice) {
             this.totalPrice = totalPrice;
             return this;
         }
@@ -203,7 +203,7 @@ public class Order {
         }
 
         @Override
-        public CustomerStep withAssignee(int assignee) {
+        public CustomerStep withAssignee(final int assignee) {
             this.assignee = assignee;
             return this;
         }
@@ -214,7 +214,7 @@ public class Order {
         }
 
         @Override
-        public OrderStatusReferenceStep withCustomer(int customer) {
+        public OrderStatusReferenceStep withCustomer(final int customer) {
             this.customer = customer;
             return this;
         }
@@ -225,7 +225,7 @@ public class Order {
         }
 
         @Override
-        public MaxDiscountStep withOrderStatusReference(int orderStatusReference) {
+        public MaxDiscountStep withOrderStatusReference(final int orderStatusReference) {
             this.orderStatusReference = orderStatusReference;
             return this;
         }
@@ -236,7 +236,7 @@ public class Order {
         }
 
         @Override
-        public DeliveryDateStep withMaxDiscount(Double maxDiscount) {
+        public DeliveryDateStep withMaxDiscount(final Double maxDiscount) {
             this.maxDiscount = maxDiscount;
             return this;
         }
@@ -247,7 +247,7 @@ public class Order {
         }
 
         @Override
-        public PreferableDeliveryDateStep withDeliveryDate(String deliveryDate) {
+        public PreferableDeliveryDateStep withDeliveryDate(final String deliveryDate) {
             this.deliveryDate = deliveryDate;
             return this;
         }
@@ -258,7 +258,7 @@ public class Order {
         }
 
         @Override
-        public BuildStep withPreferableDeliveryDate(String preferableDeliveryDate) {
+        public BuildStep withPreferableDeliveryDate(final String preferableDeliveryDate) {
             this.preferableDeliveryDate = preferableDeliveryDate;
             return this;
         }
@@ -270,7 +270,7 @@ public class Order {
 
         @Override
         public Order build() {
-            Order order = new Order();
+            final Order order = new Order();
             order.setId(this.id);
             order.setOrderName(this.orderName);
             order.setOrderNumber(this.orderNumber);

@@ -7,6 +7,10 @@ import com.softserveinc.edu.ita.pageobjects.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+
+/**
+ * Class to test OMS localization.
+ */
 public class LocalizationTest extends TestRunner {
 
     HomePage homePage;
@@ -16,7 +20,7 @@ public class LocalizationTest extends TestRunner {
     ItemManagementPage itemManagementPage;
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
-    public void administratorTabsTest(User user) {
+    public void testAdministratorTabsLocalization(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -61,7 +65,7 @@ public class LocalizationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void merchandiserTabsTest(User user) {
+    public void testMerchandiserTabsLocalization(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -96,7 +100,7 @@ public class LocalizationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
-    public void customerTabsTest(User user) {
+    public void testCustomerTabsLocalization(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -132,7 +136,7 @@ public class LocalizationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void supervisorTabsTest(User user) {
+    public void testSupervisorTabsLocalization(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 

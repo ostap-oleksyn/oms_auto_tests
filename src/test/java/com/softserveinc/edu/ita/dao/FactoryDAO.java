@@ -18,7 +18,7 @@ import java.util.Map;
 import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
 
 /**
- * represents factory of DAO model
+ * Class that represents factory of DAO model.
  */
 public class FactoryDAO implements IFactoryDAO<Connection> {
 
@@ -31,7 +31,13 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
 
     private Map<Class, ICreatorDAO> creators;
 
-    public Connection getConnection() throws DAOException {
+
+    /**
+     * This method returns a connection to the database.
+     *
+     * @throws DAOException
+     */
+    public Connection getConnection() throws DAOException, IOException {
         Connection connection = null;
         try {
             USER = getProperty("user", PROPERTY_FILE);
@@ -40,89 +46,35 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             throw new DAOException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return connection;
     }
 
+    /**
+     * This method returns an instance of specified DAO domain.
+     *
+     * @param connection
+     * @param classDAO
+     * @throws DAOException
+     */
     @Override
-    public IGenericDAO getDAO(Connection connection, Class classDAO) throws DAOException {
-        ICreatorDAO creator = creators.get(classDAO);
+    public IGenericDAO getDAO(final Connection connection, final Class classDAO) throws DAOException {
+        final ICreatorDAO creator = creators.get(classDAO);
         if (creator == null) {
             throw new DAOException("DAO object for " + classDAO + " not found.");
         }
         return creator.create(connection);
     }
 
-    public FactoryDAO() {
+    public FactoryDAO() throws IOException, ClassNotFoundException {
 
-        try {
-            DRIVER = getProperty("driver", PROPERTY_FILE);
-            Class.forName(DRIVER);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        DRIVER = getProperty("driver", PROPERTY_FILE);
+        Class.forName(DRIVER);
+
         creators = new HashMap<>();
-
-        creators.put(User.class, new ICreatorDAO<Connection>() {
-            @Override
-            public AbstractDAO create(Connection connection) {
-                return new UserDAO(connection);
-            }
-        });
-
-        creators.put(User.class, new ICreatorDAO<Connection>() {
-            @Override
-            public IGenericDAO create(Connection connection) {
-                return new UserDAO(connection);
-            }
-        });
-
-        creators.put(Order.class, new ICreatorDAO<Connection>() {
-            @Override
-            public AbstractDAO create(Connection connection) {
-                return new OrderDAO(connection);
-            }
-        });
-
-        creators.put(Order.class, new ICreatorDAO<Connection>() {
-            @Override
-            public IGenericDAO create(Connection connection) {
-                return new OrderDAO(connection);
-            }
-        });
-        creators.put(Product.class, new ICreatorDAO<Connection>() {
-
-            @Override
-            public AbstractDAO create(Connection connection) {
-                return new ProductDAO(connection);
-            }
-        });
-        creators.put(Product.class, new ICreatorDAO<Connection>() {
-
-            @Override
-            public IGenericDAO create(Connection connection) {
-                return new ProductDAO(connection);
-            }
-        });
-        creators.put(OrderItem.class, new ICreatorDAO<Connection>() {
-            @Override
-            public AbstractDAO create(Connection connection) {
-                return new OrderItemDAO(connection);
-            }
-        });
-
-        creators.put(OrderItem.class, new ICreatorDAO<Connection>() {
-            @Override
-            public IGenericDAO create(Connection connection) {
-                return new OrderItemDAO(connection);
-            }
-        });
-
-
-
+        creators.put(User.class, (ICreatorDAO<Connection>) UserDAO::new);
+        creators.put(Order.class, (ICreatorDAO<Connection>) OrderDAO::new);
+        creators.put(Product.class, (ICreatorDAO<Connection>) ProductDAO::new);
+        creators.put(OrderItem.class, (ICreatorDAO<Connection>) OrderItemDAO::new);
     }
 }

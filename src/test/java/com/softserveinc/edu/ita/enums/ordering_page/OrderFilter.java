@@ -7,7 +7,7 @@ public enum OrderFilter {
 
     private String filterName;
 
-    OrderFilter(String filterName) {
+    OrderFilter(final String filterName) {
         this.filterName = filterName;
     }
 

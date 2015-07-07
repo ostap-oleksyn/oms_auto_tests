@@ -10,7 +10,7 @@ public enum RoleFilterValue {
 
     private String filterValue;
 
-    RoleFilterValue(String filterValue) {
+    RoleFilterValue(final String filterValue) {
         this.filterValue = filterValue;
     }
 

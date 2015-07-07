@@ -27,7 +27,7 @@ public final class TestListener extends TestListenerAdapter {
      * @param result - test result
      */
     @Override
-    public void onTestFailure(ITestResult result) {
+    public void onTestFailure(final ITestResult result) {
 
         //Timeout to wait for the page to load completely, before taking a screenshot
         try {

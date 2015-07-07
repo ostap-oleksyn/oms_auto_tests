@@ -1,7 +1,8 @@
 package com.softserveinc.edu.ita.enums;
 
+
 /**
- * Enum with roles names. Can generate random values
+ *  Enum with dimension multilpliers.
  */
 public enum DimensionMultipliers {
     ITEM(1, "Item"),
@@ -11,7 +12,7 @@ public enum DimensionMultipliers {
     private int itemsCount;
     private String dimensionName;
 
-    DimensionMultipliers(int itemsCount, String dimensionName) {
+    DimensionMultipliers(final int itemsCount, final String dimensionName) {
         this.itemsCount = itemsCount;
         this.dimensionName = dimensionName;
     }
@@ -32,8 +33,8 @@ public enum DimensionMultipliers {
         return dimensionName;
     }
 
-    public static int getItemsCount(String dimensionName) {
-        for (DimensionMultipliers multiplayer: DimensionMultipliers.values()) {
+    public static int getItemsCount(final String dimensionName) {
+        for (final DimensionMultipliers multiplayer: DimensionMultipliers.values()) {
             if (multiplayer.dimensionName.equals(dimensionName)) {
                 return multiplayer.getItemsCount();
             }

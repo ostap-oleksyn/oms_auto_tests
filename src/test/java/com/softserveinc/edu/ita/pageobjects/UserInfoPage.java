@@ -4,9 +4,12 @@ import com.softserveinc.edu.ita.interfaces.ILocator;
 import com.softserveinc.edu.ita.locators.CommonLocators;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * PageObject class that represents User Info page.
+ */
 public class UserInfoPage extends LogOutBase {
 
-    public UserInfoPage(WebDriver driver) {
+    public UserInfoPage(final WebDriver driver) {
         super(driver);
     }
 
@@ -28,7 +31,7 @@ public class UserInfoPage extends LogOutBase {
         return new OrderingPage(driver);
     }
 
-    public UserInfoPage clickLanguageLink(ILocator locator){
+    public UserInfoPage clickLanguageLink(final ILocator locator){
         click(locator);
 
         return this;

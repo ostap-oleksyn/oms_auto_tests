@@ -11,9 +11,12 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * DAO class for product domain.
+ */
 public class ProductDAO extends AbstractDAO {
 
-    public ProductDAO(Connection connection) {
+    public ProductDAO(final Connection connection) {
         super(connection);
     }
 
@@ -69,8 +72,8 @@ public class ProductDAO extends AbstractDAO {
     }
 
     @Override
-    protected void setUpdateParameters(PreparedStatement statement, Object object) {
-        Product product = (Product) object;
+    protected void setUpdateParameters(final PreparedStatement statement, final Object object) throws DAOException {
+        final Product product = (Product) object;
         try {
             int i = 1;
             statement.setInt(i++, product.getStatus());
@@ -79,13 +82,13 @@ public class ProductDAO extends AbstractDAO {
             statement.setDouble(i++, product.getProductPrice());
             statement.setInt(i++, product.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
     @Override
-    protected void setInsertParameters(PreparedStatement statement, Object object) {
-        Product product = (Product) object;
+    protected void setInsertParameters(final PreparedStatement statement, final Object object) throws DAOException {
+        final Product product = (Product) object;
         try {
             int i = 1;
             statement.setInt(i++, product.getStatus());
@@ -93,16 +96,16 @@ public class ProductDAO extends AbstractDAO {
             statement.setString(i++, product.getProductDescription());
             statement.setDouble(i++, product.getProductPrice());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
     @Override
-    protected List parseResultSet(ResultSet resultSet) throws DAOException {
-        LinkedList<Product> resultList = new LinkedList<>();
+    protected List parseResultSet(final ResultSet resultSet) throws DAOException {
+        final LinkedList<Product> resultList = new LinkedList<>();
         try {
             while (resultSet.next()) {
-                Product product = Product.newBuilder()
+                final Product product = Product.newBuilder()
                         .withId(resultSet.getInt("Id"))
                         .withStatus(resultSet.getInt("Status"))
                         .withProductName(resultSet.getString("ProductName"))
@@ -111,7 +114,7 @@ public class ProductDAO extends AbstractDAO {
                         .build();
                 resultList.add(product);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return resultList;
@@ -121,7 +124,7 @@ public class ProductDAO extends AbstractDAO {
     public Product getLastAddedProduct() throws DAOException {
         List<Product> productList;
         try (PreparedStatement statement = connection.prepareStatement(getLastAddedQuery())) {
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             productList = parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
@@ -133,14 +136,14 @@ public class ProductDAO extends AbstractDAO {
         return productList.get(0);
     }
 
-    public int getProductStatus(String name, String description) throws DAOException {
+    public int getProductStatus(final String name, final String description) throws DAOException {
         List<Product> list;
-        String sqlQuery = getProductQuery();
+        final String sqlQuery = getProductQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, name);
             statement.setString(2, description);
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             list = (List<Product>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
@@ -148,8 +151,8 @@ public class ProductDAO extends AbstractDAO {
         return list.get(0).getStatus();
     }
 
-    public void setProductStatus(String name, String description, ProductStatus status) throws DAOException {
-        String sqlQuery = setProductStatusQuery();
+    public void setProductStatus(final String name, final String description, final ProductStatus status) throws DAOException {
+        final String sqlQuery = setProductStatusQuery();
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, status.getStatus());
             statement.setString(2, name);
@@ -160,14 +163,14 @@ public class ProductDAO extends AbstractDAO {
         }
     }
 
-    public Product getProduct(String name, String description) throws DAOException {
+    public Product getProduct(final String name, final String description) throws DAOException {
         List<Product> list;
-        String sqlQuery = getProductQuery();
+        final String sqlQuery = getProductQuery();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, name);
             statement.setString(2, description);
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             list = (List<Product>) parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);
@@ -180,7 +183,7 @@ public class ProductDAO extends AbstractDAO {
         List<Product> productList;
 
         try (PreparedStatement statement = connection.prepareStatement(getSelectActiveQuery())) {
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             productList = parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);

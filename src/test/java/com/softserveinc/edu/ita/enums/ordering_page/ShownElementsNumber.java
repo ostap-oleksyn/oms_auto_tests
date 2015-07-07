@@ -11,7 +11,7 @@ public enum ShownElementsNumber {
     private String name;
     private int number;
 
-    ShownElementsNumber(String name, int number) {
+    ShownElementsNumber(final String name, final int number) {
         this.name = name;
         this.number = number;
     }

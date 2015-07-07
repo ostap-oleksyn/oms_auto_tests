@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Administration Page Tests" verbose="1" parallel="tests" thread-count="8">
+<suite name="Administration Page Tests" verbose="1" parallel="tests" thread-count="9">
     <test name="Sorting test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.administration_page.SortingTest">
@@ -14,7 +14,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.administration_page.NavigationTest">
                 <methods>
-                    <include name="navigationTest"/>
+                    <include name="testNavigation"/>
                 </methods>
             </class>
         </classes>
@@ -68,7 +68,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.administration_page.CreateReportTest">
                 <methods>
-                    <include name="createReportTest"/>
+                    <include name="testReportCreating"/>
                 </methods>
             </class>
         </classes>

@@ -12,7 +12,7 @@ import com.softserveinc.edu.ita.utils.DBUtility;
 import org.testng.annotations.Test;
 
 /**
- * Test of new User creating (Ticket IFAA-9)
+ * Class to test new user creating functionality.
  */
 public class CreateUserTest extends TestRunner {
 
@@ -22,7 +22,7 @@ public class CreateUserTest extends TestRunner {
      * @param newUser new valid User data from dataprovider
      */
     @Test(dataProvider = "generatedValidUserData", dataProviderClass = DataProviders.class)
-    public void testValidUserCreating(User newUser) {
+    public void testValidUserCreating(final User newUser) {
 
         final HomePage homePage = new HomePage(driver);
         final User admin = DBUtility.getAdmin();
@@ -80,7 +80,7 @@ public class CreateUserTest extends TestRunner {
      * Test new User creating not valid data
      */
     @Test(dataProvider = "generatedNotValidUserData", dataProviderClass = DataProviders.class)
-    public void testNotValidUserCreate(User newUser) {
+    public void testNotValidUserCreate(final User newUser) {
 
         final HomePage homePage = new HomePage(driver);
         final User admin = DBUtility.getAdmin();

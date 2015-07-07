@@ -51,7 +51,7 @@ public enum AddItemPageLocators implements ILocator {
             LocatorsType.BY_XPATH,
             ".//*[@id='list']//tbody/tr[%s]/td[3]//a");
 
-    AddItemPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+    AddItemPageLocators(final String name, final LocatorsType locatorsType, final String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -73,7 +73,12 @@ public enum AddItemPageLocators implements ILocator {
         return this.name;
     }
 
-    public AddItemPageLocators modify(String parameter) {
+    /**
+     * Modifies the locator by inserting the given string.
+     *
+     * @param parameter - modifier that will be inserted into the locator.
+     */
+    public AddItemPageLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

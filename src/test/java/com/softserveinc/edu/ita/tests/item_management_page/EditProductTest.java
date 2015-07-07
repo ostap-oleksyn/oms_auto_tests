@@ -14,6 +14,9 @@ import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.testng.annotations.Test;
 
+/**
+ * Class to test editing existing product functionality on item management page.
+ */
 public class EditProductTest extends TestRunner {
 
     private static final String TEST_PRODUCT_NAME = "Test name";
@@ -22,7 +25,7 @@ public class EditProductTest extends TestRunner {
 
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void editProductTest(User user) {
+    public void testProductEditing(final User user) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();

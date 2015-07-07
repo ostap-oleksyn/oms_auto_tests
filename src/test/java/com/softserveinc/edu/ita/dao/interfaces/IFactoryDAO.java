@@ -3,19 +3,21 @@ package com.softserveinc.edu.ita.dao.interfaces;
 
 import com.softserveinc.edu.ita.dao.DAOException;
 
+import java.io.IOException;
+
 /**
- * represent a contract for IFactoryDAO model
+ * Class represents a contract for IFactoryDAO model
  *
  * @param <Connection>
  */
 public interface IFactoryDAO<Connection> {
 
-    public interface ICreatorDAO<Connection> {
-        public IGenericDAO create(Connection connection);
+    interface ICreatorDAO<Connection> {
+        IGenericDAO create(Connection connection);
     }
 
-    public Connection getConnection() throws DAOException;
+    Connection getConnection() throws DAOException, IOException;
 
-    public IGenericDAO getDAO(Connection connection, Class className) throws DAOException;
+    IGenericDAO getDAO(Connection connection, Class className) throws DAOException;
 }
 

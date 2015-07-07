@@ -6,11 +6,10 @@ import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
-import org.testng.Reporter;
 import org.testng.annotations.Test;
 
 /**
- * Test of existing User' deleting (Ticket IFAA-12)
+ * Class to test existing user deleting functionality.
  */
 public class DeleteUserTest extends TestRunner {
 

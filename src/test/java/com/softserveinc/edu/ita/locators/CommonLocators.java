@@ -38,11 +38,11 @@ public enum CommonLocators implements ILocator {
     EN_LINK(
             "English language link",
             LocatorsType.BY_XPATH,
-            ".//*[@id='content']/div/a[1]"),
+            ".//a[@href='?lang=en_US']"),
     UA_LINK(
             "Ukrainian language link",
             LocatorsType.BY_XPATH,
-            ".//*[@id='content']/div/a[2]");
+            ".//a[@href='?lang=uk_UA']");
 
     private String name;
     private LocatorsType locatorsType;
@@ -51,7 +51,7 @@ public enum CommonLocators implements ILocator {
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    CommonLocators(String name, LocatorsType locatorsType, String rawLocator) {
+    CommonLocators(final String name, final LocatorsType locatorsType, final String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -67,8 +67,12 @@ public enum CommonLocators implements ILocator {
         return this.name;
     }
 
-    //This method prepares locator using additional parameter by means of so called "string-format" method.
-    public CommonLocators modify(String parameter) {
+    /**
+     * Modifies the locator by inserting the given string.
+     *
+     * @param parameter - modifier that will be inserted into the locator.
+     */
+    public CommonLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

@@ -3,7 +3,6 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
 import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
-import com.softserveinc.edu.ita.locators.AdministrationPageLocators;
 import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,20 +14,23 @@ import java.util.List;
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.FILTER_SELECT;
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.SEARCH_BUTTON;
 
+/**
+ * PageObject class that represents Item Management page.
+ */
 public class ItemManagementPage extends LogOutBase {
 
-    public ItemManagementPage(WebDriver driver) {
+    public ItemManagementPage(final WebDriver driver) {
         super(driver);
     }
 
-    public ItemManagementPage setFilters(ItemFilter filter) {
-        Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
+    public ItemManagementPage setFilters(final ItemFilter filter) {
+        final Select fieldSelect = new Select(driver.findElement(FILTER_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filter.getFilterName());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
         return this;
     }
 
-    public ItemManagementPage fillSearchField(String searchTerm) {
+    public ItemManagementPage fillSearchField(final String searchTerm) {
         sendKeys(ItemManagementPageLocators.SEARCH_FIELD, searchTerm);
         return this;
     }
@@ -59,7 +61,9 @@ public class ItemManagementPage extends LogOutBase {
         return driver.findElements(ItemManagementPageLocators.TABLE_ROW.getBy()).size();
     }
 
-    public Product getRandomProduct(int modifier) {
+
+    public Product getRandomProduct(final int modifier) {
+
         return Product.newBuilder()
                 .withoutId()
                 .withoutStatus()
@@ -69,11 +73,11 @@ public class ItemManagementPage extends LogOutBase {
                 .build();
     }
 
-    public void deleteRandomProduct(int randomRow) {
+    public void deleteRandomProduct(final int randomRow) {
         click(ItemManagementPageLocators.TABLE_DELETE_LINK.modify(String.valueOf(randomRow)));
     }
 
-    public EditProductPage editRandomProduct(int randomRow) {
+    public EditProductPage editRandomProduct(final int randomRow) {
         click(ItemManagementPageLocators.TABLE_EDIT_LINK.modify(String.valueOf(randomRow)));
         return new EditProductPage(driver);
     }
@@ -88,7 +92,7 @@ public class ItemManagementPage extends LogOutBase {
     /**
      * There is method to click one of "Products" table headers to make sorting actions in the table.
      */
-    public void clickProductsTableColumn(ProductsTableColumns tableColumn) {
+    public void clickProductsTableColumn(final ProductsTableColumns tableColumn) {
         click(ItemManagementPageLocators.TABLE_COLUMN.modify(tableColumn.toString()));
     }
 
@@ -102,8 +106,8 @@ public class ItemManagementPage extends LogOutBase {
     /**
      * To get column by name from table of products.
      */
-    public Object[] getColumn(ProductsTableColumns column) {
-        List<WebElement> columnsElement = driver.findElements(ItemManagementPageLocators.COLUMNS_ELEMENTS
+    public Object[] getColumn(final ProductsTableColumns column) {
+        final List<WebElement> columnsElement = driver.findElements(ItemManagementPageLocators.COLUMNS_ELEMENTS
                 .modify(String.valueOf(column.ordinal() + 1)).getBy());
         Object[] columnsData = new Object[columnsElement.size()];
         for (int i = 0; i < columnsElement.size(); i++) {

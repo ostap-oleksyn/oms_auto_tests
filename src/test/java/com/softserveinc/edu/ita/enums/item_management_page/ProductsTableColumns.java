@@ -13,7 +13,7 @@ public enum ProductsTableColumns {
     private String name;
     private ValuesType type;
 
-    ProductsTableColumns(String name, ValuesType type) {
+    ProductsTableColumns(final String name, final ValuesType type) {
         this.name = name;
         this.type = type;
     }
@@ -31,7 +31,7 @@ public enum ProductsTableColumns {
         return this.type;
     }
 
-    public Object getValue(WebElement webElement) {
+    public Object getValue(final WebElement webElement) {
         return this.type.getValue(webElement);
     }
 }

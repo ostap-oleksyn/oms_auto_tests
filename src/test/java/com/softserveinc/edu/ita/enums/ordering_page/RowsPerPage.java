@@ -6,7 +6,7 @@ public enum RowsPerPage {
 
     private int rowsCount;
 
-    RowsPerPage(int rowsCount) {
+    RowsPerPage(final int rowsCount) {
         this.rowsCount = rowsCount;
     }
 

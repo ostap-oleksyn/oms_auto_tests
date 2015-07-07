@@ -18,23 +18,23 @@ public enum UserInfoPageLocators implements ILocator {
     FIRST_NAME_TITLE_LABEL(
             "Title first name label",
             LocatorsType.BY_XPATH,
-            "//fieldset//tr[1]/td[1]"),
+            "(.//fieldset//td)[1]"),
     FIRST_NAME_LABEL(
             "User first name label",
             LocatorsType.BY_XPATH,
-            "//fieldset//tr[1]/td[2]"),
+            "(.//fieldset//td)[2]"),
     LAST_NAME_LABEL(
             "User last name label",
             LocatorsType.BY_XPATH,
-            "//fieldset//tr[2]/td[2]"),
+            "(.//fieldset//td)[4]"),
     CUSTOMER_TYPE_LABEL(
             "User customer type label",
             LocatorsType.BY_XPATH,
-            "//fieldset//tr[3]/td[2]"),
+            "(.//fieldset//td)[6]"),
     USER_ROLE_LABEL(
             "User role label",
             LocatorsType.BY_XPATH,
-            "//fieldset//tr[4]/td[2]");
+            "(.//fieldset//td)[8]");
 
     private String name;
     private LocatorsType locatorsType;
@@ -43,7 +43,7 @@ public enum UserInfoPageLocators implements ILocator {
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    UserInfoPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+    UserInfoPageLocators(final String name, final LocatorsType locatorsType, final String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -59,8 +59,12 @@ public enum UserInfoPageLocators implements ILocator {
         return this.name;
     }
 
-    //This method prepares locator using additional parameter by means of so called "string-format" method.
-    public UserInfoPageLocators modify(String parameter) {
+    /**
+     * Modifies the locator by inserting the given string.
+     *
+     * @param parameter - modifier that will be inserted into the locator.
+     */
+    public UserInfoPageLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

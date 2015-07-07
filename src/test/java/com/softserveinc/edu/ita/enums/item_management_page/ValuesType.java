@@ -9,13 +9,13 @@ import org.openqa.selenium.WebElement;
 public enum ValuesType {
     DOUBLE {
         @Override
-        public Object getValue(WebElement element) {
+        public Object getValue(final WebElement element) {
             return Double.valueOf(element.getText());
         }
     },
     STRING {
         @Override
-        public Object getValue(WebElement element) {
+        public Object getValue(final WebElement element) {
             return element.getText();
         }
     };

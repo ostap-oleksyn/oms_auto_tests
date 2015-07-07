@@ -23,20 +23,23 @@ import java.util.stream.Collectors;
 
 import static com.softserveinc.edu.ita.enums.administration_page.SearchFilters.*;
 
+/**
+ * Class to test searching in users table on administration page.
+ */
 public class SearchTest extends TestRunner {
     private List<AdministrationsTableRow> usersListFromView;
     private List<User> usersListFromDB;
     private List<User> filteredListFromDB;
 
     @Test(dataProvider = "getSearchTerms", dataProviderClass = DataProviders.class)
-    public void testSearch(String searchTerm) throws DAOException {
-        HomePage homePage = new HomePage(driver);
-        User admin = DBUtility.getAdmin();
-        UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
-        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+    public void testSearch(final String searchTerm) throws DAOException {
+        final HomePage homePage = new HomePage(driver);
+        final User admin = DBUtility.getAdmin();
+        final UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
-        for (SearchFilters filter : SearchFilters.values()) {
-            for (SearchConditions condition : SearchConditions.values()) {
+        for (final SearchFilters filter : SearchFilters.values()) {
+            for (final SearchConditions condition : SearchConditions.values()) {
                 // skip ALL COLUMNS filter, because we have testAllColumns separately
                 if (filter != ALL_COLUMNS) {
                     administrationPage.setFilters(filter)
@@ -62,14 +65,14 @@ public class SearchTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSearchTerms", dataProviderClass = DataProviders.class)
-    public void testAllColumns(String searchTerm) throws DAOException {
+    public void testAllColumns(final String searchTerm) throws DAOException {
         final SearchFilters filter = ALL_COLUMNS;
-        HomePage homePage = new HomePage(driver);
-        User admin = DBUtility.getAdmin();
-        UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
-        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        final HomePage homePage = new HomePage(driver);
+        final User admin = DBUtility.getAdmin();
+        final UserInfoPage userInfoPage = homePage.logIn(admin.getLogin(), admin.getPassword());
+        final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
-        for (SearchConditions condition : SearchConditions.values()) {
+        for (final SearchConditions condition : SearchConditions.values()) {
             administrationPage.setFilters(filter)
                     .setCondition(condition)
                     .fillSearchField(searchTerm)
@@ -81,8 +84,8 @@ public class SearchTest extends TestRunner {
 
             usersListFromDB = DBUtility.getFilteredUsers(condition, searchTerm);
 
-            Comparator<User> userComparator = Comparator.comparing(User::getLogin);
-            Comparator<AdministrationsTableRow> userFromViewComparator = Comparator.comparing(AdministrationsTableRow::getLogin);
+            final Comparator<User> userComparator = Comparator.comparing(User::getLogin);
+            final Comparator<AdministrationsTableRow> userFromViewComparator = Comparator.comparing(AdministrationsTableRow::getLogin);
 
             usersListFromDB.sort(userComparator);
             usersListFromView.sort(userFromViewComparator);
@@ -101,12 +104,12 @@ public class SearchTest extends TestRunner {
      * @param userList2
      * @return
      */
-    private boolean areListsEqual(List<AdministrationsTableRow> userlist1, List<User> userList2) {
+    private boolean areListsEqual(final List<AdministrationsTableRow> userlist1, final List<User> userList2) {
         if (userlist1.isEmpty() && userList2.isEmpty()) {
             return true;
         }
-        for (AdministrationsTableRow user1 : userlist1) {
-            for (User user2 : userList2) {
+        for (final AdministrationsTableRow user1 : userlist1) {
+            for (final User user2 : userList2) {
                 if (user1.getFirstName().equalsIgnoreCase(user2.getFirstName()) &&
                         user1.getLastName().equalsIgnoreCase(user2.getLastName()) &&
                         user1.getLogin().equalsIgnoreCase(user2.getLogin()) &&
@@ -120,7 +123,8 @@ public class SearchTest extends TestRunner {
     }
 
     /**
-     * searches users from users which were found from data base via parameters
+     * Searches users from users which
+     * were found from data base via parameters
      *
      * @param usersList
      * @param filter
@@ -128,8 +132,8 @@ public class SearchTest extends TestRunner {
      * @param searchTerm
      * @return
      */
-    private List<User> getFilteredList(List<User> usersList, SearchFilters filter, SearchConditions condition, String searchTerm) {
-        Map<SearchFilters, ISearchFilters> searchConditionMap = new HashMap<>();
+    private List<User> getFilteredList(final List<User> usersList, final SearchFilters filter, final SearchConditions condition, final String searchTerm) {
+        final Map<SearchFilters, ISearchFilters> searchConditionMap = new HashMap<>();
         searchConditionMap.put(FIRST_NAME, User::getFirstName);
         searchConditionMap.put(LAST_NAME, User::getLastName);
         searchConditionMap.put(LOGIN_NAME, User::getLogin);

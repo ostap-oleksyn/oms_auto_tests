@@ -15,11 +15,11 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * This class describes "Administration" page according to "Page Object" pattern.
+ * PageObject class that represents Administration page.
  */
 public class AdministrationPage extends LogOutBase {
 
-    public AdministrationPage(WebDriver driver) {
+    public AdministrationPage(final WebDriver driver) {
         super(driver);
     }
 
@@ -29,13 +29,13 @@ public class AdministrationPage extends LogOutBase {
     }
 
     public String getRandomLoginFromView() {
-        Random randomGenerator = new Random();
-        int randomLoginRow = randomGenerator.nextInt(4) + 1;
+        final Random randomGenerator = new Random();
+        final int randomLoginRow = randomGenerator.nextInt(4) + 1;
         return getElementText(AdministrationPageLocators.LOGIN_CELL.modify(String.valueOf(randomLoginRow)));
     }
 
 
-    public EditUserPage clickEditButton(int randomNumber) {
+    public EditUserPage clickEditButton(final int randomNumber) {
         click(AdministrationPageLocators.EDIT_USER_LINK
                 .modify(String.valueOf(randomNumber)));
         return new EditUserPage(driver);
@@ -46,23 +46,24 @@ public class AdministrationPage extends LogOutBase {
     }
 
     public String getLastLogin() {
-        WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
-        int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
+        final WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
+        final int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
         return getElementText(AdministrationPageLocators.LOGIN_CELL.modify(String.valueOf(tableSize)));
 
     }
 
     public void clickDeleteLastUserLink() {
-        WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
-        int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
+        final WebElement table = driver.findElement(AdministrationPageLocators.USERS_TABLE.getBy());
+        final int tableSize = table.findElements(AdministrationPageLocators.USERS_TABLE_ROWS.getBy()).size();
         click(AdministrationPageLocators.DELETE_LINK.modify(String.valueOf(tableSize)));
     }
 
     /**
-     * A method to get "Administration" table from "Administration" page of web-application.
+     * A method to get "Administration" table
+     * from "Administration" page of web-application.
      */
     public List<AdministrationsTableRow> getTableFromView() {
-        List<AdministrationsTableRow> usersList = new LinkedList<>();
+        final List<AdministrationsTableRow> usersList = new LinkedList<>();
         int pagination = 0;
         if (getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK).contains("10"))
             click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);
@@ -70,9 +71,9 @@ public class AdministrationPage extends LogOutBase {
             if (driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy()).size() <= 1) {
                 return usersList;
             } else {
-                List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy());
+                final List<WebElement> rowsList = driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy());
                 for (int j = 1; j < rowsList.size(); j++) {
-                    List<WebElement> cellsList = rowsList.get(j).findElements(AdministrationPageLocators.ROW_CELLS.getBy());
+                    final List<WebElement> cellsList = rowsList.get(j).findElements(AdministrationPageLocators.ROW_CELLS.getBy());
                     usersList.add(AdministrationsTableRow.newBuilder()
                             .setFirstName(cellsList.get(0).getText())
                             .setLastName(cellsList.get(1).getText())
@@ -104,9 +105,10 @@ public class AdministrationPage extends LogOutBase {
     }
 
     /**
-     * A method to click one of "Administration" table headers to make sorting actions in the table.
+     * A method to click one of "Administration"
+     * table headers to make sorting actions in the table.
      */
-    public void clickAdministrationTableColumn(UsersTableColumns tableColumn) {
+    public void clickAdministrationTableColumn(final UsersTableColumns tableColumn) {
         click(AdministrationPageLocators.TABLE_COLUMN.modify(tableColumn.toString()));
     }
 
@@ -143,8 +145,8 @@ public class AdministrationPage extends LogOutBase {
      * @param filter
      * @return
      */
-    public AdministrationPage setFilters(SearchFilters filter) {
-        Select fieldSelect = new Select(driver.findElement(AdministrationPageLocators.FILTER_SELECT.getBy()));
+    public AdministrationPage setFilters(final SearchFilters filter) {
+        final Select fieldSelect = new Select(driver.findElement(AdministrationPageLocators.FILTER_SELECT.getBy()));
         fieldSelect.selectByVisibleText(filter.toString());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected filter - <b>'%s'</b>", filter.getFilterName()));
         return this;
@@ -156,8 +158,8 @@ public class AdministrationPage extends LogOutBase {
      * @param condition
      * @return
      */
-    public AdministrationPage setCondition(SearchConditions condition) {
-        Select conditionSelect = new Select(driver.findElement(AdministrationPageLocators.CONDITION_SELECT.getBy()));
+    public AdministrationPage setCondition(final SearchConditions condition) {
+        final Select conditionSelect = new Select(driver.findElement(AdministrationPageLocators.CONDITION_SELECT.getBy()));
         conditionSelect.selectByVisibleText(condition.toString());
         Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected condition - <b>'%s'</b>", condition.getCondition()));
         return this;
@@ -169,7 +171,7 @@ public class AdministrationPage extends LogOutBase {
      * @param searchTerm
      * @return
      */
-    public AdministrationPage fillSearchField(String searchTerm) {
+    public AdministrationPage fillSearchField(final String searchTerm) {
         sendKeys(AdministrationPageLocators.SEARCH_FIELD, searchTerm);
         return this;
     }

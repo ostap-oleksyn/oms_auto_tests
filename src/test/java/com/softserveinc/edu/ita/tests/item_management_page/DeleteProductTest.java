@@ -14,6 +14,9 @@ import org.openqa.selenium.Alert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+/**
+ * Class to test deleting existing product functionality on item management page.
+ */
 public class DeleteProductTest extends TestRunner {
 
     private HomePage homePage;
@@ -23,7 +26,7 @@ public class DeleteProductTest extends TestRunner {
 
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void cancelProductDeleteingTest(User user) {
+    public void testCancelProductDeleting(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         itemManagementPage = userInfoPage.clickItemManagementTab();
@@ -49,7 +52,7 @@ public class DeleteProductTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void deleteProductTest(User user) {
+    public void testProductDeleting(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         itemManagementPage = userInfoPage.clickItemManagementTab();

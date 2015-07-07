@@ -149,7 +149,7 @@ public class User {
         }
 
         @Override
-        public StatusStep withId(int id) {
+        public StatusStep withId(final int id) {
             this.id = id;
             return this;
         }
@@ -160,7 +160,7 @@ public class User {
         }
 
         @Override
-        public FirstNameStep withStatus(int status) {
+        public FirstNameStep withStatus(final int status) {
             this.status = status;
             return this;
         }
@@ -171,7 +171,7 @@ public class User {
         }
 
         @Override
-        public LastNameStep withFirstName(String firstName) {
+        public LastNameStep withFirstName(final String firstName) {
             this.firstName = firstName;
             return this;
         }
@@ -182,7 +182,7 @@ public class User {
         }
 
         @Override
-        public LoginStep withLastName(String lastName) {
+        public LoginStep withLastName(final String lastName) {
             this.lastName = lastName;
             return this;
         }
@@ -193,7 +193,7 @@ public class User {
         }
 
         @Override
-        public PasswordStep withLogin(String login) {
+        public PasswordStep withLogin(final String login) {
             this.login = login;
             return this;
         }
@@ -204,7 +204,7 @@ public class User {
         }
 
         @Override
-        public EmailStep withPassword(String password) {
+        public EmailStep withPassword(final String password) {
             this.password = password;
             return this;
         }
@@ -215,7 +215,7 @@ public class User {
         }
 
         @Override
-        public RoleReferenceStep withEmail(String email) {
+        public RoleReferenceStep withEmail(final String email) {
             this.email = email;
             return this;
         }
@@ -226,7 +226,7 @@ public class User {
         }
 
         @Override
-        public CustomerTypeReferenceStep withRoleReference(int roleReference) {
+        public CustomerTypeReferenceStep withRoleReference(final int roleReference) {
             this.roleReference = roleReference;
             return this;
         }
@@ -237,7 +237,7 @@ public class User {
         }
 
         @Override
-        public RegionReferenceStep withCustomerTypeReference(int customerTypeReference) {
+        public RegionReferenceStep withCustomerTypeReference(final int customerTypeReference) {
             this.customerTypeReference = customerTypeReference;
             return this;
         }
@@ -248,7 +248,7 @@ public class User {
         }
 
         @Override
-        public BuildStep withRegionReference(int regionReference) {
+        public BuildStep withRegionReference(final int regionReference) {
             this.regionReference = regionReference;
             return this;
         }
@@ -260,7 +260,7 @@ public class User {
 
         @Override
         public User build() {
-            User user = new User();
+            final User user = new User();
             user.setId(this.id);
             user.setStatus(this.status);
             user.setFirstName(this.firstName);

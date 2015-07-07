@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.tests.item_management_page;
 
-import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
@@ -12,12 +11,12 @@ import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
 /**
- * Class to test navigation of "Item Management" page.
+ * Class to test navigation on "Item Management" page.
  */
 public class NavigationTest extends TestRunner {
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void navigationTest(User user) throws DAOException {
+    public void navigationTest(final User user) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();

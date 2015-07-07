@@ -87,50 +87,50 @@ public class OrderItem {
         }
 
         @Override
-        public CostStep withId(int id) {
+        public CostStep withId(final int id) {
             this.id = id;
             return this;
         }
 
         @Override
-        public ItemPriceStep withCost(Double cost) {
+        public ItemPriceStep withCost(final Double cost) {
             this.cost = cost;
             return this;
         }
 
         @Override
-        public QuantityStep withItemPrice(Double itemPrice) {
+        public QuantityStep withItemPrice(final Double itemPrice) {
             this.itemPrice = itemPrice;
             return this;
         }
 
         @Override
-        public DimensionReferenceStep withQuantity(int quantity) {
+        public DimensionReferenceStep withQuantity(final int quantity) {
             this.quantity = quantity;
             return this;
         }
 
         @Override
-        public OrderReferenceStep withDimensionReference(int dimensionReference) {
+        public OrderReferenceStep withDimensionReference(final int dimensionReference) {
             this.dimensionReference = dimensionReference;
             return this;
         }
 
         @Override
-        public ProductReferenceStep withOrderReference(int orderReference) {
+        public ProductReferenceStep withOrderReference(final int orderReference) {
             this.orderReference = orderReference;
             return this;
         }
 
         @Override
-        public BuildStep withProductReference(int productReference) {
+        public BuildStep withProductReference(final int productReference) {
             this.productReference = productReference;
             return this;
         }
 
         @Override
         public OrderItem build() {
-            OrderItem orderItem = new OrderItem();
+            final OrderItem orderItem = new OrderItem();
             orderItem.setId(this.id);
             orderItem.setCost(this.cost);
             orderItem.setItemPrice(this.itemPrice);

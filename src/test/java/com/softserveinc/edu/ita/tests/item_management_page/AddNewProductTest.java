@@ -15,6 +15,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 
+/**
+ * Class to test adding new product functionality on item management page.
+ */
 public class AddNewProductTest extends TestRunner {
 
     private HomePage homePage;
@@ -23,7 +26,7 @@ public class AddNewProductTest extends TestRunner {
     private AddProductPage addProductPage;
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void cancelProductAddingTest(User user) {
+    public void testCancelProductAdding(final User user) {
 
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
@@ -55,7 +58,7 @@ public class AddNewProductTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void addNewProductTest(User user) {
+    public void testNewProductAdding(final User user) {
 
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());

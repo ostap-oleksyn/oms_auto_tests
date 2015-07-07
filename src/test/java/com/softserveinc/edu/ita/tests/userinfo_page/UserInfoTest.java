@@ -1,24 +1,22 @@
 package com.softserveinc.edu.ita.tests.userinfo_page;
 
-import com.softserveinc.edu.ita.enums.CustomerTypes;
-import com.softserveinc.edu.ita.enums.Roles;
-import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
 
 /**
- * Test information on User Info tab for any role User (Ticket IFAA-14)
+ * Class to test information on User Info tab for all user roles.
  */
 public class UserInfoTest extends TestRunner {
 
 
     @Test(dataProvider = "getAllRoles", dataProviderClass = DataProviders.class)
-    public void testUserInfoTab(User user) {
+    public void testUserInfoTab(final User user) {
 
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());

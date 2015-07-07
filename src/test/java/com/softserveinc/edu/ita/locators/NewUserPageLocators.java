@@ -78,7 +78,7 @@ public enum NewUserPageLocators implements ILocator {
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    NewUserPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+    NewUserPageLocators(final String name, final LocatorsType locatorsType, final String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -94,8 +94,12 @@ public enum NewUserPageLocators implements ILocator {
         return this.name;
     }
 
-    //This method prepares locator using additional parameter by means of so called "string-format" method.
-    public NewUserPageLocators modify(String parameter) {
+    /**
+     * Modifies the locator by inserting the given string.
+     *
+     * @param parameter - modifier that will be inserted into the locator.
+     */
+    public NewUserPageLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

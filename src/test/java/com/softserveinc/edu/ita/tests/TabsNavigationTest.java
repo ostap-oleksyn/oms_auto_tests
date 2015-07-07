@@ -18,6 +18,9 @@ import org.testng.annotations.Test;
 import static com.softserveinc.edu.ita.utils.EnumUtil.getRandomEnum;
 import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
 
+/**
+ * Class to test navigation between different tabs on different roles.
+ */
 public class TabsNavigationTest extends TestRunner {
 
     private HomePage homePage;
@@ -28,7 +31,7 @@ public class TabsNavigationTest extends TestRunner {
     private String searchTerm;
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
-    public void administratorTabsTest(User user) {
+    public void testAdministratorTabs(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -61,7 +64,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void merchandiserTabsTest(User user) {
+    public void testMerchandiserTabs(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -94,7 +97,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
-    public void customerTabsTest(User user) {
+    public void testCustomerTabs(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -127,7 +130,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void supervisorTabsTest(User user) {
+    public void testSupervisorTabs(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
 
@@ -160,7 +163,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
-    public void administrationTabStateTest(User user) {
+    public void testAdministrationTabState(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         administrationPage = userInfoPage.clickAdministrationTab();
@@ -193,7 +196,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void itemManagementTabStateTest(User user) {
+    public void testItemManagementTabState(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         itemManagementPage = userInfoPage.clickItemManagementTab();
@@ -220,7 +223,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void merchandiserOrderingTabStateTest(User user) {
+    public void testMerchandiserOrderingTabState(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         orderingPage = userInfoPage.clickOrderingTab();
@@ -266,7 +269,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
-    public void customerOrderingTabStateTest(User user) {
+    public void testCustomerOrderingTabState(final User user) {
         homePage = new HomePage(driver);
         userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         orderingPage = userInfoPage.clickOrderingTab();
@@ -312,7 +315,7 @@ public class TabsNavigationTest extends TestRunner {
     }
 
     @AfterMethod
-    public void afterMethod() {
+    public void logOut() {
         userInfoPage.clickLogOutButton();
     }
 }

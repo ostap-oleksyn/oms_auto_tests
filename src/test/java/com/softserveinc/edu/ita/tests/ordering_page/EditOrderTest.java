@@ -2,8 +2,8 @@ package com.softserveinc.edu.ita.tests.ordering_page;
 
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.ordering_page.ItemsOrderStatus;
-import com.softserveinc.edu.ita.enums.ordering_page.ShownElementsNumber;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderSearchCondition;
+import com.softserveinc.edu.ita.enums.ordering_page.ShownElementsNumber;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
@@ -21,6 +21,9 @@ import java.util.Random;
 
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
 
+/**
+ * Class to test order editing functionality.
+ */
 public class EditOrderTest extends TestRunner {
     private List<WebElement> pricesList;
     private List<WebElement> quantiiesList;
@@ -31,28 +34,30 @@ public class EditOrderTest extends TestRunner {
     private double pricePerLine;
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void testNavigation(User merchandiser) {
-        Random randomGenerator = new Random();
-        Wait wait = new WebDriverWait(driver, 2);
+    public void testNavigation(final User merchandiser) {
+        final Random randomGenerator = new Random();
+        final Wait wait = new WebDriverWait(driver, 2);
 
-        HomePage homePage = new HomePage(driver);
-        UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+        final HomePage homePage = new HomePage(driver);
+        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
         orderingPage.setSearchCondition(OrderSearchCondition.ASSIGNEE)
                 .fillSearchField(merchandiser.getLogin())
                 .clickApplyButton();
 
         orderingPage.clickEditLink();
 
-        for (ShownElementsNumber shownElementsNumber : ShownElementsNumber.values()) {
+
+        for (final ShownElementsNumber shownElementsNumber : ShownElementsNumber.values()) {
             orderingPage.setShownElementsNumber(shownElementsNumber);
+
             wait.until(ExpectedConditions.presenceOfElementLocated(PRICE_COLUMN.getBy()));
 
             pricesList = driver.findElements(PRICE_COLUMN.getBy());
             quantiiesList = driver.findElements(QUANTITY_COLUMN.getBy());
             pricesPerLineList = driver.findElements(PRICE_PER_LINE.getBy());
 
-            int item = randomGenerator.nextInt(pricesList.size());
+            final int item = randomGenerator.nextInt(pricesList.size());
 
             price = Double.valueOf(pricesList.get(item).getText());
             quantity = Double.valueOf(quantiiesList.get(item).getText());
@@ -83,10 +88,10 @@ public class EditOrderTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void testOrderEdit(User merchandiser) {
-        HomePage homePage = new HomePage(driver);
-        UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+    public void testOrderEdit(final User merchandiser) {
+        final HomePage homePage = new HomePage(driver);
+        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
         orderingPage.setSearchCondition(OrderSearchCondition.ASSIGNEE)
                 .fillSearchField(merchandiser.getLogin())
                 .clickApplyButton();
@@ -110,11 +115,11 @@ public class EditOrderTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
-    public void testErrorOrderEdit(User merchandiser) {
-        HomePage homePage = new HomePage(driver);
-        User admin = DBUtility.getAdmin();
-        UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+    public void testErrorOrderEdit(final User merchandiser) {
+        final HomePage homePage = new HomePage(driver);
+        final User admin = DBUtility.getAdmin();
+        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
         orderingPage.setSearchCondition(OrderSearchCondition.ASSIGNEE)
                 .fillSearchField(admin.getLogin())
                 .clickApplyButton();

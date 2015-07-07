@@ -13,11 +13,11 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
- * PageObject Class presents page for new Order creating
+ * PageObject class that represents New Order creating page.
  */
 public class NewOrderPage extends LogOutBase {
 
-    public NewOrderPage(WebDriver driver) {
+    public NewOrderPage(final WebDriver driver) {
         super(driver);
     }
 
@@ -39,7 +39,7 @@ public class NewOrderPage extends LogOutBase {
         return this;
     }
 
-    public NewOrderPage fillCVV2NumberField(String CVV2) {
+    public NewOrderPage fillCVV2NumberField(final String CVV2) {
         sendKeys(NewOrderPageLocators.CVV2_INPUT, CVV2);
         return this;
     }
@@ -49,10 +49,10 @@ public class NewOrderPage extends LogOutBase {
       */
     public NewOrderPage fillRandomPreferableDeliveryDate() {
         final int MAX_DAY_OFFSET = 30;
-        Calendar calendar = new GregorianCalendar();
+        final Calendar calendar = new GregorianCalendar();
         calendar.add(Calendar.DAY_OF_YEAR, RandomUtil.getRandomInteger(0, MAX_DAY_OFFSET));
         final Date deliveryDate = calendar.getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         sendKeys(NewOrderPageLocators.PREFERABLE_DELIVERY_DATE_INPUT, dateFormat.format(deliveryDate));
         return this;
     }
@@ -95,8 +95,8 @@ public class NewOrderPage extends LogOutBase {
         click(NewOrderPageLocators.NAVIGATION_FORWARD_BUTTON);
     }
 
-    public void selectShowLinesCount(RowsPerPage rowsCount) {
-        Select showLinesCountSelect = new Select(driver
+    public void selectShowLinesCount(final RowsPerPage rowsCount) {
+        final Select showLinesCountSelect = new Select(driver
                 .findElement(NewOrderPageLocators.SHOW_LINES_COUNT_SELECT.getBy()));
         switch (rowsCount) {
             case ROWS_10:
@@ -112,11 +112,11 @@ public class NewOrderPage extends LogOutBase {
         final List<WebElement> itemsRows = driver.findElements(NewOrderPageLocators.ITEMS_TABLE_ROWS.getBy());
 
         List<WebElement> rowsCells;
-        List<String[]> itemsList = new ArrayList<>();
+        final List<String[]> itemsList = new ArrayList<>();
 
-        for (WebElement itemRow : itemsRows) {
+        for (final WebElement itemRow : itemsRows) {
             rowsCells = itemRow.findElements(AddItemPageLocators.ITEMS_ROW_CELL.getBy());
-            String[] item = {rowsCells.get(0).getText(), rowsCells.get(1).getText(),
+            final String[] item = {rowsCells.get(0).getText(), rowsCells.get(1).getText(),
                     rowsCells.get(2).getText(), rowsCells.get(3).getText(),
                     rowsCells.get(4).getText(), rowsCells.get(5).getText(),
                     rowsCells.get(6).getText()};

@@ -10,10 +10,13 @@ import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
+/**
+ * Class to test creating report functionality on administration page.
+ */
 public class CreateReportTest extends TestRunner {
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
-    public void createReportTest(User user) {
+    public void testReportCreating(final User user) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();

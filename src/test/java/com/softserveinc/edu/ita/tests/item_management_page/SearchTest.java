@@ -26,7 +26,7 @@ public class SearchTest extends TestRunner {
     ItemManagementPage itemManagementPage;
 
     @Test(dataProvider = "getProductTablesFilters", dataProviderClass = DataProviders.class)
-    public void testSearch(ItemFilter filter) throws DAOException {
+    public void testSearch(final ItemFilter filter) throws DAOException {
         final HomePage homePage = new HomePage(driver);
         final User randomSupervisor = DBUtility.getRandomUserByRole(Roles.SUPERVISOR);
         final UserInfoPage userInfoPage = homePage.logIn(randomSupervisor.getLogin(), randomSupervisor.getPassword());
@@ -52,9 +52,9 @@ public class SearchTest extends TestRunner {
         itemManagementPage.clickLogOutButton();
     }
 
-    private final List<String> getValidSearchTerms(ItemFilter filter) {
-        List<WebElement> webElements = driver.findElements(ItemManagementPageLocators.COLUMNS_ELEMENTS.modify(String.valueOf(filter.ordinal() + 1)).getBy());
-        List<String> validSearchTerms = new LinkedList<>();
+    private List<String> getValidSearchTerms(final ItemFilter filter) {
+        final List<WebElement> webElements = driver.findElements(ItemManagementPageLocators.COLUMNS_ELEMENTS.modify(String.valueOf(filter.ordinal() + 1)).getBy());
+        final List<String> validSearchTerms = new LinkedList<>();
         validSearchTerms.add(webElements.get(0).getText());
         validSearchTerms.add(webElements.get(RandomUtil.getRandomInteger(1, webElements.size() - 1)).getText());
         validSearchTerms.add(webElements.get(webElements.size() - 1).getText());

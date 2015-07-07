@@ -14,7 +14,7 @@ public enum ItemManagementPageLocators implements ILocator {
     ADD_PRODUCT_LINK(
             "Add product link",
             LocatorsType.BY_XPATH,
-            ".//*[@id='list']/a[contains(text(), 'Add Product')]"),
+            ".//a[@href='addItem.htm']"),
     SUPERVISOR_APPOINTED_LABEL(
             "Supervisor appointed Info label",
             LocatorsType.BY_XPATH,
@@ -139,7 +139,7 @@ public enum ItemManagementPageLocators implements ILocator {
     private By byLocator;
 
     //This constructor sets only 3 fields of object. The rest are prepared separately.
-    ItemManagementPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+    ItemManagementPageLocators(final String name, final LocatorsType locatorsType, final String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -155,8 +155,12 @@ public enum ItemManagementPageLocators implements ILocator {
         return this.name;
     }
 
-    //This method prepares locator using additional parameter by means of so called "string-format" method.
-    public ItemManagementPageLocators modify(String parameter) {
+    /**
+     * Modifies the locator by inserting the given string.
+     *
+     * @param parameter - modifier that will be inserted into the locator.
+     */
+    public ItemManagementPageLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

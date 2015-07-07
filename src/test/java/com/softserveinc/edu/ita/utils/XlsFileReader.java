@@ -17,6 +17,9 @@ import java.util.stream.Collectors;
 
 import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
 
+/**
+ * Class with util methods for reading xls files.
+ */
 public final class XlsFileReader {
 
     private final static String EXCEL_FILE_NAME_PROPERTY = "testDataXlsFile";
@@ -24,24 +27,21 @@ public final class XlsFileReader {
     private static HSSFSheet sheet;
     private static HSSFWorkbook workbook;
     private static File excelFile;
-    private static FileInputStream fileInputStream;
 
     private XlsFileReader() {
     }
 
     /**
-     * This method reads all rows from a specific sheet from xls file, skipping the first row with column names.
+     * This method reads all rows from a specific sheet from xls file,
+     * skipping the first row with column names.
      *
      * @param sheetName - name of the sheet
      */
-    public static Object[][] getAllRowsFromXlsSheet(String sheetName) throws IOException {
+    public static Object[][] getAllRowsFromXlsSheet(final String sheetName) throws IOException {
         excelFile = new File(getProperty(EXCEL_FILE_NAME_PROPERTY));
 
-        try {
-            fileInputStream = new FileInputStream(excelFile);
+        try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
             workbook = new HSSFWorkbook(fileInputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         sheet = workbook.getSheet(sheetName);
@@ -70,24 +70,20 @@ public final class XlsFileReader {
         return xlsData;
     }
 
-
     /**
-     * This method reads a column from specific sheet from xls file, skipping the first row with column names.
+     * This method reads a column from specific sheet from xls file,
+     * skipping the first row with column names.
      *
      * @param sheetName  - name of the sheet
      * @param columnName - name of the column
      */
-    public static List<String> getColumnFromXlsSheet(String sheetName, String columnName) throws IOException {
+    public static List<String> getColumnFromXlsSheet(final String sheetName, final String columnName) throws IOException {
+
         excelFile = new File(getProperty(EXCEL_FILE_NAME_PROPERTY));
 
-        try {
-            fileInputStream = new FileInputStream(excelFile);
+        try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
             workbook = new HSSFWorkbook(fileInputStream);
-
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
         sheet = workbook.getSheet(sheetName);
 
         final List<String> xlsData = new ArrayList<>();
@@ -96,14 +92,14 @@ public final class XlsFileReader {
 
         final Row firstRow = sheet.getRow(0);
 
-        for (Cell cell : firstRow) {
+        for (final Cell cell : firstRow) {
             if (cell.getStringCellValue().equals(columnName)) {
                 columnNumber = cell.getColumnIndex();
             }
         }
 
         if (columnNumber != null) {
-            for (Row row : sheet) {
+            for (final Row row : sheet) {
                 final Cell cell = row.getCell(columnNumber);
                 if (cell == null || cell.getCellType() == Cell.CELL_TYPE_BLANK) {
                     break;

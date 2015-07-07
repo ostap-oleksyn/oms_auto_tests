@@ -7,7 +7,7 @@ public enum OrderSearchCondition {
 
     private String searchCondition;
 
-    OrderSearchCondition(String searchCondition) {
+    OrderSearchCondition(final String searchCondition) {
         this.searchCondition = searchCondition;
     }
 
