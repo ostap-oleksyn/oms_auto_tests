@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Random;
 
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
+import static com.softserveinc.edu.ita.locators.EditOrderPageLocators.*;
 
 /**
  * Class to test order navigation functionality.

@@ -13,6 +13,7 @@ import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
+import static com.softserveinc.edu.ita.locators.EditOrderPageLocators.*;
 
 /**
  * Class to test order editing functionality.
