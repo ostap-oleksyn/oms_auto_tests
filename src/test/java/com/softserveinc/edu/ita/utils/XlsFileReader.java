@@ -42,8 +42,6 @@ public final class XlsFileReader {
 
         try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
             workbook = new HSSFWorkbook(fileInputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
 
         sheet = workbook.getSheet(sheetName);
@@ -85,10 +83,7 @@ public final class XlsFileReader {
 
         try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
             workbook = new HSSFWorkbook(fileInputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-
         sheet = workbook.getSheet(sheetName);
 
         final List<String> xlsData = new ArrayList<>();
