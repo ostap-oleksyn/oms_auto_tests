@@ -6,7 +6,7 @@ import com.softserveinc.edu.ita.dao.DAOException;
 import java.io.IOException;
 
 /**
- * represent a contract for IFactoryDAO model
+ * Class represents a contract for IFactoryDAO model
  *
  * @param <Connection>
  */

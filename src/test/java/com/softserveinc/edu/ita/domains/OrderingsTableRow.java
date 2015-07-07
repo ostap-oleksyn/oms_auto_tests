@@ -5,10 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Class makes possible to set fields of the row
- * belonging to "Ordering" table from application.
+ * Class is for setting row fields from "Ordering" table in OMS.
  */
-//TODO move out to another package
 public class OrderingsTableRow {
     @Getter
     @Setter(AccessLevel.PRIVATE)

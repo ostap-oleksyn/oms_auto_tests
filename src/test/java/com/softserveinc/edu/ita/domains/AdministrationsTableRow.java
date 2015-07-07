@@ -5,8 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * Class makes possible to set fields of the row
- * belonging to "Administration" table from application.
+ * Class for setting row fields from the "Administration" table in OMS.
  */
 //TODO move out to another package
 public class AdministrationsTableRow {
