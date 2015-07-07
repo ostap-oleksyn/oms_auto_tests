@@ -116,22 +116,6 @@ public class OrderingPage extends LogOutBase {
         return this;
     }
 
-
-    public OrderingPage setShownElementsNumber(final ShownElementsNumber number) {
-        final Select select = new Select(driver.findElement(SHOW_NUMBER_OF_ELEMENTS_LINK.getBy()));
-        select.selectByVisibleText(number.getName());
-        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", SHOW_NUMBER_OF_ELEMENTS_LINK.getName()));
-        return this;
-    }
-
-
-    public OrderingPage setItemOrderStatus(final ItemsOrderStatus status) {
-        final Select select = new Select(driver.findElement(ITEM_ORDER_STATUS.getBy()));
-        select.selectByValue(String.valueOf(status));
-        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected  - <b>'%s'</b>", status.getStatusName()));
-        return this;
-    }
-
     public OrderingPage clickApplyButton() {
         click(OrderingPageLocators.APPLY_BUTTON);
         return this;
@@ -151,36 +135,10 @@ public class OrderingPage extends LogOutBase {
         return getElementAttribute(OrderingPageLocators.SEARCH_FIELD, "value");
     }
 
-    public OrderingPage clickEditLink() {
+    public EditOrderPage clickEditLink() {
         click(EDIT_LINK);
-        return this;
+        return new EditOrderPage(driver);
     }
-
-    public OrderingPage clickItemNextPageButton() {
-        click(ITEM_NEXT_PAGE_BUTTON);
-        return this;
-    }
-
-    public OrderingPage clickItemCancelButton() {
-        click(ITEM_CANCEL_BUTTON);
-        return this;
-    }
-
-    public OrderingPage clickItemSaveButton() {
-        click(ITEM_SAVE_BUTTON);
-        return this;
-    }
-
-    public OrderingPage clickItemErrorShowButton() {
-        click(ITEM_ERROR_SHOW_BUTTON);
-        return this;
-    }
-
-    public OrderingPage clickItemGoToHomeButton() {
-        click(ITEM_GO_TO_HOME_BUTTON);
-        return this;
-    }
-
 
     public NewOrderPage clickCreateNewOrderLink() {
         click(OrderingPageLocators.CREATE_NEW_ORDER_LINK);

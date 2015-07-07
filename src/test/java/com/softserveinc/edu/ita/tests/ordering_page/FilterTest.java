@@ -8,7 +8,7 @@ import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
 import com.softserveinc.edu.ita.tests.TestRunner;
-import com.softserveinc.edu.ita.utils.DBUtility;
+import com.softserveinc.edu.ita.utils.DataProviders;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
@@ -28,11 +28,10 @@ public class FilterTest extends TestRunner {
     private List<WebElement> columnsBeforeFilter;
     private List<WebElement> columnsAfterFilter;
 
-    @Test
-    public void testFilterStatus() {
+    @Test(dataProvider = "getMerchandiserAndCustomer", dataProviderClass = DataProviders.class)
+    public void testFilterStatus(final User user) {
         final HomePage homePage = new HomePage(driver);
-        final User merchandiser = DBUtility.getMerchandiser();
-        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
         for (final StatusFilterValue value : StatusFilterValue.values()) {
@@ -60,11 +59,10 @@ public class FilterTest extends TestRunner {
         orderingPage.clickLogOutButton();
     }
 
-    @Test
-    public void testFilterRole() {
+    @Test(dataProvider = "getMerchandiserAndCustomer", dataProviderClass = DataProviders.class)
+    public void testFilterRole(User user) {
         final HomePage homePage = new HomePage(driver);
-        final User merchandiser = DBUtility.getMerchandiser();
-        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
         for (final RoleFilterValue value : RoleFilterValue.values()) {
@@ -92,11 +90,10 @@ public class FilterTest extends TestRunner {
         orderingPage.clickLogOutButton();
     }
 
-    @Test
-    public void testNoneFilter() {
+    @Test(dataProvider = "getMerchandiserAndCustomer", dataProviderClass = DataProviders.class)
+    public void testNoneFilter(User user) {
         final HomePage homePage = new HomePage(driver);
-        final User merchandiser = DBUtility.getMerchandiser();
-        final UserInfoPage userInfoPage = homePage.logIn(merchandiser.getLogin(), merchandiser.getPassword());
+        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
         columnsBeforeFilter = getColumnByName(STATUS);
