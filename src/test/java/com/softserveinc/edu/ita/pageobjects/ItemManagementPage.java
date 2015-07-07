@@ -14,6 +14,9 @@ import java.util.List;
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.FILTER_SELECT;
 import static com.softserveinc.edu.ita.locators.AdministrationPageLocators.SEARCH_BUTTON;
 
+/**
+ * PageObject class that represents Item Management page.
+ */
 public class ItemManagementPage extends LogOutBase {
 
     public ItemManagementPage(final WebDriver driver) {

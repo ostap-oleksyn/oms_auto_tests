@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * This class describes "Administration" page according to "Page Object" pattern.
+ * PageObject class that represents Administration page.
  */
 public class AdministrationPage extends LogOutBase {
 

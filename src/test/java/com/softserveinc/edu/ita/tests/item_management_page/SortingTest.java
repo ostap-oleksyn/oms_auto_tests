@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.tests.item_management_page;
 
-import com.softserveinc.edu.ita.dao.DAOException;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
@@ -16,12 +15,12 @@ import java.util.Arrays;
 import java.util.Collections;
 
 /**
- * This class to test sorting actions in supervisor's table of products.
+ * Class to test sorting actions in supervisor's table of products.
  */
 public class SortingTest extends TestRunner {
 
     @Test(dataProviderClass = DataProviders.class, dataProvider = "getProductsTableColumns")
-    public void testSorting(final ProductsTableColumns column) throws DAOException {
+    public void testSorting(final ProductsTableColumns column) {
         final HomePage homePage = new HomePage(driver);
         final User randomSupervisor = DBUtility.getRandomUserByRole(Roles.SUPERVISOR);
         final UserInfoPage userInfoPage = homePage.logIn(randomSupervisor.getLogin(), randomSupervisor.getPassword());

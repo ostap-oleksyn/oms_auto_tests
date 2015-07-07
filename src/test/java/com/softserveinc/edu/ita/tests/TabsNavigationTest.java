@@ -18,6 +18,9 @@ import org.testng.annotations.Test;
 import static com.softserveinc.edu.ita.utils.EnumUtil.getRandomEnum;
 import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
 
+/**
+ * Class to test navigation between different tabs on different roles.
+ */
 public class TabsNavigationTest extends TestRunner {
 
     private HomePage homePage;

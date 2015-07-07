@@ -23,6 +23,9 @@ import java.util.stream.Collectors;
 
 import static com.softserveinc.edu.ita.enums.administration_page.SearchFilters.*;
 
+/**
+ * Class to test searching in users table on administration page.
+ */
 public class SearchTest extends TestRunner {
     private List<AdministrationsTableRow> usersListFromView;
     private List<User> usersListFromDB;

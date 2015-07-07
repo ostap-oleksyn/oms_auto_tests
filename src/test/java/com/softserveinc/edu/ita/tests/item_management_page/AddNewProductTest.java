@@ -15,6 +15,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 
+/**
+ * Class to test adding new product functionality on item management page.
+ */
 public class AddNewProductTest extends TestRunner {
 
     private HomePage homePage;

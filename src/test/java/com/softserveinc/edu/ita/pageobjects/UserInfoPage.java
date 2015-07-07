@@ -4,6 +4,9 @@ import com.softserveinc.edu.ita.interfaces.ILocator;
 import com.softserveinc.edu.ita.locators.CommonLocators;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * PageObject class that represents User Info page.
+ */
 public class UserInfoPage extends LogOutBase {
 
     public UserInfoPage(final WebDriver driver) {

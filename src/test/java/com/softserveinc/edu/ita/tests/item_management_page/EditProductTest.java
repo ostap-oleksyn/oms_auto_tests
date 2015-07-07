@@ -14,6 +14,9 @@ import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.testng.annotations.Test;
 
+/**
+ * Class to test editing existing product functionality on item management page.
+ */
 public class EditProductTest extends TestRunner {
 
     private static final String TEST_PRODUCT_NAME = "Test name";

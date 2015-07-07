@@ -13,7 +13,7 @@ import java.util.*;
 import java.util.function.Function;
 
 /**
- * This class is used to test sorting actions
+ * Class to test sorting actions
  * in 'Ordering' table of 'Ordering' page.
  */
 public class SortingTest extends TestRunner {

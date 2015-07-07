@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
 /**
- * PageObject Class presents page for new User creating
+ * PageObject class that represents User Creating page.
  */
 public class NewUserPage extends LogOutBase {
 

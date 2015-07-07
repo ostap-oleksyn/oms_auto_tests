@@ -4,7 +4,9 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.locators.HomePageLocators;
 import org.openqa.selenium.WebDriver;
 
-
+/**
+ * PageObject class that represents Home Page.
+ */
 public class HomePage extends PageObjectBase {
 
     public HomePage(final WebDriver driver) {

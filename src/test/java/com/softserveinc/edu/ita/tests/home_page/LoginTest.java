@@ -11,6 +11,9 @@ import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
+/**
+ * Class to test logging in functionality on home page.
+ */
 public class LoginTest extends TestRunner {
 
     private HomePage homePage;

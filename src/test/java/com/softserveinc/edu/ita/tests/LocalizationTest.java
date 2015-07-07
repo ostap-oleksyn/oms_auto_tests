@@ -7,6 +7,10 @@ import com.softserveinc.edu.ita.pageobjects.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+
+/**
+ * Class to test OMS localization.
+ */
 public class LocalizationTest extends TestRunner {
 
     HomePage homePage;

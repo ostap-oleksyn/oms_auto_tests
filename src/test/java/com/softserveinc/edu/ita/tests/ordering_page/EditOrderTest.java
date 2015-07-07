@@ -21,6 +21,9 @@ import java.util.Random;
 
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
 
+/**
+ * Class to test order editing functionality.
+ */
 public class EditOrderTest extends TestRunner {
     private List<WebElement> pricesList;
     private List<WebElement> quantiiesList;

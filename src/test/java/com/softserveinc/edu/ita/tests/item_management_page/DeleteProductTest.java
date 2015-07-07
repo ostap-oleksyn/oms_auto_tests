@@ -14,6 +14,9 @@ import org.openqa.selenium.Alert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+/**
+ * Class to test deleting existing product functionality on item management page.
+ */
 public class DeleteProductTest extends TestRunner {
 
     private HomePage homePage;

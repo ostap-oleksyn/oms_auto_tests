@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 
 /**
- * Test information on User Info tab for any role User (Ticket IFAA-14)
+ * Class to test information on User Info tab for all user roles.
  */
 public class UserInfoTest extends TestRunner {
 

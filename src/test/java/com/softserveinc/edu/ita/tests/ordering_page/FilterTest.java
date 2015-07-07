@@ -20,6 +20,9 @@ import static com.softserveinc.edu.ita.enums.ordering_page.StatusFilterValue.NON
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ORDER_STATUS_COLUMN;
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ROLE_COLUMN;
 
+/**
+ * Class to test filtering in orders table.
+ */
 public class FilterTest extends TestRunner {
     private List<WebElement> columns;
     private List<WebElement> columnsBeforeFilter;

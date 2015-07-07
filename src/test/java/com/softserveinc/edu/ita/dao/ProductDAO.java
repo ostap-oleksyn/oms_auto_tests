@@ -72,7 +72,7 @@ public class ProductDAO extends AbstractDAO {
     }
 
     @Override
-    protected void setUpdateParameters(final PreparedStatement statement, final Object object) {
+    protected void setUpdateParameters(final PreparedStatement statement, final Object object) throws DAOException {
         final Product product = (Product) object;
         try {
             int i = 1;
@@ -82,12 +82,12 @@ public class ProductDAO extends AbstractDAO {
             statement.setDouble(i++, product.getProductPrice());
             statement.setInt(i++, product.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
     @Override
-    protected void setInsertParameters(final PreparedStatement statement, final Object object) {
+    protected void setInsertParameters(final PreparedStatement statement, final Object object) throws DAOException {
         final Product product = (Product) object;
         try {
             int i = 1;
@@ -96,7 +96,7 @@ public class ProductDAO extends AbstractDAO {
             statement.setString(i++, product.getProductDescription());
             statement.setDouble(i++, product.getProductPrice());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
@@ -114,7 +114,7 @@ public class ProductDAO extends AbstractDAO {
                         .build();
                 resultList.add(product);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return resultList;
@@ -183,7 +183,7 @@ public class ProductDAO extends AbstractDAO {
         List<Product> productList;
 
         try (PreparedStatement statement = connection.prepareStatement(getSelectActiveQuery())) {
-            ResultSet resultSet = statement.executeQuery();
+            final ResultSet resultSet = statement.executeQuery();
             productList = parseResultSet(resultSet);
         } catch (Exception e) {
             throw new DAOException(e);

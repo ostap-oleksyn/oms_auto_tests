@@ -75,7 +75,7 @@ public enum NewOrderPageLocators implements ILocator {
             LocatorsType.BY_XPATH,
             ".//*[@id='edit0']/a");
 
-    NewOrderPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
+    NewOrderPageLocators(final String name, final LocatorsType locatorsType, final String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -97,7 +97,7 @@ public enum NewOrderPageLocators implements ILocator {
         return this.name;
     }
 
-    public NewOrderPageLocators modify(String parameter) {
+    public NewOrderPageLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

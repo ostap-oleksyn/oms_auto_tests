@@ -5,7 +5,9 @@ import com.softserveinc.edu.ita.locators.EditUserPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
-
+/**
+ * PageObject class that represents Edit User page.
+ */
 public class EditUserPage extends LogOutBase {
     public EditUserPage(final WebDriver driver) {
         super(driver);

@@ -8,6 +8,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 
+/**
+ * Class represents base page object page with common methods.
+ */
 public abstract class PageObjectBase {
 
     protected WebDriver driver;

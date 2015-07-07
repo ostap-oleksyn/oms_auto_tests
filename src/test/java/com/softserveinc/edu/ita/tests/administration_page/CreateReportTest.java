@@ -10,6 +10,9 @@ import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
+/**
+ * Class to test creating report functionality on administration page.
+ */
 public class CreateReportTest extends TestRunner {
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)

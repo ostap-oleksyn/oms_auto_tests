@@ -29,14 +29,14 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
      * @param statement - statement with update query
      * @param object - object of domain class which fields will be updated
      */
-    protected abstract void setUpdateParameters(PreparedStatement statement, T object);
+    protected abstract void setUpdateParameters(PreparedStatement statement, T object) throws DAOException;
 
     /**
      * Method for inserting data into to the database.
      * @param statement - statement with insert query
      * @param object - object of domain class to be inserted
      */
-    protected abstract void setInsertParameters(PreparedStatement statement, T object);
+    protected abstract void setInsertParameters(PreparedStatement statement, T object) throws DAOException;
 
     /**
      * Parses ResultSet and returns a list of object corresponding to the content of ResultSet.

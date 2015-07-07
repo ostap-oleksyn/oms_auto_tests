@@ -12,6 +12,9 @@ import org.testng.annotations.Test;
 
 import static com.softserveinc.edu.ita.utils.DBUtility.getActiveUsersNumber;
 
+/**
+ * Class to test navigation on administration page.
+ */
 public class NavigationTest extends TestRunner {
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)

@@ -4,6 +4,9 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.locators.EditProductPageLocators;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * PageObject class that represents Edit Product page.
+ */
 public class EditProductPage extends LogOutBase {
     public EditProductPage(final WebDriver driver) {
         super(driver);

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class OrderItemDAO<T> extends AbstractDAO<T> {
 
-    public OrderItemDAO(Connection connection) {
+    public OrderItemDAO(final Connection connection) {
         super(connection);
     }
 
@@ -54,8 +54,8 @@ public class OrderItemDAO<T> extends AbstractDAO<T> {
     }
 
     @Override
-    protected void setUpdateParameters(PreparedStatement statement, T object) {
-        OrderItem orderItem = (OrderItem) object;
+    protected void setUpdateParameters(final PreparedStatement statement, final T object) throws DAOException {
+        final OrderItem orderItem = (OrderItem) object;
         try {
             int i = 1;
             statement.setDouble(i++, orderItem.getCost());
@@ -66,13 +66,13 @@ public class OrderItemDAO<T> extends AbstractDAO<T> {
             statement.setInt(i++, orderItem.getProductReference());
             statement.setInt(i++, orderItem.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
     @Override
-    protected void setInsertParameters(PreparedStatement statement, T object) {
-        OrderItem orderItem = (OrderItem) object;
+    protected void setInsertParameters(final PreparedStatement statement, final T object) throws DAOException {
+        final OrderItem orderItem = (OrderItem) object;
         try {
             int i = 1;
             statement.setDouble(i++, orderItem.getCost());
@@ -82,17 +82,17 @@ public class OrderItemDAO<T> extends AbstractDAO<T> {
             statement.setInt(i++, orderItem.getOrderReference());
             statement.setInt(i++, orderItem.getProductReference());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
     @Override
-    protected List<T> parseResultSet(ResultSet resultSet) throws DAOException {
-        List<T> resultList = new LinkedList<>();
+    protected List<T> parseResultSet(final ResultSet resultSet) throws DAOException {
+        final List<T> resultList = new LinkedList<>();
         try {
             while (resultSet.next()) {
 
-                OrderItem orderItem = OrderItem.newBuilder()
+                final OrderItem orderItem = OrderItem.newBuilder()
                         .withId(resultSet.getInt("Id"))
                         .withCost(resultSet.getDouble("Cost"))
                         .withItemPrice(resultSet.getDouble("ItemPrice"))
@@ -104,15 +104,15 @@ public class OrderItemDAO<T> extends AbstractDAO<T> {
 
                 resultList.add((T) (orderItem));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
 
         return resultList;
     }
 
-    public void deleteByOrderReference(int orderReference) throws DAOException{
-        String sqlQuery = getDeleteByOrderReferenceQuery();
+    public void deleteByOrderReference(final int orderReference) throws DAOException{
+        final String sqlQuery = getDeleteByOrderReferenceQuery();
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, orderReference);
             statement.executeUpdate();

@@ -4,6 +4,9 @@ package com.softserveinc.edu.ita.pageobjects;
 import com.softserveinc.edu.ita.locators.AddProductPageLocators;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * PageObject class that represents Add Product page.
+ */
 public class AddProductPage extends LogOutBase {
 
     public AddProductPage(final WebDriver driver) {

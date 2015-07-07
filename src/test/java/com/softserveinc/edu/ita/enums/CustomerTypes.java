@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.enums;
 
 /**
- * Enum with customer types. Can generate random values
+ * Enum with customer types.
  */
 public enum CustomerTypes {
     STANDARD(1, "Standart"),

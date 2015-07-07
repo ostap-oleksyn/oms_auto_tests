@@ -4,6 +4,9 @@ import com.softserveinc.edu.ita.interfaces.ILogOutAble;
 import com.softserveinc.edu.ita.locators.CommonLocators;
 import org.openqa.selenium.WebDriver;
 
+/**
+ * PageObject class that represents pages that have log out functionality.
+ */
 public class LogOutBase extends PageObjectBase implements ILogOutAble {
 
     public LogOutBase(final WebDriver driver) {

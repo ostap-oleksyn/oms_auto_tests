@@ -84,7 +84,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
     }
 
     @Override
-    protected void setUpdateParameters(final PreparedStatement statement, final T object) {
+    protected void setUpdateParameters(final PreparedStatement statement, final T object) throws DAOException {
         final User user = (User) object;
         try {
             int i = 1;
@@ -99,12 +99,12 @@ public class UserDAO<T> extends AbstractDAO<T> {
             statement.setInt(i++, user.getRoleReference());
             statement.setInt(i++, user.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
     @Override
-    protected void setInsertParameters(final PreparedStatement statement, final T object) {
+    protected void setInsertParameters(final PreparedStatement statement, final T object) throws DAOException {
         final User user = (User) object;
         try {
             int i = 1;
@@ -118,7 +118,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
             statement.setInt(i++, user.getRegionReference());
             statement.setInt(i++, user.getRoleReference());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
@@ -143,7 +143,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
 
                 resultList.add((T) (user));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
 

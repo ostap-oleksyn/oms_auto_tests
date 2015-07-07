@@ -27,7 +27,7 @@ import static com.softserveinc.edu.ita.enums.ordering_page.RowsPerPage.ROWS_10;
 import static com.softserveinc.edu.ita.enums.ordering_page.RowsPerPage.ROWS_25;
 
 /**
- * Test creating of new Order (Ticket IFAA-20)
+ * Class to test creating of new order with customer role.
  */
 public class CreateOrderTest extends TestRunner {
 
@@ -48,7 +48,7 @@ public class CreateOrderTest extends TestRunner {
 
         // add random items to order
         for (int i = 0; i < ITEMS_COUNT; i++) {
-            AddItemPage addItemPage = newOrderPage.clickAddItemButton();
+            final AddItemPage addItemPage = newOrderPage.clickAddItemButton();
             newOrderPage = addItemPage.clickRandomSelectItemLink()
                     .fillRandomQuantity(MAX_RANDOM_ITEM_QUANTITY)
                     .selectRandomDimension()
@@ -81,17 +81,17 @@ public class CreateOrderTest extends TestRunner {
         final UserInfoPage userInfoPage = homePage.logIn(customer.getLogin(), customer.getPassword());
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        NewOrderPage newOrderPage = orderingPage.clickCreateNewOrderLink();
-        AddItemPage addItemPage = newOrderPage.clickAddItemButton();
+        final NewOrderPage newOrderPage = orderingPage.clickCreateNewOrderLink();
+        final AddItemPage addItemPage = newOrderPage.clickAddItemButton();
 
-        loggingAssert.assertEquals(addItemPage.getItemsCount(), DBUtility.getActiveProductsCount(),
+        loggingAssert.assertEquals(addItemPage.getItemsCount(), DBUtility.getActiveProductsNumber(),
                 "Displayed items count equals a count in database");
 
         addItemPage.clickLogOutButton();
     }
 
     @Test(dataProvider = "products", dataProviderClass = DataProviders.class)
-    public void testItemsSearching(String productName, String productDescription) {
+    public void testItemsSearching(final String productName, final String productDescription) {
         final HomePage homePage = new HomePage(driver);
         final User customer = DBUtility.getByRole(Roles.CUSTOMER);
         final UserInfoPage userInfoPage = homePage.logIn(customer.getLogin(), customer.getPassword());
@@ -103,7 +103,7 @@ public class CreateOrderTest extends TestRunner {
         addItemPage.fillSearchInput(productName).clickSearchButton();
 
         List<String[]> searchedItemsList = addItemPage.getItemsTable();
-        for (String[] item : searchedItemsList) {
+        for (final String[] item : searchedItemsList) {
             loggingAssert.assertTrue(item[0].startsWith(productName),
                     "Product name equals a searched text");
         }
@@ -114,7 +114,7 @@ public class CreateOrderTest extends TestRunner {
                 .clickSearchButton()
                 .getItemsTable();
 
-        for (String[] item : searchedItemsList) {
+        for (final String[] item : searchedItemsList) {
             loggingAssert.assertTrue(item[1].startsWith(productDescription),
                     "Product description equals a searched text");
         }
@@ -153,7 +153,7 @@ public class CreateOrderTest extends TestRunner {
 
         // add random 10 items to order - navigate buttons must be disabled
         for (int i = 0; i < ITEMS_COUNT; i++) {
-            AddItemPage addItemPage = newOrderPage.clickAddItemButton();
+            final AddItemPage addItemPage = newOrderPage.clickAddItemButton();
             newOrderPage = addItemPage.clickRandomSelectItemLink()
                     .fillRandomQuantity(MAX_RANDOM_ITEM_QUANTITY)
                     .selectRandomDimension()
@@ -168,7 +168,7 @@ public class CreateOrderTest extends TestRunner {
         // add random 20 items to order - first and forward buttons must be disabled,
         // last and backward buttons - enabled.
         for (int i = 0; i < ITEMS_COUNT * 2; i++) {
-            AddItemPage addItemPage = newOrderPage.clickAddItemButton();
+            final AddItemPage addItemPage = newOrderPage.clickAddItemButton();
             newOrderPage = addItemPage.clickRandomSelectItemLink()
                     .fillRandomQuantity(MAX_RANDOM_ITEM_QUANTITY)
                     .selectRandomDimension()
@@ -210,7 +210,6 @@ public class CreateOrderTest extends TestRunner {
         newOrderPage.clickLogOutButton();
     }
 
-
     @Test
     public void testDisplayedSums() {
 
@@ -226,7 +225,7 @@ public class CreateOrderTest extends TestRunner {
 
         // add random items to order
         for (int i = 0; i < ITEMS_COUNT; i++) {
-            AddItemPage addItemPage = newOrderPage.clickAddItemButton();
+            final AddItemPage addItemPage = newOrderPage.clickAddItemButton();
             newOrderPage = addItemPage.clickRandomSelectItemLink()
                     .fillRandomQuantity(MAX_RANDOM_ITEM_QUANTITY)
                     .selectRandomDimension()
@@ -234,11 +233,11 @@ public class CreateOrderTest extends TestRunner {
         }
 
         // displayed sums
-        List<String[]> itemsList = newOrderPage.getItemsTable();
+        final List<String[]> itemsList = newOrderPage.getItemsTable();
         BigDecimal totalPrice = new BigDecimal(0);
         BigDecimal itemPrice, itemsCount, itemSum, dimensionMultiplier;
 
-        for (String[] item : itemsList) {
+        for (final String[] item : itemsList) {
             itemPrice = new BigDecimal(item[4]);
             itemsCount = new BigDecimal(item[5]);
             dimensionMultiplier = new BigDecimal(DimensionMultipliers.getItemsCount(item[3]));
@@ -273,7 +272,7 @@ public class CreateOrderTest extends TestRunner {
                 .selectRandomDimension()
                 .clickDoneButton();
 
-        String[] firstItem = newOrderPage.getItemsTable().get(0);
+        final String[] firstItem = newOrderPage.getItemsTable().get(0);
 
         addItemPage = newOrderPage.clickEditLink();
         newOrderPage = addItemPage.clickSelectItemLink(EDITED_WITH_ITEM_INDEX)
@@ -281,7 +280,7 @@ public class CreateOrderTest extends TestRunner {
                 .selectRandomDimension()
                 .clickDoneButton();
 
-        String[] secondItem = newOrderPage.getItemsTable().get(0);
+        final String[] secondItem = newOrderPage.getItemsTable().get(0);
 
         loggingAssert.assertNotEquals(firstItem[0], secondItem[0]);
 
@@ -298,7 +297,7 @@ public class CreateOrderTest extends TestRunner {
         final NewOrderPage newOrderPage = orderingPage.clickCreateNewOrderLink();
         final AddItemPage addItemPage = newOrderPage.clickAddItemButton();
 
-        List<Product> productsList = DBUtility.getActiveProducts();
+        final List<Product> productsList = DBUtility.getActiveProducts();
         List<String[]> itemsList;
 
         // test sorting by name ascending
@@ -332,7 +331,7 @@ public class CreateOrderTest extends TestRunner {
         addItemPage.clickLogOutButton();
     }
 
-    private List<Product> sortProductList(List<Product> productsList, SortFields sortFields, SortType sortType) {
+    private List<Product> sortProductList(final List<Product> productsList, final SortFields sortFields, final SortType sortType) {
 
         switch (sortFields) {
             case SORT_BY_NAME:
@@ -352,7 +351,7 @@ public class CreateOrderTest extends TestRunner {
         return productsList;
     }
 
-    private boolean isItemsListSorted(List<String[]> itemsList, List<Product> productList) {
+    private boolean isItemsListSorted(final List<String[]> itemsList, final List<Product> productList) {
         for (int i = 0; i < itemsList.size(); i++) {
             // used trim() and replace() cause oms trims spaces in text
             if (!itemsList.get(i)[0].equals(productList.get(i).getProductName().trim().replace("  ", " "))

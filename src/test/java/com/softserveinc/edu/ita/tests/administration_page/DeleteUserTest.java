@@ -9,7 +9,7 @@ import com.softserveinc.edu.ita.utils.DBUtility;
 import org.testng.annotations.Test;
 
 /**
- * Test of existing User' deleting (Ticket IFAA-12)
+ * Class to test existing user deleting functionality.
  */
 public class DeleteUserTest extends TestRunner {
 

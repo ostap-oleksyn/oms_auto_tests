@@ -1,7 +1,7 @@
 package com.softserveinc.edu.ita.enums;
 
 /**
- * Enum with regions names. Can generate random values
+ * Enum with regions names.
  */
 public enum OrderStatuses {
     CREATED(1, "Created"),

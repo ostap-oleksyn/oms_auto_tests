@@ -64,7 +64,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
     }
 
     @Override
-    protected void setUpdateParameters(final PreparedStatement statement, final T object) {
+    protected void setUpdateParameters(final PreparedStatement statement, final T object) throws DAOException {
         final Order order = (Order) object;
         try {
             int i = 1;
@@ -79,12 +79,12 @@ public class OrderDAO<T> extends AbstractDAO<T> {
             statement.setString(i++, order.getPreferableDeliveryDate());
             statement.setInt(i++, order.getId());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
     @Override
-    protected void setInsertParameters(final PreparedStatement statement, final T object) {
+    protected void setInsertParameters(final PreparedStatement statement, final T object) throws DAOException {
         final Order order = (Order) object;
         try {
             int i = 1;
@@ -98,7 +98,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
             statement.setString(i++, order.getDeliveryDate());
             statement.setString(i++, order.getPreferableDeliveryDate());
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new DAOException(e);
         }
     }
 
@@ -121,7 +121,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
                         .build();
                 resultList.add((T) (order));
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
 

@@ -133,11 +133,11 @@ public final class DataProviders {
     /**
      * Returns list of users from database extracted by login from xls test data file
      */
-    private static Object[][] getUsersFromList(Roles role) throws DAOException, IOException {
+    private static Object[][] getUsersFromList(final Roles role) throws DAOException, IOException {
         final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.getRoleName());
         final List<User> users = new ArrayList<>();
 
-        for (String usersLogin : usersLoginFromXls) {
+        for (final String usersLogin : usersLoginFromXls) {
             users.add(getByLogin(usersLogin));
         }
 

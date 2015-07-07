@@ -12,7 +12,7 @@ import com.softserveinc.edu.ita.utils.DBUtility;
 import org.testng.annotations.Test;
 
 /**
- * Test of new User creating (Ticket IFAA-9)
+ * Class to test new user creating functionality.
  */
 public class CreateUserTest extends TestRunner {
 

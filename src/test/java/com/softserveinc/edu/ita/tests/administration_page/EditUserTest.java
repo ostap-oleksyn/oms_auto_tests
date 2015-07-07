@@ -15,6 +15,9 @@ import com.softserveinc.edu.ita.utils.EnumUtil;
 import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.testng.annotations.Test;
 
+/**
+ * Class to test existing user editing functionality.
+ */
 public class EditUserTest extends TestRunner {
 
     @Test(dataProvider = "getUserEditData", dataProviderClass = DataProviders.class)

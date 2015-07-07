@@ -8,6 +8,9 @@ import com.softserveinc.edu.ita.tests.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import org.testng.annotations.Test;
 
+/**
+ * Class to test order deleting functionality.
+ */
 public class DeleteOrderTest extends TestRunner {
 
     @Test

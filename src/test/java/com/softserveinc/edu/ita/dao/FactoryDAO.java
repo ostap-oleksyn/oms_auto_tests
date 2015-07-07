@@ -34,9 +34,10 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
 
     /**
      * This method returns a connection to the database.
+     *
      * @throws DAOException
      */
-    public Connection getConnection() throws DAOException {
+    public Connection getConnection() throws DAOException, IOException {
         Connection connection = null;
         try {
             USER = getProperty("user", PROPERTY_FILE);
@@ -45,12 +46,9 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
             connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             throw new DAOException(e);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return connection;
     }
-
 
     /**
      * This method returns an instance of specified DAO domain.
@@ -68,72 +66,15 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
         return creator.create(connection);
     }
 
-    public FactoryDAO() {
+    public FactoryDAO() throws IOException, ClassNotFoundException {
 
-        try {
-            DRIVER = getProperty("driver", PROPERTY_FILE);
-            Class.forName(DRIVER);
-        } catch (ClassNotFoundException | IOException e) {
-            e.printStackTrace();
-        }
+        DRIVER = getProperty("driver", PROPERTY_FILE);
+        Class.forName(DRIVER);
+
         creators = new HashMap<>();
-
-        creators.put(User.class, new ICreatorDAO<Connection>() {
-            @Override
-            public AbstractDAO create(final Connection connection) {
-                return new UserDAO(connection);
-            }
-        });
-
-        creators.put(User.class, new ICreatorDAO<Connection>() {
-            @Override
-            public IGenericDAO create(final Connection connection) {
-                return new UserDAO(connection);
-            }
-        });
-
-        creators.put(Order.class, new ICreatorDAO<Connection>() {
-            @Override
-            public AbstractDAO create(final Connection connection) {
-                return new OrderDAO(connection);
-            }
-        });
-
-        creators.put(Order.class, new ICreatorDAO<Connection>() {
-            @Override
-            public IGenericDAO create(final Connection connection) {
-                return new OrderDAO(connection);
-            }
-        });
-        creators.put(Product.class, new ICreatorDAO<Connection>() {
-
-            @Override
-            public AbstractDAO create(final Connection connection) {
-                return new ProductDAO(connection);
-            }
-        });
-        creators.put(Product.class, new ICreatorDAO<Connection>() {
-
-            @Override
-            public IGenericDAO create(final Connection connection) {
-                return new ProductDAO(connection);
-            }
-        });
-        creators.put(OrderItem.class, new ICreatorDAO<Connection>() {
-            @Override
-            public AbstractDAO create(Connection connection) {
-                return new OrderItemDAO(connection);
-            }
-        });
-
-        creators.put(OrderItem.class, new ICreatorDAO<Connection>() {
-            @Override
-            public IGenericDAO create(Connection connection) {
-                return new OrderItemDAO(connection);
-            }
-        });
-
-
-
+        creators.put(User.class, (ICreatorDAO<Connection>) UserDAO::new);
+        creators.put(Order.class, (ICreatorDAO<Connection>) OrderDAO::new);
+        creators.put(Product.class, (ICreatorDAO<Connection>) ProductDAO::new);
+        creators.put(OrderItem.class, (ICreatorDAO<Connection>) OrderItemDAO::new);
     }
 }

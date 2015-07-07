@@ -16,7 +16,7 @@ import java.util.List;
 import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
 
 /**
- * This class describes "Ordering" page according to "Page Object" pattern.
+ * PageObject class that represents Ordering page.
  */
 public class OrderingPage extends LogOutBase {
 

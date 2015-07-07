@@ -10,6 +10,7 @@ import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.administration_page.SearchConditions;
 import org.testng.Reporter;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +21,22 @@ import java.util.stream.Collectors;
  */
 public final class DBUtility {
 
+
     /**
-     * Returns all users
+     * This method returns a list of all users from database.
      */
     public static List<User> getAllUsers() {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
 
         List<User> usersList = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
             usersList = userDAO.getAll();
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -41,35 +44,44 @@ public final class DBUtility {
     }
 
     /**
-     * Returns random user by his role.
+     * This method returns a random user by his role from database.
      */
-    public static User getRandomUserByRole(final Roles role) throws DAOException {
-        final FactoryDAO factory = new FactoryDAO();
+    public static User getRandomUserByRole(final Roles role) {
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
-        connection = factory.getConnection();
-        userDAO = (UserDAO) factory.getDAO(connection, User.class);
-        final List<User> usersList = userDAO.getAll();
+        List<User> usersList = new ArrayList<>();
+
+        try {
+            factory = new FactoryDAO();
+            connection = factory.getConnection();
+            userDAO = (UserDAO) factory.getDAO(connection, User.class);
+            usersList = userDAO.getAll();
+        } catch (DAOException | IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         final List<User> separatedUserList = usersList.stream()
                 .filter(user -> user.getRoleName().equals(role.getRoleName()))
                 .collect(Collectors.toList());
-        return separatedUserList.get(RandomUtil.getRandomInteger(0, separatedUserList.size()-1));
+        return separatedUserList.get(RandomUtil.getRandomInteger(0, separatedUserList.size() - 1));
     }
 
     /**
-     * Returns filtered by conditions users
+     * This method returns filtered users by conditions from database.
      */
     public static List<User> getFilteredUsers(final SearchConditions condition, final String searchTerm) {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
 
         List<User> usersList = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
             usersList = userDAO.getFilteredUsers(condition, searchTerm);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -77,19 +89,20 @@ public final class DBUtility {
     }
 
     /**
-     * Returns first merchandiser from database
+     * This method returns first merchandiser from the database.
      */
     public static User getMerchandiser() {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
 
         User admin = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
             admin = userDAO.getByRole(Roles.MERCHANDISER);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -97,19 +110,20 @@ public final class DBUtility {
     }
 
     /**
-     * Returns first administrator from database
+     * This method returns first administrator from the database.
      */
     public static User getAdmin() {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
 
         User admin = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
             admin = userDAO.getByRole(Roles.ADMINISTRATOR);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -117,19 +131,20 @@ public final class DBUtility {
     }
 
     /**
-     * Returns last added user (any role) from database
+     * This method returns last added user (any role) from the database.
      */
     public static User getLastUser() {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
 
         User lastUser = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
             lastUser = userDAO.getLastFromDB();
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -137,19 +152,20 @@ public final class DBUtility {
     }
 
     /**
-     * Returns User by login
+     * This method returns a user by login from the database.
      */
     public static User getByLogin(final String login) {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
 
         User user = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
             user = userDAO.getByLogin(login);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -157,19 +173,20 @@ public final class DBUtility {
     }
 
     /**
-     * Returns the number of active users in the database
+     * This method returns the number of active users in the database.
      */
     public static int getActiveUsersNumber() {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         Connection connection;
         AbstractDAO userDAO = null;
 
         List<User> activeUsersList = new ArrayList<>();
 
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (AbstractDAO) factory.getDAO(connection, User.class);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -184,50 +201,53 @@ public final class DBUtility {
     }
 
     /**
-     * Delete user from database
+     * This method removes a user from the database.
      */
     public static void deleteUser(final User user) {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
 
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
             userDAO.delete(user.getId());
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * set user status
+     * This method sets a user status in the database.
      */
     public static void setUserStatus(final User user, final int status) {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
 
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
             userDAO.setUserStatus(user, status);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Returns last added product to the database
+     * This method returns the last added product to the database.
      */
     public static Product getLastAddedProduct() {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         ProductDAO productDAO = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -241,16 +261,17 @@ public final class DBUtility {
     }
 
     /**
-     * Removes the product from the database
+     * This method removes the product from the database.
      */
     public static void removeProductFromDatabase(final Product product) {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         ProductDAO productDAO = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -263,20 +284,21 @@ public final class DBUtility {
     }
 
     /**
-     * Returns status of a product from database
+     * This method returns a status of a product from the database.
      *
      * @param name        - product name
      * @param description - product description
      */
     public static int getProductStatus(final String name, final String description) {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         ProductDAO productDAO = null;
         int status = 0;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -289,40 +311,42 @@ public final class DBUtility {
     }
 
     /**
-     * Sets status to a product in database
+     * This method sets status to a product in the database.
      *
      * @param name        - product name
      * @param description - product description
      * @param status      - product status
      */
     public static void setProductStatus(final String name, final String description, final ProductStatus status) {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final ProductDAO productDAO;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
             productDAO.setProductStatus(name, description, status);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Returns product from database by name and description
+     * This method returns a product from the database by name and description.
      *
      * @param name        - product name
      * @param description - product description
      */
     public static Product getProduct(final String name, final String description) {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         ProductDAO productDAO = null;
         Product product = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -335,19 +359,20 @@ public final class DBUtility {
     }
 
     /**
-     * Returns first User by role
+     * This method returns the first user by role from the database.
      */
-    public static User getByRole(Roles role) {
-        final FactoryDAO factory = new FactoryDAO();
+    public static User getByRole(final Roles role) {
+        final FactoryDAO factory;
         final Connection connection;
         final UserDAO userDAO;
 
         User user = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             userDAO = (UserDAO) factory.getDAO(connection, User.class);
             user = userDAO.getByRole(role);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -355,19 +380,20 @@ public final class DBUtility {
     }
 
     /**
-     * Returns Order by orderNumber
+     * This method returns a order from the database by orderNumber.
      */
-    public static Order getByOrderNumber(int orderNumber) {
-        final FactoryDAO factory = new FactoryDAO();
+    public static Order getByOrderNumber(final int orderNumber) {
+        final FactoryDAO factory;
         final Connection connection;
         final OrderDAO orderDAO;
 
         Order order = null;
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             orderDAO = (OrderDAO) factory.getDAO(connection, Order.class);
             order = orderDAO.getByOrderNumber(orderNumber);
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -375,20 +401,21 @@ public final class DBUtility {
     }
 
     /**
-     * Return Order items (Products)
+     * This method returns the number of order items (Products).
      */
-    public static int getOrderItemsCount(Order order) {
-        final FactoryDAO factory = new FactoryDAO();
+    public static int getOrderItemsCount(final Order order) {
+        final FactoryDAO factory;
         final Connection connection;
         final OrderItemDAO orderItemDAO;
 
         List<OrderItem> orderItemsList = new ArrayList<>();
 
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             orderItemDAO = (OrderItemDAO) factory.getDAO(connection, OrderItem.class);
             orderItemsList = orderItemDAO.getAll();
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -396,79 +423,83 @@ public final class DBUtility {
                 .collect(Collectors.toList()).size();
     }
 
-    public static void deleteOrderItems(Order order) {
-        final FactoryDAO factory = new FactoryDAO();
+
+    /**
+     * This method deletes order items (Products).
+     */
+    public static void deleteOrderItems(final Order order) {
+        final FactoryDAO factory;
         final Connection connection;
         final OrderItemDAO orderItemDAO;
 
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             orderItemDAO = (OrderItemDAO) factory.getDAO(connection, OrderItem.class);
             orderItemDAO.deleteByOrderReference(order.getId());
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Delete Order from database
+     * This method removes an order from the database.
      */
-    public static void deleteOrder(Order order) {
-        final FactoryDAO factory = new FactoryDAO();
+    public static void deleteOrder(final Order order) {
+        final FactoryDAO factory;
         final Connection connection;
         final OrderDAO orderDAO;
 
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             orderDAO = (OrderDAO) factory.getDAO(connection, Order.class);
             orderDAO.delete(order.getId());
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-
-    public static int getActiveProductsCount() {
-        final FactoryDAO factory = new FactoryDAO();
-        final Connection connection;
-        final ProductDAO productDAO;
-
-        List<Product> productsList = new ArrayList<>();
-
-        try {
-            connection = factory.getConnection();
-            productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
-            productsList = productDAO.getActiveProducts();
-        } catch (DAOException e) {
-            e.printStackTrace();
-        }
-
-        return productsList.size();
-    }
-
+    /**
+     * This method returns a list of active products in the database.
+     */
     public static List<Product> getActiveProducts() {
-        final FactoryDAO factory = new FactoryDAO();
+        final FactoryDAO factory;
         final Connection connection;
         final ProductDAO productDAO;
 
         List<Product> productsList = new ArrayList<>();
 
         try {
+            factory = new FactoryDAO();
             connection = factory.getConnection();
             productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
             productsList = productDAO.getActiveProducts();
-        } catch (DAOException e) {
+        } catch (DAOException | IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
         return productsList;
     }
 
-    public static int getActiveProductsNumber() throws DAOException {
-        final FactoryDAO factory = new FactoryDAO();
-        final Connection connection = factory.getConnection();
-        final ProductDAO productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
-        final List<Product> allProductsList = productDAO.getAll();
+    /**
+     * This method returns the number of active products in the database.
+     */
+    public static int getActiveProductsNumber() {
+        final FactoryDAO factory;
+        final Connection connection;
+        final ProductDAO productDAO;
+        List<Product> allProductsList = new ArrayList<>();
+
+        try {
+            factory = new FactoryDAO();
+            connection = factory.getConnection();
+            productDAO = (ProductDAO) factory.getDAO(connection, Product.class);
+            allProductsList = productDAO.getAll();
+        } catch (IOException | DAOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
         return allProductsList.stream()
                 .filter(product -> product.getStatus() == 1)
                 .collect(Collectors.toList()).size();
