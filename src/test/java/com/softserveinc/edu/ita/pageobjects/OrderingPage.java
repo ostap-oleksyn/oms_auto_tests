@@ -184,6 +184,12 @@ public class OrderingPage extends LogOutBase {
         return this;
     }
 
+
+    public NewOrderPage clickCreateNewOrderLink() {
+        click(OrderingPageLocators.CREATE_NEW_ORDER_LINK);
+        return new NewOrderPage(driver);
+    }
+
     public OrderingPage clickDeleteOrderButton() {
         click(OrderingPageLocators.DELETE_ORDER_BUTTON);
         return this;

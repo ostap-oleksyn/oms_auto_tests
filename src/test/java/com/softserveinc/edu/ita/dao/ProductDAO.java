@@ -62,6 +62,12 @@ public class ProductDAO extends AbstractDAO {
                 "WHERE ProductName = ? AND ProductDescription = ?";
     }
 
+    protected String getSelectActiveQuery() {
+        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
+                "FROM Products \n" +
+                "WHERE IsProductActive = true";
+    }
+
     @Override
     protected void setUpdateParameters(PreparedStatement statement, Object object) {
         Product product = (Product) object;
@@ -168,4 +174,20 @@ public class ProductDAO extends AbstractDAO {
         }
         return list.get(0);
     }
+
+
+    public List<Product> getActiveProducts() throws DAOException {
+        List<Product> productList;
+
+        try (PreparedStatement statement = connection.prepareStatement(getSelectActiveQuery())) {
+            ResultSet resultSet = statement.executeQuery();
+            productList = parseResultSet(resultSet);
+        } catch (Exception e) {
+            throw new DAOException(e);
+        }
+
+        return productList;
+    }
+
+
 }
