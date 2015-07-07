@@ -19,4 +19,67 @@
             </class>
         </classes>
     </test>
+    <test name="edit order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.EditOrderTest">
+                <methods>
+                    <include name="testOrderEdit"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Error edit order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.EditOrderTest">
+                <methods>
+                    <include name="testErrorOrderEdit"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="filter status test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterTest">
+                <methods>
+                    <include name="testFilterStatus"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="filter role test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterTest">
+                <methods>
+                    <include name="testFilterRole"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="none filter test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterTest">
+                <methods>
+                    <include name="testNoneFilter"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="navigation edit order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.NavigationEditOrderTest">
+                <methods>
+                    <include name="testNavigation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="search test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.SearchTest">
+                <methods>
+                    <include name="testSearch"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
