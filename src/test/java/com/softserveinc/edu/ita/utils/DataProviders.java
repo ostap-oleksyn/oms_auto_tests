@@ -18,6 +18,7 @@ import java.util.stream.Stream;
 
 import static com.softserveinc.edu.ita.utils.DBUtility.getByLogin;
 import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
+import static com.softserveinc.edu.ita.utils.XlsFileReader.getAllRowsFromXlsSheet;
 
 /**
  * Class with data provider methods.
@@ -28,6 +29,7 @@ public final class DataProviders {
      * returns searchterms from xls file
      */
     @DataProvider(name = "getSearchTerms")
+
     public static Object[][] getSearchTerms() throws IOException {
         return XlsFileReader.getAllRowsFromXlsSheet("searchTerms");
     }
@@ -126,6 +128,26 @@ public final class DataProviders {
     @DataProvider(name = "getInvalidUsers")
     public static Object[][] getInvalidCredentials() throws IOException {
         return XlsFileReader.getAllRowsFromXlsSheet("InvalidCredentials");
+    }
+
+    /**
+     * Returns list of users from database extracted by login from xls test data file
+     */
+    private static Object[][] getUsersFromList(Roles role) throws DAOException, IOException {
+        final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.getRoleName());
+        final List<User> users = new ArrayList<>();
+
+        for (String usersLogin : usersLoginFromXls) {
+            users.add(getByLogin(usersLogin));
+        }
+
+        final Object[][] usersList = new Object[users.size()][1];
+
+        for (int i = 0; i < users.size(); i++) {
+            usersList[i][0] = users.get(i);
+        }
+
+        return usersList;
     }
 
     /**
@@ -231,23 +253,10 @@ public final class DataProviders {
         return XlsFileReader.getAllRowsFromXlsSheet("userEditData");
     }
 
-    /**
-     * Returns list of users from database extracted by login from xls test data file
-     */
-    private static Object[][] getUsersFromList(final Roles role) throws DAOException, IOException {
-        final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.getRoleName());
-        final List<User> users = new ArrayList<>();
-
-        for (final String usersLogin : usersLoginFromXls) {
-            users.add(getByLogin(usersLogin));
-        }
-
-        final Object[][] usersList = new Object[users.size()][1];
-
-        for (int i = 0; i < users.size(); i++) {
-            usersList[i][0] = users.get(i);
-        }
-
-        return usersList;
+    @DataProvider(name = "products")
+    public static Object[][] getProducts() throws IOException {
+        return getAllRowsFromXlsSheet("Products");
     }
 }
+
+
