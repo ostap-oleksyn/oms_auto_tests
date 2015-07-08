@@ -77,6 +77,18 @@ public class TestRunner {
                 capabilities.setBrowserName("internet explorer");
                 driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
                 break;
+            case FIREFOX_REMOTE_LINUX:
+                capabilities = new DesiredCapabilities();
+                capabilities.setPlatform(Platform.LINUX);
+                capabilities.setBrowserName("firefox");
+                driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
+                break;
+            case CHROME_REMOTE_LINUX:
+                capabilities = new DesiredCapabilities();
+                capabilities.setPlatform(Platform.LINUX);
+                capabilities.setBrowserName("chrome");
+                driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
+                break;
             case PHANTOM_JS:
             case HEADLESS:
                 driver = new PhantomJSDriver();
