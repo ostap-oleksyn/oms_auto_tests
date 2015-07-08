@@ -1,6 +1,7 @@
 package com.softserveinc.edu.ita.tests.ordering_page;
 
 import com.softserveinc.edu.ita.domains.OrderingsTableRow;
+import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;
@@ -18,34 +19,36 @@ import java.util.function.Function;
  */
 public class SortingTest extends TestRunner {
 
-    @Test(dataProviderClass = DataProviders.class, dataProvider = "getOrdersTableColumns")
-    public void testSorting(final OrdersTableColumns column) {
+    @Test(dataProviderClass = DataProviders.class, dataProvider = "getMerchandiserAndCustomer")
+    public void testSorting(final User user) {
         final HomePage homePage = new HomePage(driver);
-        final UserInfoPage userInfoPage = homePage.logIn("login1", "qwerty");
+        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
-        final List<OrderingsTableRow> baseTableFromView = orderingPage.getTableFromView();
+        for (final OrdersTableColumns column : OrdersTableColumns.values()) {
+            final List<OrderingsTableRow> baseTableFromView = orderingPage.getTableFromView();
 
-        orderingPage.clickOrdersTableColumn(column);
-        final List<OrderingsTableRow> tableFromViewSortedAsc = orderingPage.getTableFromView();
+            orderingPage.clickOrdersTableColumn(column);
+            final List<OrderingsTableRow> tableFromViewSortedAsc = orderingPage.getTableFromView();
 
-        orderingPage.clickOrdersTableColumn(column);
-        final List<OrderingsTableRow> tableFromViewSortedDesc = orderingPage.getTableFromView();
+            orderingPage.clickOrdersTableColumn(column);
+            final List<OrderingsTableRow> tableFromViewSortedDesc = orderingPage.getTableFromView();
 
-        loggingSoftAssert.assertTrue(isTableIntact(baseTableFromView, tableFromViewSortedAsc),
-                String.format("Table isn't broken after ascendant sorting by '%s'.", column));
-        loggingSoftAssert.assertTrue(isTableIntact(baseTableFromView, tableFromViewSortedDesc),
-                String.format("Table's isn't broken after descendant sorting by '%s'.", column));
+            loggingSoftAssert.assertTrue(isTableIntact(baseTableFromView, tableFromViewSortedAsc),
+                    String.format("Table isn't broken after ascendant sorting by '%s'.", column));
+            loggingSoftAssert.assertTrue(isTableIntact(baseTableFromView, tableFromViewSortedDesc),
+                    String.format("Table's isn't broken after descendant sorting by '%s'.", column));
 
-        sortBaseTableBy(baseTableFromView, column);
-        loggingSoftAssert.assertTrue(isTablesEqualsByColumn(baseTableFromView, tableFromViewSortedAsc, column),
-                String.format("Ascendant sorting by '%s' is working.", column));
+            sortBaseTableBy(baseTableFromView, column);
+            loggingSoftAssert.assertTrue(isTablesEqualsByColumn(baseTableFromView, tableFromViewSortedAsc, column),
+                    String.format("Ascendant sorting by '%s' is working.", column));
 
-        Collections.reverse(baseTableFromView);
-        loggingSoftAssert.assertTrue(isTablesEqualsByColumn(baseTableFromView, tableFromViewSortedDesc, column),
-                String.format("Descendant sorting by '%s' is working.", column));
+            Collections.reverse(baseTableFromView);
+            loggingSoftAssert.assertTrue(isTablesEqualsByColumn(baseTableFromView, tableFromViewSortedDesc, column),
+                    String.format("Descendant sorting by '%s' is working.", column));
 
-        orderingPage.clickLogOutButton();
-        loggingSoftAssert.assertAll();
+            orderingPage.clickLogOutButton();
+            loggingSoftAssert.assertAll();
+        }
     }
 
     /**

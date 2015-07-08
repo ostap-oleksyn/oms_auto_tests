@@ -110,6 +110,26 @@ public final class DBUtility {
     }
 
     /**
+     * Returns first customer from database
+     */
+    public static User getCustomer() throws IOException, ClassNotFoundException {
+        final FactoryDAO factory = new FactoryDAO();
+        final Connection connection;
+        final UserDAO userDAO;
+
+        User customer = null;
+        try {
+            connection = factory.getConnection();
+            userDAO = (UserDAO) factory.getDAO(connection, User.class);
+            customer = userDAO.getByRole(Roles.CUSTOMER);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+
+        return customer;
+    }
+
+    /**
      * This method returns first administrator from the database.
      */
     public static User getAdmin() {
