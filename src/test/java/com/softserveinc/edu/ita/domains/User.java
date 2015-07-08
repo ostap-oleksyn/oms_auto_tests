@@ -11,36 +11,16 @@ import lombok.Setter;
  */
 public class User {
 
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int id;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int status;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String firstName;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String lastName;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String login;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String password;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String email;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int roleReference;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int customerTypeReference;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int regionReference;
+    @Getter @Setter(AccessLevel.PRIVATE) private int id;
+    @Getter @Setter(AccessLevel.PRIVATE) private int status;
+    @Getter @Setter(AccessLevel.PRIVATE) private String firstName;
+    @Getter @Setter(AccessLevel.PRIVATE) private String lastName;
+    @Getter @Setter(AccessLevel.PRIVATE) private String login;
+    @Getter @Setter(AccessLevel.PRIVATE) private String password;
+    @Getter @Setter(AccessLevel.PRIVATE) private String email;
+    @Getter @Setter(AccessLevel.PRIVATE) private int roleReference;
+    @Getter @Setter(AccessLevel.PRIVATE) private int customerTypeReference;
+    @Getter @Setter(AccessLevel.PRIVATE) private int regionReference;
 
     private User() {
     }
@@ -126,7 +106,6 @@ public class User {
     public interface BuildStep {
         User build();
     }
-
 
     public static class Builder implements IdStep, StatusStep, FirstNameStep, LastNameStep, LoginStep, PasswordStep,
             EmailStep, RoleReferenceStep, CustomerTypeReferenceStep, RegionReferenceStep, BuildStep {

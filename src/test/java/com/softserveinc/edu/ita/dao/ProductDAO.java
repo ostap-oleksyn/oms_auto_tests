@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.dao;
 
-
 import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.enums.ProductStatus;
 
@@ -123,7 +122,7 @@ public class ProductDAO extends AbstractDAO {
 
     public Product getLastAddedProduct() throws DAOException {
         List<Product> productList;
-        try (PreparedStatement statement = connection.prepareStatement(getLastAddedQuery())) {
+        try (final PreparedStatement statement = connection.prepareStatement(getLastAddedQuery())) {
             final ResultSet resultSet = statement.executeQuery();
             productList = parseResultSet(resultSet);
         } catch (Exception e) {
@@ -140,7 +139,7 @@ public class ProductDAO extends AbstractDAO {
         List<Product> list;
         final String sqlQuery = getProductQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, name);
             statement.setString(2, description);
             final ResultSet resultSet = statement.executeQuery();
@@ -153,7 +152,7 @@ public class ProductDAO extends AbstractDAO {
 
     public void setProductStatus(final String name, final String description, final ProductStatus status) throws DAOException {
         final String sqlQuery = setProductStatusQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, status.getStatus());
             statement.setString(2, name);
             statement.setString(3, description);
@@ -167,7 +166,7 @@ public class ProductDAO extends AbstractDAO {
         List<Product> list;
         final String sqlQuery = getProductQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, name);
             statement.setString(2, description);
             final ResultSet resultSet = statement.executeQuery();
@@ -182,7 +181,7 @@ public class ProductDAO extends AbstractDAO {
     public List<Product> getActiveProducts() throws DAOException {
         List<Product> productList;
 
-        try (PreparedStatement statement = connection.prepareStatement(getSelectActiveQuery())) {
+        try (final PreparedStatement statement = connection.prepareStatement(getSelectActiveQuery())) {
             final ResultSet resultSet = statement.executeQuery();
             productList = parseResultSet(resultSet);
         } catch (Exception e) {
@@ -191,6 +190,4 @@ public class ProductDAO extends AbstractDAO {
 
         return productList;
     }
-
-
 }

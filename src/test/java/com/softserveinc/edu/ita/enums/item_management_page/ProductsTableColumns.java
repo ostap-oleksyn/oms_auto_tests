@@ -2,9 +2,6 @@ package com.softserveinc.edu.ita.enums.item_management_page;
 
 import org.openqa.selenium.WebElement;
 
-/**
- * Enum to limit possible columns of product's table.
- */
 public enum ProductsTableColumns {
     NAME("Name", ValuesType.STRING),
     DESCRIPTION("Description", ValuesType.STRING),

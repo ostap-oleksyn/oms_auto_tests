@@ -8,12 +8,10 @@ import com.softserveinc.edu.ita.enums.item_management_page.ItemFilter;
 import com.softserveinc.edu.ita.enums.item_management_page.ProductsTableColumns;
 import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import org.testng.annotations.DataProvider;
+import org.testng.collections.Lists;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static com.softserveinc.edu.ita.utils.DBUtility.getByLogin;
@@ -24,6 +22,36 @@ import static com.softserveinc.edu.ita.utils.XlsFileReader.getAllRowsFromXlsShee
  * Class with data provider methods.
  */
 public final class DataProviders {
+
+    /**
+     * returns searchterms and users from xls file
+     *
+     * @return
+     */
+    @DataProvider(name = "getOrderSearchTestData")
+    public static Object[][] getTestData() throws IOException, ClassNotFoundException {
+        final Object[][] searchTerms = XlsFileReader.getAllRowsFromXlsSheet("OrderSearchTerms");
+
+        return new Object[][]{new Object[]{DBUtility.getMerchandiser(), searchTerms[0][0]},
+                new Object[]{DBUtility.getMerchandiser(), searchTerms[1][0]},
+                new Object[]{DBUtility.getMerchandiser(), searchTerms[2][0]},
+                new Object[]{DBUtility.getCustomer(), searchTerms[0][0]},
+                new Object[]{DBUtility.getCustomer(), searchTerms[1][0]},
+                new Object[]{DBUtility.getCustomer(), searchTerms[2][0]}};
+    }
+
+    /**
+     * Returns all users with Administrator and Customer role from database
+     *
+     * @return
+     */
+    @DataProvider(name = "getMerchandiserAndCustomer")
+    public static Object[][] getMerchandiserAndCustomerCredentials() throws IOException, DAOException {
+        final List<Object[]> usersList = Lists.newArrayList();
+        usersList.addAll(Arrays.asList(getCustomerCredentials()));
+        usersList.addAll(Arrays.asList(getMerchandiserCredentials()));
+        return usersList.toArray(new Object[usersList.size()][]);
+    }
 
     /**
      * returns searchterms from xls file

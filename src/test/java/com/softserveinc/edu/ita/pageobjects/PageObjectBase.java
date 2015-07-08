@@ -1,7 +1,6 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-
-import com.softserveinc.edu.ita.interfaces.ILocator;
+import com.softserveinc.edu.ita.locators.interfaces.ILocator;
 import com.softserveinc.edu.ita.locators.CommonLocators;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -72,6 +71,5 @@ public abstract class PageObjectBase {
     public String getElementAttribute(final ILocator locator, final String attribute) {
         return driver.findElement(locator.getBy()).getAttribute(attribute);
     }
-
 }
 

@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-
 import com.softserveinc.edu.ita.locators.HomePageLocators;
 import org.openqa.selenium.WebDriver;
 
@@ -24,5 +23,4 @@ public class HomePage extends PageObjectBase {
         click(HomePageLocators.LOGIN_SUBMIT_BUTTON);
         return new HomePage(driver);
     }
-
 }

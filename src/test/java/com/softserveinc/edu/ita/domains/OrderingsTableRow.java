@@ -8,27 +8,13 @@ import lombok.Setter;
  * Class is for setting row fields from "Ordering" table in OMS.
  */
 public class OrderingsTableRow {
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String orderName;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String totalPrice;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String maxDiscount;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String deliveryDate;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String status;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String assignee;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String role;
+    @Getter @Setter(AccessLevel.PRIVATE) private String orderName;
+    @Getter @Setter(AccessLevel.PRIVATE) private String totalPrice;
+    @Getter @Setter(AccessLevel.PRIVATE) private String maxDiscount;
+    @Getter @Setter(AccessLevel.PRIVATE) private String deliveryDate;
+    @Getter @Setter(AccessLevel.PRIVATE) private String status;
+    @Getter @Setter(AccessLevel.PRIVATE) private String assignee;
+    @Getter @Setter(AccessLevel.PRIVATE) private String role;
 
     public OrderingsTableRow(final String orderName) {
         this.orderName = orderName.toLowerCase();

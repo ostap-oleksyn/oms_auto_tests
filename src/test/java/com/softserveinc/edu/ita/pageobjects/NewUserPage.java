@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.NewUserPageLocators;
 import org.openqa.selenium.WebDriver;

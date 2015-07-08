@@ -1,9 +1,8 @@
-package com.softserveinc.edu.ita.tests;
+package com.softserveinc.edu.ita.utils;
 
 import com.softserveinc.edu.ita.enums.BrowserTypes;
 import com.softserveinc.edu.ita.logging.LoggingAssert;
 import com.softserveinc.edu.ita.logging.LoggingSoftAssert;
-import com.softserveinc.edu.ita.utils.PropertyLoader;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -48,7 +47,6 @@ public class TestRunner {
         }
         final String driverPath = "src\\resources\\drivers\\";
 
-        // TODO add factory
         switch (browserType) {
             case FIREFOX:
                 driver = new FirefoxDriver();

@@ -1,8 +1,5 @@
 package com.softserveinc.edu.ita.enums;
 
-/**
- * Enum with roles names.
- */
 public enum Roles {
     ADMINISTRATOR(1, "Administrator"),
     MERCHANDISER(2, "Merchandiser"),

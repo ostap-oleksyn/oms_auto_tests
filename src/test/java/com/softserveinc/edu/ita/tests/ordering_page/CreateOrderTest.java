@@ -8,7 +8,7 @@ import com.softserveinc.edu.ita.enums.Roles;
 import com.softserveinc.edu.ita.enums.ordering_page.SortFields;
 import com.softserveinc.edu.ita.enums.ordering_page.SortType;
 import com.softserveinc.edu.ita.pageobjects.*;
-import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.utils.RandomUtil;

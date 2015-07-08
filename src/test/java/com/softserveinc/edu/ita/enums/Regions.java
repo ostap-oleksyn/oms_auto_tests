@@ -1,8 +1,5 @@
 package com.softserveinc.edu.ita.enums;
 
-/**
- * Enum with regions names.
- */
 public enum Regions {
     NORTH(1, "North"),
     EAST(2, "East"),

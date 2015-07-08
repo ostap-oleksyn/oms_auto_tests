@@ -9,21 +9,11 @@ import static com.softserveinc.edu.ita.utils.RandomUtil.getRandomString;
 
 public class Product {
 
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int id;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int status;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String productName;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String productDescription;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private Double productPrice;
+    @Getter @Setter(AccessLevel.PRIVATE) private int id;
+    @Getter @Setter(AccessLevel.PRIVATE) private int status;
+    @Getter @Setter(AccessLevel.PRIVATE) private String productName;
+    @Getter @Setter(AccessLevel.PRIVATE) private String productDescription;
+    @Getter @Setter(AccessLevel.PRIVATE) private Double productPrice;
 
     public static Product createRandomProduct() {
         return Product.newBuilder()

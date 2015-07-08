@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.enums;
 
-
 public enum ProductStatus {
     ACTIVE(1),
     INACTIVE(0);

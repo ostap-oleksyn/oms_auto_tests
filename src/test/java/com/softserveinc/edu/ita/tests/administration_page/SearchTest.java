@@ -10,7 +10,7 @@ import com.softserveinc.edu.ita.enums.administration_page.SearchFilters;
 import com.softserveinc.edu.ita.pageobjects.AdministrationPage;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
-import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;

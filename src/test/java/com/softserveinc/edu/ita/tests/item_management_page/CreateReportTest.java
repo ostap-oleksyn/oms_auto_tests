@@ -5,7 +5,7 @@ import com.softserveinc.edu.ita.locators.ItemManagementPageLocators;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.ItemManagementPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
-import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.TestRunner;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 

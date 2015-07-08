@@ -7,7 +7,7 @@ import com.softserveinc.edu.ita.pageobjects.AdministrationPage;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.NewUserPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
-import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import org.testng.annotations.Test;
 

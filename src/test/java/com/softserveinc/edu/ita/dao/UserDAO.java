@@ -154,11 +154,11 @@ public class UserDAO<T> extends AbstractDAO<T> {
         List<User> list;
         final String sqlQuery = getByLoginQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setString(1, login);
             final ResultSet resultSet = statement.executeQuery();
             list = (List<User>) parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return list.get(0);
@@ -168,11 +168,11 @@ public class UserDAO<T> extends AbstractDAO<T> {
         List<User> list;
         final String sqlQuery = getByRoleQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, role.ordinal() + 1);
             final ResultSet resultSet = statement.executeQuery();
             list = (List<User>) parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return list.get(0);
@@ -182,10 +182,10 @@ public class UserDAO<T> extends AbstractDAO<T> {
         List<User> list;
         final String sqlQuery = getLastFromDBQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             final ResultSet resultSet = statement.executeQuery();
             list = (List<User>) parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return list.get(0);
@@ -227,7 +227,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
             final ResultSet resultSet = statement.executeQuery();
             usersList = (List<User>) parseResultSet(resultSet);
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return usersList;
@@ -235,15 +235,14 @@ public class UserDAO<T> extends AbstractDAO<T> {
 
     public void setUserStatus(final User user, final int status) throws DAOException {
         final String sqlQuery = setUserStatus();
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, status);
             statement.setInt(2, user.getId());
 
             statement.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
-
 }
