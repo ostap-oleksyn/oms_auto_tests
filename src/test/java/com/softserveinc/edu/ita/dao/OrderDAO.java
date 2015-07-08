@@ -1,7 +1,5 @@
 package com.softserveinc.edu.ita.dao;
 
-
-
 import com.softserveinc.edu.ita.domains.Order;
 
 import java.sql.Connection;
@@ -10,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-
 
 /**
  * DAO class for order domain.
@@ -132,7 +129,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
         List<Order> list;
         final String sqlQuery = getByOrderNumberQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, orderNumber);
             final ResultSet resultSet = statement.executeQuery();
             list = (List<Order>) parseResultSet(resultSet);
@@ -141,5 +138,4 @@ public class OrderDAO<T> extends AbstractDAO<T> {
         }
         return list.get(0);
     }
-
 }

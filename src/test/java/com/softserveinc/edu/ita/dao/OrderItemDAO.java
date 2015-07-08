@@ -113,13 +113,11 @@ public class OrderItemDAO<T> extends AbstractDAO<T> {
 
     public void deleteByOrderReference(final int orderReference) throws DAOException{
         final String sqlQuery = getDeleteByOrderReferenceQuery();
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, orderReference);
             statement.executeUpdate();
         } catch (Exception e) {
             throw new DAOException(e);
         }
     }
-
-
 }

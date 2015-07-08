@@ -1,8 +1,5 @@
 package com.softserveinc.edu.ita.enums;
 
-/**
- * Enum with regions names.
- */
 public enum OrderStatuses {
     CREATED(1, "Created"),
     PENDING(2, "Pending"),

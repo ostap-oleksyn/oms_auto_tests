@@ -1,8 +1,5 @@
 package com.softserveinc.edu.ita.enums;
 
-/**
- * Enum with customer types.
- */
 public enum CustomerTypes {
     STANDARD(1, "Standart"),
     SILVER(2, "Silver"),

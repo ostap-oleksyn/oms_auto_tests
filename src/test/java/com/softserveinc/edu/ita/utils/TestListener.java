@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.utils;
 
-import com.softserveinc.edu.ita.tests.TestRunner;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -14,7 +13,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 
 /**
  * Custom listener for taking and logging screenshots on failed tests.

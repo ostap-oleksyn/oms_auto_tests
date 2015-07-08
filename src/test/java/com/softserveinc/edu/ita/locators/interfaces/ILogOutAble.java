@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.interfaces;
+package com.softserveinc.edu.ita.locators.interfaces;
 
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 

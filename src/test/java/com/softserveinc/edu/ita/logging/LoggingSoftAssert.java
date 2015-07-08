@@ -5,7 +5,7 @@ import org.testng.asserts.IAssert;
 import org.testng.asserts.SoftAssert;
 
 /**
- * Wrapper class for testng soft asserts.
+ * Wrapper class for TestNG soft asserts.
  */
 public final class LoggingSoftAssert extends SoftAssert {
 

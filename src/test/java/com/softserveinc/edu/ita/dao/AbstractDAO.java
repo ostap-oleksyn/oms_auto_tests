@@ -52,7 +52,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
         List<T> list;
         final String selectQuery = getSelectAllQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(selectQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(selectQuery)) {
             final ResultSet resultSet = statement.executeQuery();
             list = parseResultSet(resultSet);
         } catch (Exception e) {
@@ -66,7 +66,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
         List<T> list;
         final String sqlQuery = getSelectQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, id);
             final ResultSet resultSet = statement.executeQuery();
             list = parseResultSet(resultSet);
@@ -81,7 +81,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
         final String sqlQuery = getInsertQuery();
 
         int newId = 0;
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery,
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery,
                 PreparedStatement.RETURN_GENERATED_KEYS)) {
             setInsertParameters(statement, object);
             statement.executeUpdate();
@@ -101,7 +101,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
     public void update(final T object) throws DAOException {
         final String sqlQuery = getUpdateQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             setUpdateParameters(statement, object);
             statement.executeUpdate();
         } catch (Exception e) {
@@ -113,12 +113,11 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
     public void delete(final int id) throws DAOException {
         final String sqlQuery = getDeleteQuery();
 
-        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+        try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, id);
             statement.execute();
         } catch (Exception e) {
             throw new DAOException(e);
         }
     }
-
 }

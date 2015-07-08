@@ -7,23 +7,12 @@ import lombok.Setter;
 /**
  * Class for setting row fields from the "Administration" table in OMS.
  */
-//TODO move out to another package
 public class AdministrationsTableRow {
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String firstName;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String lastName;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String login;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String role;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String region;
+    @Getter @Setter(AccessLevel.PRIVATE) private String firstName;
+    @Getter @Setter(AccessLevel.PRIVATE) private String lastName;
+    @Getter @Setter(AccessLevel.PRIVATE) private String login;
+    @Getter @Setter(AccessLevel.PRIVATE) private String role;
+    @Getter @Setter(AccessLevel.PRIVATE) private String region;
 
     public AdministrationsTableRow(final String firstName) {
         this.firstName = firstName.toLowerCase();

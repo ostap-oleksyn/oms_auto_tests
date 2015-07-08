@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.locators;
 
-import com.softserveinc.edu.ita.interfaces.ILocator;
+import com.softserveinc.edu.ita.locators.interfaces.ILocator;
 import org.openqa.selenium.By;
 
 public enum EditOrderPageLocators implements ILocator {

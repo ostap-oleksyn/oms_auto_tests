@@ -1,9 +1,5 @@
 package com.softserveinc.edu.ita.enums.ordering_page;
 
-/**
- * This enum serves to limit possible columns
- * of 'Ordering' table in 'Ordering' page.
- */
 public enum OrdersTableColumns {
     ORDER_NAME("Order Name"),
     TOTAL_PRICE("Total price"),

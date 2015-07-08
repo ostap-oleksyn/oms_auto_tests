@@ -1,4 +1,3 @@
-
 package com.softserveinc.edu.ita.dao.interfaces;
 
 import com.softserveinc.edu.ita.dao.DAOException;
@@ -6,7 +5,7 @@ import com.softserveinc.edu.ita.dao.DAOException;
 import java.util.List;
 
 /**
- * represents a contract for a DAO for their model
+ * Class represents a contract for a DAO model
  *
  * @param <T>
  */

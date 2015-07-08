@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-
 import com.softserveinc.edu.ita.locators.AddProductPageLocators;
 import org.openqa.selenium.WebDriver;
 

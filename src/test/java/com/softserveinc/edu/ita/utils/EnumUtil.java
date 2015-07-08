@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.utils;
 
-
 import java.util.Random;
 
 /**

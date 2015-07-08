@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.pageobjects;
 
-import com.softserveinc.edu.ita.interfaces.ILogOutAble;
+import com.softserveinc.edu.ita.locators.interfaces.ILogOutAble;
 import com.softserveinc.edu.ita.locators.CommonLocators;
 import org.openqa.selenium.WebDriver;
 

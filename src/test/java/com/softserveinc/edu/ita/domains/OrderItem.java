@@ -69,7 +69,6 @@ public class OrderItem {
         OrderItem build();
     }
 
-
     public static class Builder implements IdStep, CostStep, ItemPriceStep, QuantityStep, DimensionReferenceStep, OrderReferenceStep, ProductReferenceStep, BuildStep {
         private int id;
         private Double cost;

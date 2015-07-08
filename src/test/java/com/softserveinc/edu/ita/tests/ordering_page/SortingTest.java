@@ -6,7 +6,7 @@ import com.softserveinc.edu.ita.enums.ordering_page.OrdersTableColumns;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
-import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.TestRunner;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 

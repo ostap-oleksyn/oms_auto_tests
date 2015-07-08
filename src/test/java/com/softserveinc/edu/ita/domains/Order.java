@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.domains;
 
-
 import com.softserveinc.edu.ita.enums.OrderStatuses;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,36 +7,16 @@ import lombok.Setter;
 
 public class Order {
 
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int id;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String orderName;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private Double maxDiscount;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int orderNumber;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private Double totalPrice;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int assignee;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int customer;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private int orderStatusReference;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String deliveryDate;
-    @Getter
-    @Setter(AccessLevel.PRIVATE)
-    private String preferableDeliveryDate;
+    @Getter @Setter(AccessLevel.PRIVATE) private int id;
+    @Getter @Setter(AccessLevel.PRIVATE) private String orderName;
+    @Getter @Setter(AccessLevel.PRIVATE) private Double maxDiscount;
+    @Getter @Setter(AccessLevel.PRIVATE) private int orderNumber;
+    @Getter @Setter(AccessLevel.PRIVATE) private Double totalPrice;
+    @Getter @Setter(AccessLevel.PRIVATE) private int assignee;
+    @Getter @Setter(AccessLevel.PRIVATE) private int customer;
+    @Getter @Setter(AccessLevel.PRIVATE) private int orderStatusReference;
+    @Getter @Setter(AccessLevel.PRIVATE) private String deliveryDate;
+    @Getter @Setter(AccessLevel.PRIVATE) private String preferableDeliveryDate;
 
     @Deprecated
     private String Role;
@@ -137,7 +116,6 @@ public class Order {
     public interface BuildStep {
         Order build();
     }
-
 
     public static class Builder implements IdStep, OrderNameStep, OrderNumberStep, TotalPriceStep, AssigneeStep, CustomerStep, OrderStatusReferenceStep, MaxDiscountStep, DeliveryDateStep, PreferableDeliveryDateStep, BuildStep {
         private int id;

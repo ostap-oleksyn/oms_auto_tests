@@ -1,6 +1,5 @@
 package com.softserveinc.edu.ita.enums.ordering_page;
 
-
 public enum StatusFilterValue {
     NONE("None"),
     CREATED("Created"),

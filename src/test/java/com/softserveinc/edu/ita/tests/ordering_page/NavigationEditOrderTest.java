@@ -7,8 +7,9 @@ import com.softserveinc.edu.ita.pageobjects.EditOrderPage;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.OrderingPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
-import com.softserveinc.edu.ita.tests.TestRunner;
+import com.softserveinc.edu.ita.utils.TestRunner;
 import com.softserveinc.edu.ita.utils.DataProviders;
+import com.softserveinc.edu.ita.utils.RandomUtil;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
@@ -16,10 +17,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import java.util.List;
-import java.util.Random;
 
-import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
 import static com.softserveinc.edu.ita.locators.EditOrderPageLocators.*;
+import static com.softserveinc.edu.ita.locators.OrderingPageLocators.EDIT_LINK;
 
 /**
  * Class to test order navigation functionality.
@@ -35,7 +35,6 @@ public class NavigationEditOrderTest extends TestRunner {
 
     @Test(dataProvider = "getMerchandiserAndCustomer", dataProviderClass = DataProviders.class)
     public void testNavigation(final User user) {
-        final Random randomGenerator = new Random();
         final Wait wait = new WebDriverWait(driver, 2);
 
         final HomePage homePage = new HomePage(driver);
@@ -60,7 +59,7 @@ public class NavigationEditOrderTest extends TestRunner {
             quantiiesList = driver.findElements(QUANTITY_COLUMN.getBy());
             pricesPerLineList = driver.findElements(PRICE_PER_LINE.getBy());
 
-            final int item = randomGenerator.nextInt(pricesList.size());
+            final int item = RandomUtil.getRandomInteger(0, pricesList.size());
 
             price = Double.valueOf(pricesList.get(item).getText());
             quantity = Double.valueOf(quantiiesList.get(item).getText());

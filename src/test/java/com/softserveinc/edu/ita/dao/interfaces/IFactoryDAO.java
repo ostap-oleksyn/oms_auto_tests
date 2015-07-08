@@ -1,4 +1,3 @@
-
 package com.softserveinc.edu.ita.dao.interfaces;
 
 import com.softserveinc.edu.ita.dao.DAOException;

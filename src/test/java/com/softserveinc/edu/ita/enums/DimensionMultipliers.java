@@ -1,8 +1,7 @@
 package com.softserveinc.edu.ita.enums;
 
-
 /**
- *  Enum with dimension multilpliers.
+ *  Enum with dimension multipliers.
  */
 public enum DimensionMultipliers {
     ITEM(1, "Item"),
@@ -34,9 +33,9 @@ public enum DimensionMultipliers {
     }
 
     public static int getItemsCount(final String dimensionName) {
-        for (final DimensionMultipliers multiplayer: DimensionMultipliers.values()) {
-            if (multiplayer.dimensionName.equals(dimensionName)) {
-                return multiplayer.getItemsCount();
+        for (final DimensionMultipliers multiplier: DimensionMultipliers.values()) {
+            if (multiplier.dimensionName.equals(dimensionName)) {
+                return multiplier.getItemsCount();
             }
         }
         throw new IllegalArgumentException();
