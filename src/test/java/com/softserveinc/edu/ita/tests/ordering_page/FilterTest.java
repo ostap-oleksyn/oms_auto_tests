@@ -60,7 +60,7 @@ public class FilterTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandiserAndCustomer", dataProviderClass = DataProviders.class)
-    public void testFilterRole(User user) {
+    public void testFilterRole(final User user) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
@@ -91,7 +91,7 @@ public class FilterTest extends TestRunner {
     }
 
     @Test(dataProvider = "getMerchandiserAndCustomer", dataProviderClass = DataProviders.class)
-    public void testNoneFilter(User user) {
+    public void testNoneFilter(final User user) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();

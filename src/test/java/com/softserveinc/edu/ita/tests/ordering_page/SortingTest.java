@@ -24,7 +24,7 @@ public class SortingTest extends TestRunner {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
-        for (OrdersTableColumns column : OrdersTableColumns.values()) {
+        for (final OrdersTableColumns column : OrdersTableColumns.values()) {
             final List<OrderingsTableRow> baseTableFromView = orderingPage.getTableFromView();
 
             orderingPage.clickOrdersTableColumn(column);

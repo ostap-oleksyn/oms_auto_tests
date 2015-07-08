@@ -30,7 +30,7 @@ public final class DataProviders {
      */
     @DataProvider(name = "getOrderSearchTestData")
     public static Object[][] getTestData() throws IOException, ClassNotFoundException {
-        Object[][] searchTerms = XlsFileReader.getAllRowsFromXlsSheet("OrderSearchTerms");
+        final Object[][] searchTerms = XlsFileReader.getAllRowsFromXlsSheet("OrderSearchTerms");
 
         return new Object[][]{new Object[]{DBUtility.getMerchandiser(), searchTerms[0][0]},
                 new Object[]{DBUtility.getMerchandiser(), searchTerms[1][0]},
@@ -47,7 +47,7 @@ public final class DataProviders {
      */
     @DataProvider(name = "getMerchandiserAndCustomer")
     public static Object[][] getMerchandiserAndCustomerCredentials() throws IOException, DAOException {
-        List<Object[]> usersList = Lists.newArrayList();
+        final List<Object[]> usersList = Lists.newArrayList();
         usersList.addAll(Arrays.asList(getCustomerCredentials()));
         usersList.addAll(Arrays.asList(getMerchandiserCredentials()));
         return usersList.toArray(new Object[usersList.size()][]);
