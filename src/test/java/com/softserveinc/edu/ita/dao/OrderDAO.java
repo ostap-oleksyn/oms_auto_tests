@@ -20,44 +20,44 @@ public class OrderDAO<T> extends AbstractDAO<T> {
 
     @Override
     protected String getSelectAllQuery() {
-        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
+        return "SELECT ID, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
                 "MaxDiscount, DeliveryDate, PreferableDeliveryDate \n" +
-                "from orders";
+                "FROM Orders";
     }
 
     @Override
     protected String getSelectQuery() {
-        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
+        return "SELECT ID, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
                 "MaxDiscount, DeliveryDate, PreferableDeliveryDate\n" +
-                "from orders \n" +
-                "where id=?";
+                "FROM Orders \n" +
+                "WHERE ID=?";
     }
 
     @Override
     protected String getUpdateQuery() {
-        return "update orders set OrderName=?, OrderNumber=?, TotalPrice=?, " +
+        return "UPDATE Orders SET OrderName=?, OrderNumber=?, TotalPrice=?, " +
                 "Assigne=?, Customer=?, OrderStatusRef=?," +
                 "MaxDiscount=?, DeliveryDate=?, PreferableDeliveryDate=? \n" +
-                "where id = ?";
+                "WHERE ID = ?";
     }
 
     @Override
     protected String getInsertQuery() {
-        return "insert into orders (OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
+        return "INSERT INTO Orders (OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
                 "MaxDiscount, DeliveryDate, PreferableDeliveryDate) " +
-                "values (?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?)";
     }
 
     protected String getByOrderNumberQuery() {
-        return "select Id, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
+        return "SELECT ID, OrderName, OrderNumber, TotalPrice, Assigne, Customer, OrderStatusRef, " +
                 "MaxDiscount, DeliveryDate, PreferableDeliveryDate\n" +
-                "from orders \n" +
-                "where OrderNumber=?";
+                "FROM Orders \n" +
+                "WHERE OrderNumber=?";
     }
 
     @Override
     protected String getDeleteQuery() {
-        return "delete from orders where id = ?";
+        return "DELETE FROM Orders WHERE ID = ?";
     }
 
     @Override
@@ -105,7 +105,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
         try {
             while (resultSet.next()) {
                 final Order order = Order.newBuilder()
-                        .withId(resultSet.getInt("Id"))
+                        .withId(resultSet.getInt("ID"))
                         .withOrderName(resultSet.getString("OrderName"))
                         .withOrderNumber(resultSet.getInt("OrderNumber"))
                         .withTotalPrice(resultSet.getDouble("TotalPrice"))
