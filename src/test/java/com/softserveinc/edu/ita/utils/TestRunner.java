@@ -23,7 +23,6 @@ public class TestRunner {
     protected WebDriver driver;
     final protected LoggingAssert loggingAssert = new LoggingAssert();
     final protected LoggingSoftAssert loggingSoftAssert = new LoggingSoftAssert();
-    private DesiredCapabilities capabilities;
 
     protected TestRunner() {
     }
@@ -35,64 +34,59 @@ public class TestRunner {
     @BeforeClass
     public void setUp() throws IOException {
         System.setProperty("org.uncommons.reportng.escape-output", "false");
+
         BrowserTypes browserType;
-        final String configProperty = PropertyLoader.getProperty("browser");
+        Platform platform;
+        final String browser = PropertyLoader.getProperty("browser");
+        final String remoteEnabled = PropertyLoader.getProperty("remote.enabled");
+        final String remoteBrowserVersion = PropertyLoader.getProperty("remote.browser.version");
+        final String remotePlatform = PropertyLoader.getProperty("remote.platform");
         final String hubUrl = PropertyLoader.getProperty("hub.url");
 
-        try {
-            browserType = BrowserTypes.valueOf(configProperty.toUpperCase());
 
-        } catch (IllegalArgumentException exception) {
-            throw new IllegalArgumentException("Illegal browser type specified: " + configProperty);
-        }
         final String driverPath = "src\\resources\\drivers\\";
 
-        switch (browserType) {
-            case FIREFOX:
-                driver = new FirefoxDriver();
-                break;
-            case CHROME:
-                System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
-                driver = new ChromeDriver();
-                break;
-            case INTERNET_EXPLORER:
-                System.setProperty("webdriver.ie.driver", driverPath + "IEDriverServer.exe");
-                driver = new InternetExplorerDriver();
-                break;
-            case FIREFOX_REMOTE_WINDOWS:
-                capabilities = new DesiredCapabilities();
-                capabilities.setPlatform(Platform.WINDOWS);
-                capabilities.setBrowserName("firefox");
-                driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
-                break;
-            case CHROME_REMOTE_WINDOWS:
-                capabilities = new DesiredCapabilities();
-                capabilities.setPlatform(Platform.WINDOWS);
-                capabilities.setBrowserName("chrome");
-                driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
-                break;
-            case IE_REMOTE_WINDOWS:
-                capabilities = new DesiredCapabilities();
-                capabilities.setPlatform(Platform.WINDOWS);
-                capabilities.setBrowserName("internet explorer");
-                driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
-                break;
-            case FIREFOX_REMOTE_LINUX:
-                capabilities = new DesiredCapabilities();
-                capabilities.setPlatform(Platform.LINUX);
-                capabilities.setBrowserName("firefox");
-                driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
-                break;
-            case CHROME_REMOTE_LINUX:
-                capabilities = new DesiredCapabilities();
-                capabilities.setPlatform(Platform.LINUX);
-                capabilities.setBrowserName("chrome");
-                driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
-                break;
-            case PHANTOM_JS:
-            case HEADLESS:
-                driver = new PhantomJSDriver();
-                break;
+        if (remoteEnabled.equals("false")) {
+
+            try {
+                browserType = BrowserTypes.valueOf(browser.toUpperCase());
+
+            } catch (IllegalArgumentException exception) {
+                throw new IllegalArgumentException("Illegal browser type specified: " + browser);
+            }
+
+            switch (browserType) {
+                case FIREFOX:
+                    driver = new FirefoxDriver();
+                    break;
+                case CHROME:
+                    System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
+                    driver = new ChromeDriver();
+                    break;
+                case INTERNET_EXPLORER:
+                    System.setProperty("webdriver.ie.driver", driverPath + "IEDriverServer.exe");
+                    driver = new InternetExplorerDriver();
+                    break;
+                case PHANTOM_JS:
+                case HEADLESS:
+                    driver = new PhantomJSDriver();
+                    break;
+            }
+        } else {
+
+            try {
+                platform = Platform.valueOf(remotePlatform.toUpperCase());
+
+            } catch (IllegalArgumentException exception) {
+                throw new IllegalArgumentException("Illegal platform type specified: " + remotePlatform);
+            }
+
+            final DesiredCapabilities capabilities = new DesiredCapabilities();
+            capabilities.setPlatform(platform);
+            capabilities.setBrowserName(browser.replace("_", " "));
+            capabilities.setVersion(remoteBrowserVersion);
+
+            driver = new RemoteWebDriver(new URL(hubUrl), capabilities);
         }
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

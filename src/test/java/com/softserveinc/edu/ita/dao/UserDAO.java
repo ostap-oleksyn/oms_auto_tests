@@ -78,7 +78,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
     }
 
     private String setUserStatus() {
-        return "UPDATE USERS SET IsUserActive = ? \n" +
+        return "UPDATE Users SET IsUserActive = ? \n" +
                 "WHERE ID = ?";
 
     }

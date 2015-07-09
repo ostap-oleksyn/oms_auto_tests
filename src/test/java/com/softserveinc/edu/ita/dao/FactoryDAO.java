@@ -6,6 +6,8 @@ import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.dao.interfaces.IFactoryDAO;
 import com.softserveinc.edu.ita.dao.interfaces.IGenericDAO;
+import com.softserveinc.edu.ita.utils.VirtualBoxUtil;
+import com.softserveinc.edu.ita.utils.PropertyLoader;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -27,6 +29,7 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
     private static String PASSWORD = null;
     private static String URL = null;
     private static String DRIVER = null;
+    private static String VM_URL = null;
 
     private Map<Class, ICreatorDAO> creators;
 
@@ -37,14 +40,27 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
      * @throws DAOException
      */
     public Connection getConnection() throws DAOException, IOException {
-        Connection connection = null;
-        try {
-            USER = getProperty("user", PROPERTY_FILE);
-            PASSWORD = getProperty("password", PROPERTY_FILE);
-            URL = getProperty("url", PROPERTY_FILE);
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-        } catch (SQLException e) {
-            throw new DAOException(e);
+        Connection connection;
+
+        if (PropertyLoader.getProperty("remote.enabled").equals("true")) {
+            try {
+                USER = getProperty("user", PROPERTY_FILE);
+                PASSWORD = getProperty("password", PROPERTY_FILE);
+                URL = getProperty("url", PROPERTY_FILE);
+                VM_URL = VirtualBoxUtil.getVirtualMachineIP();
+                connection = DriverManager.getConnection(URL.replace("localhost", VM_URL), USER, PASSWORD);
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
+        } else {
+            try {
+                USER = getProperty("user", PROPERTY_FILE);
+                PASSWORD = getProperty("password", PROPERTY_FILE);
+                URL = getProperty("url", PROPERTY_FILE);
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            } catch (SQLException e) {
+                throw new DAOException(e);
+            }
         }
         return connection;
     }
