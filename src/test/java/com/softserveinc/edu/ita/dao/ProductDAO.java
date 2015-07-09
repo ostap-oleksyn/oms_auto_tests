@@ -60,7 +60,7 @@ public class ProductDAO extends AbstractDAO {
     }
 
     private String setProductStatusQuery() {
-        return "UPDATE PRODUCTS SET IsProductActive = ? \n" +
+        return "UPDATE Products SET IsProductActive = ? \n" +
                 "WHERE ProductName = ? AND ProductDescription = ?";
     }
 
