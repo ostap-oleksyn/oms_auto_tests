@@ -4,6 +4,10 @@ package com.softserveinc.edu.ita.utils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.InterfaceAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 
 /**
  * Class with util methods for VirtualBox.
@@ -54,5 +58,19 @@ public final class VirtualBoxUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getHostIP() {
+        try {
+            Enumeration<NetworkInterface> b = NetworkInterface.getNetworkInterfaces();
+            while (b.hasMoreElements()) {
+                for (InterfaceAddress f : b.nextElement().getInterfaceAddresses())
+                    if (f.getAddress().isSiteLocalAddress())
+                        return f.getAddress().toString().replace("/", "");
+            }
+        } catch (SocketException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
