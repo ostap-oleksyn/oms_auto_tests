@@ -73,7 +73,6 @@ public class TestRunner {
                     break;
             }
         } else {
-
             try {
                 platform = Platform.valueOf(remotePlatform.toUpperCase());
 

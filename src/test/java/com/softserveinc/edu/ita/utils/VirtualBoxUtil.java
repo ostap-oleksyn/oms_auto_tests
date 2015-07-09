@@ -42,4 +42,17 @@ public final class VirtualBoxUtil {
         }
         return virtualMachineIP.replace("Value: ", "");
     }
+
+    public static void startVirtualMachine() {
+        try {
+            final String virtualMachineName = PropertyLoader.getProperty("vm.machine.name");
+            final ProcessBuilder processBuilder = new ProcessBuilder("C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe",
+                    "startvm", virtualMachineName);
+            processBuilder.redirectErrorStream(true)
+                    .start();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
