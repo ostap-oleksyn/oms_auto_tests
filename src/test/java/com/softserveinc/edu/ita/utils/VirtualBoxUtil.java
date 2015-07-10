@@ -64,7 +64,7 @@ public final class VirtualBoxUtil {
         try {
             final String virtualMachineName = PropertyLoader.getProperty("vm.machine.name");
             final ProcessBuilder processBuilder = new ProcessBuilder("C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe",
-                    "guestcontrol", virtualMachineName, "start", "\"C:\\start-node.bat\"", "--username", "OMS", "--", getHostIP());
+                    "guestcontrol", virtualMachineName, "execute", "--image","\"C:\\start-node.bat\"", "--username", "OMS", "--", getHostIP());
             processBuilder.redirectErrorStream(true)
                     .start();
         } catch (IOException e) {
