@@ -12,7 +12,9 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,6 +31,24 @@ public class TestRunner {
 
     public WebDriver getDriver() {
         return driver;
+    }
+
+    @BeforeSuite
+    public void startGrid() throws IOException, InterruptedException {
+        final String remoteEnabled = PropertyLoader.getProperty("remote.enabled");
+        if (remoteEnabled.equals("true")) {
+            int vmWait = Integer.parseInt(PropertyLoader.getProperty("vm.start.timeout.min", "virtualbox.properties")) * 60000;
+
+            VirtualBoxUtil.startVirtualMachine();
+            Thread.sleep(vmWait);
+
+            VirtualBoxUtil.startHub();
+            Thread.sleep(5000);
+
+            VirtualBoxUtil.startNode();
+            Thread.sleep(5000);
+
+        }
     }
 
     @BeforeClass
@@ -48,12 +68,7 @@ public class TestRunner {
 
         if (remoteEnabled.equals("false")) {
 
-            try {
-                browserType = BrowserTypes.valueOf(browser.toUpperCase());
-
-            } catch (IllegalArgumentException exception) {
-                throw new IllegalArgumentException("Illegal browser type specified: " + browser);
-            }
+            browserType = BrowserTypes.valueOf(browser.toUpperCase());
 
             switch (browserType) {
                 case FIREFOX:
@@ -73,12 +88,9 @@ public class TestRunner {
                     break;
             }
         } else {
-            try {
-                platform = Platform.valueOf(remotePlatform.toUpperCase());
 
-            } catch (IllegalArgumentException exception) {
-                throw new IllegalArgumentException("Illegal platform type specified: " + remotePlatform);
-            }
+            platform = Platform.valueOf(remotePlatform.toUpperCase());
+
 
             final DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setPlatform(platform);
@@ -96,6 +108,15 @@ public class TestRunner {
     @AfterClass
     public void tearDown() {
         driver.quit();
+    }
+
+    @AfterSuite
+    public void stopGrid() throws IOException {
+        final String remoteEnabled = PropertyLoader.getProperty("remote.enabled");
+        if (remoteEnabled.equals("true")) {
+            VirtualBoxUtil.stopHub();
+            VirtualBoxUtil.stopVirtualMachine();
+        }
     }
 }
 

@@ -1,0 +1,1 @@
+taskkill.exe /F /IM powershell.exe /T
