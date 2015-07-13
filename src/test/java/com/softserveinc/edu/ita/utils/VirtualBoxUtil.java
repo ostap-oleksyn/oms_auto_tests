@@ -95,7 +95,7 @@ public final class VirtualBoxUtil {
             processBuilder = new ProcessBuilder(hubServiceScript + ".sh", "start", seleniumGridPath);
         } else if (SystemUtils.IS_OS_WINDOWS) {
             processBuilder = new ProcessBuilder("powershell",
-                    hubServiceScript.replaceAll("/", "\\") + ".bat", "start", seleniumGridPath.replaceAll("/", "\\"));
+                    hubServiceScript.replace("/", "\\") + ".bat", "start", seleniumGridPath.replace("/", "\\"));
         }
         processBuilder.redirectErrorStream(true)
                 .start();
@@ -106,7 +106,7 @@ public final class VirtualBoxUtil {
         if (SystemUtils.IS_OS_LINUX) {
             processBuilder = new ProcessBuilder(hubServiceScript + ".sh", "stop");
         } else if (SystemUtils.IS_OS_WINDOWS) {
-            processBuilder = new ProcessBuilder(hubServiceScript.replaceAll("/", "\\") + ".bat", "stop");
+            processBuilder = new ProcessBuilder(hubServiceScript.replace("/", "\\") + ".bat", "stop");
         }
         processBuilder.redirectErrorStream(true)
                 .start();
