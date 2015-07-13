@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 public class TestRunner {
 
     protected WebDriver driver;
+    final String driverPath = "src\\resources\\drivers\\";
     final protected LoggingAssert loggingAssert = new LoggingAssert();
     final protected LoggingSoftAssert loggingSoftAssert = new LoggingSoftAssert();
 
@@ -36,8 +37,9 @@ public class TestRunner {
     @BeforeSuite
     public void startGrid() throws IOException, InterruptedException {
         final String remoteEnabled = PropertyLoader.getProperty("remote.enabled");
+
         if (remoteEnabled.equals("true")) {
-            int vmWait = Integer.parseInt(PropertyLoader.getProperty("vm.start.timeout.min", "virtualbox.properties")) * 60000;
+            final int vmWait = Integer.parseInt(PropertyLoader.getProperty("vm.start.timeout.min", "virtualbox.properties")) * 60000;
 
             VirtualBoxUtil.startVirtualMachine();
             Thread.sleep(vmWait);
@@ -47,7 +49,6 @@ public class TestRunner {
 
             VirtualBoxUtil.startNode();
             Thread.sleep(5000);
-
         }
     }
 
@@ -62,9 +63,6 @@ public class TestRunner {
         final String remoteBrowserVersion = PropertyLoader.getProperty("remote.browser.version");
         final String remotePlatform = PropertyLoader.getProperty("remote.platform");
         final String hubUrl = PropertyLoader.getProperty("hub.url");
-
-
-        final String driverPath = "src\\resources\\drivers\\";
 
         if (remoteEnabled.equals("false")) {
 
@@ -90,7 +88,6 @@ public class TestRunner {
         } else {
 
             platform = Platform.valueOf(remotePlatform.toUpperCase());
-
 
             final DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setPlatform(platform);

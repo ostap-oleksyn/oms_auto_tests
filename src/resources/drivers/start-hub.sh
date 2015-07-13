@@ -1,2 +1,0 @@
-#!/bin/bash
-java -jar $1selenium-server-standalone-2.45.0.jar -role hub

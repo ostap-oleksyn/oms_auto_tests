@@ -26,6 +26,8 @@ public final class VirtualBoxUtil {
 
     /**
      * Returns the IP address of the virtual machine specified in config.properties file.
+     *
+     * @throws IOException
      */
     public static String getVirtualMachineIP() throws IOException {
 
@@ -33,7 +35,7 @@ public final class VirtualBoxUtil {
         String virtualMachineIP = null;
         vboxManageWinPath = PropertyLoader.getProperty("vboxmanage.win.path", "virtualbox.properties");
 
-        String virtualMachineName = PropertyLoader.getProperty("vm.machine.name", "virtualbox.properties");
+        final String virtualMachineName = PropertyLoader.getProperty("vm.machine.name", "virtualbox.properties");
 
         if (SystemUtils.IS_OS_LINUX) {
             processBuilder = new ProcessBuilder("VBoxManage",
@@ -59,6 +61,11 @@ public final class VirtualBoxUtil {
         return virtualMachineIP.replace("Value: ", "");
     }
 
+    /**
+     * Starts a virtual machine specified in virtualbox.properties file.
+     *
+     * @throws IOException
+     */
     public static void startVirtualMachine() throws IOException {
 
         final String virtualMachineName = PropertyLoader.getProperty("vm.machine.name", "virtualbox.properties");
@@ -74,6 +81,11 @@ public final class VirtualBoxUtil {
                 .start();
     }
 
+    /**
+     * Stops a virtual machine specified in virtualbox.properties file.
+     *
+     * @throws IOException
+     */
     public static void stopVirtualMachine() throws IOException {
 
         final String virtualMachineName = PropertyLoader.getProperty("vm.machine.name", "virtualbox.properties");
@@ -89,6 +101,11 @@ public final class VirtualBoxUtil {
                 .start();
     }
 
+    /**
+     * Starts a selenium grid hub on a host machine using hub-service script.
+     *
+     * @throws IOException
+     */
     public static void startHub() throws IOException {
 
         if (SystemUtils.IS_OS_LINUX) {
@@ -101,6 +118,11 @@ public final class VirtualBoxUtil {
                 .start();
     }
 
+    /**
+     * Stops a selenium grid hub on a host machine using hub-service script.
+     *
+     * @throws IOException
+     */
     public static void stopHub() throws IOException {
 
         if (SystemUtils.IS_OS_LINUX) {
@@ -112,6 +134,11 @@ public final class VirtualBoxUtil {
                 .start();
     }
 
+    /**
+     * Starts a selenium grid node on a guest machine using hub-service script.
+     *
+     * @throws IOException
+     */
     public static void startNode() throws IOException {
 
         final String virtualMachineName = PropertyLoader.getProperty("vm.machine.name", "virtualbox.properties");
@@ -143,6 +170,11 @@ public final class VirtualBoxUtil {
                 .start();
     }
 
+    /**
+     * Returns a local IP adress of the host machine.
+     *
+     * @return - String with IP adress
+     */
     public static String getHostIP() {
         try {
             final Enumeration<NetworkInterface> b = NetworkInterface.getNetworkInterfaces();
