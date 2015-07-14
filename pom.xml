@@ -11,6 +11,10 @@
 
     <properties>
         <selenium-java.version>2.45.0</selenium-java.version>
+        <selenium-remote-driver.version>2.45.0</selenium-remote-driver.version>
+        <selenium-chrome-driver.version>2.45.0</selenium-chrome-driver.version>
+        <selenium-ie-driver.version>2.45.0</selenium-ie-driver.version>
+        <selenium-phantomjsdriver.version>1.2.1</selenium-phantomjsdriver.version>
         <testng.version>6.9.4</testng.version>
         <mysql.connector.version>5.1.35</mysql.connector.version>
         <apache.poi.version>3.12</apache.poi.version>
@@ -81,14 +85,29 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.codeborne</groupId>
-            <artifactId>phantomjsdriver</artifactId>
-            <version>1.2.1</version>
-        </dependency>
-        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>${selenium-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>${selenium-remote-driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>${selenium-chrome-driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-ie-driver</artifactId>
+            <version>${selenium-ie-driver.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>${selenium-phantomjsdriver.version}</version>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>

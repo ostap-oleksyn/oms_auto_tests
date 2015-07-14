@@ -18,8 +18,10 @@ import static com.softserveinc.edu.ita.locators.EditOrderPageLocators.*;
 /**
  * Class to test order editing functionality.
  */
+
 public class EditOrderTest extends TestRunner {
 
+    // test fail expected, appears error message
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
     public void testOrderEdit(final User merchandiser) {
         final HomePage homePage = new HomePage(driver);
@@ -52,6 +54,7 @@ public class EditOrderTest extends TestRunner {
         loggingSoftAssert.assertAll();
     }
 
+    // expected test result failed, non functional "To HomePage" button
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
     public void testErrorOrderEdit(final User merchandiser) {
         final HomePage homePage = new HomePage(driver);

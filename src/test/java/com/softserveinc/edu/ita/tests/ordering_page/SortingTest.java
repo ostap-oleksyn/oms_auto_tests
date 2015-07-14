@@ -19,6 +19,7 @@ import java.util.function.Function;
  */
 public class SortingTest extends TestRunner {
 
+    // test fail expected, not all columns can be sorted
     @Test(dataProviderClass = DataProviders.class, dataProvider = "getMerchandiserAndCustomer")
     public void testSorting(final User user) {
         final HomePage homePage = new HomePage(driver);
