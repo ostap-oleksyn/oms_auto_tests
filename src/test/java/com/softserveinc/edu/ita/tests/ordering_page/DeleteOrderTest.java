@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
  */
 public class DeleteOrderTest extends TestRunner {
 
+    // test fail expected, non functional "Delete" button
     @Test
     public void testOrderDeleting() {
 

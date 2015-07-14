@@ -25,6 +25,7 @@ public class SearchTest extends TestRunner {
 
     ItemManagementPage itemManagementPage;
 
+    // test fail expected, if random search selects " rainbow cake" product
     @Test(dataProvider = "getProductTablesFilters", dataProviderClass = DataProviders.class)
     public void testSearch(final ItemFilter filter) throws DAOException {
         final HomePage homePage = new HomePage(driver);
