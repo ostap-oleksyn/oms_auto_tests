@@ -21,7 +21,7 @@ import static com.softserveinc.edu.ita.locators.EditOrderPageLocators.*;
 
 public class EditOrderTest extends TestRunner {
 
-    // expected test result failed, appears error message
+    // test fail expected, appears error message
     @Test(dataProvider = "getMerchandisers", dataProviderClass = DataProviders.class)
     public void testOrderEdit(final User merchandiser) {
         final HomePage homePage = new HomePage(driver);

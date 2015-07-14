@@ -33,7 +33,7 @@ public class NavigationEditOrderTest extends TestRunner {
     private double quantity;
     private double pricePerLine;
 
-    // expected test result failed, no orders for customer
+    // test fail expected, no orders for customer
     @Test(dataProvider = "getMerchandiserAndCustomer", dataProviderClass = DataProviders.class)
     public void testNavigation(final User user) {
         final Wait wait = new WebDriverWait(driver, 2);
