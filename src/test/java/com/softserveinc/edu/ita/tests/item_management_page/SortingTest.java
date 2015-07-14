@@ -19,6 +19,7 @@ import java.util.Collections;
  */
 public class SortingTest extends TestRunner {
 
+    // expected test result failed, not all columns can be sorted
     @Test(dataProviderClass = DataProviders.class, dataProvider = "getProductsTableColumns")
     public void testSorting(final ProductsTableColumns column) {
         final HomePage homePage = new HomePage(driver);
