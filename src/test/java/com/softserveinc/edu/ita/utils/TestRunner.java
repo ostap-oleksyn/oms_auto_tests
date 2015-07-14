@@ -39,10 +39,10 @@ public class TestRunner {
         final String remoteEnabled = PropertyLoader.getProperty("remote.enabled");
 
         if (remoteEnabled.equals("true")) {
-            final int vmWait = Integer.parseInt(PropertyLoader.getProperty("vm.start.timeout.min", "virtualbox.properties")) * 60000;
+            final double vmWait = Double.parseDouble(PropertyLoader.getProperty("vm.start.timeout.min", "virtualbox.properties")) * 60000;
 
             VirtualBoxUtil.startVirtualMachine();
-            Thread.sleep(vmWait);
+            Thread.sleep((int)vmWait);
 
             VirtualBoxUtil.startHub();
             Thread.sleep(5000);
