@@ -40,15 +40,16 @@ public class TestRunner {
 
         if (remoteEnabled.equals("true")) {
             final double vmWait = Double.parseDouble(PropertyLoader.getProperty("vm.start.timeout.min", "virtualbox.properties")) * 60000;
+            final int gridStartUpTime = Integer.parseInt(PropertyLoader.getProperty("grid.startup.time.sec", "virtualbox.properties")) * 1000;
 
             VirtualBoxUtil.startVirtualMachine();
             Thread.sleep((int)vmWait);
 
             VirtualBoxUtil.startHub();
-            Thread.sleep(5000);
+            Thread.sleep(gridStartUpTime);
 
             VirtualBoxUtil.startNode();
-            Thread.sleep(5000);
+            Thread.sleep(gridStartUpTime);
         }
     }
 

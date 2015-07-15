@@ -174,7 +174,7 @@ public final class VirtualBoxUtil {
      *
      * @return - String with IP adress
      */
-    public static String getHostIP() {
+    private static String getHostIP() {
 
         try {
             final Enumeration<NetworkInterface> b = NetworkInterface.getNetworkInterfaces();

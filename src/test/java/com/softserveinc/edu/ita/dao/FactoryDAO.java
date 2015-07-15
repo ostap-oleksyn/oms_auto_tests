@@ -24,15 +24,7 @@ import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
 public class FactoryDAO implements IFactoryDAO<Connection> {
 
     private static final String PROPERTY_FILE = "jdbc.properties";
-
-    private static String USER = null;
-    private static String PASSWORD = null;
-    private static String URL = null;
-    private static String DRIVER = null;
-    private static String VM_URL = null;
-
     private Map<Class, ICreatorDAO> creators;
-
 
     /**
      * This method returns a connection to the database.
@@ -40,24 +32,28 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
      * @throws DAOException
      */
     public Connection getConnection() throws DAOException, IOException {
+
+        String password;
+        String url;
+        String user;
         Connection connection;
 
         if (PropertyLoader.getProperty("remote.enabled").equals("true")) {
             try {
-                USER = getProperty("user", PROPERTY_FILE);
-                PASSWORD = getProperty("password", PROPERTY_FILE);
-                URL = getProperty("url", PROPERTY_FILE);
-                VM_URL = VirtualBoxUtil.getVirtualMachineIP();
-                connection = DriverManager.getConnection(URL.replace("localhost", VM_URL), USER, PASSWORD);
+                user = getProperty("user", PROPERTY_FILE);
+                password = getProperty("password", PROPERTY_FILE);
+                url = getProperty("url", PROPERTY_FILE);
+                final String vmUrl = VirtualBoxUtil.getVirtualMachineIP();
+                connection = DriverManager.getConnection(url.replace("localhost", vmUrl), user, password);
             } catch (SQLException e) {
                 throw new DAOException(e);
             }
         } else {
             try {
-                USER = getProperty("user", PROPERTY_FILE);
-                PASSWORD = getProperty("password", PROPERTY_FILE);
-                URL = getProperty("url", PROPERTY_FILE);
-                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+                user = getProperty("user", PROPERTY_FILE);
+                password = getProperty("password", PROPERTY_FILE);
+                url = getProperty("url", PROPERTY_FILE);
+                connection = DriverManager.getConnection(url, user, password);
             } catch (SQLException e) {
                 throw new DAOException(e);
             }
@@ -83,8 +79,8 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
 
     public FactoryDAO() throws IOException, ClassNotFoundException {
 
-        DRIVER = getProperty("driver", PROPERTY_FILE);
-        Class.forName(DRIVER);
+        final String driver = getProperty("driver", PROPERTY_FILE);
+        Class.forName(driver);
 
         creators = new HashMap<>();
         creators.put(User.class, (ICreatorDAO<Connection>) UserDAO::new);
