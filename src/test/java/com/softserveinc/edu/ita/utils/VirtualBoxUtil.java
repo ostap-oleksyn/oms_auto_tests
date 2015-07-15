@@ -57,6 +57,9 @@ public final class VirtualBoxUtil {
             virtualMachineIP = line;
         }
 
+        if (virtualMachineIP == null) {
+            throw new IllegalStateException("There is no active virtual machines");
+        }
         return virtualMachineIP.replace("Value: ", "");
     }
 
@@ -185,7 +188,7 @@ public final class VirtualBoxUtil {
             for (final InterfaceAddress interfaceAddress : networkInterfaces.nextElement().getInterfaceAddresses()) {
                 if (interfaceAddress.getAddress().isSiteLocalAddress()) {
                     hostIP = interfaceAddress.getAddress().toString().replace("/", "");
-                    //break out of cycle to get the local network IP address
+                    //if local IP address is found, break the cycle
                     break outer_cycle;
                 }
             }
