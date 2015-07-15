@@ -17,40 +17,40 @@ public class OrderItemDAO<T> extends AbstractDAO<T> {
 
     @Override
     protected String getSelectQuery() {
-        return "select ID, Cost, ItemPrice, Quantity, DimensionRef, OrderRef, ProductRef \n" +
-                "from orderitems \n" +
-                "where ID=?";
+        return "SELECT ID, Cost, ItemPrice, Quantity, DimensionRef, OrderRef, ProductRef \n" +
+                "FROM OrderItems \n" +
+                "WHERE ID=?";
     }
 
     @Override
     protected String getSelectAllQuery() {
-        return "select ID, Cost, ItemPrice, Quantity, DimensionRef, OrderRef, ProductRef \n" +
-                "from orderitems";
+        return "SELECT ID, Cost, ItemPrice, Quantity, DimensionRef, OrderRef, ProductRef \n" +
+                "FROM OrderItems";
     }
 
     @Override
     protected String getUpdateQuery() {
-        return "update orderitems \n" +
-                "set Cost=?, ItemPrice=?, Quantity=?, DimensionRef=?, OrderRef=?, ProductRef=? \n" +
-                "where ID=?";
+        return "UPDATE OrderItems \n" +
+                "SET Cost=?, ItemPrice=?, Quantity=?, DimensionRef=?, OrderRef=?, ProductRef=? \n" +
+                "WHERE ID=?";
     }
 
     @Override
     protected String getInsertQuery() {
-        return "insert into orderitems \n" +
+        return "INSERT INTO OrderItems \n" +
                 "(ID, Cost, ItemPrice, Quantity, DimensionRef, OrderRef, ProductRef) \n" +
-                "values(?, ?, ?, ?, ?, ?, ?)";
+                "VALUES(?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
     protected String getDeleteQuery() {
-        return "delete from orderitems \n" +
-                "where ID=?";
+        return "DELETE FROM OrderItems \n" +
+                "WHERE ID=?";
     }
 
     private String getDeleteByOrderReferenceQuery() {
-        return "delete from orderitems \n" +
-                "where OrderRef=?";
+        return "DELETE FROM OrderItems \n" +
+                "WHERE OrderRef=?";
     }
 
     @Override
@@ -93,7 +93,7 @@ public class OrderItemDAO<T> extends AbstractDAO<T> {
             while (resultSet.next()) {
 
                 final OrderItem orderItem = OrderItem.newBuilder()
-                        .withId(resultSet.getInt("Id"))
+                        .withId(resultSet.getInt("ID"))
                         .withCost(resultSet.getDouble("Cost"))
                         .withItemPrice(resultSet.getDouble("ItemPrice"))
                         .withQuantity(resultSet.getInt("Quantity"))

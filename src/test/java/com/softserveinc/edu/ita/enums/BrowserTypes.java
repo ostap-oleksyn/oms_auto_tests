@@ -8,6 +8,7 @@ public enum BrowserTypes {
     PHANTOM_JS("phantom_js"),
     HEADLESS("headless");
 
+
     BrowserTypes(final String name) {
         this.name = name;
     }

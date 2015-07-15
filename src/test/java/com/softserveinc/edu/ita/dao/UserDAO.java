@@ -22,64 +22,64 @@ public class UserDAO<T> extends AbstractDAO<T> {
 
     @Override
     protected String getSelectAllQuery() {
-        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+        return "SELECT ID, IsUserActive AS Status, Email, FirstName, LastName, \n" +
                 "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
-                "from users";
+                "FROM Users";
     }
 
     @Override
     protected String getSelectQuery() {
-        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+        return "SELECT ID, IsUserActive AS Status, Email, FirstName, LastName, \n" +
                 "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
-                "from users \n" +
-                "where id=?";
+                "FROM Users \n" +
+                "WHERE ID=?";
     }
 
     @Override
     protected String getUpdateQuery() {
-        return "update users set IsUserActive=?, Email=?, FirstName=?, LastName=?, \n" +
+        return "UPDATE Users SET IsUserActive=?, Email=?, FirstName=?, LastName=?, \n" +
                 "Login=?, Password=?, CustomerTypeRef=?, RegionRef=?, RoleRef=? \n" +
-                "where id = ?";
+                "WHERE ID = ?";
     }
 
     @Override
     protected String getInsertQuery() {
-        return "insert into users (IsUserActive, Email, FirstName, LastName, " +
+        return "insert into Users (IsUserActive, Email, FirstName, LastName, " +
                 "Login, Password, CustomerTypeRef, RegionRef, RoleRef) " +
-                "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
     @Override
     protected String getDeleteQuery() {
-        return "delete from users where id = ?";
+        return "DELETE FROM Users WHERE ID = ?";
     }
 
     protected String getByLoginQuery() {
-        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+        return "SELECT ID, IsUserActive AS Status, Email, FirstName, LastName, \n" +
                 "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
-                "from users \n" +
-                "where login=?";
+                "FROM Users \n" +
+                "WHERE Login=?";
     }
 
     private String getByRoleQuery() {
-        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+        return "SELECT ID, IsUserActive AS Status, Email, FirstName, LastName, \n" +
                 "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
-                "from users \n" +
-                "where RoleRef=? \n" +
-                "limit 1";
+                "FROM Users \n" +
+                "WHERE RoleRef=? \n" +
+                "LIMIT 1";
     }
 
     private String getLastFromDBQuery() {
-        return "select Id, IsUserActive as Status, Email, FirstName, LastName, \n" +
+        return "SELECT ID, IsUserActive AS Status, Email, FirstName, LastName, \n" +
                 "Login, Password, CustomerTypeRef, RegionRef, RoleRef \n" +
-                "from users \n" +
-                "order by id desc \n" +
-                "limit 1";
+                "FROM Users \n" +
+                "ORDER BY ID DESC \n" +
+                "LIMIT 1";
     }
 
     private String setUserStatus() {
-        return "UPDATE USERS SET IsUserActive = ? \n" +
-                "WHERE Id = ?";
+        return "UPDATE Users SET IsUserActive = ? \n" +
+                "WHERE ID = ?";
 
     }
 
@@ -129,7 +129,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
             while (resultSet.next()) {
 
                 final User user = User.newBuilder()
-                        .withId(resultSet.getInt("Id"))
+                        .withId(resultSet.getInt("ID"))
                         .withStatus(resultSet.getInt("Status"))
                         .withFirstName(resultSet.getString("FirstName"))
                         .withLastName(resultSet.getString("LastName"))
@@ -197,24 +197,24 @@ public class UserDAO<T> extends AbstractDAO<T> {
 
         switch (condition) {
             case EQUALS:
-                getAllUsersQuery = getSelectAllQuery() + " where FirstName = ? or LastName = ? or Login = ? or RoleRef = ? " +
-                        "or RegionRef = ?";
+                getAllUsersQuery = getSelectAllQuery() + " WHERE FirstName = ? OR LastName = ? OR Login = ? OR RoleRef = ? " +
+                        "OR RegionRef = ?";
                 break;
             case NOT_EQUALS_TO:
-                getAllUsersQuery = getSelectAllQuery() + " where FirstName != ? or LastName != ? or Login != ? or RoleRef != ? " +
-                        "or RegionRef != ?";
+                getAllUsersQuery = getSelectAllQuery() + " WHERE FirstName != ? OR LastName != ? OR Login != ? OR RoleRef != ? " +
+                        "OR RegionRef != ?";
                 break;
             case CONTAINS:
-                getAllUsersQuery = getSelectAllQuery() + " where FirstName like ? or LastName like ? or Login like ? or RoleRef like ?" +
-                        " or RegionRef like ?";
+                getAllUsersQuery = getSelectAllQuery() + " WHERE FirstName like ? OR LastName like ? OR Login like ? OR RoleRef like ?" +
+                        " OR RegionRef like ?";
                 break;
             case DOES_NOT_CONTAINS:
-                getAllUsersQuery = getSelectAllQuery() + " where FirstName not like? or LastName not like ? or Login not like ? " +
-                        "or RoleRef not like ? or RegionRef not like ?";
+                getAllUsersQuery = getSelectAllQuery() + " WHERE FirstName not like? OR LastName not like ? OR Login not like ? " +
+                        "OR RoleRef not like ? OR RegionRef not like ?";
                 break;
             case STARTS_WITH:
-                getAllUsersQuery = getSelectAllQuery() + " where FirstName like ? or LastName like ? or Login like ? or " +
-                        "RoleRef like ? or RegionRef like ?";
+                getAllUsersQuery = getSelectAllQuery() + " WHERE FirstName like ? OR LastName like ? OR Login like ? OR " +
+                        "RoleRef like ? OR RegionRef like ?";
                 break;
         }
         try (PreparedStatement statement = connection.prepareStatement(getAllUsersQuery)) {

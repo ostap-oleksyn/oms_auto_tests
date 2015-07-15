@@ -21,14 +21,14 @@ public class ProductDAO extends AbstractDAO {
 
     @Override
     protected String getSelectQuery() {
-        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
+        return "SELECT ID, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products \n" +
-                "WHERE Id = ?";
+                "WHERE ID = ?";
     }
 
     @Override
     protected String getSelectAllQuery() {
-        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
+        return "SELECT ID, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products";
     }
 
@@ -44,28 +44,28 @@ public class ProductDAO extends AbstractDAO {
     }
 
     protected String getLastAddedQuery() {
-        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
+        return "SELECT ID, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products WHERE IsProductActive = 1 ORDER BY ID DESC LIMIT 1;";
     }
 
     @Override
     protected String getDeleteQuery() {
-        return "DELETE FROM Products WHERE Id = ?;";
+        return "DELETE FROM Products WHERE ID = ?;";
     }
 
     private String getProductQuery() {
-        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
+        return "SELECT ID, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products \n" +
                 "WHERE ProductName = ? AND ProductDescription = ?";
     }
 
     private String setProductStatusQuery() {
-        return "UPDATE PRODUCTS SET IsProductActive = ? \n" +
+        return "UPDATE Products SET IsProductActive = ? \n" +
                 "WHERE ProductName = ? AND ProductDescription = ?";
     }
 
     protected String getSelectActiveQuery() {
-        return "SELECT Id, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
+        return "SELECT ID, IsProductActive as Status, ProductName, ProductDescription, ProductPrice \n" +
                 "FROM Products \n" +
                 "WHERE IsProductActive = true";
     }
@@ -105,7 +105,7 @@ public class ProductDAO extends AbstractDAO {
         try {
             while (resultSet.next()) {
                 final Product product = Product.newBuilder()
-                        .withId(resultSet.getInt("Id"))
+                        .withId(resultSet.getInt("ID"))
                         .withStatus(resultSet.getInt("Status"))
                         .withProductName(resultSet.getString("ProductName"))
                         .withProductDescription(resultSet.getString("ProductDescription"))
