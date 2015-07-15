@@ -43,7 +43,7 @@ public class TestRunner {
             final int gridStartUpTime = Integer.parseInt(PropertyLoader.getProperty("grid.startup.time.sec", "virtualbox.properties")) * 1000;
 
             VirtualBoxUtil.startVirtualMachine();
-            Thread.sleep((int)vmWait);
+            Thread.sleep((int) vmWait);
 
             VirtualBoxUtil.startHub();
             Thread.sleep(gridStartUpTime);

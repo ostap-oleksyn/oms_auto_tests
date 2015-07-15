@@ -173,21 +173,26 @@ public final class VirtualBoxUtil {
      * Returns a local IP adress of the host machine.
      *
      * @return - String with IP adress
+     * @throws SocketException
      */
-    private static String getHostIP() {
+    public static String getHostIP() throws SocketException {
 
-        try {
-            final Enumeration<NetworkInterface> b = NetworkInterface.getNetworkInterfaces();
-            while (b.hasMoreElements()) {
-                for (final InterfaceAddress f : b.nextElement().getInterfaceAddresses()) {
-                    if (f.getAddress().isSiteLocalAddress()) {
-                        return f.getAddress().toString().replace("/", "");
-                    }
+        String hostIP = null;
+
+        final Enumeration<NetworkInterface> networkInterfaces = NetworkInterface.getNetworkInterfaces();
+        outer_cycle:
+        while (networkInterfaces.hasMoreElements()) {
+            for (final InterfaceAddress interfaceAddress : networkInterfaces.nextElement().getInterfaceAddresses()) {
+                if (interfaceAddress.getAddress().isSiteLocalAddress()) {
+                    hostIP = interfaceAddress.getAddress().toString().replace("/", "");
+                    //break out of cycle to get the local network IP address
+                    break outer_cycle;
                 }
             }
-        } catch (SocketException e) {
-            e.printStackTrace();
         }
-        return null;
+        if (hostIP == null) {
+            throw new IllegalStateException("No local network address is found.");
+        }
+        return hostIP;
     }
 }
