@@ -15,11 +15,11 @@ import java.util.Enumeration;
  * Class with util methods for VirtualBox.
  */
 public final class VirtualBoxUtil {
-    private final static String projectPath = System.getProperty("user.dir");
+    private final static String PROJECT_PATH = System.getProperty("user.dir");
     private static ProcessBuilder processBuilder;
     private static String vboxManageWinPath;
-    private static String hubServiceScript = projectPath + "/src/resources/scripts/hub-service";
-    private static String seleniumGridPath = projectPath + "/src/resources/drivers/";
+    private static String hubServiceScript = PROJECT_PATH + "/src/resources/scripts/hub-service";
+    private static String seleniumGridPath = PROJECT_PATH + "/src/resources/drivers/";
 
     private VirtualBoxUtil() {
     }
@@ -30,7 +30,6 @@ public final class VirtualBoxUtil {
      * @throws IOException
      */
     public static String getVirtualMachineIP() throws IOException {
-
 
         String virtualMachineIP = null;
         vboxManageWinPath = PropertyLoader.getProperty("vboxmanage.win.path", "virtualbox.properties");
@@ -176,6 +175,7 @@ public final class VirtualBoxUtil {
      * @return - String with IP adress
      */
     public static String getHostIP() {
+
         try {
             final Enumeration<NetworkInterface> b = NetworkInterface.getNetworkInterfaces();
             while (b.hasMoreElements()) {
