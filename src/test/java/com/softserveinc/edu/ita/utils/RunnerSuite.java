@@ -1,6 +1,6 @@
 package com.softserveinc.edu.ita.utils;
 
-import org.testng.SuiteRunner;
+import com.softserveinc.edu.ita.enums.TestSuites;
 import org.testng.TestNG;
 import org.testng.collections.Lists;
 import org.testng.xml.Parser;
@@ -25,7 +25,7 @@ public class RunnerSuite {
         final List<Class> listenerClasses = Lists.newArrayList();
         InputStream xmlSuiteStream = null;
 
-        List<String> testSuitesNameList = new ArrayList<>();
+        final List<String> testSuitesNameList = new ArrayList<>();
         testSuitesNameList.add(ADMINISTRATION.getSuiteName());
         testSuitesNameList.add(ITEM_MANAGEMENT.getSuiteName());
         testSuitesNameList.add(LOGIN.getSuiteName());
@@ -35,46 +35,36 @@ public class RunnerSuite {
 
         listenerClasses.add(TestListener.class);
         listenerClasses.add(HTMLReporter.class);
-        String name = testSuite[0];
-        
+
+
         if (testSuite.length > 0) {
-            switch (name) {
+            switch (testSuite[0]) {
                 case "administration":
-                    xmlSuiteStream = SuiteRunner.class.getClassLoader().getResourceAsStream(ADMINISTRATION.getSuitePath());
-                    System.out.println(ADMINISTRATION.getInfo());
+                    xmlSuiteStream = TestSuites.getXmlSuite(ADMINISTRATION);
                     break;
                 case "item_management":
-                    xmlSuiteStream = SuiteRunner.class.getClassLoader().getResourceAsStream(ITEM_MANAGEMENT.getSuitePath());
-                    System.out.println(ITEM_MANAGEMENT.getInfo());
+                    xmlSuiteStream = TestSuites.getXmlSuite(ITEM_MANAGEMENT);
                     break;
                 case "login":
-                    xmlSuiteStream = SuiteRunner.class.getClassLoader().getResourceAsStream(LOGIN.getSuitePath());
-                    System.out.println(LOGIN.getInfo());
+                    xmlSuiteStream = TestSuites.getXmlSuite(LOGIN);
                     break;
                 case "ordering":
-                    xmlSuiteStream = SuiteRunner.class.getClassLoader().getResourceAsStream(ORDERING.getSuitePath());
-                    System.out.println(ORDERING.getInfo());
+                    xmlSuiteStream = TestSuites.getXmlSuite(ORDERING);
                     break;
                 case "tabs_navigation":
-                    xmlSuiteStream = SuiteRunner.class.getClassLoader().getResourceAsStream(TABS_NAVIGATION.getSuitePath());
-                    System.out.println(TABS_NAVIGATION.getInfo());
+                    xmlSuiteStream = TestSuites.getXmlSuite(TABS_NAVIGATION);
                     break;
                 case "user_info":
-                    xmlSuiteStream = SuiteRunner.class.getClassLoader().getResourceAsStream(USER_INFO.getSuitePath());
-                    System.out.println(USER_INFO.getInfo());
+                    xmlSuiteStream = TestSuites.getXmlSuite(USER_INFO);
                     break;
                 default:
-                    System.out.println("Input parameters are incorrect, please change from the below list: ");
+                    System.out.println("Input parameters are incorrect, please choose ones from the below list: ");
                     testSuitesNameList.forEach(System.out::println);
-
-
             }
         } else {
-            xmlSuiteStream = SuiteRunner.class.getClassLoader().getResourceAsStream(ALL_TESTS.getSuitePath());
-            System.out.println(ALL_TESTS.getInfo());
+            xmlSuiteStream = TestSuites.getXmlSuite(ALL_TESTS);
         }
         testNG.setXmlSuites((List<XmlSuite>) new Parser(xmlSuiteStream).parse());
-
         testNG.setListenerClasses(listenerClasses);
         testNG.setUseDefaultListeners(false);
         testNG.setParallel("classes");

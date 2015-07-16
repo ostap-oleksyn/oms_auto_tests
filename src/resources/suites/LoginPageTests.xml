@@ -5,7 +5,7 @@
         <classes>
             <class name="com.softserveinc.edu.ita.tests.home_page.LoginTest">
                 <methods>
-                    <include name="testEemptyLogin"/>
+                    <include name="testEmptyLogin"/>
                 </methods>
             </class>
         </classes>
