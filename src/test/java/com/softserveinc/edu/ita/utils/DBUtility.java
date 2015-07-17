@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
  */
 public final class DBUtility {
 
+    private DBUtility() {
+    }
 
     /**
      * This method returns a list of all users from database.

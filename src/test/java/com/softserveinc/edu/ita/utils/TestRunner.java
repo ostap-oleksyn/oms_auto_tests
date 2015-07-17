@@ -23,7 +23,6 @@ import java.util.concurrent.TimeUnit;
 public class TestRunner {
 
     protected WebDriver driver;
-    final String driverPath = "src\\resources\\drivers\\";
     final protected LoggingAssert loggingAssert = new LoggingAssert();
     final protected LoggingSoftAssert loggingSoftAssert = new LoggingSoftAssert();
 
@@ -38,7 +37,7 @@ public class TestRunner {
     public void startGrid() throws IOException, InterruptedException {
         final String remoteEnabled = PropertyLoader.getProperty("remote.enabled");
 
-        if (remoteEnabled.equals("true")) {
+        if ("true".equals(remoteEnabled)) {
             final double vmWait = Double.parseDouble(PropertyLoader.getProperty("vm.start.timeout.min", "virtualbox.properties")) * 60000;
             final int gridStartUpTime = Integer.parseInt(PropertyLoader.getProperty("grid.startup.time.sec", "virtualbox.properties")) * 1000;
 
@@ -57,6 +56,8 @@ public class TestRunner {
     public void setUp() throws IOException {
         System.setProperty("org.uncommons.reportng.escape-output", "false");
 
+        String driverPath = "src\\resources\\drivers\\";
+
         BrowserTypes browserType;
         Platform platform;
         final String browser = PropertyLoader.getProperty("browser");
@@ -65,7 +66,7 @@ public class TestRunner {
         final String remotePlatform = PropertyLoader.getProperty("remote.platform");
         final String hubUrl = PropertyLoader.getProperty("hub.url");
 
-        if (remoteEnabled.equals("false")) {
+        if ("false".equals(remoteEnabled)) {
 
             browserType = BrowserTypes.valueOf(browser.toUpperCase());
 
@@ -83,6 +84,7 @@ public class TestRunner {
                     break;
                 case PHANTOM_JS:
                 case HEADLESS:
+                    System.setProperty("phantomjs.binary.path", driverPath + "phantomjs.exe");
                     driver = new PhantomJSDriver();
                     break;
             }
@@ -111,7 +113,7 @@ public class TestRunner {
     @AfterSuite
     public void stopGrid() throws IOException {
         final String remoteEnabled = PropertyLoader.getProperty("remote.enabled");
-        if (remoteEnabled.equals("true")) {
+        if ("true".equals(remoteEnabled)) {
             VirtualBoxUtil.stopHub();
             VirtualBoxUtil.stopVirtualMachine();
         }

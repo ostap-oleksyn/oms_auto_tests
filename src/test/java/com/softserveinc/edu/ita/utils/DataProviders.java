@@ -23,6 +23,9 @@ import static com.softserveinc.edu.ita.utils.XlsFileReader.getAllRowsFromXlsShee
  */
 public final class DataProviders {
 
+    private DataProviders() {
+    }
+
     /**
      * returns searchterms and users from xls file
      *

@@ -5,6 +5,7 @@ import com.softserveinc.edu.ita.dao.interfaces.IGenericDAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -55,7 +56,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
         try (final PreparedStatement statement = connection.prepareStatement(selectQuery)) {
             final ResultSet resultSet = statement.executeQuery();
             list = parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return list;
@@ -70,7 +71,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
             statement.setInt(1, id);
             final ResultSet resultSet = statement.executeQuery();
             list = parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return list.get(0);
@@ -90,7 +91,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
                 newId = resultSet.getInt(1);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
 
@@ -104,7 +105,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
         try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             setUpdateParameters(statement, object);
             statement.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -116,7 +117,7 @@ public abstract class AbstractDAO<T> implements IGenericDAO<T> {
         try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, id);
             statement.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }

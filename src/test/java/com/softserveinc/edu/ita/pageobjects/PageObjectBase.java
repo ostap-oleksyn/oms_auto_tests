@@ -10,7 +10,7 @@ import org.testng.Reporter;
 /**
  * Class represents base page object page with common methods.
  */
-public abstract class PageObjectBase {
+public class PageObjectBase {
 
     protected WebDriver driver;
 

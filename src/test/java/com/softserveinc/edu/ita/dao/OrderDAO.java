@@ -133,7 +133,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
             statement.setInt(1, orderNumber);
             final ResultSet resultSet = statement.executeQuery();
             list = (List<Order>) parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return list.get(0);

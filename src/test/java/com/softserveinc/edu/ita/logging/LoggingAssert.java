@@ -9,10 +9,6 @@ import org.testng.asserts.IAssert;
  */
 public final class LoggingAssert extends Assertion {
 
-    public LoggingAssert() {
-        super();
-    }
-
     /**
      * This method logs successful hard asserts.
      */

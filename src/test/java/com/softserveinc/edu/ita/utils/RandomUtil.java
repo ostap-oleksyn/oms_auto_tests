@@ -8,6 +8,9 @@ import java.util.Random;
  */
 public final class RandomUtil {
 
+    private RandomUtil() {
+    }
+
     /**
      * Random String generator
      *

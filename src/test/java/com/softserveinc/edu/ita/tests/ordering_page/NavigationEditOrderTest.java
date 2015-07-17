@@ -25,17 +25,15 @@ import static com.softserveinc.edu.ita.locators.OrderingPageLocators.EDIT_LINK;
  * Class to test order navigation functionality.
  */
 public class NavigationEditOrderTest extends TestRunner {
-    private List<WebElement> pricesList;
-    private List<WebElement> quantiiesList;
-    private List<WebElement> pricesPerLineList;
 
-    private double price;
-    private double quantity;
-    private double pricePerLine;
 
     // test fail expected, no orders for customer
     @Test(dataProvider = "getMerchandiserAndCustomer", dataProviderClass = DataProviders.class)
     public void testNavigation(final User user) {
+        double price = 0;
+        double quantity = 0;
+        double pricePerLine = 0;
+
         final Wait wait = new WebDriverWait(driver, 2);
 
         final HomePage homePage = new HomePage(driver);
@@ -51,19 +49,20 @@ public class NavigationEditOrderTest extends TestRunner {
         }
         final EditOrderPage editOrderPage = orderingPage.clickEditLink();
 
+        List<WebElement> pricesList;
         for (final ShownElementsNumber shownElementsNumber : ShownElementsNumber.values()) {
             editOrderPage.setNumberOfElements(shownElementsNumber);
 
             wait.until(ExpectedConditions.presenceOfElementLocated(PRICE_COLUMN.getBy()));
 
             pricesList = driver.findElements(PRICE_COLUMN.getBy());
-            quantiiesList = driver.findElements(QUANTITY_COLUMN.getBy());
-            pricesPerLineList = driver.findElements(PRICE_PER_LINE.getBy());
+            List<WebElement> quantitiesList = driver.findElements(QUANTITY_COLUMN.getBy());
+            List<WebElement> pricesPerLineList = driver.findElements(PRICE_PER_LINE.getBy());
 
             final int item = RandomUtil.getRandomInteger(0, pricesList.size());
 
             price = Double.valueOf(pricesList.get(item).getText());
-            quantity = Double.valueOf(quantiiesList.get(item).getText());
+            quantity = Double.valueOf(quantitiesList.get(item).getText());
             pricePerLine = Double.valueOf(pricesPerLineList.get(item).getText());
 
             loggingSoftAssert.assertTrue(shownElementsNumber.getNumber() >= pricesList.size(), "Elements in tables are shown correctly");

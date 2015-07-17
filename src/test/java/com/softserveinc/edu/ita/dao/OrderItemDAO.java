@@ -116,7 +116,7 @@ public class OrderItemDAO<T> extends AbstractDAO<T> {
         try (final PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, orderReference);
             statement.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }

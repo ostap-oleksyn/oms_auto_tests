@@ -46,7 +46,7 @@ public class NewOrderPage extends LogOutBase {
 
     /**
      * fills Preferable Delivery Date field with date later of current for 0-30 days
-      */
+     */
     public NewOrderPage fillRandomPreferableDeliveryDate() {
         final int MAX_DAY_OFFSET = 30;
         final Calendar calendar = new GregorianCalendar();
@@ -66,13 +66,13 @@ public class NewOrderPage extends LogOutBase {
     }
 
     public boolean isItemSelectionSectionPresent() {
-        return (isElementDisplayed(NewOrderPageLocators.ADD_ITEM_BUTTON)) &&
-                (isElementDisplayed(NewOrderPageLocators.SHOW_LINES_COUNT_SELECT)) &&
-                (isElementDisplayed(NewOrderPageLocators.ITEMS_LIST)) &&
-                (isElementDisplayed(NewOrderPageLocators.NAVIGATION_FIRST_BUTTON)) &&
-                (isElementDisplayed(NewOrderPageLocators.NAVIGATION_BACKWARD_BUTTON)) &&
-                (isElementDisplayed(NewOrderPageLocators.NAVIGATION_FORWARD_BUTTON)) &&
-                (isElementDisplayed(NewOrderPageLocators.NAVIGATION_LAST_BUTTON));
+        return isElementDisplayed(NewOrderPageLocators.ADD_ITEM_BUTTON) &&
+                isElementDisplayed(NewOrderPageLocators.SHOW_LINES_COUNT_SELECT) &&
+                isElementDisplayed(NewOrderPageLocators.ITEMS_LIST) &&
+                isElementDisplayed(NewOrderPageLocators.NAVIGATION_FIRST_BUTTON) &&
+                isElementDisplayed(NewOrderPageLocators.NAVIGATION_BACKWARD_BUTTON) &&
+                isElementDisplayed(NewOrderPageLocators.NAVIGATION_FORWARD_BUTTON) &&
+                isElementDisplayed(NewOrderPageLocators.NAVIGATION_LAST_BUTTON);
     }
 
     public boolean isFirstButtonEnabled() {

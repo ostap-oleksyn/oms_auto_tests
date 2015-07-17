@@ -234,7 +234,7 @@ public class CreateOrderTest extends TestRunner {
 
         // displayed sums
         final List<String[]> itemsList = newOrderPage.getItemsTable();
-        BigDecimal totalPrice = new BigDecimal(0);
+        BigDecimal totalPrice = BigDecimal.valueOf(0);
         BigDecimal itemPrice, itemsCount, itemSum, dimensionMultiplier;
 
         for (final String[] item : itemsList) {
