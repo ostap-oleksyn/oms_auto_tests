@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.utils;
 import com.softserveinc.edu.ita.enums.BrowserTypes;
 import com.softserveinc.edu.ita.logging.LoggingAssert;
 import com.softserveinc.edu.ita.logging.LoggingSoftAssert;
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -75,16 +76,28 @@ public class TestRunner {
                     driver = new FirefoxDriver();
                     break;
                 case CHROME:
-                    System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
+                    if (SystemUtils.IS_OS_WINDOWS) {
+                        System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
+                    } else if (SystemUtils.IS_OS_LINUX) {
+                        System.setProperty("webdriver.chrome.driver", driverPath.replace("\\","/") + "chromedriver");
+                    }
                     driver = new ChromeDriver();
                     break;
                 case INTERNET_EXPLORER:
-                    System.setProperty("webdriver.ie.driver", driverPath + "IEDriverServer.exe");
+                    if (SystemUtils.IS_OS_WINDOWS) {
+                        System.setProperty("webdriver.ie.driver", driverPath + "IEDriverServer.exe");
+                    }else if (SystemUtils.IS_OS_LINUX){
+                        throw new IllegalStateException("Internet explorer is not supported in Linux.");
+                    }
                     driver = new InternetExplorerDriver();
                     break;
                 case PHANTOM_JS:
                 case HEADLESS:
-                    System.setProperty("phantomjs.binary.path", driverPath + "phantomjs.exe");
+                    if (SystemUtils.IS_OS_WINDOWS) {
+                        System.setProperty("phantomjs.binary.path", driverPath + "phantomjs.exe");
+                    } else if (SystemUtils.IS_OS_LINUX){
+                        System.setProperty("phantomjs.binary.path", driverPath.replace("\\","/") + "phantomjs");
+                    }
                     driver = new PhantomJSDriver();
                     break;
             }
