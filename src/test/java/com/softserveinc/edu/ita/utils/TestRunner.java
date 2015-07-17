@@ -56,7 +56,7 @@ public class TestRunner {
     public void setUp() throws IOException {
         System.setProperty("org.uncommons.reportng.escape-output", "false");
 
-        String driverPath = "src\\resources\\drivers\\";
+        final String driverPath = "src\\resources\\drivers\\";
 
         BrowserTypes browserType;
         Platform platform;

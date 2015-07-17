@@ -48,7 +48,7 @@ public class LocalizationTest extends TestRunner {
                 .getElementText(OrderingPageLocators.EDIT_TABLE_LABEL)
                 .equals("Редагувати"), "Changing Edit table label to Ukrainian");
 
-        AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
+        final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(AdministrationPageLocators.ADMINISTRATOR_APPOINTED_LABEL)
@@ -155,7 +155,7 @@ public class LocalizationTest extends TestRunner {
                 .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
                 .equals("Ім'я"), "Changing First name title to Ukrainian");
 
-        ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
+        final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(ItemManagementPageLocators.SUPERVISOR_APPOINTED_LABEL)

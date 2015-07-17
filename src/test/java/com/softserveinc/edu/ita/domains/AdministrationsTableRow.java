@@ -8,11 +8,21 @@ import lombok.Setter;
  * Class for setting row fields from the "Administration" table in OMS.
  */
 public class AdministrationsTableRow {
-    @Getter @Setter(AccessLevel.PRIVATE) private String firstName;
-    @Getter @Setter(AccessLevel.PRIVATE) private String lastName;
-    @Getter @Setter(AccessLevel.PRIVATE) private String login;
-    @Getter @Setter(AccessLevel.PRIVATE) private String role;
-    @Getter @Setter(AccessLevel.PRIVATE) private String region;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
+    private String firstName;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
+    private String lastName;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
+    private String login;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
+    private String role;
+    @Getter
+    @Setter(AccessLevel.PRIVATE)
+    private String region;
 
     public AdministrationsTableRow(final String firstName) {
         this.firstName = firstName.toLowerCase();
@@ -94,25 +104,26 @@ public class AdministrationsTableRow {
 
         public AdministrationsTableRow build() {
             final AdministrationsTableRow administrationsTableRow = new AdministrationsTableRow(firstName);
-            if (lastName != null) {
-                administrationsTableRow.setLastName(lastName);
-            } else {
+            if (lastName == null) {
                 administrationsTableRow.setLastName("");
-            }
-            if (login != null) {
-                administrationsTableRow.setLogin(login);
             } else {
+                administrationsTableRow.setLastName(lastName);
+            }
+            if (login == null) {
                 administrationsTableRow.setLogin("");
-            }
-            if (role != null) {
-                administrationsTableRow.setRole(role);
             } else {
+                administrationsTableRow.setLogin(login);
+            }
+            if (role == null) {
                 administrationsTableRow.setRole("");
-            }
-            if (region != null) {
-                administrationsTableRow.setRegion(region);
             } else {
+
+                administrationsTableRow.setRole(role);
+            }
+            if (region == null) {
                 administrationsTableRow.setRegion("");
+            } else {
+                administrationsTableRow.setRegion(region);
             }
             return administrationsTableRow;
         }

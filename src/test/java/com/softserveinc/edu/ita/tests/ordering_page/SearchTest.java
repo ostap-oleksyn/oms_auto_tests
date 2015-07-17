@@ -31,7 +31,7 @@ public class SearchTest extends TestRunner {
                     .fillSearchField(searchTerm)
                     .clickApplyButton();
 
-            List<WebElement> columns = getColumnByName(condition);
+            final List<WebElement> columns = getColumnByName(condition);
 
             if (columns.isEmpty()) {
                 loggingSoftAssert.assertTrue(columns.isEmpty(),

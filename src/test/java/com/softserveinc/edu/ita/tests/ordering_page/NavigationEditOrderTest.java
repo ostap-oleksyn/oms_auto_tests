@@ -56,8 +56,8 @@ public class NavigationEditOrderTest extends TestRunner {
             wait.until(ExpectedConditions.presenceOfElementLocated(PRICE_COLUMN.getBy()));
 
             pricesList = driver.findElements(PRICE_COLUMN.getBy());
-            List<WebElement> quantitiesList = driver.findElements(QUANTITY_COLUMN.getBy());
-            List<WebElement> pricesPerLineList = driver.findElements(PRICE_PER_LINE.getBy());
+            final List<WebElement> quantitiesList = driver.findElements(QUANTITY_COLUMN.getBy());
+            final List<WebElement> pricesPerLineList = driver.findElements(PRICE_PER_LINE.getBy());
 
             final int item = RandomUtil.getRandomInteger(0, pricesList.size());
 

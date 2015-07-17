@@ -13,7 +13,6 @@ import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
 
-import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
 
 /**
  * PageObject class that represents Ordering page.
@@ -136,7 +135,7 @@ public class OrderingPage extends LogOutBase {
     }
 
     public EditOrderPage clickEditLink() {
-        click(EDIT_LINK);
+        click(OrderingPageLocators.EDIT_LINK);
         return new EditOrderPage(driver);
     }
 
