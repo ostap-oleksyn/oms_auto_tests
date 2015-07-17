@@ -1,8 +1,8 @@
 package com.softserveinc.edu.ita.utils;
 
 import com.softserveinc.edu.ita.enums.TestSuites;
+import org.testng.SuiteRunner;
 import org.testng.TestNG;
-import org.testng.collections.Lists;
 import org.testng.xml.Parser;
 import org.testng.xml.XmlSuite;
 import org.uncommons.reportng.HTMLReporter;
@@ -11,64 +11,40 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static com.softserveinc.edu.ita.enums.TestSuites.*;
+import static com.softserveinc.edu.ita.enums.TestSuites.ALL;
 
 /**
  * class with configuring and running TestNG
  */
 public class RunnerSuite {
-    public static void main(final String[] testSuite) throws IOException, SAXException, ParserConfigurationException {
+    public static void main(final String[] parameter) throws IOException, SAXException, ParserConfigurationException {
         final TestNG testNG = new TestNG();
-        final List<Class> listenerClasses = Lists.newArrayList();
-        InputStream xmlSuiteStream = null;
+        final List<Class> listenerClasses = Arrays.asList(TestListener.class, HTMLReporter.class);
 
-        final List<String> testSuitesNameList = new ArrayList<>();
-        testSuitesNameList.add(ADMINISTRATION.getSuiteName());
-        testSuitesNameList.add(ITEM_MANAGEMENT.getSuiteName());
-        testSuitesNameList.add(LOGIN.getSuiteName());
-        testSuitesNameList.add(ORDERING.getSuiteName());
-        testSuitesNameList.add(TABS_NAVIGATION.getSuiteName());
-        testSuitesNameList.add(USER_INFO.getSuiteName());
-
-        listenerClasses.add(TestListener.class);
-        listenerClasses.add(HTMLReporter.class);
-
-
-        if (testSuite.length > 0) {
-            switch (testSuite[0]) {
-                case "administration":
-                    xmlSuiteStream = TestSuites.getXmlSuite(ADMINISTRATION);
-                    break;
-                case "item_management":
-                    xmlSuiteStream = TestSuites.getXmlSuite(ITEM_MANAGEMENT);
-                    break;
-                case "login":
-                    xmlSuiteStream = TestSuites.getXmlSuite(LOGIN);
-                    break;
-                case "ordering":
-                    xmlSuiteStream = TestSuites.getXmlSuite(ORDERING);
-                    break;
-                case "tabs_navigation":
-                    xmlSuiteStream = TestSuites.getXmlSuite(TABS_NAVIGATION);
-                    break;
-                case "user_info":
-                    xmlSuiteStream = TestSuites.getXmlSuite(USER_INFO);
-                    break;
-                default:
-                    System.out.println("Input parameters are incorrect, please choose ones from the below list: ");
-                    testSuitesNameList.forEach(System.out::println);
+        TestSuites testSuite = ALL;
+        if (parameter.length > 0) {
+            try {
+                testSuite = TestSuites.valueOf(parameter[0].toUpperCase());
+            } catch (IllegalArgumentException e) {
+                System.out.println("Illegal argument specified. Available(case insensitive): Administration, Item_management, Login, Ordering, Navigation, User_info, All");
+                System.exit(0);
             }
-        } else {
-            xmlSuiteStream = TestSuites.getXmlSuite(ALL_TESTS);
         }
+        System.out.println("Starting " + testSuite.getSuiteName() + " test suite: ");
+        final InputStream xmlSuiteStream = getXmlSuiteStream(testSuite);
+
         testNG.setXmlSuites((List<XmlSuite>) new Parser(xmlSuiteStream).parse());
         testNG.setListenerClasses(listenerClasses);
         testNG.setUseDefaultListeners(false);
         testNG.setParallel("classes");
         testNG.setThreadCount(5);
         testNG.run();
+    }
+
+    public static InputStream getXmlSuiteStream(final TestSuites testSuite) {
+        return SuiteRunner.class.getClassLoader().getResourceAsStream(testSuite.getSuitePath());
     }
 }
