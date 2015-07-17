@@ -16,9 +16,9 @@ import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import static com.softserveinc.edu.ita.enums.administration_page.SearchFilters.*;
@@ -29,7 +29,6 @@ import static com.softserveinc.edu.ita.enums.administration_page.SearchFilters.*
 public class SearchTest extends TestRunner {
     private List<AdministrationsTableRow> usersListFromView;
     private List<User> usersListFromDB;
-    private List<User> filteredListFromDB;
 
     @Test(dataProvider = "getSearchTerms", dataProviderClass = DataProviders.class)
     public void testSearch(final String searchTerm) throws DAOException {
@@ -51,7 +50,7 @@ public class SearchTest extends TestRunner {
                     administrationPage.clearSearchField();
 
                     usersListFromDB = DBUtility.getAllUsers();
-                    filteredListFromDB = getFilteredList(usersListFromDB, filter, condition, searchTerm);
+                    final List<User> filteredListFromDB = getFilteredList(usersListFromDB, filter, condition, searchTerm);
 
                     filteredListFromDB.sort(Comparator.comparing(User::getLogin));
                     usersListFromView.sort(Comparator.comparing(AdministrationsTableRow::getLogin));
@@ -133,7 +132,7 @@ public class SearchTest extends TestRunner {
      * @return
      */
     private List<User> getFilteredList(final List<User> usersList, final SearchFilters filter, final SearchConditions condition, final String searchTerm) {
-        final Map<SearchFilters, ISearchFilters> searchConditionMap = new HashMap<>();
+        final Map<SearchFilters, ISearchFilters> searchConditionMap = new ConcurrentHashMap<>();
         searchConditionMap.put(FIRST_NAME, User::getFirstName);
         searchConditionMap.put(LAST_NAME, User::getLastName);
         searchConditionMap.put(LOGIN_NAME, User::getLogin);

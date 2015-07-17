@@ -104,26 +104,25 @@ public class AdministrationsTableRow {
 
         public AdministrationsTableRow build() {
             final AdministrationsTableRow administrationsTableRow = new AdministrationsTableRow(firstName);
-            if (lastName == null) {
-                administrationsTableRow.setLastName("");
-            } else {
+            if (lastName != null) {
                 administrationsTableRow.setLastName(lastName);
-            }
-            if (login == null) {
-                administrationsTableRow.setLogin("");
             } else {
+                administrationsTableRow.setLastName("");
+            }
+            if (login != null) {
                 administrationsTableRow.setLogin(login);
-            }
-            if (role == null) {
-                administrationsTableRow.setRole("");
             } else {
-
+                administrationsTableRow.setLogin("");
+            }
+            if (role != null) {
                 administrationsTableRow.setRole(role);
-            }
-            if (region == null) {
-                administrationsTableRow.setRegion("");
             } else {
+                administrationsTableRow.setRole("");
+            }
+            if (region != null) {
                 administrationsTableRow.setRegion(region);
+            } else {
+                administrationsTableRow.setRegion("");
             }
             return administrationsTableRow;
         }

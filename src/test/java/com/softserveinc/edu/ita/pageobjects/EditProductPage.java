@@ -16,6 +16,11 @@ public class EditProductPage extends LogOutBase {
         return new ItemManagementPage(driver);
     }
 
+    public ItemManagementPage clickCancelButton() {
+        click(EditProductPageLocators.CANCEL_BUTTON);
+        return new ItemManagementPage(driver);
+    }
+
     public EditProductPage fillProductName(final String productName) {
         driver.findElement(EditProductPageLocators.PRODUCT_NAME_FIELD.getBy()).clear();
         sendKeys(EditProductPageLocators.PRODUCT_NAME_FIELD, productName);

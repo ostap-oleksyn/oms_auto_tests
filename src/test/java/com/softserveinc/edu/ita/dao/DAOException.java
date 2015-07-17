@@ -6,6 +6,7 @@ package com.softserveinc.edu.ita.dao;
 public class DAOException extends Exception {
 
     public DAOException() {
+        super();
     }
 
     public DAOException(final String message) {
