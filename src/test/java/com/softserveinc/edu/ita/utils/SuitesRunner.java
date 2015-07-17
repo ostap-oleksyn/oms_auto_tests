@@ -1,7 +1,6 @@
 package com.softserveinc.edu.ita.utils;
 
 import com.softserveinc.edu.ita.enums.TestSuites;
-import org.testng.SuiteRunner;
 import org.testng.TestNG;
 import org.testng.xml.Parser;
 import org.testng.xml.XmlSuite;
@@ -19,7 +18,7 @@ import static com.softserveinc.edu.ita.enums.TestSuites.ALL;
 /**
  * class with configuring and running TestNG
  */
-public class SuiteRunner {
+public class SuitesRunner {
     public static void main(final String[] parameter) throws IOException, SAXException, ParserConfigurationException {
         final TestNG testNG = new TestNG();
         final List<Class> listenerClasses = Arrays.asList(TestListener.class, HTMLReporter.class);
