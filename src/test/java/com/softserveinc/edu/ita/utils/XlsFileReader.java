@@ -8,7 +8,6 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +38,7 @@ public final class XlsFileReader {
     public static Object[][] getAllRowsFromXlsSheet(final String sheetName) throws IOException {
         excelFile = new File(getProperty(EXCEL_FILE_NAME_PROPERTY));
 
-        try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
-            workbook = new HSSFWorkbook(fileInputStream);
-        }
+        workbook = new HSSFWorkbook(XlsFileReader.class.getClassLoader().getResourceAsStream(String.valueOf(excelFile)));
 
         sheet = workbook.getSheet(sheetName);
 
@@ -80,9 +77,8 @@ public final class XlsFileReader {
 
         excelFile = new File(getProperty(EXCEL_FILE_NAME_PROPERTY));
 
-        try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
-            workbook = new HSSFWorkbook(fileInputStream);
-        }
+        workbook = new HSSFWorkbook(XlsFileReader.class.getClassLoader().getResourceAsStream(String.valueOf(excelFile)));
+
         sheet = workbook.getSheet(sheetName);
 
         final List<String> xlsData = new ArrayList<>();
