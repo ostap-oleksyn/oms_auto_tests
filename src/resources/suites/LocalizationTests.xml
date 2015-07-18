@@ -1,0 +1,40 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Localization test" verbose="1" parallel="tests" thread-count="4">
+    <test name="Administrator tabs localization test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.LocalizationTest">
+                <methods>
+                    <include name="testAdministratorTabsLocalization"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Merchandiser tabs localization test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.LocalizationTest">
+                <methods>
+                    <include name="testMerchandiserTabsLocalization"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Customer tabs localization test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.LocalizationTest">
+                <methods>
+                    <include name="testCustomerTabsLocalization"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Supervisor tabs localization">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.LocalizationTest">
+                <methods>
+                    <include name="testSupervisorTabsLocalization"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
