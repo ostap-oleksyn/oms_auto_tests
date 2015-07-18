@@ -338,6 +338,7 @@ public class CreateOrderTest extends TestRunner {
 
         switch (sortFields) {
             case SORT_BY_NAME:
+                default:
                 Collections.sort(productsList, (p1, p2) -> p1.getProductName()
                         .compareTo(p2.getProductName()));
                 break;

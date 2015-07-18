@@ -100,6 +100,7 @@ public class NewOrderPage extends LogOutBase {
                 .findElement(NewOrderPageLocators.SHOW_LINES_COUNT_SELECT.getBy()));
         switch (rowsCount) {
             case ROWS_10:
+                default:
                 showLinesCountSelect.selectByIndex(0);
                 break;
             case ROWS_25:

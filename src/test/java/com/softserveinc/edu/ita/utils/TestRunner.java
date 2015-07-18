@@ -73,6 +73,7 @@ public class TestRunner {
 
             switch (browserType) {
                 case FIREFOX:
+                    default:
                     driver = new FirefoxDriver();
                     break;
                 case CHROME:

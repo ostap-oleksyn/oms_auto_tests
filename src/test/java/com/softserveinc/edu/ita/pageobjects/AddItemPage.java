@@ -81,6 +81,7 @@ public class AddItemPage extends LogOutBase {
 
         switch (searchCondition) {
             case SEARCH_BY_NAME:
+                default:
                 searchConditionSelect.selectByIndex(0);
                 break;
             case SEARCH_BY_DESCRIPTION:
@@ -94,6 +95,7 @@ public class AddItemPage extends LogOutBase {
     public void clickSortLink(final SortFields sortField) {
         switch (sortField) {
             case SORT_BY_NAME:
+                default:
                 click(AddItemPageLocators.SORT_BY_NAME_HEADER_LINK);
                 break;
             case SORT_BY_DESCRIPTION:

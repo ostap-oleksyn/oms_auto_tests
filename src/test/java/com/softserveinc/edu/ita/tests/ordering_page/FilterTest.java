@@ -72,7 +72,7 @@ public class FilterTest extends TestRunner {
           skips filter value NONE because we have the separate method testNoneFilter()
         */
             if (value != RoleFilterValue.NONE) {
-                columns = getColumnByName(OrderFilter.ROLE);
+                columns = getColumnByName(ROLE);
 
                 if (columns.isEmpty()) {
                     loggingSoftAssert.assertTrue(columns.isEmpty(), ROLE + " " + value + " not found");
@@ -96,7 +96,7 @@ public class FilterTest extends TestRunner {
 
         List<WebElement> columnsBeforeFilter = getColumnByName(STATUS);
         orderingPage.setFilter(STATUS)
-                .setFilterValue(StatusFilterValue.NONE)
+                .setFilterValue(NONE)
                 .clickApplyButton();
         List<WebElement> columnsAfterFilter = getColumnByName(STATUS);
         loggingAssert.assertEquals(columnsBeforeFilter.toString(), columnsAfterFilter.toString(), STATUS + " " + NONE);
@@ -122,6 +122,7 @@ public class FilterTest extends TestRunner {
         switch (filter) {
             case STATUS:
                 return driver.findElements(ORDER_STATUS_COLUMN.getBy());
+            case ROLE:
             default:
                 return driver.findElements(ROLE_COLUMN.getBy());
         }
