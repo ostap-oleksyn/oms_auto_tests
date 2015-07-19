@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Administration Page Tests" verbose="1" parallel="tests" thread-count="9">
+<suite name="Administration Page Tests" verbose="1" parallel="tests" thread-count="5">
     <test name="Sorting test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.administration_page.SortingTest">
