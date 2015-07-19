@@ -140,6 +140,11 @@ public class OrderingPage extends LogOutBase {
         return new EditOrderPage(driver);
     }
 
+    public EditOrderCustomerPage clickEditButton() {
+        click(EDIT_LINK);
+        return new EditOrderCustomerPage(driver);
+    }
+
     public NewOrderPage clickCreateNewOrderLink() {
         click(OrderingPageLocators.CREATE_NEW_ORDER_LINK);
         return new NewOrderPage(driver);
@@ -148,6 +153,11 @@ public class OrderingPage extends LogOutBase {
     public OrderingPage clickDeleteOrderButton() {
         click(OrderingPageLocators.DELETE_ORDER_BUTTON);
         return this;
+    }
+
+    public EditOrderCustomerPage clickDeleteOrder() {
+        click(OrderingPageLocators.DELETE_ORDER_BUTTON);
+        return new EditOrderCustomerPage(driver);
     }
 
     public String getFirstOrderName() {

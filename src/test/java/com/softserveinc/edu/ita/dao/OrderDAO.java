@@ -1,11 +1,13 @@
 package com.softserveinc.edu.ita.dao;
 
 import com.softserveinc.edu.ita.domains.Order;
+import com.softserveinc.edu.ita.domains.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -58,6 +60,10 @@ public class OrderDAO<T> extends AbstractDAO<T> {
     @Override
     protected String getDeleteQuery() {
         return "DELETE FROM Orders WHERE ID = ?";
+    }
+
+    public String getOrdersByCustomer(){
+        return "SELECT OrderName FROM Orders WHERE Customer = ?";
     }
 
     @Override
@@ -137,5 +143,23 @@ public class OrderDAO<T> extends AbstractDAO<T> {
             throw new DAOException(e);
         }
         return list.get(0);
+    }
+
+    public List<String> getOrderNamesByCustomer(User user) throws DAOException {
+        List<String> orderNames = new ArrayList<>();
+        String sqlQuery = getOrdersByCustomer();
+
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+            statement.setInt(1, user.getId());
+            ResultSet result = statement.executeQuery();
+            while (result.next()){
+                orderNames.add(result.getString("OrderName"));
+            }
+
+        } catch (Exception e) {
+            throw new DAOException( e );
+        }
+
+        return orderNames;
     }
 }
