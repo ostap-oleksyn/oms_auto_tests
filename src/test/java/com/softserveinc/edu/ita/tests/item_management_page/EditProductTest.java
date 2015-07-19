@@ -51,7 +51,7 @@ public class EditProductTest extends TestRunner {
 
         loggingAssert.assertEquals(
                 randomProductBeforeEdit.getProductName(), randomProductAfterEdit.getProductName(),
-                String.format("Product name didn' tchanged: <b>%s</b>", randomProductBeforeEdit.getProductName()));
+                String.format("Product name didn't changed: <b>%s</b>", randomProductBeforeEdit.getProductName()));
 
         loggingAssert.assertEquals(
                 randomProductBeforeEdit.getProductDescription(), randomProductAfterEdit.getProductDescription(),

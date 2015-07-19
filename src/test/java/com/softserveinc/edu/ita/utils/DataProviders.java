@@ -27,7 +27,7 @@ public final class DataProviders {
     }
 
     /**
-     * returns searchterms and users from xls file
+     * Returns searchterms and users from xls file
      *
      * @return
      */
@@ -57,7 +57,7 @@ public final class DataProviders {
     }
 
     /**
-     * returns searchterms from xls file
+     * Returns searchterms from xls file
      */
     @DataProvider(name = "getSearchTerms")
 
@@ -162,7 +162,7 @@ public final class DataProviders {
     }
 
     /**
-     * Returns list of users from database extracted by login from xls test data file
+     * Returns a list of users from database extracted by login from xls test data file
      */
     private static Object[][] getUsersFromList(final Roles role) throws DAOException, IOException {
         final List<String> usersLoginFromXls = XlsFileReader.getColumnFromXlsSheet("Users", role.getRoleName());
@@ -182,7 +182,7 @@ public final class DataProviders {
     }
 
     /**
-     * Returns list of users with randomly generated valid user data
+     * Returns a list of users with randomly generated valid user data
      */
     @DataProvider(name = "generatedValidUserData")
     public static Object[][] generateValidUserData() {
@@ -218,7 +218,7 @@ public final class DataProviders {
     }
 
     /**
-     * Returns list of users with randomly generated invalid user data
+     * Returns a list of users with randomly generated invalid user data
      */
     @DataProvider(name = "generatedNotValidUserData")
     public static Object[][] generateNotValidUserData() {
