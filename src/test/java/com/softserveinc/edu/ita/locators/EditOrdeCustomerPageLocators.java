@@ -52,9 +52,7 @@ public enum EditOrdeCustomerPageLocators implements ILocator {
     }
 
     @Override
-//This method converts locator into "By" format.
     public By getBy() {
-        //This block of code is used to leave raw locator intact giving a possibility to use parameterized locator again.
         if (this.modifiedLocator == null) {
             this.byLocator = this.locatorsType.getBy(this.rawLocator);
         } else {

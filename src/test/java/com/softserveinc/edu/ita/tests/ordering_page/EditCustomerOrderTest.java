@@ -80,7 +80,7 @@ public class EditCustomerOrderTest extends TestRunner {
         orderingPage.fillSearchField(DBUtility.getOrderNameByCustomer(user))
                     .clickApplyButton();
 
-        EditOrderCustomerPage editOrderCustomerPage = orderingPage.clickEditButton();
+        final EditOrderCustomerPage editOrderCustomerPage = orderingPage.clickEditButton();
 
         final String orderNumber = editOrderCustomerPage.getElementAttribute(EditOrdeCustomerPageLocators.ORDER_NUMBER_FIELD, "value");
         final String selectedAssignee = editOrderCustomerPage.getElementAttribute(EditOrdeCustomerPageLocators.ASSIGNEE_LIST_USERS, "value");
@@ -92,10 +92,10 @@ public class EditCustomerOrderTest extends TestRunner {
         userInfoPage.clickOrderingTab();
 
         orderingPage.fillSearchField(DBUtility.getOrderNameByCustomer(user))
-                .clickApplyButton();
+                .clickApplyButton()
+                .clickEditButton();
 
-        editOrderCustomerPage = orderingPage.clickEditButton()
-                .fillOrderNumber(orderNumber)
+        editOrderCustomerPage.fillOrderNumber(orderNumber)
                 .fillAssigneeUser(selectedAssignee)
                 .clickSaveButton();
 

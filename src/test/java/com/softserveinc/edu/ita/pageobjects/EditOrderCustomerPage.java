@@ -18,8 +18,8 @@ public class EditOrderCustomerPage extends LogOutBase {
         return this;
     }
 
-    public EditOrderCustomerPage fillOrderNumber(String num) {
-        sendKeys(EditOrdeCustomerPageLocators.ORDER_NUMBER_FIELD,num);
+    public EditOrderCustomerPage fillOrderNumber(String number) {
+        sendKeys(EditOrdeCustomerPageLocators.ORDER_NUMBER_FIELD,number);
         return this;
     }
 
@@ -28,10 +28,10 @@ public class EditOrderCustomerPage extends LogOutBase {
         return this;
     }
 
-    public EditOrderCustomerPage fillAssigneeUser(String assegn) {
-        final Select assagneeSelect = new Select(driver.findElement(EditOrdeCustomerPageLocators.ASSIGNEE_LIST_USERS.getBy()));
-        assagneeSelect.selectByVisibleText(assegn);
-        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected assagnee - <b>'%s'</b>", assegn));
+    public EditOrderCustomerPage fillAssigneeUser(String assignee) {
+        final Select assigneeSelect = new Select(driver.findElement(EditOrdeCustomerPageLocators.ASSIGNEE_LIST_USERS.getBy()));
+        assigneeSelect.selectByVisibleText(assignee);
+        Reporter.log(String.format("<br>INFO&nbsp;&nbsp; - Selected assagnee - <b>'%s'</b>", assignee));
         return this;
     }
 

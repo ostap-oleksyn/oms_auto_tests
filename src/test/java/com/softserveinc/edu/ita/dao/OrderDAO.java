@@ -145,9 +145,9 @@ public class OrderDAO<T> extends AbstractDAO<T> {
         return list.get(0);
     }
 
-    public List<String> getOrderNamesByCustomer(User user) throws DAOException {
+    public List<String> getOrderNamesByCustomer(final User user) throws DAOException {
         List<String> orderNames = new ArrayList<>();
-        String sqlQuery = getOrdersByCustomer();
+        final String sqlQuery = getOrdersByCustomer();
 
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, user.getId());
@@ -156,7 +156,7 @@ public class OrderDAO<T> extends AbstractDAO<T> {
                 orderNames.add(result.getString("OrderName"));
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException( e );
         }
 
