@@ -8,10 +8,10 @@ import com.softserveinc.edu.ita.pageobjects.EditProductPage;
 import com.softserveinc.edu.ita.pageobjects.HomePage;
 import com.softserveinc.edu.ita.pageobjects.ItemManagementPage;
 import com.softserveinc.edu.ita.pageobjects.UserInfoPage;
-import com.softserveinc.edu.ita.utils.TestRunner;
 import com.softserveinc.edu.ita.utils.DBUtility;
 import com.softserveinc.edu.ita.utils.DataProviders;
 import com.softserveinc.edu.ita.utils.RandomUtil;
+import com.softserveinc.edu.ita.utils.TestRunner;
 import org.testng.annotations.Test;
 
 /**
@@ -23,18 +23,58 @@ public class EditProductTest extends TestRunner {
     private static final String TEST_PRODUCT_DESCRIPTION = "Test description";
     private static final Double TEST_PRODUCT_PRICE = 28.0;
 
+    private HomePage homePage;
+    private UserInfoPage userInfoPage;
+    private ItemManagementPage itemManagementPage;
+    private EditProductPage editProductPage;
+
+
+    @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
+    public void testCancelProductEditing(final User user) {
+
+        homePage = new HomePage(driver);
+        userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
+        itemManagementPage = userInfoPage.clickItemManagementTab();
+
+        final int numberOfRows = itemManagementPage.getNumberOfRows();
+        final int randomRow = RandomUtil.getRandomInteger(1, numberOfRows);
+        final Product randomProductBeforeEdit = itemManagementPage.getRandomProduct(randomRow);
+
+        editProductPage = itemManagementPage.editRandomProduct(randomRow);
+
+        itemManagementPage = editProductPage.fillProductName(TEST_PRODUCT_NAME)
+                .fillProductDescription(TEST_PRODUCT_DESCRIPTION)
+                .fillProductPrice(String.valueOf(TEST_PRODUCT_PRICE))
+                .clickCancelButton();
+
+        final Product randomProductAfterEdit = itemManagementPage.getRandomProduct(randomRow);
+
+        loggingAssert.assertEquals(
+                randomProductBeforeEdit.getProductName(), randomProductAfterEdit.getProductName(),
+                String.format("Product name didn't changed: <b>%s</b>", randomProductBeforeEdit.getProductName()));
+
+        loggingAssert.assertEquals(
+                randomProductBeforeEdit.getProductDescription(), randomProductAfterEdit.getProductDescription(),
+                String.format("Product description didn't changed: <b>%s</b>", randomProductBeforeEdit.getProductDescription()));
+
+        loggingAssert.assertEquals(
+                randomProductBeforeEdit.getProductPrice(), randomProductAfterEdit.getProductPrice(),
+                String.format("Product price didn't changed: <b>%s</b>", randomProductBeforeEdit.getProductPrice()));
+
+        itemManagementPage.clickLogOutButton();
+    }
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
     public void testProductEditing(final User user) {
-        final HomePage homePage = new HomePage(driver);
-        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
-        ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
+        homePage = new HomePage(driver);
+        userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
+        itemManagementPage = userInfoPage.clickItemManagementTab();
 
         final int numberOfRows = itemManagementPage.getNumberOfRows();
         final int randomRow = RandomUtil.getRandomInteger(1, numberOfRows);
         final Product randomProduct = itemManagementPage.getRandomProduct(randomRow);
 
-        EditProductPage editProductPage = itemManagementPage.editRandomProduct(randomRow);
+        editProductPage = itemManagementPage.editRandomProduct(randomRow);
 
         itemManagementPage = editProductPage.fillProductName(TEST_PRODUCT_NAME)
                 .fillProductDescription(TEST_PRODUCT_DESCRIPTION)

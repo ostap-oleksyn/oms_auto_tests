@@ -125,10 +125,10 @@ public class ProductDAO extends AbstractDAO {
         try (final PreparedStatement statement = connection.prepareStatement(getLastAddedQuery())) {
             final ResultSet resultSet = statement.executeQuery();
             productList = parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
-        if (productList == null || productList.size() == 0) {
+        if (productList == null || productList.isEmpty()) {
             throw new DAOException("Product not found.");
         }
 
@@ -144,7 +144,7 @@ public class ProductDAO extends AbstractDAO {
             statement.setString(2, description);
             final ResultSet resultSet = statement.executeQuery();
             list = (List<Product>) parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return list.get(0).getStatus();
@@ -157,7 +157,7 @@ public class ProductDAO extends AbstractDAO {
             statement.setString(2, name);
             statement.setString(3, description);
             statement.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
     }
@@ -171,7 +171,7 @@ public class ProductDAO extends AbstractDAO {
             statement.setString(2, description);
             final ResultSet resultSet = statement.executeQuery();
             list = (List<Product>) parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
         return list.get(0);
@@ -184,7 +184,7 @@ public class ProductDAO extends AbstractDAO {
         try (final PreparedStatement statement = connection.prepareStatement(getSelectActiveQuery())) {
             final ResultSet resultSet = statement.executeQuery();
             productList = parseResultSet(resultSet);
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new DAOException(e);
         }
 

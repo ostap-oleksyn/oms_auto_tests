@@ -14,11 +14,9 @@ import org.testng.annotations.Test;
  */
 public class LocalizationTest extends TestRunner {
 
-    HomePage homePage;
-    UserInfoPage userInfoPage;
-    AdministrationPage administrationPage;
-    OrderingPage orderingPage;
-    ItemManagementPage itemManagementPage;
+    private HomePage homePage;
+    private UserInfoPage userInfoPage;
+    private OrderingPage orderingPage;
 
     @Test(dataProvider = "getAdministrators", dataProviderClass = DataProviders.class)
     public void testAdministratorTabsLocalization(final User user) {
@@ -50,7 +48,7 @@ public class LocalizationTest extends TestRunner {
                 .getElementText(OrderingPageLocators.EDIT_TABLE_LABEL)
                 .equals("Редагувати"), "Changing Edit table label to Ukrainian");
 
-        administrationPage = userInfoPage.clickAdministrationTab();
+        final AdministrationPage administrationPage = userInfoPage.clickAdministrationTab();
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(AdministrationPageLocators.ADMINISTRATOR_APPOINTED_LABEL)
@@ -60,7 +58,7 @@ public class LocalizationTest extends TestRunner {
                 .getElementText(AdministrationPageLocators.FILTER_LABEL)
                 .equals("Фільтр на поле:"), "Changing Filter label to Ukrainian");
 
-        userInfoPage = orderingPage.clickUserInfoTab();
+        userInfoPage = administrationPage.clickUserInfoTab();
 
         userInfoPage.clickLanguageLink(CommonLocators.EN_LINK);
     }
@@ -157,7 +155,7 @@ public class LocalizationTest extends TestRunner {
                 .getElementText(UserInfoPageLocators.FIRST_NAME_TITLE_LABEL)
                 .equals("Ім'я"), "Changing First name title to Ukrainian");
 
-        itemManagementPage = userInfoPage.clickItemManagementTab();
+        final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
 
         loggingAssert.assertTrue(userInfoPage
                 .getElementText(ItemManagementPageLocators.SUPERVISOR_APPOINTED_LABEL)

@@ -11,6 +11,7 @@ import com.softserveinc.edu.ita.utils.DataProviders;
 import org.testng.annotations.Test;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 /**
@@ -63,7 +64,7 @@ public class SortingTest extends TestRunner {
      * A method to verify equality of tables by given column.
      */
     public boolean isTablesEqualsByColumn(final List<OrderingsTableRow> sortedBaseTableFromView, final List<OrderingsTableRow> sortedTableByView, final OrdersTableColumns column) {
-        final Map<OrdersTableColumns, ComparisonCondition> sortConditionsMap = new HashMap<>();
+        final Map<OrdersTableColumns, ComparisonCondition> sortConditionsMap = new ConcurrentHashMap<>();
         sortConditionsMap.put(OrdersTableColumns.ORDER_NAME, OrderingsTableRow::getOrderName);
         sortConditionsMap.put(OrdersTableColumns.TOTAL_PRICE, OrderingsTableRow::getTotalPrice);
         sortConditionsMap.put(OrdersTableColumns.MAX_DISCOUNT, OrderingsTableRow::getMaxDiscount);
@@ -86,7 +87,7 @@ public class SortingTest extends TestRunner {
      * A method to sort base table by given column through comparator.
      */
     public void sortBaseTableBy(final List<OrderingsTableRow> baseTableFromView, final OrdersTableColumns column) {
-        final Map<OrdersTableColumns, Function<OrderingsTableRow, String>> sortConditionsMap = new HashMap<>();
+        final Map<OrdersTableColumns, Function<OrderingsTableRow, String>> sortConditionsMap = new ConcurrentHashMap<>();
         sortConditionsMap.put(OrdersTableColumns.ORDER_NAME, OrderingsTableRow::getOrderName);
         sortConditionsMap.put(OrdersTableColumns.TOTAL_PRICE, OrderingsTableRow::getTotalPrice);
         sortConditionsMap.put(OrdersTableColumns.MAX_DISCOUNT, OrderingsTableRow::getMaxDiscount);

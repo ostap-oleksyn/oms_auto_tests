@@ -56,7 +56,7 @@ public final class XlsFileReader {
                 final int cellType = cell.getCellType();
 
                 if (cellType == HSSFCell.CELL_TYPE_FORMULA) {
-                    throw new RuntimeException("Cannot process a formula. Please change field to result of formula.");
+                    throw new IllegalStateException("Cannot process a formula. Please change field to result of formula.");
                 } else {
                     cellValue = String.valueOf(cell);
                     xlsData[i - 1][j] = cellValue;

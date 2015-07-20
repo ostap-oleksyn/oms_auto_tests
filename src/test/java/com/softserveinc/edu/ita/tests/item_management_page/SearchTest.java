@@ -23,7 +23,7 @@ import java.util.*;
  */
 public class SearchTest extends TestRunner {
 
-    ItemManagementPage itemManagementPage;
+    private ItemManagementPage itemManagementPage;
 
     // test fail expected, if random search selects " rainbow cake" product
     @Test(dataProvider = "getProductTablesFilters", dataProviderClass = DataProviders.class)

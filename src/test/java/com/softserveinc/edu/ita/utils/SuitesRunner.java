@@ -16,7 +16,7 @@ import java.util.List;
 import static com.softserveinc.edu.ita.enums.TestSuites.ALL;
 
 /**
- * class with configuring and running TestNG
+ * Class for configuring and running TestNG
  */
 public class SuitesRunner {
     public static void main(final String[] parameter) throws IOException, SAXException, ParserConfigurationException {

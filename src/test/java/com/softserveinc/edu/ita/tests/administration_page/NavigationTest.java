@@ -33,7 +33,6 @@ public class NavigationTest extends TestRunner {
                 String.format("Number of users match: found users - <b>%d</b>; active users - <b>%d</b>;",
                         administrationPage.getFoundUsersNumber(), getActiveUsersNumber()));
 
-
         loggingSoftAssert.assertTrue(administrationPage.getNumberOfRows() == 5, "Users list default size is <b>5</b> rows");
 
         loggingSoftAssert.assertTrue(administrationPage.getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK)

@@ -234,8 +234,11 @@ public class CreateOrderTest extends TestRunner {
 
         // displayed sums
         final List<String[]> itemsList = newOrderPage.getItemsTable();
-        BigDecimal totalPrice = new BigDecimal(0);
-        BigDecimal itemPrice, itemsCount, itemSum, dimensionMultiplier;
+        BigDecimal totalPrice = BigDecimal.valueOf(0);
+        BigDecimal itemPrice;
+        BigDecimal itemsCount;
+        BigDecimal itemSum;
+        BigDecimal dimensionMultiplier;
 
         for (final String[] item : itemsList) {
             itemPrice = new BigDecimal(item[4]);
@@ -335,6 +338,7 @@ public class CreateOrderTest extends TestRunner {
 
         switch (sortFields) {
             case SORT_BY_NAME:
+                default:
                 Collections.sort(productsList, (p1, p2) -> p1.getProductName()
                         .compareTo(p2.getProductName()));
                 break;

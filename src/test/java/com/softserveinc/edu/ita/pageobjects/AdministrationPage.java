@@ -65,8 +65,8 @@ public class AdministrationPage extends LogOutBase {
     public List<AdministrationsTableRow> getTableFromView() {
         final List<AdministrationsTableRow> usersList = new LinkedList<>();
         int pagination = 0;
-        if (getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK).contains("10"))
-            click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);
+        if (getElementText(AdministrationPageLocators.USERS_LIST_RESIZE_LINK).contains("10")){
+            click(AdministrationPageLocators.USERS_LIST_RESIZE_LINK);}
         do {
             if (driver.findElements(AdministrationPageLocators.TABLE_ROWS.getBy()).size() <= 1) {
                 return usersList;

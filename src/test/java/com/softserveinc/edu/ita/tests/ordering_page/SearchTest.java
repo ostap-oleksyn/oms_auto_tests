@@ -19,7 +19,6 @@ import static com.softserveinc.edu.ita.locators.OrderingPageLocators.*;
  * Class to test searching in orders table.
  */
 public class SearchTest extends TestRunner {
-    private List<WebElement> columns;
 
     @Test(dataProvider = "getOrderSearchTestData", dataProviderClass = DataProviders.class)
     public void testSearch(final User user, final String searchTerm) throws DAOException {
@@ -32,7 +31,7 @@ public class SearchTest extends TestRunner {
                     .fillSearchField(searchTerm)
                     .clickApplyButton();
 
-            columns = getColumnByName(condition);
+            final List<WebElement> columns = getColumnByName(condition);
 
             if (columns.isEmpty()) {
                 loggingSoftAssert.assertTrue(columns.isEmpty(),

@@ -25,8 +25,6 @@ import static com.softserveinc.edu.ita.locators.OrderingPageLocators.ROLE_COLUMN
  */
 public class FilterTest extends TestRunner {
     private List<WebElement> columns;
-    private List<WebElement> columnsBeforeFilter;
-    private List<WebElement> columnsAfterFilter;
 
     @Test(dataProvider = "getMerchandiserAndCustomer", dataProviderClass = DataProviders.class)
     public void testFilterStatus(final User user) {
@@ -74,7 +72,7 @@ public class FilterTest extends TestRunner {
           skips filter value NONE because we have the separate method testNoneFilter()
         */
             if (value != RoleFilterValue.NONE) {
-                columns = getColumnByName(OrderFilter.ROLE);
+                columns = getColumnByName(ROLE);
 
                 if (columns.isEmpty()) {
                     loggingSoftAssert.assertTrue(columns.isEmpty(), ROLE + " " + value + " not found");
@@ -96,11 +94,11 @@ public class FilterTest extends TestRunner {
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
-        columnsBeforeFilter = getColumnByName(STATUS);
+        List<WebElement> columnsBeforeFilter = getColumnByName(STATUS);
         orderingPage.setFilter(STATUS)
-                .setFilterValue(StatusFilterValue.NONE)
+                .setFilterValue(NONE)
                 .clickApplyButton();
-        columnsAfterFilter = getColumnByName(STATUS);
+        List<WebElement> columnsAfterFilter = getColumnByName(STATUS);
         loggingAssert.assertEquals(columnsBeforeFilter.toString(), columnsAfterFilter.toString(), STATUS + " " + NONE);
 
         columnsBeforeFilter = getColumnByName(ROLE);
@@ -124,6 +122,7 @@ public class FilterTest extends TestRunner {
         switch (filter) {
             case STATUS:
                 return driver.findElements(ORDER_STATUS_COLUMN.getBy());
+            case ROLE:
             default:
                 return driver.findElements(ROLE_COLUMN.getBy());
         }

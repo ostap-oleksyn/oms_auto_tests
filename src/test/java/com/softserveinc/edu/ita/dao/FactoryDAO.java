@@ -1,13 +1,12 @@
 package com.softserveinc.edu.ita.dao;
 
+import com.softserveinc.edu.ita.dao.interfaces.IFactoryDAO;
+import com.softserveinc.edu.ita.dao.interfaces.IGenericDAO;
 import com.softserveinc.edu.ita.domains.Order;
 import com.softserveinc.edu.ita.domains.OrderItem;
 import com.softserveinc.edu.ita.domains.Product;
 import com.softserveinc.edu.ita.domains.User;
-import com.softserveinc.edu.ita.dao.interfaces.IFactoryDAO;
-import com.softserveinc.edu.ita.dao.interfaces.IGenericDAO;
 import com.softserveinc.edu.ita.utils.VirtualBoxUtil;
-import com.softserveinc.edu.ita.utils.PropertyLoader;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -38,7 +37,7 @@ public class FactoryDAO implements IFactoryDAO<Connection> {
         String user;
         Connection connection;
 
-        if (PropertyLoader.getProperty("remote.enabled").equals("true")) {
+        if (getProperty("remote.enabled").equals("true")) {
             try {
                 user = getProperty("user", PROPERTY_FILE);
                 password = getProperty("password", PROPERTY_FILE);

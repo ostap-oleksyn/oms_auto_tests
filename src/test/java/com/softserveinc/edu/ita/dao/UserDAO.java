@@ -197,6 +197,7 @@ public class UserDAO<T> extends AbstractDAO<T> {
 
         switch (condition) {
             case EQUALS:
+                default:
                 getAllUsersQuery = getSelectAllQuery() + " WHERE FirstName = ? OR LastName = ? OR Login = ? OR RoleRef = ? " +
                         "OR RegionRef = ?";
                 break;

@@ -3,6 +3,7 @@ package com.softserveinc.edu.ita.utils;
 import com.softserveinc.edu.ita.enums.BrowserTypes;
 import com.softserveinc.edu.ita.logging.LoggingAssert;
 import com.softserveinc.edu.ita.logging.LoggingSoftAssert;
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -23,7 +24,6 @@ import java.util.concurrent.TimeUnit;
 public class TestRunner {
 
     protected WebDriver driver;
-    final String driverPath = "src\\resources\\drivers\\";
     final protected LoggingAssert loggingAssert = new LoggingAssert();
     final protected LoggingSoftAssert loggingSoftAssert = new LoggingSoftAssert();
 
@@ -38,7 +38,7 @@ public class TestRunner {
     public void startGrid() throws IOException, InterruptedException {
         final String remoteEnabled = PropertyLoader.getProperty("remote.enabled");
 
-        if (remoteEnabled.equals("true")) {
+        if ("true".equals(remoteEnabled)) {
             final double vmWait = Double.parseDouble(PropertyLoader.getProperty("vm.start.timeout.min", "virtualbox.properties")) * 60000;
             final int gridStartUpTime = Integer.parseInt(PropertyLoader.getProperty("grid.startup.time.sec", "virtualbox.properties")) * 1000;
 
@@ -57,6 +57,8 @@ public class TestRunner {
     public void setUp() throws IOException {
         System.setProperty("org.uncommons.reportng.escape-output", "false");
 
+        final String driverPath = "src\\resources\\drivers\\";
+
         BrowserTypes browserType;
         Platform platform;
         final String browser = PropertyLoader.getProperty("browser");
@@ -65,24 +67,38 @@ public class TestRunner {
         final String remotePlatform = PropertyLoader.getProperty("remote.platform");
         final String hubUrl = PropertyLoader.getProperty("hub.url");
 
-        if (remoteEnabled.equals("false")) {
+        if ("false".equals(remoteEnabled)) {
 
             browserType = BrowserTypes.valueOf(browser.toUpperCase());
 
             switch (browserType) {
                 case FIREFOX:
+                    default:
                     driver = new FirefoxDriver();
                     break;
                 case CHROME:
-                    System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
+                    if (SystemUtils.IS_OS_WINDOWS) {
+                        System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
+                    } else if (SystemUtils.IS_OS_LINUX) {
+                        System.setProperty("webdriver.chrome.driver", driverPath.replace("\\","/") + "chromedriver");
+                    }
                     driver = new ChromeDriver();
                     break;
                 case INTERNET_EXPLORER:
-                    System.setProperty("webdriver.ie.driver", driverPath + "IEDriverServer.exe");
+                    if (SystemUtils.IS_OS_WINDOWS) {
+                        System.setProperty("webdriver.ie.driver", driverPath + "IEDriverServer.exe");
+                    }else if (SystemUtils.IS_OS_LINUX){
+                        throw new IllegalStateException("Internet explorer is not supported in Linux.");
+                    }
                     driver = new InternetExplorerDriver();
                     break;
                 case PHANTOM_JS:
                 case HEADLESS:
+                    if (SystemUtils.IS_OS_WINDOWS) {
+                        System.setProperty("phantomjs.binary.path", driverPath + "phantomjs.exe");
+                    } else if (SystemUtils.IS_OS_LINUX){
+                        System.setProperty("phantomjs.binary.path", driverPath.replace("\\","/") + "phantomjs");
+                    }
                     driver = new PhantomJSDriver();
                     break;
             }
@@ -111,7 +127,7 @@ public class TestRunner {
     @AfterSuite
     public void stopGrid() throws IOException {
         final String remoteEnabled = PropertyLoader.getProperty("remote.enabled");
-        if (remoteEnabled.equals("true")) {
+        if ("true".equals(remoteEnabled)) {
             VirtualBoxUtil.stopHub();
             VirtualBoxUtil.stopVirtualMachine();
         }
