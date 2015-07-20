@@ -19,7 +19,7 @@ public class EditCustomerOrderTest extends TestRunner {
 
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
-    public void testEditOrder(User user) {
+    public void testEditOrder(final User user) {
 
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
