@@ -104,7 +104,11 @@ public enum OrderingPageLocators implements ILocator {
     FIRST_ORDER(
             "First order in the table",
             LocatorsType.BY_XPATH,
-            ".//*[@id='list']/table/tbody/tr[2]/td[1]");
+            ".//*[@id='list']/table/tbody/tr[2]/td[1]"),
+    CANNOT_EDIT_ORDER_MASSEGE(
+            "You cant see this order",
+            LocatorsType.BY_XPATH,
+            ".//*[@id='content']");
 
     private String name;
     private LocatorsType locatorsType;

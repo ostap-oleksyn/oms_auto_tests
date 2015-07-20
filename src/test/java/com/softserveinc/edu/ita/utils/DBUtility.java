@@ -527,4 +527,20 @@ public final class DBUtility {
                 .collect(Collectors.toList()).size();
     }
 
+    public static String getOrderNameByCustomer(final User user){
+        final FactoryDAO factory;
+        final Connection connection;
+        final OrderDAO orderDAO;
+        List<String> orderNames = new ArrayList<>();
+
+        try {
+            factory = new FactoryDAO();
+            connection = factory.getConnection();
+            orderDAO = (OrderDAO) factory.getDAO(connection, Order.class);
+            orderNames = orderDAO.getOrderNamesByCustomer(user);
+        } catch (IOException | DAOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return orderNames.get( 0 );
+    }
 }
