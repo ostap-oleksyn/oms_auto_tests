@@ -14,9 +14,7 @@ import org.testng.annotations.Test;
 /**
  * Class to test edit order customer that was created by him.
  */
-
 public class EditCustomerOrderTest extends TestRunner {
-
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
     public void testEditOrder(final User user) {
@@ -103,6 +101,5 @@ public class EditCustomerOrderTest extends TestRunner {
         loggingAssert.assertEquals(selectedAssignee, editOrderCustomerPage.getValue(EditOrdeCustomerPageLocators.ASSIGNEE_LIST_USERS));
 
         orderingPage.clickLogOutButton();
-
     }
 }

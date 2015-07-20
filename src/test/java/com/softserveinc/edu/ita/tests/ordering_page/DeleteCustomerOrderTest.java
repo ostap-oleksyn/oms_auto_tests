@@ -15,7 +15,6 @@ import org.testng.annotations.Test;
 public class DeleteCustomerOrderTest extends TestRunner {
 
     // test fail expected, "Delete" button is not working properly.
-
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
     public void testEditOrder(final User user) {
 
