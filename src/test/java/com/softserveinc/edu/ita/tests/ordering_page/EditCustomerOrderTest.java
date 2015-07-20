@@ -21,10 +21,9 @@ public class EditCustomerOrderTest extends TestRunner {
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
     public void testEditOrder(User user) {
 
-        HomePage homePage = new HomePage(driver);
-        UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
-
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+        final HomePage homePage = new HomePage(driver);
+        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
 
         orderingPage.setFilter(OrderFilter.STATUS)
                 .setFilterValue(StatusFilterValue.PENDING)
@@ -69,43 +68,36 @@ public class EditCustomerOrderTest extends TestRunner {
         orderingPage.clickEditLink();
 
         loggingAssert.assertTrue(userInfoPage
-                .getElementText(OrderingPageLocators.CANNOT_EDIT_ORDER_MASSEGE)
-                .equals("you cant see this order"), "You can't edit this order");
+                    .getElementText(OrderingPageLocators.CANNOT_EDIT_ORDER_MASSEGE)
+                    .equals("you cant see this order"), "You can't edit this order");
 
         userInfoPage.clickOrderingTab();
 
-
         orderingPage.setFilter(OrderFilter.STATUS)
-                .setFilterValue(StatusFilterValue.NONE)
-                .clickApplyButton();
-
+                    .setFilterValue(StatusFilterValue.NONE)
+                    .clickApplyButton();
 
         orderingPage.fillSearchField(DBUtility.getOrderNameByCustomer(user))
-                .clickApplyButton();
+                    .clickApplyButton();
 
         EditOrderCustomerPage editOrderCustomerPage = orderingPage.clickEditButton();
 
-        String orderNumber = editOrderCustomerPage.getElementAttribute(EditOrdeCustomerPageLocators.ORDER_NUMBER_FIELD, "value");
-        String selectedAssignee = editOrderCustomerPage.getElementAttribute(EditOrdeCustomerPageLocators.ASSIGNEE_LIST_USERS, "value");
+        final String orderNumber = editOrderCustomerPage.getElementAttribute(EditOrdeCustomerPageLocators.ORDER_NUMBER_FIELD, "value");
+        final String selectedAssignee = editOrderCustomerPage.getElementAttribute(EditOrdeCustomerPageLocators.ASSIGNEE_LIST_USERS, "value");
 
-        editOrderCustomerPage.fillOrderNumber("888");
-
-        editOrderCustomerPage.changeAssigneeUser();
-
-        editOrderCustomerPage.clickSaveButton();
+        editOrderCustomerPage.fillOrderNumber("888")
+                .changeAssigneeUser()
+                .clickSaveButton();
 
         userInfoPage.clickOrderingTab();
 
         orderingPage.fillSearchField(DBUtility.getOrderNameByCustomer(user))
                 .clickApplyButton();
 
-        editOrderCustomerPage = orderingPage.clickEditButton();
-
-        editOrderCustomerPage.fillOrderNumber(orderNumber);
-
-        editOrderCustomerPage.fillAssigneeUser(selectedAssignee);
-
-        editOrderCustomerPage.clickSaveButton();
+        editOrderCustomerPage = orderingPage.clickEditButton()
+                .fillOrderNumber(orderNumber)
+                .fillAssigneeUser(selectedAssignee)
+                .clickSaveButton();
 
         loggingAssert.assertEquals(orderNumber, editOrderCustomerPage.getValue(EditOrdeCustomerPageLocators.ORDER_NUMBER_FIELD));
         loggingAssert.assertEquals(selectedAssignee, editOrderCustomerPage.getValue(EditOrdeCustomerPageLocators.ASSIGNEE_LIST_USERS));

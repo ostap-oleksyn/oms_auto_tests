@@ -14,24 +14,21 @@ import org.testng.annotations.Test;
  */
 public class DeleteCustomerOrderTest extends TestRunner {
 
-    // test fail expected, non functional "Delete" button
+    // test fail expected, "Delete" button is not working properly.
 
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
     public void testEditOrder(User user) {
 
-        HomePage homePage = new HomePage(driver);
-        UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
-
-        OrderingPage orderingPage = userInfoPage.clickOrderingTab();
-
-        String order_name = orderingPage.getFirstOrderName();
+        final HomePage homePage = new HomePage(driver);
+        final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
+        final OrderingPage orderingPage = userInfoPage.clickOrderingTab();
+        final String orderName = orderingPage.getFirstOrderName();
 
         orderingPage.fillSearchField(DBUtility.getOrderNameByCustomer(user))
-                .clickApplyButton();
+                .clickApplyButton()
+                .clickDeleteOrder();
 
-        orderingPage.clickDeleteOrder();
-
-        loggingAssert.assertNotEquals(order_name, orderingPage.getFirstOrderName(), "Order is deleted");
+        loggingAssert.assertNotEquals(orderName, orderingPage.getFirstOrderName(), "Order is deleted");
 
         userInfoPage.clickOrderingTab();
 

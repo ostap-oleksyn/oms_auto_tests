@@ -32,9 +32,9 @@ public enum EditOrdeCustomerPageLocators implements ILocator {
     //This constructor sets only 3 fields of object. The rest are prepared separately.
     EditOrdeCustomerPageLocators(String name, LocatorsType locatorsType, String rawLocator) {
         this.name = name;
-        this.locatorsType = locatorsType;
-        this.rawLocator = rawLocator;
-    }
+    this.locatorsType = locatorsType;
+    this.rawLocator = rawLocator;
+}
 
     @Override
     public String toString() {
@@ -46,7 +46,6 @@ public enum EditOrdeCustomerPageLocators implements ILocator {
         return this.name;
     }
 
-    //This method prepares locator using additional parameter by means of so called "string-format" method.
     public EditOrdeCustomerPageLocators modify(String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;

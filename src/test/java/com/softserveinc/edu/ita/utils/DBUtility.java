@@ -525,7 +525,7 @@ public final class DBUtility {
                 .collect(Collectors.toList()).size();
     }
 
-    public static String getOrderNameByCustomer(User user){
+    public static String getOrderNameByCustomer(final User user){
         final FactoryDAO factory;
         final Connection connection;
         final OrderDAO orderDAO;
