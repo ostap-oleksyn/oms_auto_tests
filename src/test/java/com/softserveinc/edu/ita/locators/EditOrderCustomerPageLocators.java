@@ -3,7 +3,7 @@ package com.softserveinc.edu.ita.locators;
 import com.softserveinc.edu.ita.locators.interfaces.ILocator;
 import org.openqa.selenium.By;
 
-public enum EditOrdeCustomerPageLocators implements ILocator {
+public enum EditOrderCustomerPageLocators implements ILocator {
 
     ORDER_NUMBER_FIELD(
             "Change order number in order",
@@ -29,7 +29,7 @@ public enum EditOrdeCustomerPageLocators implements ILocator {
     private String modifiedLocator;
     private By byLocator;
 
-    EditOrdeCustomerPageLocators(final String name, final LocatorsType locatorsType, final String rawLocator) {
+    EditOrderCustomerPageLocators(final String name, final LocatorsType locatorsType, final String rawLocator) {
         this.name = name;
         this.locatorsType = locatorsType;
         this.rawLocator = rawLocator;
@@ -45,7 +45,7 @@ public enum EditOrdeCustomerPageLocators implements ILocator {
         return this.name;
     }
 
-    public EditOrdeCustomerPageLocators modify(final String parameter) {
+    public EditOrderCustomerPageLocators modify(final String parameter) {
         this.modifiedLocator = String.format(this.rawLocator, parameter);
         return this;
     }

@@ -4,7 +4,7 @@ import com.softserveinc.edu.ita.locators.interfaces.ILocator;
 import org.openqa.selenium.By;
 
 public enum ItemManagementPageLocators implements ILocator {
-    //TODO refactor into not using text label inside the locator
+
     ADD_PRODUCT_LINK(
             "Add product link",
             LocatorsType.BY_XPATH,

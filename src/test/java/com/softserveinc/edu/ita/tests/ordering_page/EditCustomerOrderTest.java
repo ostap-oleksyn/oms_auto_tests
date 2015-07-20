@@ -3,7 +3,7 @@ package com.softserveinc.edu.ita.tests.ordering_page;
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.enums.ordering_page.OrderFilter;
 import com.softserveinc.edu.ita.enums.ordering_page.StatusFilterValue;
-import com.softserveinc.edu.ita.locators.EditOrdeCustomerPageLocators;
+import com.softserveinc.edu.ita.locators.EditOrderCustomerPageLocators;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
 import com.softserveinc.edu.ita.pageobjects.*;
 import com.softserveinc.edu.ita.utils.DBUtility;
@@ -80,8 +80,8 @@ public class EditCustomerOrderTest extends TestRunner {
 
         final EditOrderCustomerPage editOrderCustomerPage = orderingPage.clickEditButton();
 
-        final String orderNumber = editOrderCustomerPage.getElementAttribute(EditOrdeCustomerPageLocators.ORDER_NUMBER_FIELD, "value");
-        final String selectedAssignee = editOrderCustomerPage.getElementAttribute(EditOrdeCustomerPageLocators.ASSIGNEE_LIST_USERS, "value");
+        final String orderNumber = editOrderCustomerPage.getElementAttribute(EditOrderCustomerPageLocators.ORDER_NUMBER_FIELD, "value");
+        final String selectedAssignee = editOrderCustomerPage.getElementAttribute(EditOrderCustomerPageLocators.ASSIGNEE_LIST_USERS, "value");
 
         editOrderCustomerPage.fillOrderNumber("888")
                 .changeAssigneeUser()
@@ -97,8 +97,8 @@ public class EditCustomerOrderTest extends TestRunner {
                 .fillAssigneeUser(selectedAssignee)
                 .clickSaveButton();
 
-        loggingAssert.assertEquals(orderNumber, editOrderCustomerPage.getValue(EditOrdeCustomerPageLocators.ORDER_NUMBER_FIELD));
-        loggingAssert.assertEquals(selectedAssignee, editOrderCustomerPage.getValue(EditOrdeCustomerPageLocators.ASSIGNEE_LIST_USERS));
+        loggingAssert.assertEquals(orderNumber, editOrderCustomerPage.getValue(EditOrderCustomerPageLocators.ORDER_NUMBER_FIELD));
+        loggingAssert.assertEquals(selectedAssignee, editOrderCustomerPage.getValue(EditOrderCustomerPageLocators.ASSIGNEE_LIST_USERS));
 
         orderingPage.clickLogOutButton();
     }

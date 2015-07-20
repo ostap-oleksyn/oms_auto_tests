@@ -2,6 +2,7 @@ package com.softserveinc.edu.ita.pageobjects;
 
 import com.softserveinc.edu.ita.domains.OrderingsTableRow;
 import com.softserveinc.edu.ita.enums.ordering_page.*;
+import com.softserveinc.edu.ita.locators.EditOrderCustomerPageLocators;
 import com.softserveinc.edu.ita.locators.OrderingPageLocators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -140,7 +141,7 @@ public class OrderingPage extends LogOutBase {
     }
 
     public EditOrderCustomerPage clickEditButton() {
-        click(EDIT_LINK);
+        click(OrderingPageLocators.EDIT_LINK);
         return new EditOrderCustomerPage(driver);
     }
 
