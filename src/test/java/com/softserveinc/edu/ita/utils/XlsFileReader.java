@@ -20,7 +20,7 @@ import static com.softserveinc.edu.ita.utils.PropertyLoader.getProperty;
  */
 public final class XlsFileReader {
 
-    private final static String EXCEL_FILE_NAME_PROPERTY = "testDataXlsFile";
+    private final static String XLS_FILE_PROPERTY = "test.data.xls.file";
 
     private static HSSFSheet sheet;
     private static HSSFWorkbook workbook;
@@ -36,7 +36,7 @@ public final class XlsFileReader {
      * @param sheetName - name of the sheet
      */
     public static Object[][] getAllRowsFromXlsSheet(final String sheetName) throws IOException {
-        excelFile = new File(getProperty(EXCEL_FILE_NAME_PROPERTY));
+        excelFile = new File(getProperty(XLS_FILE_PROPERTY));
 
         workbook = new HSSFWorkbook(XlsFileReader.class.getClassLoader().getResourceAsStream(String.valueOf(excelFile)));
 
@@ -75,7 +75,7 @@ public final class XlsFileReader {
      */
     public static List<String> getColumnFromXlsSheet(final String sheetName, final String columnName) throws IOException {
 
-        excelFile = new File(getProperty(EXCEL_FILE_NAME_PROPERTY));
+        excelFile = new File(getProperty(XLS_FILE_PROPERTY));
 
         workbook = new HSSFWorkbook(XlsFileReader.class.getClassLoader().getResourceAsStream(String.valueOf(excelFile)));
 
