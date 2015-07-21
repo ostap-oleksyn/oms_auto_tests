@@ -16,7 +16,7 @@ All test packages are located in the `tests` package. Each test package represen
  - `home_page` 
  - `item_management_page`
  - `ordering_page`
- - `userinfo_page`
+ - `user_info_page`
  
 
 ###Configuration
@@ -28,7 +28,7 @@ To enable logging in Intellij Idea or Eclipse you need to add the following list
 By default the generated report is saved to `/test-output/html/index.html`.
 
 #####Local
-Before runnig OMS auto test locally, you need to do the following configurations:
+Before running OMS auto test locally, you need to do the following configurations:
 
 In `src/resources/` edit the `config.properties`:
  - set the `oms.url` property to the url of your OMS application  (`http://localhost:8080/OMS` by default);
@@ -49,7 +49,7 @@ Before runnig OMS auto tests on other OSs and browsers using Selenium Grid you n
  ```
   GRANT ALL ON oms.* TO user@'%' IDENTIFIED BY 'password';
  ```
-  - Cofigure linux to shutdown without dialog window appearing. Edit `/etc/acpi/events/powerbtn` and replace `action=/etc/acpi/powerbtn.sh` with `action=/sbin/poweroff`;
+  - Configure linux to shutdown without dialog window appearing. Edit `/etc/acpi/events/powerbtn` and replace `action=/etc/acpi/powerbtn.sh` with `action=/sbin/poweroff`;
   - Copy `start-node.sh`, `selenium-server-standalone-2.45.0.jar`, `chromedriver` from `/src/resources/drivers` and `/src/resources/scripts` to desired location on virtual machine (for example `/home/osboxes/grid/`); 
   -  Edit `start-node.sh` permissions, enable **Allow executing file as program**; 
   - Edit `start-node.sh`, specify the path to grid server jar file, chromedriver, and configure the grid node settings:
@@ -81,9 +81,9 @@ Configure the `virtualbox.properties` file:
 - `vm.machine.name` - name of the virtual machine to be started;
 - `vboxmanage.win.path` - path to the VBoxManage.exe in Windows;
 - `vm.start.timeout.min` - time in minutes to wait for the guest OS to boot completely;
-- `win.guestvm.username` - usarename of the windows guest machine;
+- `win.guestvm.username` - username of the windows guest machine;
 - `win.startnode.script` - path to the start-node.bat on the windows guest machine;
-- `linux.guestvm.username` - usarename of the linux guest machine;
+- `linux.guestvm.username` - username of the linux guest machine;
 - `linux.startnode.script` - path to the start-node.bat on the linux guest machine;
 
 #####Example:
@@ -128,7 +128,7 @@ mvn test -D suite=TabsNavigationTests
 By default, without specifying the suite name, maven runs `AllTests` suite.
 
 #####Libraries versions
-You can run OMS auto tests specifiying the version of libraries that are used in the project:
+You can run OMS auto tests specifying the version of libraries that are used in the project:
 ```
 mvn test -D "property name"= value
 ```
@@ -153,7 +153,7 @@ mvn test -D selenium-java.version=2.55.0
  By default, without specifying any properties, maven runs the project with default libraries versions.
  
 ####Running on different browsers
- OMS auto tests supports execution on different browsers. To specifiy the desired browser, configure `browser` property in the `config.properties` file in `/src/resources/`
+ OMS auto tests supports execution on different browsers. To specify the desired browser, configure `browser` property in the `config.properties` file in `/src/resources/`
  
  ```
 oms.url = http://localhost:8080/OMS
@@ -221,7 +221,7 @@ To run OMS auto tests remotely using Selenium Grid:
 - Set `remote.platform` to desired platform(`linux` or `windows`);
 - Set `browser` to desired browser;
 - Set `remote.browser.version` to desired browser version;
-- Set `hub.url` to the grid hub adress(`http://localhost:4444/wd/hub` by default);
+- Set `hub.url` to the grid hub address(`http://localhost:4444/wd/hub` by default);
 
  * Configure the `virtualbox.properties` file;
 

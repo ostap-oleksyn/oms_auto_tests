@@ -127,4 +127,49 @@
             </class>
         </classes>
     </test>
+    <test name="Invalid searching test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testNotValidSearching"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Order navigation test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testOrderNavigation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Displayed sum test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testDisplayedSums"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Items editing test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testItemsEditing"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Add item sorting test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testAddItemSorting"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>

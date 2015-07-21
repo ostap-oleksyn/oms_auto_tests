@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Tabs Navigation Tests" verbose="1" parallel="tests" thread-count="5">
-    <test name="Administrator tab navigation test">
+    <test name="Administrator tabs navigation test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
@@ -10,7 +10,7 @@
             </class>
         </classes>
     </test>
-    <test name="Merchendaiser tab navigation test">
+    <test name="Merchandiser tabs navigation test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
@@ -19,7 +19,7 @@
             </class>
         </classes>
     </test>
-    <test name="Customer tab navigation test">
+    <test name="Customer tabs navigation test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
@@ -28,7 +28,7 @@
             </class>
         </classes>
     </test>
-    <test name="Supervisor tab navigation test">
+    <test name="Supervisor tabs navigation test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
@@ -37,7 +37,7 @@
             </class>
         </classes>
     </test>
-    <test name="Administartion tab state test">
+    <test name="Administrator tabs state test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
@@ -46,7 +46,7 @@
             </class>
         </classes>
     </test>
-    <test name="Customer tab state test">
+    <test name="Customer tabs state test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
@@ -55,7 +55,7 @@
             </class>
         </classes>
     </test>
-    <test name="Supervisor tab state test">
+    <test name="Supervisor tabs state test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>
@@ -64,7 +64,7 @@
             </class>
         </classes>
     </test>
-    <test name="Merchandiser tab state test">
+    <test name="Merchandiser tabs state test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.TabsNavigationTest">
                 <methods>

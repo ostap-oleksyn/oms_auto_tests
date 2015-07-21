@@ -1,4 +1,4 @@
-package com.softserveinc.edu.ita.tests.userinfo_page;
+package com.softserveinc.edu.ita.tests.user_info_page;
 
 import com.softserveinc.edu.ita.domains.User;
 import com.softserveinc.edu.ita.locators.UserInfoPageLocators;
