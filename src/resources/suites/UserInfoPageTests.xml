@@ -4,6 +4,9 @@
     <test name="User info test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.userinfo_page.UserInfoTest">
+                <methods>
+                    <include name="testUserInfoTab"/>
+                </methods>
             </class>
         </classes>
     </test>

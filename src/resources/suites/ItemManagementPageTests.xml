@@ -73,4 +73,22 @@
             </class>
         </classes>
     </test>
+    <test name="Searching test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.SearchTest">
+                <methods>
+                    <include name="testSearch"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Navigation test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.item_management_page.NavigationTest">
+                <methods>
+                    <include name="testNavigation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
 </suite>
