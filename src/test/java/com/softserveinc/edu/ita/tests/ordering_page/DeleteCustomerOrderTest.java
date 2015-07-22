@@ -16,7 +16,7 @@ public class DeleteCustomerOrderTest extends TestRunner {
 
     // test fail expected, "Delete" button is not working properly.
     @Test(dataProvider = "getCustomers", dataProviderClass = DataProviders.class)
-    public void testEditOrder(final User user) {
+    public void testOrderDeleting(final User user) {
 
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());

@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Merchandiser Ordering Page Tests" verbose="1" parallel="tests" thread-count="5">
+<suite name="Ordering Page Tests" verbose="1" parallel="tests" thread-count="5">
     <test name="Sorting test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.ordering_page.SortingTest">
@@ -10,7 +10,7 @@
             </class>
         </classes>
     </test>
-    <test name="Delete order test">
+    <test name="Merchandiser delete order test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.ordering_page.DeleteOrderTest">
                 <methods>
@@ -19,7 +19,7 @@
             </class>
         </classes>
     </test>
-    <test name="edit order test">
+    <test name="Merchandiser edit order test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.ordering_page.EditOrderTest">
                 <methods>
@@ -28,7 +28,7 @@
             </class>
         </classes>
     </test>
-    <test name="Error edit order test">
+    <test name="Merchandiser edit order error test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.ordering_page.EditOrderTest">
                 <methods>
@@ -37,7 +37,7 @@
             </class>
         </classes>
     </test>
-    <test name="filter status test">
+    <test name="Filter status test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterTest">
                 <methods>
@@ -46,7 +46,7 @@
             </class>
         </classes>
     </test>
-    <test name="filter role test">
+    <test name="Filter role test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterTest">
                 <methods>
@@ -55,7 +55,7 @@
             </class>
         </classes>
     </test>
-    <test name="none filter test">
+    <test name="None filter test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.ordering_page.FilterTest">
                 <methods>
@@ -64,7 +64,7 @@
             </class>
         </classes>
     </test>
-    <test name="navigation edit order test">
+    <test name="Edit order navigation test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.ordering_page.NavigationEditOrderTest">
                 <methods>
@@ -73,11 +73,101 @@
             </class>
         </classes>
     </test>
-    <test name="search test">
+    <test name="Search test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.ordering_page.SearchTest">
                 <methods>
                     <include name="testSearch"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Customer edit order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.EditCustomerOrderTest">
+                <methods>
+                    <include name="testEditOrder"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Customer delete order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.DeleteCustomerOrderTest">
+                <methods>
+                    <include name="testOrderDeleting"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Create order test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testCreateOrder"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Available items count test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testAvailableItemsCount"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Item searching test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testItemsSearching"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Invalid searching test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testNotValidSearching"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Order navigation test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testOrderNavigation"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Displayed sum test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testDisplayedSums"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Items editing test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testItemsEditing"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+    <test name="Add item sorting test">
+        <classes>
+            <class name="com.softserveinc.edu.ita.tests.ordering_page.CreateOrderTest">
+                <methods>
+                    <include name="testAddItemSorting"/>
                 </methods>
             </class>
         </classes>

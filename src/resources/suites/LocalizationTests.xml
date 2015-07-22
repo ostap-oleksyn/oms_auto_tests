@@ -28,7 +28,7 @@
             </class>
         </classes>
     </test>
-    <test name="Supervisor tabs localization">
+    <test name="Supervisor tabs localization test">
         <classes>
             <class name="com.softserveinc.edu.ita.tests.LocalizationTest">
                 <methods>

@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 public class NavigationTest extends TestRunner {
 
     @Test(dataProvider = "getSupervisors", dataProviderClass = DataProviders.class)
-    public void navigationTest(final User user) {
+    public void testNavigation(final User user) {
         final HomePage homePage = new HomePage(driver);
         final UserInfoPage userInfoPage = homePage.logIn(user.getLogin(), user.getPassword());
         final ItemManagementPage itemManagementPage = userInfoPage.clickItemManagementTab();
