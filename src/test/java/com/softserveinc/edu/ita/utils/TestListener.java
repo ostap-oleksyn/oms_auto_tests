@@ -18,6 +18,8 @@ import java.util.Date;
  * Custom listener for taking and logging screenshots on failed tests.
  */
 public final class TestListener extends TestListenerAdapter {
+    private final long WAIT_SECONDS = 1500;
+    private final String SCREENSHOT_FILENAME = "test-output//html//screenShots//%s%s.png";
 
     /**
      * This method takes and logs a screenshot every time when a test fails.
@@ -29,7 +31,7 @@ public final class TestListener extends TestListenerAdapter {
 
         //Timeout to wait for the page to load completely, before taking a screenshot
         try {
-            Thread.sleep(1500);
+            Thread.sleep(WAIT_SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -45,8 +47,7 @@ public final class TestListener extends TestListenerAdapter {
         final File temporaryFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         File screenShotFile;
         try {
-            FileUtils.copyFile(temporaryFile, screenShotFile = new File(
-                    String.format("test-output//html//screenShots//%s%s.png", currentTime, testMethodName)));
+            FileUtils.copyFile(temporaryFile, screenShotFile = new File(String.format(SCREENSHOT_FILENAME, currentTime, testMethodName)));
             final String screenShotFileName = screenShotFile.getAbsoluteFile().getName();
 
             Reporter.log(String.format("<br><a href='screenShots/%1$s'>Open screenshot</a>", screenShotFileName));
