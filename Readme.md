@@ -9,7 +9,6 @@ OMS Auto Tests is a test framework for OMS application, developed by ATQC-IF055 
  - Maven 2 or higher;
  - Lombok plugin - for running the project in IDE (Intellij Idea or Eclipse);
  - VirtualBox version 4.3.30 - for running the project remotely using Selenium Grid;
- - Good mood;
 
 ###Test packages
 All test packages are located in the `tests` package. Each test package represents a page of the OMS application, and consists of the tests that test the corresponding page.
